@@ -1,0 +1,16 @@
+%chk=O2.chk
+%mem=60MW
+%nproc=1
+# rohf/sto-3g pop=full geom=connectivity
+
+O2 triplet
+
+0 3
+ O
+ O                  1              B1
+
+   B1             1.19484200
+
+ 1 2 1.5
+ 2
+
