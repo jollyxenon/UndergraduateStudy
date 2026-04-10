@@ -44,12 +44,13 @@ typedef enum {
 /// RegDelete(tank); //! `free` is called here.
 /// ```
 typedef struct {
-  TK_REG_AUTH;      // Authorize `Tank` to make it compatible with registries, see `Registry.h`.
-  Vec pos;          // Position.
-  Dir dir;          // Direction.
-  Color color;      // Color of the tank and its bullets.
-  bool isPlayer;    // Whether this tank is player or enemy.
-  int moveCooldown; // Frames to wait before next move.
+  TK_REG_AUTH;       // Authorize `Tank` to make it compatible with registries, see `Registry.h`.
+  Vec pos;           // Position.
+  Dir dir;           // Direction.
+  Color color;       // Color of the tank and its bullets.
+  bool isPlayer;     // Whether this tank is player or enemy.
+  int moveCooldown;  // Frames to wait before next move.
+  int shootCooldown; // Frames to wait before next shoot.
 } Tank;
 
 /// \example It is easy to create or delete a `Bullet` with the help of registries, see `Registry.h`.
@@ -60,11 +61,12 @@ typedef struct {
 /// RegDelete(bullet); //! `free` is called here.
 /// ```
 typedef struct {
-  TK_REG_AUTH;   // Authorize `Bullet` to make it compatible with registries, see `Registry.h`.
-  Vec pos;       // Position.
-  Dir dir;       // Direction.
-  Color color;   // Color.
-  bool isPlayer; // Whether this bullet was shot by player or enemy.
+  TK_REG_AUTH;      // Authorize `Bullet` to make it compatible with registries, see `Registry.h`.
+  Vec pos;          // Position.
+  Dir dir;          // Direction.
+  Color color;      // Color.
+  bool isPlayer;    // Whether this bullet was shot by player or enemy.
+  int moveCooldown; // Frames to wait before next move.
 } Bullet;
 
 typedef struct {

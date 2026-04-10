@@ -107,7 +107,8 @@ void GameInit(void) {
 /// \note This function should be called in the loop of `GameLifecycle` before `GameUpdate`.
 void GameInput(void) {
   char temp_keyHit = kbhit_t() ? (char)getch_t() : '\0';
-  if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd') {
+  if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd' ||
+      temp_keyHit == 'k') {
     game.keyHit = temp_keyHit;
     GameLog("Key hit: %c", game.keyHit);
   }
@@ -124,10 +125,12 @@ void GameInput(void) {
 void GameUpdate(void) {
   RdrClear();
 
-  // TODO: You may need to delete or add codes here.
+  // Update tanks.
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
     Vec targetPos;
+
+    // Update player tank's direction according to the key hit.
     if (tank->isPlayer) {
       if (game.keyHit == 'w')
         tank->dir = eDirUP;
@@ -139,14 +142,59 @@ void GameUpdate(void) {
         tank->dir = eDirRT;
     }
 
+    // Move the tank if it is not cooling down and not crashing.
     tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
     targetPos = Add(tank->pos, DirToVec(tank->dir));
-
     if (tank->moveCooldown == 0 && (!isTankCrash(targetPos))) {
       if (game.keyHit == 'w' || game.keyHit == 'a' || game.keyHit == 's' || game.keyHit == 'd') {
         tank->moveCooldown = config.PlayerMoveCooldown;
         tank->pos = targetPos;
         game.keyHit = '\0';
+      }
+    }
+
+    // Shoot a bullet if the tank is not cooling down.
+    tank->shootCooldown = tank->shootCooldown > 0 ? tank->shootCooldown - 1 : 0;
+    if (tank->isPlayer && game.keyHit == 'k' && tank->shootCooldown == 0) {
+      Bullet *bullet = RegNew(regBullet);
+      bullet->pos = Add(tank->pos, Mul(DirToVec(tank->dir), 2));
+      bullet->dir = tank->dir;
+      bullet->color = tank->color;
+      bullet->isPlayer = tank->isPlayer;
+      tank->shootCooldown = config.PlayerShootCooldown;
+      game.keyHit = '\0';
+    }
+  }
+
+  // Update bullets.
+  for (RegIterator it = RegBegin(regBullet); it != RegEnd(regBullet); it = RegNext(it)) {
+    Bullet *bullet = RegEntry(regBullet, it);
+    Vec targetPos = Add(bullet->pos, DirToVec(bullet->dir));
+
+    // If the bullet hits a solid or a wall, delete the bullet and possibly the wall.
+    if (map.flags[Idx(targetPos)] == eFlagSolid) {
+      RegDelete(bullet);
+    } else if (map.flags[Idx(targetPos)] == eFlagWall) {
+      map.flags[Idx(targetPos)] = eFlagNone;
+      RegDelete(bullet);
+    }
+    // If the bullet hits a tank, delete the bullet and the tank.
+    else if (map.flags[Idx(targetPos)] == eFlagTank) {
+      for (RegIterator it2 = RegBegin(regTank); it2 != RegEnd(regTank); it2 = RegNext(it2)) {
+        Tank *tank = RegEntry(regTank, it2);
+        if (Eq(tank->pos, targetPos) && tank->isPlayer != bullet->isPlayer) {
+          RegDelete(tank);
+          break;
+        }
+      }
+      RegDelete(bullet);
+    }
+    // Otherwise, move the bullet forward.
+    else {
+      bullet->moveCooldown = bullet->moveCooldown > 0 ? bullet->moveCooldown - 1 : 0;
+      if (bullet->moveCooldown == 0) {
+        bullet->moveCooldown = config.BulletMoveCooldown;
+        bullet->pos = targetPos;
       }
     }
   }
