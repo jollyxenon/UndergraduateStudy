@@ -27,6 +27,8 @@ int main(void) {
   config.nEnemies = 0;
   config.nSolids = 0;
   config.nWalls = 0;
+  config.PlayerMoveCooldown = (int)(config.fps / 5.0);
+  config.EnemyMoveCooldown = (int)(config.fps / 3.0);
 
   // Run the game.
   GameLifecycle();

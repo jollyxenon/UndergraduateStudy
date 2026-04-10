@@ -96,7 +96,6 @@ void RdrRender(void) {
     Vec pos = tank->pos;
     Color color = tank->color;
 
-    // TODO: You may need to delete or add codes here.
     for (int y = -1; y <= 1; ++y)
       for (int x = -1; x <= 1; ++x)
         RdrPutChar(Add(pos, (Vec){x, y}), 'O', color);
