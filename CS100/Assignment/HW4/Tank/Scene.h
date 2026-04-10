@@ -17,17 +17,10 @@
 
 /// \brief Enums of the 2D directions.
 typedef enum {
-  eDirNN, // Left-down.
-  eDirON, // Down.
-  eDirPN, // Right-down.
-
-  eDirNO, // Left.
-  eDirOO, // Center.
-  eDirPO, // Right.
-
-  eDirNP, // Left-up.
-  eDirOP, // Up.
-  eDirPP, // Right-up.
+  eDirDN, // Down.
+  eDirLF, // Left.
+  eDirRT, // Right.
+  eDirUP, // Up.
 
   eDirInvalid, // Invalid.
 } Dir;
@@ -51,11 +44,12 @@ typedef enum {
 /// RegDelete(tank); //! `free` is called here.
 /// ```
 typedef struct {
-  TK_REG_AUTH;   // Authorize `Tank` to make it compatible with registries, see `Registry.h`.
-  Vec pos;       // Position.
-  Dir dir;       // Direction.
-  Color color;   // Color of the tank and its bullets.
-  bool isPlayer; // Whether this tank is player or enemy.
+  TK_REG_AUTH;      // Authorize `Tank` to make it compatible with registries, see `Registry.h`.
+  Vec pos;          // Position.
+  Dir dir;          // Direction.
+  Color color;      // Color of the tank and its bullets.
+  bool isPlayer;    // Whether this tank is player or enemy.
+  int moveCooldown; // Frames to wait before next move.
 } Tank;
 
 /// \example It is easy to create or delete a `Bullet` with the help of registries, see `Registry.h`.
@@ -105,6 +99,33 @@ static Map map;
 /// ```
 int Idx(Vec pos) {
   return pos.x + pos.y * map.size.x;
+}
+
+/// \brief Convert a direction to a vector.
+Vec DirToVec(Dir dir) {
+  if (dir == eDirDN)
+    return (Vec){0, -1};
+  else if (dir == eDirUP)
+    return (Vec){0, 1};
+  else if (dir == eDirLF)
+    return (Vec){-1, 0};
+  else if (dir == eDirRT)
+    return (Vec){1, 0};
+  else
+    return (Vec){0, 0};
+}
+
+/// \brief Detect whether `pos` will cause a crash if a Tank moves to it.
+bool isTankCrash(Vec pos) {
+  Vec temp_pos = {pos.x, pos.y};
+  for (int i = -1; i <= 1; i++) {
+    for (int j = -1; j <= 1; j++) {
+      Vec check_pos = {temp_pos.x + i, temp_pos.y + j};
+      if (map.flags[Idx(check_pos)] != eFlagNone)
+        return true;
+    }
+  }
+  return false;
 }
 
 /// \brief Move cursor to `pos`.

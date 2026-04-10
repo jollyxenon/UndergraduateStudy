@@ -13,6 +13,7 @@
 //
 //
 #include "Config.h"
+#include "GameLog.h"
 #include "Renderer.h"
 
 #include <time.h>
@@ -43,6 +44,9 @@ void GameInit(void) {
   TermSetupGameEnvironment();
   TermClearScreen();
 
+  // Initialize game log.
+  InitGameLog();
+
   // Configure scene.
   map.size = config.mapSize;
   int nEnemies = config.nEnemies;
@@ -68,9 +72,10 @@ void GameInit(void) {
   {
     Tank *tank = RegNew(regTank);
     tank->pos = (Vec){2, 2};
-    tank->dir = eDirOP;
+    tank->dir = eDirUP;
     tank->color = TK_GREEN;
     tank->isPlayer = true;
+    tank->moveCooldown = 0;
   }
 
   // Initialize renderer.
@@ -101,7 +106,11 @@ void GameInit(void) {
 ///
 /// \note This function should be called in the loop of `GameLifecycle` before `GameUpdate`.
 void GameInput(void) {
-  game.keyHit = kbhit_t() ? (char)getch_t() : '\0';
+  char temp_keyHit = kbhit_t() ? (char)getch_t() : '\0';
+  if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd') {
+    game.keyHit = temp_keyHit;
+    GameLog("Key hit: %c", game.keyHit);
+  }
 }
 
 //
@@ -118,8 +127,28 @@ void GameUpdate(void) {
   // TODO: You may need to delete or add codes here.
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
-    if (tank->pos.y < map.size.y - 3)
-      ++tank->pos.y;
+    Vec targetPos;
+    if (tank->isPlayer) {
+      if (game.keyHit == 'w')
+        tank->dir = eDirUP;
+      else if (game.keyHit == 's')
+        tank->dir = eDirDN;
+      else if (game.keyHit == 'a')
+        tank->dir = eDirLF;
+      else if (game.keyHit == 'd')
+        tank->dir = eDirRT;
+    }
+
+    tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
+    targetPos = Add(tank->pos, DirToVec(tank->dir));
+
+    if (tank->moveCooldown == 0 && (!isTankCrash(targetPos))) {
+      if (game.keyHit == 'w' || game.keyHit == 'a' || game.keyHit == 's' || game.keyHit == 'd') {
+        tank->moveCooldown = config.PlayerMoveCooldown;
+        tank->pos = targetPos;
+        game.keyHit = '\0';
+      }
+    }
   }
 
   RdrRender();
