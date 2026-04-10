@@ -97,34 +97,19 @@ void RdrRender(void) {
     Color color = tank->color;
 
     RdrPutChar(pos, 'O', color);
-    if (tank->dir == eDirUP) {
+    Vec dirVec = DirToVec(tank->dir);
+    RdrPutChar(Add(pos, dirVec), dirVec.x ? '-' : '|', color);
+    RdrPutChar(Add(pos, Sub((Vec){0, 0}, (Vec)dirVec)), 'X', color);
+    if (tank->dir == eDirUP || tank->dir == eDirDN) {
       for (int y = -1; y <= 1; ++y) {
         RdrPutChar(Add(pos, (Vec){-1, y}), '@', color);
         RdrPutChar(Add(pos, (Vec){1, y}), '@', color);
       }
-      RdrPutChar(Add(pos, (Vec){0, 1}), '|', color);
-      RdrPutChar(Add(pos, (Vec){0, -1}), 'X', color);
-    } else if (tank->dir == eDirDN) {
-      for (int y = -1; y <= 1; ++y) {
-        RdrPutChar(Add(pos, (Vec){-1, y}), '@', color);
-        RdrPutChar(Add(pos, (Vec){1, y}), '@', color);
-      }
-      RdrPutChar(Add(pos, (Vec){0, -1}), '|', color);
-      RdrPutChar(Add(pos, (Vec){0, 1}), 'X', color);
-    } else if (tank->dir == eDirLF) {
+    } else if (tank->dir == eDirLF || tank->dir == eDirRT) {
       for (int x = -1; x <= 1; ++x) {
         RdrPutChar(Add(pos, (Vec){x, -1}), '@', color);
         RdrPutChar(Add(pos, (Vec){x, 1}), '@', color);
       }
-      RdrPutChar(Add(pos, (Vec){-1, 0}), '-', color);
-      RdrPutChar(Add(pos, (Vec){1, 0}), 'X', color);
-    } else if (tank->dir == eDirRT) {
-      for (int x = -1; x <= 1; ++x) {
-        RdrPutChar(Add(pos, (Vec){x, -1}), '@', color);
-        RdrPutChar(Add(pos, (Vec){x, 1}), '@', color);
-      }
-      RdrPutChar(Add(pos, (Vec){1, 0}), '-', color);
-      RdrPutChar(Add(pos, (Vec){-1, 0}), 'X', color);
     }
   }
 
