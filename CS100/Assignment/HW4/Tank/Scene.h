@@ -117,41 +117,57 @@ Vec DirToVec(Dir dir) {
     return (Vec){0, 0};
 }
 
-/// \brief Detect whether a 3x3 obstacle around `pos` will cause a overlap.
-bool is3x3ObstacleOverlap(Vec pos) {
+/// \brief Enums of overlap types for `is3x3Overlap`.
+typedef enum {
+  eOverlapNone = 0,
+  eOverlapSolid = 1 << 0,
+  eOverlapWall = 1 << 1,
+  eOverlapTank = 1 << 2,
+  eOverlapBullet = 1 << 3,
+} OverlapType;
+
+/// \brief Detect whether a 3x3 area around `pos` overlaps with the given types.
+bool is3x3Overlap(Vec pos, int overlapTypes) {
   for (int i = -1; i <= 1; i++) {
     for (int j = -1; j <= 1; j++) {
       Vec temp_pos = Add(pos, (Vec){i, j});
-      if (map.flags[Idx(temp_pos)] != eFlagNone)
+      Flag flag = map.flags[Idx(temp_pos)];
+      if ((overlapTypes & eOverlapSolid) && flag == eFlagSolid)
+        return true;
+      if ((overlapTypes & eOverlapWall) && flag == eFlagWall)
         return true;
     }
   }
-  for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
-    Tank *tank = RegEntry(regTank, it);
-    for (int Ti = -1; Ti <= 1; Ti++) {
-      for (int Tj = -1; Tj <= 1; Tj++) {
-        for (int Oi = -1; Oi <= 1; Oi++) {
-          for (int Oj = -1; Oj <= 1; Oj++) {
-            Vec temp_pos = Add(pos, (Vec){Oi, Oj});
-            if (Eq(Add(tank->pos, (Vec){Ti, Tj}), temp_pos))
-              return true;
+
+  if (overlapTypes & eOverlapTank) {
+    for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
+      Tank *tank = RegEntry(regTank, it);
+      for (int Ti = -1; Ti <= 1; Ti++) {
+        for (int Tj = -1; Tj <= 1; Tj++) {
+          for (int Oi = -1; Oi <= 1; Oi++) {
+            for (int Oj = -1; Oj <= 1; Oj++) {
+              if (Eq(Add(tank->pos, (Vec){Ti, Tj}), Add(pos, (Vec){Oi, Oj})))
+                return true;
+            }
           }
         }
       }
     }
   }
-  return false;
-}
 
-/// \brief Detect whether a tank will overlap with the obstacle at `pos`.
-bool isTankOverlap(Vec pos) {
-  for (int i = -1; i <= 1; i++) {
-    for (int j = -1; j <= 1; j++) {
-      Vec temp_pos = Add(pos, (Vec){i, j});
-      if (map.flags[Idx(temp_pos)] != eFlagNone)
-        return true;
+  if (overlapTypes & eOverlapBullet) {
+    for (RegIterator it = RegBegin(regBullet); it != RegEnd(regBullet); it = RegNext(it)) {
+      Bullet *bullet = RegEntry(regBullet, it);
+      for (int Oi = -1; Oi <= 1; Oi++) {
+        for (int Oj = -1; Oj <= 1; Oj++) {
+          Vec temp_pos = Add(pos, (Vec){Oi, Oj});
+          if (Eq(bullet->pos, temp_pos))
+            return true;
+        }
+      }
     }
   }
+
   return false;
 }
 

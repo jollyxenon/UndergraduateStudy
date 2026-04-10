@@ -99,7 +99,7 @@ void RdrRender(void) {
     RdrPutChar(pos, 'O', color);
     Vec dirVec = DirToVec(tank->dir);
     RdrPutChar(Add(pos, dirVec), dirVec.x ? '-' : '|', color);
-    RdrPutChar(Add(pos, Sub((Vec){0, 0}, (Vec)dirVec)), 'X', color);
+    RdrPutChar(Add(pos, Sub((Vec){0, 0}, dirVec)), 'X', color);
     if (tank->dir == eDirUP || tank->dir == eDirDN) {
       for (int y = -1; y <= 1; ++y) {
         RdrPutChar(Add(pos, (Vec){-1, y}), '@', color);

@@ -75,7 +75,7 @@ void GameInit(void) {
     Tank *tank = RegNew(regTank);
     do {
       tank->pos = RandVec(map.size);
-    } while (isTankOverlap(tank->pos));
+    } while (is3x3Overlap(tank->pos, eOverlapSolid | eOverlapWall));
     tank->dir = eDirUP;
     tank->color = TK_GREEN;
     tank->isPlayer = true;
@@ -87,7 +87,7 @@ void GameInit(void) {
   {
     for (int num = 0; num < nSolids;) {
       Vec pos = RandVec(map.size);
-      if (!is3x3ObstacleOverlap(pos)) {
+      if (!is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank)) {
         for (int i = -1; i <= 1; i++) {
           for (int j = -1; j <= 1; j++) {
             Vec temp_pos = {pos.x + i, pos.y + j};
@@ -103,7 +103,7 @@ void GameInit(void) {
   {
     for (int num = 0; num < nWalls;) {
       Vec pos = RandVec(map.size);
-      if (!is3x3ObstacleOverlap(pos)) {
+      if (!is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank)) {
         for (int i = -1; i <= 1; i++) {
           for (int j = -1; j <= 1; j++) {
             Vec temp_pos = {pos.x + i, pos.y + j};
@@ -181,7 +181,7 @@ void GameUpdate(void) {
     // Move the tank if it is not cooling down and not crashing.
     tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
     Vec targetPos = Add(tank->pos, DirToVec(tank->dir));
-    if (tank->moveCooldown == 0 && (!isTankOverlap(targetPos))) {
+    if (tank->moveCooldown == 0 && (!is3x3Overlap(targetPos, eOverlapSolid | eOverlapWall))) {
       if (game.keyHit == 'w' || game.keyHit == 'a' || game.keyHit == 's' || game.keyHit == 'd') {
         tank->moveCooldown = config.PlayerMoveCooldown;
         tank->pos = targetPos;
