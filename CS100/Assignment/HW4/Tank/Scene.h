@@ -128,16 +128,22 @@ bool is3x3ObstacleOverlap(Vec pos) {
   }
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
-    for (int i = -1; i <= 1; i++) {
-      for (int j = -1; j <= 1; j++) {
-        if (Eq(Add(tank->pos, (Vec){i, j}), pos))
-          return true;
+    for (int Ti = -1; Ti <= 1; Ti++) {
+      for (int Tj = -1; Tj <= 1; Tj++) {
+        for (int Oi = -1; Oi <= 1; Oi++) {
+          for (int Oj = -1; Oj <= 1; Oj++) {
+            Vec temp_pos = Add(pos, (Vec){Oi, Oj});
+            if (Eq(Add(tank->pos, (Vec){Ti, Tj}), temp_pos))
+              return true;
+          }
+        }
       }
     }
   }
   return false;
 }
 
+/// \brief Detect whether a tank will overlap with the obstacle at `pos`.
 bool isTankOverlap(Vec pos) {
   for (int i = -1; i <= 1; i++) {
     for (int j = -1; j <= 1; j++) {
