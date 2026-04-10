@@ -96,9 +96,36 @@ void RdrRender(void) {
     Vec pos = tank->pos;
     Color color = tank->color;
 
-    for (int y = -1; y <= 1; ++y)
-      for (int x = -1; x <= 1; ++x)
-        RdrPutChar(Add(pos, (Vec){x, y}), 'O', color);
+    RdrPutChar(pos, 'O', color);
+    if (tank->dir == eDirUP) {
+      for (int y = -1; y <= 1; ++y) {
+        RdrPutChar(Add(pos, (Vec){-1, y}), '@', color);
+        RdrPutChar(Add(pos, (Vec){1, y}), '@', color);
+      }
+      RdrPutChar(Add(pos, (Vec){0, 1}), '|', color);
+      RdrPutChar(Add(pos, (Vec){0, -1}), 'X', color);
+    } else if (tank->dir == eDirDN) {
+      for (int y = -1; y <= 1; ++y) {
+        RdrPutChar(Add(pos, (Vec){-1, y}), '@', color);
+        RdrPutChar(Add(pos, (Vec){1, y}), '@', color);
+      }
+      RdrPutChar(Add(pos, (Vec){0, -1}), '|', color);
+      RdrPutChar(Add(pos, (Vec){0, 1}), 'X', color);
+    } else if (tank->dir == eDirLF) {
+      for (int x = -1; x <= 1; ++x) {
+        RdrPutChar(Add(pos, (Vec){x, -1}), '@', color);
+        RdrPutChar(Add(pos, (Vec){x, 1}), '@', color);
+      }
+      RdrPutChar(Add(pos, (Vec){-1, 0}), '-', color);
+      RdrPutChar(Add(pos, (Vec){1, 0}), 'X', color);
+    } else if (tank->dir == eDirRT) {
+      for (int x = -1; x <= 1; ++x) {
+        RdrPutChar(Add(pos, (Vec){x, -1}), '@', color);
+        RdrPutChar(Add(pos, (Vec){x, 1}), '@', color);
+      }
+      RdrPutChar(Add(pos, (Vec){1, 0}), '-', color);
+      RdrPutChar(Add(pos, (Vec){-1, 0}), 'X', color);
+    }
   }
 
   // Render bullets.
