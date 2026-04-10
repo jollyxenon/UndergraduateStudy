@@ -117,13 +117,32 @@ Vec DirToVec(Dir dir) {
     return (Vec){0, 0};
 }
 
-/// \brief Detect whether `pos` will cause a crash if a Tank moves to it.
-bool isTankCrash(Vec pos) {
-  Vec temp_pos = {pos.x, pos.y};
+/// \brief Detect whether a 3x3 obstacle around `pos` will cause a overlap.
+bool is3x3ObstacleOverlap(Vec pos) {
   for (int i = -1; i <= 1; i++) {
     for (int j = -1; j <= 1; j++) {
-      Vec check_pos = {temp_pos.x + i, temp_pos.y + j};
-      if (map.flags[Idx(check_pos)] != eFlagNone)
+      Vec temp_pos = Add(pos, (Vec){i, j});
+      if (map.flags[Idx(temp_pos)] != eFlagNone)
+        return true;
+    }
+  }
+  for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
+    Tank *tank = RegEntry(regTank, it);
+    for (int i = -1; i <= 1; i++) {
+      for (int j = -1; j <= 1; j++) {
+        if (Eq(Add(tank->pos, (Vec){i, j}), pos))
+          return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool isTankOverlap(Vec pos) {
+  for (int i = -1; i <= 1; i++) {
+    for (int j = -1; j <= 1; j++) {
+      Vec temp_pos = Add(pos, (Vec){i, j});
+      if (map.flags[Idx(temp_pos)] != eFlagNone)
         return true;
     }
   }
