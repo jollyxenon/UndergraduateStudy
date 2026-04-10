@@ -58,6 +58,7 @@ void GameInit(void) {
   RegInit(regBullet);
 
   map.flags = (Flag *)malloc(sizeof(Flag) * map.size.x * map.size.y);
+  // Set the borders of the map to solid and the rest to empty.
   for (int y = 0; y < map.size.y; ++y)
     for (int x = 0; x < map.size.x; ++x) {
       Vec pos = {x, y};
@@ -69,13 +70,49 @@ void GameInit(void) {
       map.flags[Idx(pos)] = flag;
     }
 
+  // Player's tank generation
   {
     Tank *tank = RegNew(regTank);
-    tank->pos = (Vec){2, 2};
+    do {
+      tank->pos = RandVec(map.size);
+    } while (isTankOverlap(tank->pos));
     tank->dir = eDirUP;
     tank->color = TK_GREEN;
     tank->isPlayer = true;
     tank->moveCooldown = 0;
+    tank->shootCooldown = config.PlayerShootCooldown;
+  }
+
+  // Solid generation
+  {
+    for (int num = 0; num < nSolids;) {
+      Vec pos = RandVec(map.size);
+      if (!is3x3ObstacleOverlap(pos)) {
+        for (int i = -1; i <= 1; i++) {
+          for (int j = -1; j <= 1; j++) {
+            Vec temp_pos = {pos.x + i, pos.y + j};
+            map.flags[Idx(temp_pos)] = eFlagSolid;
+          }
+        }
+        ++num;
+      }
+    }
+  }
+
+  // Wall generation
+  {
+    for (int num = 0; num < nWalls;) {
+      Vec pos = RandVec(map.size);
+      if (!is3x3ObstacleOverlap(pos)) {
+        for (int i = -1; i <= 1; i++) {
+          for (int j = -1; j <= 1; j++) {
+            Vec temp_pos = {pos.x + i, pos.y + j};
+            map.flags[Idx(temp_pos)] = eFlagWall;
+          }
+        }
+        ++num;
+      }
+    }
   }
 
   // Initialize renderer.
@@ -128,7 +165,6 @@ void GameUpdate(void) {
   // Update tanks.
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
-    Vec targetPos;
 
     // Update player tank's direction according to the key hit.
     if (tank->isPlayer) {
@@ -144,8 +180,8 @@ void GameUpdate(void) {
 
     // Move the tank if it is not cooling down and not crashing.
     tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
-    targetPos = Add(tank->pos, DirToVec(tank->dir));
-    if (tank->moveCooldown == 0 && (!isTankCrash(targetPos))) {
+    Vec targetPos = Add(tank->pos, DirToVec(tank->dir));
+    if (tank->moveCooldown == 0 && (!isTankOverlap(targetPos))) {
       if (game.keyHit == 'w' || game.keyHit == 'a' || game.keyHit == 's' || game.keyHit == 'd') {
         tank->moveCooldown = config.PlayerMoveCooldown;
         tank->pos = targetPos;
@@ -157,10 +193,11 @@ void GameUpdate(void) {
     tank->shootCooldown = tank->shootCooldown > 0 ? tank->shootCooldown - 1 : 0;
     if (tank->isPlayer && game.keyHit == 'k' && tank->shootCooldown == 0) {
       Bullet *bullet = RegNew(regBullet);
-      bullet->pos = Add(tank->pos, Mul(DirToVec(tank->dir), 2));
+      bullet->pos = Add(tank->pos, DirToVec(tank->dir));
       bullet->dir = tank->dir;
       bullet->color = tank->color;
       bullet->isPlayer = tank->isPlayer;
+      bullet->moveCooldown = 0;
       tank->shootCooldown = config.PlayerShootCooldown;
       game.keyHit = '\0';
     }
@@ -171,31 +208,18 @@ void GameUpdate(void) {
     Bullet *bullet = RegEntry(regBullet, it);
     Vec targetPos = Add(bullet->pos, DirToVec(bullet->dir));
 
-    // If the bullet hits a solid or a wall, delete the bullet and possibly the wall.
-    if (map.flags[Idx(targetPos)] == eFlagSolid) {
-      RegDelete(bullet);
-    } else if (map.flags[Idx(targetPos)] == eFlagWall) {
-      map.flags[Idx(targetPos)] = eFlagNone;
-      RegDelete(bullet);
+    bullet->moveCooldown = bullet->moveCooldown > 0 ? bullet->moveCooldown - 1 : 0;
+    if (bullet->moveCooldown == 0) {
+      bullet->moveCooldown = config.BulletMoveCooldown;
+      bullet->pos = targetPos;
     }
-    // If the bullet hits a tank, delete the bullet and the tank.
-    else if (map.flags[Idx(targetPos)] == eFlagTank) {
-      for (RegIterator it2 = RegBegin(regTank); it2 != RegEnd(regTank); it2 = RegNext(it2)) {
-        Tank *tank = RegEntry(regTank, it2);
-        if (Eq(tank->pos, targetPos) && tank->isPlayer != bullet->isPlayer) {
-          RegDelete(tank);
-          break;
-        }
-      }
+
+    if (map.flags[Idx(bullet->pos)] == eFlagSolid) {
       RegDelete(bullet);
-    }
-    // Otherwise, move the bullet forward.
-    else {
-      bullet->moveCooldown = bullet->moveCooldown > 0 ? bullet->moveCooldown - 1 : 0;
-      if (bullet->moveCooldown == 0) {
-        bullet->moveCooldown = config.BulletMoveCooldown;
-        bullet->pos = targetPos;
-      }
+    } else if (map.flags[Idx(bullet->pos)] == eFlagWall) {
+      map.flags[Idx(bullet->pos)] = eFlagNone;
+      RdrPutChar(bullet->pos, eFlagNone, TK_AUTO_COLOR);
+      RegDelete(bullet);
     }
   }
 
