@@ -3,7 +3,7 @@
 #include <time.h>
 
 // define the log file name
-#define LOG_FILE "game_log.txt"
+#define LOG_FILE "game.log"
 
 /// \brief Initializes the log file at the start of the game.
 void InitGameLog(void) {
