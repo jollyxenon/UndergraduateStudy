@@ -13,9 +13,9 @@
 //
 //
 #include "Config.h"
-#include "GameLog.h"
 #include "Renderer.h"
 
+#include <stdlib.h>
 #include <time.h>
 
 typedef struct {
@@ -221,9 +221,6 @@ void GameInit(void) {
   TermSetupGameEnvironment();
   TermClearScreen();
 
-  // Initialize game log.
-  InitGameLog();
-
   // Configure scene.
   map.size = config.mapSize;
   int nEnemies = config.nEnemies;
@@ -349,7 +346,6 @@ void GameInput(void) {
   if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd' ||
       temp_keyHit == 'k') {
     PlayerGame.keyHit = temp_keyHit;
-    GameLog("Key hit: %c", PlayerGame.keyHit);
   }
 }
 
@@ -373,7 +369,6 @@ void EnemyGameInput(void) {
   if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd' ||
       temp_keyHit == 'k') {
     EnemyGame.keyHit = temp_keyHit;
-    GameLog("Enemy Key hit: %c", EnemyGame.keyHit);
   }
 }
 
