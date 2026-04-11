@@ -22,11 +22,11 @@ int main(void) {
   srand(time(NULL));
 
   // Configure the game.
-  config.fps = 30;
-  config.mapSize = (Vec){20, 20};
-  config.nEnemies = 1;
-  config.nSolids = 2;
-  config.nWalls = 2;
+  config.fps = 60;
+  config.mapSize = (Vec){Rand(10) + 40, Rand(5) + 25};
+  config.nEnemies = Rand(3) + 1;
+  config.nSolids = Rand(5) + 4;
+  config.nWalls = Rand(5) + 4;
   config.PlayerMoveCooldown = (int)(config.fps * 0.2);
   config.EnemyMoveCooldown = (int)(config.fps * 0.5);
   config.PlayerShootCooldown = (int)(config.fps * 0.5);

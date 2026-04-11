@@ -297,6 +297,26 @@ void GameUpdate(void) {
     }
   }
 
+  for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
+    Tank *tank = RegEntry(regTank, it);
+    for (RegIterator it = RegBegin(regBullet); it != RegEnd(regBullet); it = RegNext(it)) {
+      Bullet *bullet = RegEntry(regBullet, it);
+      bool isOverlap = false;
+      for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+          Vec temp_pos = Add(tank->pos, (Vec){i, j});
+          if (Eq(bullet->pos, temp_pos))
+            isOverlap = true;
+        }
+      }
+      if (isOverlap && bullet->isPlayer != tank->isPlayer) {
+        RegDelete(bullet);
+        RegDelete(tank);
+        break;
+      }
+    }
+  }
+
   RdrRender();
   RdrFlush();
 }
@@ -347,6 +367,20 @@ void GameLifecycle(void) {
     while (((double)(clock() - frameBegin) / CLOCKS_PER_SEC) * 1000.0 < frameTime - 0.5)
       Daze();
     frameBegin = clock();
+
+    int enemyCount = 0, playerCount = 0;
+    for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
+      Tank *tank = RegEntry(regTank, it);
+      if (tank->isPlayer) {
+        playerCount++;
+      } else {
+        enemyCount++;
+      }
+    }
+    if (playerCount == 0 || enemyCount == 0) {
+      Sleep(1000);
+      break;
+    }
   }
 
   GameTerminate();
