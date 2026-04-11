@@ -77,7 +77,7 @@ void GameInit(void) {
     Tank *tank = RegNew(regTank);
     do {
       tank->pos = RandVec(map.size);
-    } while (is3x3Overlap(tank->pos, eOverlapSolid | eOverlapWall));
+    } while (is3x3Overlap(tank->pos, eOverlapSolid | eOverlapWall, tank));
     tank->dir = (Dir)Rand(4);
     tank->color = TK_GREEN;
     tank->isPlayer = true;
@@ -88,12 +88,11 @@ void GameInit(void) {
   // Enemy's tanks generation
   {
     for (int i = 0; i < nEnemies; ++i) {
-      Vec pos;
-      do {
-        pos = RandVec(map.size);
-      } while (is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank));
       Tank *tank = RegNew(regTank);
-      tank->pos = pos;
+      do {
+        tank->pos = RandVec(map.size);
+      } while (is3x3Overlap(tank->pos, eOverlapSolid | eOverlapWall | eOverlapTank, tank));
+
       tank->dir = (Dir)Rand(4);
       tank->color = TK_RED;
       tank->isPlayer = false;
@@ -106,7 +105,7 @@ void GameInit(void) {
   {
     for (int num = 0; num < nSolids;) {
       Vec pos = RandVec(map.size);
-      if (!is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank)) {
+      if (!is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank, NULL)) {
         for (int i = -1; i <= 1; i++) {
           for (int j = -1; j <= 1; j++) {
             Vec temp_pos = {pos.x + i, pos.y + j};
@@ -122,7 +121,7 @@ void GameInit(void) {
   {
     for (int num = 0; num < nWalls;) {
       Vec pos = RandVec(map.size);
-      if (!is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank)) {
+      if (!is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank, NULL)) {
         for (int i = -1; i <= 1; i++) {
           for (int j = -1; j <= 1; j++) {
             Vec temp_pos = {pos.x + i, pos.y + j};
@@ -208,45 +207,48 @@ void GameUpdate(void) {
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
 
-    if (tank->isPlayer) {
-      // Update player tank's direction according to the key hit.
-      if (PlayerGame.keyHit == 'w')
-        tank->dir = eDirUP;
-      else if (PlayerGame.keyHit == 's')
-        tank->dir = eDirDN;
-      else if (PlayerGame.keyHit == 'a')
-        tank->dir = eDirLF;
-      else if (PlayerGame.keyHit == 'd')
-        tank->dir = eDirRT;
-    } else {
-      // Update enemy tank's direction randomly.
-      EnemyGameInput();
-      if (EnemyGame.keyHit == 'w')
-        tank->dir = eDirUP;
-      else if (EnemyGame.keyHit == 's')
-        tank->dir = eDirDN;
-      else if (EnemyGame.keyHit == 'a')
-        tank->dir = eDirLF;
-      else if (EnemyGame.keyHit == 'd')
-        tank->dir = eDirRT;
-    }
-
-    // Move the tank if it is not cooling down and not crashing.
     tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
-    Vec targetPos = Add(tank->pos, DirToVec(tank->dir));
-    if (tank->moveCooldown == 0 && (!is3x3Overlap(targetPos, eOverlapSolid | eOverlapWall))) {
+
+    if (tank->moveCooldown == 0) {
       if (tank->isPlayer) {
-        if (PlayerGame.keyHit == 'w' || PlayerGame.keyHit == 'a' || PlayerGame.keyHit == 's' ||
-            PlayerGame.keyHit == 'd') {
-          tank->moveCooldown = config.PlayerMoveCooldown;
-          tank->pos = targetPos;
-          PlayerGame.keyHit = '\0';
-        }
+        // Update player tank's direction according to the key hit.
+        if (PlayerGame.keyHit == 'w')
+          tank->dir = eDirUP;
+        else if (PlayerGame.keyHit == 's')
+          tank->dir = eDirDN;
+        else if (PlayerGame.keyHit == 'a')
+          tank->dir = eDirLF;
+        else if (PlayerGame.keyHit == 'd')
+          tank->dir = eDirRT;
       } else {
-        if (EnemyGame.keyHit == 'w' || EnemyGame.keyHit == 'a' || EnemyGame.keyHit == 's' || EnemyGame.keyHit == 'd') {
-          tank->moveCooldown = config.EnemyMoveCooldown;
-          tank->pos = targetPos;
-          EnemyGame.keyHit = '\0';
+        // Update enemy tank's direction randomly.
+        EnemyGameInput();
+        if (EnemyGame.keyHit == 'w')
+          tank->dir = eDirUP;
+        else if (EnemyGame.keyHit == 's')
+          tank->dir = eDirDN;
+        else if (EnemyGame.keyHit == 'a')
+          tank->dir = eDirLF;
+        else if (EnemyGame.keyHit == 'd')
+          tank->dir = eDirRT;
+      }
+      // Move the tank if it is not cooling down and not crashing.
+      Vec targetPos = Add(tank->pos, DirToVec(tank->dir));
+      if (!is3x3Overlap(targetPos, eOverlapSolid | eOverlapWall | eOverlapTank, tank)) {
+        if (tank->isPlayer) {
+          if (PlayerGame.keyHit == 'w' || PlayerGame.keyHit == 'a' || PlayerGame.keyHit == 's' ||
+              PlayerGame.keyHit == 'd') {
+            tank->moveCooldown = config.PlayerMoveCooldown;
+            tank->pos = targetPos;
+            PlayerGame.keyHit = '\0';
+          }
+        } else {
+          if (EnemyGame.keyHit == 'w' || EnemyGame.keyHit == 'a' || EnemyGame.keyHit == 's' ||
+              EnemyGame.keyHit == 'd') {
+            tank->moveCooldown = config.EnemyMoveCooldown;
+            tank->pos = targetPos;
+            EnemyGame.keyHit = '\0';
+          }
         }
       }
     }
