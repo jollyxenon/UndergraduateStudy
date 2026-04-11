@@ -54,12 +54,13 @@ void RdrPutChar(Vec pos, char c, Color color) {
 
   if (color == TK_AUTO_COLOR) {
     Flag flag = (Flag)c;
-    color = flag == eFlagNone    ? TK_NORMAL
-            : flag == eFlagSolid ? TK_BLUE
-            : flag == eFlagWall  ? TK_WHITE
-
-            : flag == eFlagTank ? TK_INVALID_COLOR
-                                : TK_INVALID_COLOR;
+    color = flag == eFlagNone         ? TK_NORMAL
+            : flag == eFlagSolid      ? TK_BLUE
+            : flag == eFlagWall       ? TK_WHITE
+            : flag == eSkillShield    ? TK_CYAN
+            : flag == eSkillRapidFire ? TK_BRIGHT_YELLOW
+            : flag == eSkillBreaker   ? TK_MAGENTA
+                                      : TK_INVALID_COLOR;
   }
   renderer.colors[Idx(pos)] = color;
 }
@@ -76,7 +77,7 @@ void RdrClear(void) {
 
     for (int y = -1; y <= 1; ++y)
       for (int x = -1; x <= 1; ++x)
-        RdrPutChar(Add(pos, (Vec){x, y}), map.flags[Idx(pos)], TK_AUTO_COLOR);
+        RdrPutChar(Add(pos, (Vec){x, y}), SceneBaseCharAt(Add(pos, (Vec){x, y})), TK_AUTO_COLOR);
   }
 
   // Clear bullets.
@@ -84,31 +85,42 @@ void RdrClear(void) {
     Bullet *bullet = RegEntry(regBullet, it);
     Vec pos = bullet->pos;
 
-    RdrPutChar(pos, map.flags[Idx(pos)], TK_AUTO_COLOR);
+    RdrPutChar(pos, SceneBaseCharAt(pos), TK_AUTO_COLOR);
   }
 }
 
 /// \brief Render all the objects in the scene to the frame.
 void RdrRender(void) {
+  // Render skills.
+  for (RegIterator it = RegBegin(regSkill); it != RegEnd(regSkill); it = RegNext(it)) {
+    Skill *skill = RegEntry(regSkill, it);
+    RdrPutChar(skill->pos, (char)skill->type, TK_AUTO_COLOR);
+  }
+
   // Render tanks.
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
     Vec pos = tank->pos;
     Color color = tank->color;
+    Vec dirVec = DirToVec(tank->dir);
+    char cannonChar = tank->weaponMode == eWeaponRapidFire ? 'O'
+                      : tank->weaponMode == eWeaponBreaker ? '!'
+                      : dirVec.x                           ? '-'
+                                                           : '|';
+    char trackChar = tank->shieldCharges > 0 ? '=' : '@';
 
     RdrPutChar(pos, 'O', color);
-    Vec dirVec = DirToVec(tank->dir);
-    RdrPutChar(Add(pos, dirVec), dirVec.x ? '-' : '|', color);
+    RdrPutChar(Add(pos, dirVec), cannonChar, color);
     RdrPutChar(Add(pos, Sub((Vec){0, 0}, dirVec)), 'X', color);
     if (tank->dir == eDirUP || tank->dir == eDirDN) {
       for (int y = -1; y <= 1; ++y) {
-        RdrPutChar(Add(pos, (Vec){-1, y}), '@', color);
-        RdrPutChar(Add(pos, (Vec){1, y}), '@', color);
+        RdrPutChar(Add(pos, (Vec){-1, y}), trackChar, color);
+        RdrPutChar(Add(pos, (Vec){1, y}), trackChar, color);
       }
     } else if (tank->dir == eDirLF || tank->dir == eDirRT) {
       for (int x = -1; x <= 1; ++x) {
-        RdrPutChar(Add(pos, (Vec){x, -1}), '@', color);
-        RdrPutChar(Add(pos, (Vec){x, 1}), '@', color);
+        RdrPutChar(Add(pos, (Vec){x, -1}), trackChar, color);
+        RdrPutChar(Add(pos, (Vec){x, 1}), trackChar, color);
       }
     }
   }
