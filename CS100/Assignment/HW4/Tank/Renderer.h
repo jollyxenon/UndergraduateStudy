@@ -53,14 +53,14 @@ void RdrPutChar(Vec pos, char c, Color color) {
   renderer.cs[Idx(pos)] = c;
 
   if (color == TK_AUTO_COLOR) {
-    Flag flag = (Flag)c;
-    color = flag == eFlagNone         ? TK_NORMAL
-            : flag == eFlagSolid      ? TK_BLUE
-            : flag == eFlagWall       ? TK_WHITE
-            : flag == eSkillShield    ? TK_CYAN
-            : flag == eSkillRapidFire ? TK_BRIGHT_YELLOW
-            : flag == eSkillBreaker   ? TK_MAGENTA
-                                      : TK_INVALID_COLOR;
+    char symbol = c;
+    color = symbol == eFlagNone         ? TK_NORMAL
+            : symbol == eFlagSolid      ? TK_BLUE
+            : symbol == eFlagWall       ? TK_WHITE
+            : symbol == eSkillShield    ? TK_CYAN
+            : symbol == eSkillRapidFire ? TK_BRIGHT_YELLOW
+            : symbol == eSkillBreaker   ? TK_MAGENTA
+                                        : TK_INVALID_COLOR;
   }
   renderer.colors[Idx(pos)] = color;
 }
