@@ -23,7 +23,9 @@ typedef struct {
 } Game;
 
 // The game singleton.
-static Game game;
+static Game PlayerGame;
+
+static Game EnemyGame;
 
 // The keyboard key "ESC".
 static const char keyESC = '\033';
@@ -76,11 +78,28 @@ void GameInit(void) {
     do {
       tank->pos = RandVec(map.size);
     } while (is3x3Overlap(tank->pos, eOverlapSolid | eOverlapWall));
-    tank->dir = eDirUP;
+    tank->dir = (Dir)Rand(4);
     tank->color = TK_GREEN;
     tank->isPlayer = true;
     tank->moveCooldown = 0;
     tank->shootCooldown = config.PlayerShootCooldown;
+  }
+
+  // Enemy's tanks generation
+  {
+    for (int i = 0; i < nEnemies; ++i) {
+      Vec pos;
+      do {
+        pos = RandVec(map.size);
+      } while (is3x3Overlap(pos, eOverlapSolid | eOverlapWall | eOverlapTank));
+      Tank *tank = RegNew(regTank);
+      tank->pos = pos;
+      tank->dir = (Dir)Rand(4);
+      tank->color = TK_RED;
+      tank->isPlayer = false;
+      tank->moveCooldown = config.EnemyMoveCooldown;
+      tank->shootCooldown = config.EnemyShootCooldown;
+    }
   }
 
   // Solid generation
@@ -146,8 +165,31 @@ void GameInput(void) {
   char temp_keyHit = kbhit_t() ? (char)getch_t() : '\0';
   if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd' ||
       temp_keyHit == 'k') {
-    game.keyHit = temp_keyHit;
-    GameLog("Key hit: %c", game.keyHit);
+    PlayerGame.keyHit = temp_keyHit;
+    GameLog("Key hit: %c", PlayerGame.keyHit);
+  }
+}
+
+/// \brief Generate enemy's input.
+void EnemyGameInput(void) {
+  char temp_keyHit;
+  int randomNum = Rand(6);
+  if (randomNum == 0)
+    temp_keyHit = 'w';
+  else if (randomNum == 1)
+    temp_keyHit = 'a';
+  else if (randomNum == 2)
+    temp_keyHit = 's';
+  else if (randomNum == 3)
+    temp_keyHit = 'd';
+  else if (randomNum == 4)
+    temp_keyHit = 'k';
+  else
+    temp_keyHit = '\0';
+  if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd' ||
+      temp_keyHit == 'k') {
+    EnemyGame.keyHit = temp_keyHit;
+    GameLog("Enemy Key hit: %c", EnemyGame.keyHit);
   }
 }
 
@@ -166,15 +208,26 @@ void GameUpdate(void) {
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
 
-    // Update player tank's direction according to the key hit.
     if (tank->isPlayer) {
-      if (game.keyHit == 'w')
+      // Update player tank's direction according to the key hit.
+      if (PlayerGame.keyHit == 'w')
         tank->dir = eDirUP;
-      else if (game.keyHit == 's')
+      else if (PlayerGame.keyHit == 's')
         tank->dir = eDirDN;
-      else if (game.keyHit == 'a')
+      else if (PlayerGame.keyHit == 'a')
         tank->dir = eDirLF;
-      else if (game.keyHit == 'd')
+      else if (PlayerGame.keyHit == 'd')
+        tank->dir = eDirRT;
+    } else {
+      // Update enemy tank's direction randomly.
+      EnemyGameInput();
+      if (EnemyGame.keyHit == 'w')
+        tank->dir = eDirUP;
+      else if (EnemyGame.keyHit == 's')
+        tank->dir = eDirDN;
+      else if (EnemyGame.keyHit == 'a')
+        tank->dir = eDirLF;
+      else if (EnemyGame.keyHit == 'd')
         tank->dir = eDirRT;
     }
 
@@ -182,16 +235,25 @@ void GameUpdate(void) {
     tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
     Vec targetPos = Add(tank->pos, DirToVec(tank->dir));
     if (tank->moveCooldown == 0 && (!is3x3Overlap(targetPos, eOverlapSolid | eOverlapWall))) {
-      if (game.keyHit == 'w' || game.keyHit == 'a' || game.keyHit == 's' || game.keyHit == 'd') {
-        tank->moveCooldown = config.PlayerMoveCooldown;
-        tank->pos = targetPos;
-        game.keyHit = '\0';
+      if (tank->isPlayer) {
+        if (PlayerGame.keyHit == 'w' || PlayerGame.keyHit == 'a' || PlayerGame.keyHit == 's' ||
+            PlayerGame.keyHit == 'd') {
+          tank->moveCooldown = config.PlayerMoveCooldown;
+          tank->pos = targetPos;
+          PlayerGame.keyHit = '\0';
+        }
+      } else {
+        if (EnemyGame.keyHit == 'w' || EnemyGame.keyHit == 'a' || EnemyGame.keyHit == 's' || EnemyGame.keyHit == 'd') {
+          tank->moveCooldown = config.EnemyMoveCooldown;
+          tank->pos = targetPos;
+          EnemyGame.keyHit = '\0';
+        }
       }
     }
 
     // Shoot a bullet if the tank is not cooling down.
     tank->shootCooldown = tank->shootCooldown > 0 ? tank->shootCooldown - 1 : 0;
-    if (tank->isPlayer && game.keyHit == 'k' && tank->shootCooldown == 0) {
+    if (tank->isPlayer && PlayerGame.keyHit == 'k' && tank->shootCooldown == 0) {
       Bullet *bullet = RegNew(regBullet);
       bullet->pos = Add(tank->pos, DirToVec(tank->dir));
       bullet->dir = tank->dir;
@@ -199,7 +261,17 @@ void GameUpdate(void) {
       bullet->isPlayer = tank->isPlayer;
       bullet->moveCooldown = 0;
       tank->shootCooldown = config.PlayerShootCooldown;
-      game.keyHit = '\0';
+      PlayerGame.keyHit = '\0';
+    }
+    if (!tank->isPlayer && EnemyGame.keyHit == 'k' && tank->shootCooldown == 0) {
+      Bullet *bullet = RegNew(regBullet);
+      bullet->pos = Add(tank->pos, DirToVec(tank->dir));
+      bullet->dir = tank->dir;
+      bullet->color = tank->color;
+      bullet->isPlayer = tank->isPlayer;
+      bullet->moveCooldown = 0;
+      tank->shootCooldown = config.PlayerShootCooldown;
+      EnemyGame.keyHit = '\0';
     }
   }
 
@@ -265,7 +337,7 @@ void GameLifecycle(void) {
 
   while (true) {
     GameInput();
-    if (game.keyHit == keyESC)
+    if (PlayerGame.keyHit == keyESC)
       break;
 
     GameUpdate();

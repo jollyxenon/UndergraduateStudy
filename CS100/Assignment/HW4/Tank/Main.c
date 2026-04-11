@@ -24,13 +24,13 @@ int main(void) {
   // Configure the game.
   config.fps = 30;
   config.mapSize = (Vec){20, 20};
-  config.nEnemies = 0;
-  config.nSolids = 3;
-  config.nWalls = 3;
+  config.nEnemies = 1;
+  config.nSolids = 2;
+  config.nWalls = 2;
   config.PlayerMoveCooldown = (int)(config.fps * 0.2);
-  config.EnemyMoveCooldown = (int)(config.fps * 0.2);
+  config.EnemyMoveCooldown = (int)(config.fps * 0.5);
   config.PlayerShootCooldown = (int)(config.fps * 0.5);
-  config.EnemyShootCooldown = (int)(config.fps * 0.5);
+  config.EnemyShootCooldown = (int)(config.fps * 1.0);
   config.BulletMoveCooldown = (int)(config.fps * 0.1);
 
   // Run the game.
