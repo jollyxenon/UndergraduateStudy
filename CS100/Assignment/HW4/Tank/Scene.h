@@ -118,16 +118,10 @@ Vec DirToVec(Dir dir) {
 }
 
 /// \brief Enums of overlap types for `is3x3Overlap`.
-typedef enum {
-  eOverlapNone = 0,
-  eOverlapSolid = 1 << 0,
-  eOverlapWall = 1 << 1,
-  eOverlapTank = 1 << 2,
-  eOverlapBullet = 1 << 3,
-} OverlapType;
+typedef enum { eOverlapNone = 0, eOverlapSolid = 1 << 0, eOverlapWall = 1 << 1, eOverlapTank = 1 << 2 } OverlapType;
 
 /// \brief Detect whether a 3x3 area around `pos` overlaps with the given types.
-bool is3x3Overlap(Vec pos, int overlapTypes, const void* ignoreObj) {
+bool is3x3Overlap(Vec pos, int overlapTypes, const void *ignoreObj) {
   for (int i = -1; i <= 1; i++) {
     for (int j = -1; j <= 1; j++) {
       Vec temp_pos = Add(pos, (Vec){i, j});
@@ -142,7 +136,8 @@ bool is3x3Overlap(Vec pos, int overlapTypes, const void* ignoreObj) {
   if (overlapTypes & eOverlapTank) {
     for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
       Tank *tank = RegEntry(regTank, it);
-      if (tank == ignoreObj) continue;
+      if (tank == ignoreObj)
+        continue;
       for (int Ti = -1; Ti <= 1; Ti++) {
         for (int Tj = -1; Tj <= 1; Tj++) {
           for (int Oi = -1; Oi <= 1; Oi++) {
@@ -151,20 +146,6 @@ bool is3x3Overlap(Vec pos, int overlapTypes, const void* ignoreObj) {
                 return true;
             }
           }
-        }
-      }
-    }
-  }
-
-  if (overlapTypes & eOverlapBullet) {
-    for (RegIterator it = RegBegin(regBullet); it != RegEnd(regBullet); it = RegNext(it)) {
-      Bullet *bullet = RegEntry(regBullet, it);
-      if (bullet == ignoreObj) continue;
-      for (int Oi = -1; Oi <= 1; Oi++) {
-        for (int Oj = -1; Oj <= 1; Oj++) {
-          Vec temp_pos = Add(pos, (Vec){Oi, Oj});
-          if (Eq(bullet->pos, temp_pos))
-            return true;
         }
       }
     }
