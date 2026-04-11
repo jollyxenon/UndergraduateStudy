@@ -467,7 +467,6 @@ void GameLifecycle(void) {
       }
     }
     if (playerCount == 0 || enemyCount == 0) {
-      Sleep(1000);
       break;
     }
   }
