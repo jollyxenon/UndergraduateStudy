@@ -27,8 +27,65 @@ static Game PlayerGame;
 
 static Game EnemyGame;
 
+static int skillSpawnCooldown;
+
 // The keyboard key "ESC".
 static const char keyESC = '\033';
+
+int RandSkillSpawnCooldown(void) {
+  return config.fps * (Rand(6) + 5);
+}
+
+int GetTankShootCooldown(const Tank *tank) {
+  int cooldown = tank->isPlayer ? config.PlayerShootCooldown : config.EnemyShootCooldown;
+  if (tank->weaponMode == eWeaponRapidFire)
+    cooldown = cooldown > 1 ? cooldown / 2 : 1;
+  else if (tank->weaponMode == eWeaponBreaker)
+    cooldown *= 3;
+  return cooldown;
+}
+
+void ApplySkillToTank(Tank *tank, SkillType type) {
+  if (type == eSkillShield)
+    tank->shieldCharges = 1;
+  else if (type == eSkillRapidFire)
+    tank->weaponMode = eWeaponRapidFire;
+  else if (type == eSkillBreaker)
+    tank->weaponMode = eWeaponBreaker;
+}
+
+void SpawnSkill(void) {
+  int maxAttempts = map.size.x * map.size.y * 4;
+  for (int attempt = 0; attempt < maxAttempts; ++attempt) {
+    Vec pos = RandPos();
+    if (IsSkillSpawnBlocked(pos))
+      continue;
+
+    Skill *skill = RegNew(regSkill);
+    skill->pos = pos;
+
+    int randomSkill = Rand(3);
+    if (randomSkill == 0)
+      skill->type = eSkillShield;
+    else if (randomSkill == 1)
+      skill->type = eSkillRapidFire;
+    else
+      skill->type = eSkillBreaker;
+    return;
+  }
+}
+
+void TryPickupSkills(Tank *tank) {
+  for (RegIterator it = RegBegin(regSkill); it != RegEnd(regSkill); it = RegNext(it)) {
+    Skill *skill = RegEntry(regSkill, it);
+    if (TankOccupiesPos(tank, skill->pos)) {
+      Vec pos = skill->pos;
+      ApplySkillToTank(tank, skill->type);
+      RegDelete(skill);
+      RdrPutChar(pos, map.flags[Idx(pos)], TK_AUTO_COLOR);
+    }
+  }
+}
 
 //
 //
@@ -58,6 +115,11 @@ void GameInit(void) {
   // Initialize scene.
   RegInit(regTank);
   RegInit(regBullet);
+  RegInit(regSkill);
+
+  PlayerGame.keyHit = '\0';
+  EnemyGame.keyHit = '\0';
+  skillSpawnCooldown = RandSkillSpawnCooldown();
 
   map.flags = (Flag *)malloc(sizeof(Flag) * map.size.x * map.size.y);
   // Set the borders of the map to solid and the rest to empty.
@@ -81,6 +143,8 @@ void GameInit(void) {
     tank->dir = (Dir)Rand(4);
     tank->color = TK_GREEN;
     tank->isPlayer = true;
+    tank->shieldCharges = 0;
+    tank->weaponMode = eWeaponNormal;
     tank->moveCooldown = 0;
     tank->shootCooldown = config.PlayerShootCooldown;
   }
@@ -96,6 +160,8 @@ void GameInit(void) {
       tank->dir = (Dir)Rand(4);
       tank->color = TK_RED;
       tank->isPlayer = false;
+      tank->shieldCharges = 0;
+      tank->weaponMode = eWeaponNormal;
       tank->moveCooldown = config.EnemyMoveCooldown;
       tank->shootCooldown = config.EnemyShootCooldown;
     }
@@ -185,6 +251,7 @@ void EnemyGameInput(void) {
     temp_keyHit = 'k';
   else
     temp_keyHit = '\0';
+  EnemyGame.keyHit = temp_keyHit;
   if (temp_keyHit == keyESC || temp_keyHit == 'w' || temp_keyHit == 'a' || temp_keyHit == 's' || temp_keyHit == 'd' ||
       temp_keyHit == 'k') {
     EnemyGame.keyHit = temp_keyHit;
@@ -202,6 +269,12 @@ void EnemyGameInput(void) {
 /// \note This function should be called in the loop of `GameLifecycle` after `GameInput`.
 void GameUpdate(void) {
   RdrClear();
+
+  skillSpawnCooldown = skillSpawnCooldown > 0 ? skillSpawnCooldown - 1 : 0;
+  if (skillSpawnCooldown == 0) {
+    SpawnSkill();
+    skillSpawnCooldown = RandSkillSpawnCooldown();
+  }
 
   // Update tanks.
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
@@ -251,6 +324,8 @@ void GameUpdate(void) {
           }
         }
       }
+
+      TryPickupSkills(tank);
     }
 
     // Shoot a bullet if the tank is not cooling down.
@@ -261,8 +336,9 @@ void GameUpdate(void) {
       bullet->dir = tank->dir;
       bullet->color = tank->color;
       bullet->isPlayer = tank->isPlayer;
+      bullet->breaksWalls = tank->weaponMode == eWeaponBreaker;
       bullet->moveCooldown = 0;
-      tank->shootCooldown = config.PlayerShootCooldown;
+      tank->shootCooldown = GetTankShootCooldown(tank);
       PlayerGame.keyHit = '\0';
     }
     if (!tank->isPlayer && EnemyGame.keyHit == 'k' && tank->shootCooldown == 0) {
@@ -271,8 +347,9 @@ void GameUpdate(void) {
       bullet->dir = tank->dir;
       bullet->color = tank->color;
       bullet->isPlayer = tank->isPlayer;
+      bullet->breaksWalls = tank->weaponMode == eWeaponBreaker;
       bullet->moveCooldown = 0;
-      tank->shootCooldown = config.PlayerShootCooldown;
+      tank->shootCooldown = GetTankShootCooldown(tank);
       EnemyGame.keyHit = '\0';
     }
   }
@@ -293,14 +370,17 @@ void GameUpdate(void) {
     } else if (map.flags[Idx(bullet->pos)] == eFlagWall) {
       map.flags[Idx(bullet->pos)] = eFlagNone;
       RdrPutChar(bullet->pos, eFlagNone, TK_AUTO_COLOR);
-      RegDelete(bullet);
+      if (!bullet->breaksWalls)
+        RegDelete(bullet);
     }
   }
 
-  for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
-    Tank *tank = RegEntry(regTank, it);
-    for (RegIterator it = RegBegin(regBullet); it != RegEnd(regBullet); it = RegNext(it)) {
-      Bullet *bullet = RegEntry(regBullet, it);
+  for (RegIterator itTank = RegBegin(regTank); itTank != RegEnd(regTank); itTank = RegNext(itTank)) {
+    Tank *tank = RegEntry(regTank, itTank);
+    bool tankDestroyed = false;
+
+    for (RegIterator itBullet = RegBegin(regBullet); itBullet != RegEnd(regBullet); itBullet = RegNext(itBullet)) {
+      Bullet *bullet = RegEntry(regBullet, itBullet);
       bool isOverlap = false;
       for (int i = -1; i <= 1; i++) {
         for (int j = -1; j <= 1; j++) {
@@ -311,10 +391,17 @@ void GameUpdate(void) {
       }
       if (isOverlap && bullet->isPlayer != tank->isPlayer) {
         RegDelete(bullet);
-        RegDelete(tank);
+        if (tank->shieldCharges > 0) {
+          tank->shieldCharges--;
+        } else {
+          RegDelete(tank);
+          tankDestroyed = true;
+        }
         break;
       }
     }
+    if (tankDestroyed)
+      continue;
   }
 
   RdrRender();
@@ -333,6 +420,9 @@ void GameTerminate(void) {
 
   while (RegSize(regBullet) > 0)
     RegDelete(RegEntry(regBullet, RegBegin(regBullet)));
+
+  while (RegSize(regSkill) > 0)
+    RegDelete(RegEntry(regSkill, RegBegin(regSkill)));
 
   free(map.flags);
 

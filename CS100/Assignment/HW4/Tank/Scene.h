@@ -36,6 +36,22 @@ typedef enum {
   eFlagInvalid = '\0', // Invalid.
 } Flag;
 
+/// \brief Enums of collectible skill types.
+typedef enum {
+  eSkillShield = '=',
+  eSkillRapidFire = 'O',
+  eSkillBreaker = '!',
+
+  eSkillInvalid = '\0',
+} SkillType;
+
+/// \brief Enums of weapon modes.
+typedef enum {
+  eWeaponNormal,
+  eWeaponRapidFire,
+  eWeaponBreaker,
+} WeaponMode;
+
 /// \example It is easy to create or delete a `Tank` with the help of registries, see `Registry.h`.
 /// ```c
 /// Tank *tank = RegNew(regTank); //! `malloc` is called here.
@@ -49,6 +65,8 @@ typedef struct {
   Dir dir;           // Direction.
   Color color;       // Color of the tank and its bullets.
   bool isPlayer;     // Whether this tank is player or enemy.
+  int shieldCharges; // Remaining shield blocks.
+  WeaponMode weaponMode;
   int moveCooldown;  // Frames to wait before next move.
   int shootCooldown; // Frames to wait before next shoot.
 } Tank;
@@ -66,8 +84,15 @@ typedef struct {
   Dir dir;          // Direction.
   Color color;      // Color.
   bool isPlayer;    // Whether this bullet was shot by player or enemy.
+  bool breaksWalls; // Whether this bullet can destroy walls without disappearing.
   int moveCooldown; // Frames to wait before next move.
 } Bullet;
+
+typedef struct {
+  TK_REG_AUTH;
+  Vec pos;
+  SkillType type;
+} Skill;
 
 typedef struct {
   // Width (x) and height (y) of the map.
@@ -87,6 +112,9 @@ static TK_REG_DEF(Tank, regTank);
 // Define a registry for `Bullet`, see `Registry.h`.
 static TK_REG_DEF(Bullet, regBullet);
 
+// Define a registry for `Skill`, see `Registry.h`.
+static TK_REG_DEF(Skill, regSkill);
+
 // The map singleton.
 static Map map;
 
@@ -101,6 +129,11 @@ static Map map;
 /// ```
 int Idx(Vec pos) {
   return pos.x + pos.y * map.size.x;
+}
+
+/// \brief Check whether `pos` is inside the map.
+bool IsInsideMap(Vec pos) {
+  return 0 <= pos.x && pos.x < map.size.x && 0 <= pos.y && pos.y < map.size.y;
 }
 
 /// \brief Convert a direction to a vector.
@@ -125,6 +158,8 @@ bool is3x3Overlap(Vec pos, int overlapTypes, const void *ignoreObj) {
   for (int i = -1; i <= 1; i++) {
     for (int j = -1; j <= 1; j++) {
       Vec temp_pos = Add(pos, (Vec){i, j});
+      if (!IsInsideMap(temp_pos))
+        return true;
       Flag flag = map.flags[Idx(temp_pos)];
       if ((overlapTypes & eOverlapSolid) && flag == eFlagSolid)
         return true;
@@ -169,4 +204,47 @@ void MoveCursor(Vec pos) {
 /// \brief Randomly generate a position in map.
 Vec RandPos(void) {
   return RandVec(map.size);
+}
+
+bool TankOccupiesPos(const Tank *tank, Vec pos) {
+  for (int x = -1; x <= 1; ++x)
+    for (int y = -1; y <= 1; ++y)
+      if (Eq(Add(tank->pos, (Vec){x, y}), pos))
+        return true;
+  return false;
+}
+
+Skill *SkillAt(Vec pos) {
+  for (RegIterator it = RegBegin(regSkill); it != RegEnd(regSkill); it = RegNext(it)) {
+    Skill *skill = RegEntry(regSkill, it);
+    if (Eq(skill->pos, pos))
+      return skill;
+  }
+  return NULL;
+}
+
+bool IsSkillSpawnBlocked(Vec pos) {
+  if (map.flags[Idx(pos)] != eFlagNone)
+    return true;
+
+  for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
+    Tank *tank = RegEntry(regTank, it);
+    if (TankOccupiesPos(tank, pos))
+      return true;
+  }
+
+  for (RegIterator it = RegBegin(regBullet); it != RegEnd(regBullet); it = RegNext(it)) {
+    Bullet *bullet = RegEntry(regBullet, it);
+    if (Eq(bullet->pos, pos))
+      return true;
+  }
+
+  return SkillAt(pos) != NULL;
+}
+
+char SceneBaseCharAt(Vec pos) {
+  Skill *skill = SkillAt(pos);
+  if (skill != NULL)
+    return (char)skill->type;
+  return (char)map.flags[Idx(pos)];
 }
