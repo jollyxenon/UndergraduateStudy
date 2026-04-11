@@ -153,6 +153,16 @@ Vec DirToVec(Dir dir) {
 /// \brief Enums of overlap types for `is3x3Overlap`.
 typedef enum { eOverlapNone = 0, eOverlapSolid = 1 << 0, eOverlapWall = 1 << 1, eOverlapTank = 1 << 2 } OverlapType;
 
+/// \brief Check whether `pos` lies inside the 3x3 area centered at `center`.
+bool IsWithin3x3(Vec center, Vec pos) {
+  return pos.x >= center.x - 1 && pos.x <= center.x + 1 && pos.y >= center.y - 1 && pos.y <= center.y + 1;
+}
+
+/// \brief Check whether the 3x3 areas centered at `lhs` and `rhs` overlap.
+bool TanksOverlap3x3(Vec lhs, Vec rhs) {
+  return rhs.x >= lhs.x - 2 && rhs.x <= lhs.x + 2 && rhs.y >= lhs.y - 2 && rhs.y <= lhs.y + 2;
+}
+
 /// \brief Detect whether a 3x3 area around `pos` overlaps with the given types.
 bool is3x3Overlap(Vec pos, int overlapTypes, const void *ignoreObj) {
   for (int i = -1; i <= 1; i++) {
@@ -173,16 +183,8 @@ bool is3x3Overlap(Vec pos, int overlapTypes, const void *ignoreObj) {
       Tank *tank = RegEntry(regTank, it);
       if (tank == ignoreObj)
         continue;
-      for (int Ti = -1; Ti <= 1; Ti++) {
-        for (int Tj = -1; Tj <= 1; Tj++) {
-          for (int Oi = -1; Oi <= 1; Oi++) {
-            for (int Oj = -1; Oj <= 1; Oj++) {
-              if (Eq(Add(tank->pos, (Vec){Ti, Tj}), Add(pos, (Vec){Oi, Oj})))
-                return true;
-            }
-          }
-        }
-      }
+      if (TanksOverlap3x3(tank->pos, pos))
+        return true;
     }
   }
 
@@ -206,12 +208,9 @@ Vec RandPos(void) {
   return RandVec(map.size);
 }
 
+/// \brief Check whether `pos` is covered by `tank`'s 3x3 body.
 bool TankOccupiesPos(const Tank *tank, Vec pos) {
-  for (int x = -1; x <= 1; ++x)
-    for (int y = -1; y <= 1; ++y)
-      if (Eq(Add(tank->pos, (Vec){x, y}), pos))
-        return true;
-  return false;
+  return IsWithin3x3(tank->pos, pos);
 }
 
 Skill *SkillAt(Vec pos) {

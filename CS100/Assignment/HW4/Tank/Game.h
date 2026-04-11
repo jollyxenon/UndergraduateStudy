@@ -32,6 +32,8 @@ static int skillSpawnCooldown;
 // The keyboard key "ESC".
 static const char keyESC = '\033';
 
+void EnemyGameInput(void);
+
 int RandSkillSpawnCooldown(void) {
   return config.fps * (Rand(6) + 5);
 }
@@ -84,6 +86,122 @@ void TryPickupSkills(Tank *tank) {
       RegDelete(skill);
       RdrPutChar(pos, map.flags[Idx(pos)], TK_AUTO_COLOR);
     }
+  }
+}
+
+/// \brief Check whether `key` is one of the movement keys.
+bool IsMoveKey(char key) {
+  return key == 'w' || key == 'a' || key == 's' || key == 'd';
+}
+
+/// \brief Convert a movement key to its corresponding direction.
+Dir KeyToDir(char key) {
+  if (key == 'w')
+    return eDirUP;
+  if (key == 's')
+    return eDirDN;
+  if (key == 'a')
+    return eDirLF;
+  if (key == 'd')
+    return eDirRT;
+  return eDirInvalid;
+}
+
+/// \brief Create a bullet directly in front of `tank`.
+void SpawnBulletFromTank(const Tank *tank) {
+  Bullet *bullet = RegNew(regBullet);
+  bullet->pos = Add(tank->pos, DirToVec(tank->dir));
+  bullet->dir = tank->dir;
+  bullet->color = tank->color;
+  bullet->isPlayer = tank->isPlayer;
+  bullet->breaksWalls = tank->weaponMode == eWeaponBreaker;
+  bullet->moveCooldown = 0;
+}
+
+/// \brief Move `tank` according to the current input if movement is allowed.
+void TryMoveTank(Tank *tank, Game *game) {
+  if (!IsMoveKey(game->keyHit))
+    return;
+
+  tank->dir = KeyToDir(game->keyHit);
+  Vec targetPos = Add(tank->pos, DirToVec(tank->dir));
+  if (is3x3Overlap(targetPos, eOverlapSolid | eOverlapWall | eOverlapTank, tank))
+    return;
+
+  tank->moveCooldown = tank->isPlayer ? config.PlayerMoveCooldown : config.EnemyMoveCooldown;
+  tank->pos = targetPos;
+  game->keyHit = '\0';
+}
+
+/// \brief Let `tank` shoot when the shoot key is pressed and cooldown ends.
+void TryShootTank(Tank *tank, Game *game) {
+  tank->shootCooldown = tank->shootCooldown > 0 ? tank->shootCooldown - 1 : 0;
+  if (game->keyHit != 'k' || tank->shootCooldown != 0)
+    return;
+
+  SpawnBulletFromTank(tank);
+  tank->shootCooldown = GetTankShootCooldown(tank);
+  game->keyHit = '\0';
+}
+
+/// \brief Update movement, pickups, and shooting for a single tank.
+void UpdateTank(Tank *tank) {
+  Game *game = tank->isPlayer ? &PlayerGame : &EnemyGame;
+
+  tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
+  if (tank->moveCooldown == 0) {
+    if (!tank->isPlayer)
+      EnemyGameInput();
+    TryMoveTank(tank, game);
+    TryPickupSkills(tank);
+  }
+
+  TryShootTank(tank, game);
+}
+
+/// \brief Advance one bullet and handle collisions with map blocks.
+void UpdateBullet(Bullet *bullet) {
+  Vec targetPos = Add(bullet->pos, DirToVec(bullet->dir));
+
+  bullet->moveCooldown = bullet->moveCooldown > 0 ? bullet->moveCooldown - 1 : 0;
+  if (bullet->moveCooldown == 0) {
+    bullet->moveCooldown = config.BulletMoveCooldown;
+    bullet->pos = targetPos;
+  }
+
+  if (map.flags[Idx(bullet->pos)] == eFlagSolid) {
+    RegDelete(bullet);
+  } else if (map.flags[Idx(bullet->pos)] == eFlagWall) {
+    map.flags[Idx(bullet->pos)] = eFlagNone;
+    RdrPutChar(bullet->pos, eFlagNone, TK_AUTO_COLOR);
+    if (!bullet->breaksWalls)
+      RegDelete(bullet);
+  }
+}
+
+/// \brief Handle all bullet-versus-tank collisions for the current frame.
+void ResolveBulletTankCollisions(void) {
+  for (RegIterator itTank = RegBegin(regTank); itTank != RegEnd(regTank); itTank = RegNext(itTank)) {
+    Tank *tank = RegEntry(regTank, itTank);
+    bool tankDestroyed = false;
+
+    for (RegIterator itBullet = RegBegin(regBullet); itBullet != RegEnd(regBullet); itBullet = RegNext(itBullet)) {
+      Bullet *bullet = RegEntry(regBullet, itBullet);
+      if (!TankOccupiesPos(tank, bullet->pos) || bullet->isPlayer == tank->isPlayer)
+        continue;
+
+      RegDelete(bullet);
+      if (tank->shieldCharges > 0) {
+        tank->shieldCharges--;
+      } else {
+        RegDelete(tank);
+        tankDestroyed = true;
+      }
+      break;
+    }
+
+    if (tankDestroyed)
+      continue;
   }
 }
 
@@ -279,130 +397,16 @@ void GameUpdate(void) {
   // Update tanks.
   for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
     Tank *tank = RegEntry(regTank, it);
-
-    tank->moveCooldown = tank->moveCooldown > 0 ? tank->moveCooldown - 1 : 0;
-
-    if (tank->moveCooldown == 0) {
-      if (tank->isPlayer) {
-        // Update player tank's direction according to the key hit.
-        if (PlayerGame.keyHit == 'w')
-          tank->dir = eDirUP;
-        else if (PlayerGame.keyHit == 's')
-          tank->dir = eDirDN;
-        else if (PlayerGame.keyHit == 'a')
-          tank->dir = eDirLF;
-        else if (PlayerGame.keyHit == 'd')
-          tank->dir = eDirRT;
-      } else {
-        // Update enemy tank's direction randomly.
-        EnemyGameInput();
-        if (EnemyGame.keyHit == 'w')
-          tank->dir = eDirUP;
-        else if (EnemyGame.keyHit == 's')
-          tank->dir = eDirDN;
-        else if (EnemyGame.keyHit == 'a')
-          tank->dir = eDirLF;
-        else if (EnemyGame.keyHit == 'd')
-          tank->dir = eDirRT;
-      }
-      // Move the tank if it is not cooling down and not crashing.
-      Vec targetPos = Add(tank->pos, DirToVec(tank->dir));
-      if (!is3x3Overlap(targetPos, eOverlapSolid | eOverlapWall | eOverlapTank, tank)) {
-        if (tank->isPlayer) {
-          if (PlayerGame.keyHit == 'w' || PlayerGame.keyHit == 'a' || PlayerGame.keyHit == 's' ||
-              PlayerGame.keyHit == 'd') {
-            tank->moveCooldown = config.PlayerMoveCooldown;
-            tank->pos = targetPos;
-            PlayerGame.keyHit = '\0';
-          }
-        } else {
-          if (EnemyGame.keyHit == 'w' || EnemyGame.keyHit == 'a' || EnemyGame.keyHit == 's' ||
-              EnemyGame.keyHit == 'd') {
-            tank->moveCooldown = config.EnemyMoveCooldown;
-            tank->pos = targetPos;
-            EnemyGame.keyHit = '\0';
-          }
-        }
-      }
-
-      TryPickupSkills(tank);
-    }
-
-    // Shoot a bullet if the tank is not cooling down.
-    tank->shootCooldown = tank->shootCooldown > 0 ? tank->shootCooldown - 1 : 0;
-    if (tank->isPlayer && PlayerGame.keyHit == 'k' && tank->shootCooldown == 0) {
-      Bullet *bullet = RegNew(regBullet);
-      bullet->pos = Add(tank->pos, DirToVec(tank->dir));
-      bullet->dir = tank->dir;
-      bullet->color = tank->color;
-      bullet->isPlayer = tank->isPlayer;
-      bullet->breaksWalls = tank->weaponMode == eWeaponBreaker;
-      bullet->moveCooldown = 0;
-      tank->shootCooldown = GetTankShootCooldown(tank);
-      PlayerGame.keyHit = '\0';
-    }
-    if (!tank->isPlayer && EnemyGame.keyHit == 'k' && tank->shootCooldown == 0) {
-      Bullet *bullet = RegNew(regBullet);
-      bullet->pos = Add(tank->pos, DirToVec(tank->dir));
-      bullet->dir = tank->dir;
-      bullet->color = tank->color;
-      bullet->isPlayer = tank->isPlayer;
-      bullet->breaksWalls = tank->weaponMode == eWeaponBreaker;
-      bullet->moveCooldown = 0;
-      tank->shootCooldown = GetTankShootCooldown(tank);
-      EnemyGame.keyHit = '\0';
-    }
+    UpdateTank(tank);
   }
 
   // Update bullets.
   for (RegIterator it = RegBegin(regBullet); it != RegEnd(regBullet); it = RegNext(it)) {
     Bullet *bullet = RegEntry(regBullet, it);
-    Vec targetPos = Add(bullet->pos, DirToVec(bullet->dir));
-
-    bullet->moveCooldown = bullet->moveCooldown > 0 ? bullet->moveCooldown - 1 : 0;
-    if (bullet->moveCooldown == 0) {
-      bullet->moveCooldown = config.BulletMoveCooldown;
-      bullet->pos = targetPos;
-    }
-
-    if (map.flags[Idx(bullet->pos)] == eFlagSolid) {
-      RegDelete(bullet);
-    } else if (map.flags[Idx(bullet->pos)] == eFlagWall) {
-      map.flags[Idx(bullet->pos)] = eFlagNone;
-      RdrPutChar(bullet->pos, eFlagNone, TK_AUTO_COLOR);
-      if (!bullet->breaksWalls)
-        RegDelete(bullet);
-    }
+    UpdateBullet(bullet);
   }
 
-  for (RegIterator itTank = RegBegin(regTank); itTank != RegEnd(regTank); itTank = RegNext(itTank)) {
-    Tank *tank = RegEntry(regTank, itTank);
-    bool tankDestroyed = false;
-
-    for (RegIterator itBullet = RegBegin(regBullet); itBullet != RegEnd(regBullet); itBullet = RegNext(itBullet)) {
-      Bullet *bullet = RegEntry(regBullet, itBullet);
-      bool isOverlap = false;
-      for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-          Vec temp_pos = Add(tank->pos, (Vec){i, j});
-          if (Eq(bullet->pos, temp_pos))
-            isOverlap = true;
-        }
-      }
-      if (isOverlap && bullet->isPlayer != tank->isPlayer) {
-        RegDelete(bullet);
-        if (tank->shieldCharges > 0) {
-          tank->shieldCharges--;
-        } else {
-          RegDelete(tank);
-          tankDestroyed = true;
-        }
-        break;
-      }
-    }
-    if (tankDestroyed)
-      continue;
-  }
+  ResolveBulletTankCollisions();
 
   RdrRender();
   RdrFlush();
