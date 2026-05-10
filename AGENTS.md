@@ -1,36 +1,22 @@
-# OpenCode Agents Instructions
+# OpenCode Agent Instructions
 
-This repository contains coursework for various undergraduate courses.
+This repository contains personal undergraduate study materials for a student at ShanghaiTech University.
 
-## CS100 / Assignment / HW4 (Tank 1990)
+## Repository Structure & Navigation
+- **Course-based Organization**: The root directory contains folders for each course (e.g., `CS100`, `MATH1112`, `GEHA1158`).
+- **Standard Subdirectories**: Inside each course folder, you will typically find:
+  - `Assignment/` or `HW/`: Homework and programming assignments.
+  - `Courseware/`: Lecture slides and materials.
+  - `Note/`: Personal study notes.
+  - `Exam/`, `Midterm/`, `Final/`: Exam preparation materials.
+- **Workflow**: When asked to work on a specific task, always navigate to the relevant course and subdirectory first. There is no global build system or monorepo toolchain.
 
-### Build & Run
+## Course-Specific Context
+- **CS100 (Computer Science)**: Contains C programming assignments. Compile files locally within their specific assignment folder (e.g., `gcc Problem2.c -o problem2.exe`).
+- **Humanities/Social Sciences (GEHA*, GESS*)**: Contains essays and reading materials, often in Chinese. Expect `.docx` and `.txt` files.
+- **Math/Science (MATH*, CHEM*, SI*)**: Primarily contains `.pdf` files for homework, answers, and courseware.
 
-- **Compile**: `gcc Tank/Main.c -o TankWar.exe -Wall -Wextra -Wpedantic -Wno-unused-variable`
-- **Run**: Execute the compiled binary (e.g., `.\TankWar.exe` on Windows).
-- **Format**: Use the provided `.clang-format` file.
-
-### Architecture & Boundaries
-
-- **`Tank/Main.c`**: Entry point. Do not remove `srand(time(NULL));` for final submission.
-- **`Tank/Game.h`**: Core game logic. Modify `GameUpdate()` for movement, collision, and shooting.
-- **`Tank/Renderer.h`**: Rendering logic. Modify `RdrRender()` to draw tanks and bullets.
-- **`Tank/Scene.h`**: Defines game objects (`Tank`, `Bullet`, `Map`) and global registries (`regTank`, `regBullet`).
-- **`Tank/Registry.h`**: A custom macro-based ECS-like registry system. **Do not modify this file.**
-
-### Framework Quirks & Conventions
-
-- **Registry Iteration**: You must use the exact macro pattern to iterate over objects:
-  ```c
-  for (RegIterator it = RegBegin(regTank); it != RegEnd(regTank); it = RegNext(it)) {
-      Tank *tank = RegEntry(regTank, it);
-      // ...
-  }
-  ```
-- **Memory Management**: Use `RegNew(reg)` to allocate and register an object. Use `RegDelete(ptr)` to remove and free it.
-- **Map Access**: The map is a 1D array. Always use `Idx(pos)` to access it with a 2D `Vec`: `map.flags[Idx(pos)]`.
-- **Rendering**:
-  - `RdrClear()` clears the previous frame's dynamic objects.
-  - `RdrRender()` draws the current frame's dynamic objects using `RdrPutChar(pos, char, color)`.
-  - `RdrFlush()` flushes changes to the terminal.
-- **Randomness**: Use `Rand(n)` and `RandVec(v)` from `Tank/Base.h`.
+## Technical Quirks & Constraints
+- **Git LFS**: The repository uses Git LFS for binary files (`.pdf`, `.docx`, `.pptx`, `.xlsx`, `.png`, `.mp4`, etc.). Do not attempt to read these files as plain text.
+- **Windows Environment**: The repository is developed on Windows (note the `.exe` files in `CS100` and `__pycache__` in `.gitignore`). Use appropriate Windows/PowerShell commands when executing scripts or compiled programs.
+- **Grades**: The `README.md` at the root tracks the student's grades for each semester. Update it if requested when a new course is completed.
