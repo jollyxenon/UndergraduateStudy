@@ -1,0 +1,350 @@
+RT Journal Article
+SR 1
+A1 王杰青;何美晶
+AD 青岛农业大学海都学院;青岛农业大学;
+T1 大学生网络社群亚文化现象及其思政引导策略
+JF 新闻研究导刊
+YR 2026
+IS 06
+vo 17
+OP 83-87
+K1 大学生;网络社群;亚文化;思想政治教育
+AB 互联网时代，网络社群已成为大学生学习、社交与价值表达的核心场域。以圈层文化、网络亚文化为代表的多元亚文化形态在青年群体中广泛传播，深刻影响着大学生的价值观念、行为方式与身份认同建构。这些亚文化既承载着大学生情感表达与价值诉求，也与主流意识形态形成张力，给高校思政教育带来新挑战。本文立足辅导员工作实践，系统剖析大学生网络社群中各类亚文化的类型特征、生成逻辑与传播机制，揭示其对大学生思想行为的双重影响，并从“理解—对话—生态—培育”四个维度，构建了引导大学生网络亚文化健康发展的系统性策略，旨在帮助辅导员准确把握青年文化动态，提升网络思想政治教育的亲和力与实效性，为新时代高校网络育人工作提供理论支撑与实践参考。
+SN 1674-8883
+CN 50-1205/G2
+LA 中文;
+DS CNKI
+LK https://link.cnki.net/doi/10.26918/j.xwyjdk.2026.06.018
+DO 10.26918/j.xwyjdk.2026.06.018
+
+RT Journal Article
+SR 1
+A1 万欣;陈彦均
+AD 武汉纺织大学管理学院;
+T1 “发疯文学”：社交媒体中大学生群体的压力缓解机制研究
+JF 新媒体研究
+YR 2026
+IS 05
+vo 12
+OP 81-85
+K1 发疯文学;心理防御机制;情绪调节;网络亚文化
+AB 在社会结构性压力加剧与数字媒介深度渗透的背景下，研究基于网络亚文化与媒介心理学视角，采用问卷调查与多元回归分析对343份有效样本进行实证研究，检验“发疯文学”作为话语调适机制的压力缓解效应。结果表明：合理性、幽默性与升华性等成熟话语策略对压力缓解具有显著正向影响；否认性策略在适度使用时呈现短期缓解效应；幻想性与补偿性策略作用不显著。研究发现，网络亚文化话语通过重构情绪表达方式与意义建构路径影响大学生的情绪调节与心理适应过程。
+SN 2096-0360
+CN 10-1330/G2
+LA 中文;
+DS CNKI
+LK https://link.cnki.net/doi/10.16604/j.cnki.issn2096-0360.2026.05.013
+DO 10.16604/j.cnki.issn2096-0360.2026.05.013
+
+RT Journal Article
+SR 1
+A1 盖越帅;翟崑
+AD 青岛农业大学草业学院;
+T1 网络亚文化视域下农业院校大学生网络素养缺失成因及培育机制研究
+JF 文教资料
+YR 2026
+IS 03
+OP 193-195
+K1 网络亚文化;农业院校;网络素养;多元协同
+AB 农业院校大学生作为乡村振兴的重要后备力量，其网络素养水平直接关系个人专业成长与“三农”工作质量。本文基于网络亚文化视角，系统分析农业院校大学生在网络信息甄别、网络行为规范、网络价值认知三个方面的素养缺失表现，从场域、心理与机制三个维度深入剖析原因，并构建包含课程内容重构、多元协同共治、动态评价反馈与专业认同强化在内的协同培育机制，提升农业院校大学生网络素养水平，增强其在复杂网络环境中的适应能力与价值定力。
+SN 1004-8359
+CN 32-1032/C
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7RjvoEDkomhKj_znCdjwgbzRzh-0vc_KPjnM_1UVImII3isvZPtl_qMGuwfLBpy8-vsL_UejyTV8Rh2EfaiC5lcZnM-01SpCd0qdk9NlH0K5rUcihWTy4SoSnVWyqjX363vTUh4FiUY14iCdQ5VhTjmp4B2TLb-Urm4gYMpQ-BX0A==&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 戴绍芳
+AD 福建幼儿师范高等专科学校;
+T1 大学生网络游戏社交圈层化的生成、影响与引导策略研究
+JF 齐齐哈尔高等师范专科学校学报
+YR 2026
+IS 01
+vo 
+OP 80-82
+K1 大学生社交;网络游戏社交圈层化;大学生教育引导策略
+AB 当前，通过网络游戏进行社交已成为当代大学生实现人际交往的一种新型方式。大学生网络游戏社交圈层化是由兴趣爱好驱动、技术平台赋能和人际关系沉淀共同生成的结果。它在一定程度上满足了大学生的社交、心理和社会需求，但也带来圈层固化、圈层壁垒、网络亚文化极化等隐忧。为此，需要高校、教师及学生予以重视，采取有效策略进行积极的干预和引导，以打破网络游戏社交圈层化的藩篱，为大学生的全面发展保驾护航。
+SN 2097-3667
+CN 23-1620/Z
+LA 中文;
+DS CNKI
+LK https://link.cnki.net/doi/10.16322/j.cnki.23-1534/z.2026.01.005
+DO 10.16322/j.cnki.23-1534/z.2026.01.005
+
+RT Newspaper Article
+SR 1
+A1 谢琴
+AD 赣州师范高等专科学校;
+T1 协同治理视角下大学生网络意识形态安全风险应对策略研究
+JF 市场信息报
+OP 012
+FD 2025-12-31
+PB 市场信息报
+LA 中文;
+CN 14-0016
+DS CNKI
+LK https://link.cnki.net/doi/10.28676/n.cnki.nscxx.2025.000914
+DO 10.28676/n.cnki.nscxx.2025.000914
+
+RT Journal Article
+SR 1
+A1 师亚鹏
+AD 三江学院机械与电气工程学院;
+T1 “梗”文化对大学生思想政治教育的影响及其对策
+JF 文化创新比较研究
+YR 2025
+IS 36
+vo 9
+OP 147-150
+K1 “梗”文化;大学生;思想政治教育;网络亚文化;高校;价值观
+AB 新媒体时代，“梗”文化作为网络亚文化的衍生产物，正在深刻影响着大学生的日常生活。该文在厘清“梗”文化深刻内涵和显著特征后，深入剖析“梗”文化给大学生思想政治教育带来的积极与消极影响。“梗”文化在丰富教育内容、拓宽教育场景、强化教育效果的同时，也因其解构性、娱乐化和复杂性，冲击传统话语体系、价值引导及教育内容权威性。该文提出具体的引导对策，以发挥“梗”文化对大学生思想政治教育的积极影响，提升教育的时代感和吸引力，引导大学生筑牢理想根基，压实责任担当，为实现中华民族伟大复兴的中国梦贡献青春力量。
+SN 2096-4110
+CN 23-1601/G0
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7RNeMawbLYL0KmfGw4Blv4t3zDx5qPb2NguR50XXpwl49T7bcFGVQZngALbWkKecJojsJTJfWPz8wHs63rZwWRcX7uS94oIxjn_E6uSITkPuAmNL6vUbA-GxJNPFYDuicov-9IiBJx3e07h8DWd7B3A2EbP5hoy1IGCZ0Mi5BM1PHZVSUWYne1B&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 宋宇;魏慧冬
+AD 南京航空航天大学通用航空与飞行学院;
+T1 大学生网络亚文化现象的教育引导:内生逻辑与实践进路
+JF 航海教育研究
+YR 2025
+IS 04
+vo 42
+OP 101-106
+K1 大学生;网络亚文化;教育引导;主流文化;思想政治教育
+AB 聚焦Z世代群体在虚拟空间构建的圈层文化、二次元文化、粉丝文化等亚文化形态，揭示其与主流文化既共生又博弈的复杂关系。研究发现，当前高校对大学生网络亚文化的教育引导面临三重困境：价值共识断裂、话语体系错位、治理机制滞后。针对上述问题，提出构建“认知解码—情感共振—行为协同”的三维引导体系，旨在弥合主流意识形态与青年亚文化之间的张力，为新时代高校思想政治工作提供新视角，助力实现亚文化与主流文化的良性互动与融合共生。
+SN 1006-8724
+CN 21-1305/G4
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7RNeMawbLYL0KmfGw4Blv4t3zDx5qPb2NiITH0NNfX0exRoGI9fbRt-y1fOd_Zs214WdlNsPRUn4KW0ogWCYWc1_FF9XO_wA6xeeM5xeF2e_3X2AO9_wLJ2pOEpE4gNPxTrCVnQPDTJR5mgBUrInSgyMEDgU3UTs9vry8lWle2Mi9kiQH1actDK&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 赖李涛
+AD 赣南师范大学;
+T1 复调与解构：大学生亚文化叙事实践与策略研究
+JF 文化创新比较研究
+YR 2025
+IS 32
+vo 9
+OP 50-54
+K1 大学生亚文化;网络亚文化;叙事实践;叙事策略;复调;解构
+AB 当代大学生亚文化是具有独特价值取向、符号系统和行为方式的非主流文化形态和网络文化景观，对大学生群体认知模式、情感结构、价值形塑产生了不容忽视的影响。通过“碎片高效的情感联结、戏仿拼贴的解构手法、数字迷因的传播扩散、编码化的符号性抵抗”叙事策略，大学生亚文化呈现了社群叙事、虚构叙事、互动叙事、戏谑叙事、符号叙事等多种叙事样态。集体狂欢的复调和去中心化的解构叙事逻辑背后，暗藏了大学生在数字技术赋权下对社会话语权的争夺和对话语价值的重构。该文分析了大学生亚文化叙事实践，以及亚文化叙事对大学生价值观的影响，在此基础上提出相关策略。
+SN 2096-4110
+CN 23-1601/G0
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7SqWCaYgpeZKKBVlG4thr-ObUgpaaNcYv1lcOHf2fdPeU-aOkyN-WaON3yNt7CJgbmDTlFxZkL-rt2I3GeltL9WBBRHZWlZphTx17KVhp3JEYnBA5npWt25km1OYPI3mdtWizInH2ykg-vzzcb2BlexDhjSydt4pPrBVL94dPbT247_6mHW_14m&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 唐璐
+AD 成都工业职业技术学院;
+T1 自媒体使用行为下网络亚文化对大学生价值观塑造的影响研究
+JF 融媒时代
+YR 2025
+IS 10
+vo 
+OP 21-23
+K1 自媒体;网络亚文化;大学生价值观;媒介素养
+AB 自媒体使用行为下的网络亚文化对大学生价值观塑造的影响。网络亚文化从“娱乐”到“表达”的转变过程中，对大学生的价值观形成产生了双重影响，通过问卷调查和回归分析，揭示了网络亚文化对大学生价值观的影响机制，并提出了高校应通过融合主流价值观与亚文化内容、提升学生媒介素养、构建健康亚文化社群等策略，引导大学生形成健康、稳定的价值观。
+SN 2097-3748
+CN 53-1239/G2
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7QPJwtme2MSaxMhNTwHBnkjdsyvVZsJwbja5xelrXOJDxooLPQCVpBVc3fyM-JvmC51crBIJJC_2VhiVi5RFoIX4wVo7vAEuuA5R9xVsc09wk1VA1mxG_aOrNqnjJf1z_oOPrRkyL0YAhSVx5K9H9S_i2ugVP6gFyO_XTY5ZPcxer7v291n7q5f&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 李睿;刘博;许嘉城
+AD 同济大学党委研究生工作部;同济大学法学院团委;同济大学艺术与传媒学院学工办;同济大学人文学院;
+T1 网络亚文化视域下大学生社交“圈层化”现象的衍生逻辑、传播特征与引导策略
+JF 传媒
+YR 2025
+IS 19
+vo 
+OP 29-32
+K1 网络亚文化;大学生;“趣缘化”社交;社交“圈层化”
+AB 大学生围绕“趣缘化”社交取向，构建起具有显著封闭性与排他性特征的网络社群，进而在具有“强影响”的青年意见领袖和“沉浸式”互动参与的作用下，形成社交“圈层化”的现象。在传播特征方面呈现出多元化社会思潮削弱育人实效、圈层壁垒阻碍主流价值引导、碎片化信息获取习惯致使匹配失效等。本文提出高校应当在内容生产上聚焦内容精品链筑牢阵地根基，在传播环节上聚焦适配传播链提升育人实效，在队伍建设方面聚焦长效队伍链凝聚育人合力的引导策略。
+SN 1009-9263
+CN 11-4574/G2
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7QPJwtme2MSaxMhNTwHBnkjdsyvVZsJwbifSTgjMh3qzrxls9se5PYuECTogJ5iG0cc-H7wdqdsiP4X3e8S5rIZ1Me1STrV5ZMsqaiZmQu3jr_YfW2VTYh0RdbAFHqIW7fEapfLCDpmYSe8u_NdOnUy5ud27zfqbd2o3nZkGbQVB8JvLQHwaWjz&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 何凡
+AD 太原师范学院;
+T1 大学生网络“亚文化”现象的影响及教育引导路径研究
+JF 中国新通信
+YR 2025
+IS 18
+vo 27
+OP 60-62
+K1 大学生;网络“亚文化”;影响;教育引导;路径研究
+AB 随着互联网技术的迅猛发展，网络“亚文化”作为一种新兴文化现象，逐渐成为大学生生活的重要组成部分。本文旨在探讨大学生网络“亚文化”的概念及其特征，分析其对大学生的多维影响，并提出有效的教育引导路径。通过对网络“亚文化”的定义、分类，以及传播方式的梳理，揭示了其对大学生认知、情感与社交、行为表现及价值观塑造的深刻影响。针对这些影响，本文进一步提出基于网络“亚文化”的教育目标设定、多元化的教育引导策略，以及有效的反馈与优化机制，为大学生在网络文化中健康成长提供了可行性方案。
+SN 1673-4866
+CN 11-5402/TN
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7THAMDR6LM4svdUgGRT4OUstEN2rHexAOpc-qOg0lw3Nh9MtbVoy1Xik4RUGu9F50RemYuOgBcknSqfJPUXr0FR3DDdvrjkzpC9QDsiYFQQeAW-IZInt_ExFnlBVjtHZEEr9QdK3uXJAFd4NLYRoC5s7Ovdqu2_J1IuCeacddUq1mA_5Wtxnzal&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 刘钧艳
+AD 长春师范大学;
+T1 思政教育融入网络亚文化社群的“破圈”策略探析
+JF 当代教研论丛
+YR 2025
+IS 09
+vo 11
+OP 64-67
+K1 网络亚文化;思想政治教育;破圈策略;传播效果
+AB 随着互联网技术的快速发展，网络亚文化逐渐成为影响大学生价值观形成的重要因素。文章以网络时代大学生群体为研究对象，分析网络亚文化社群的特征及其对现有思政教育模式带来的挑战，提出“内涵破圈、媒介破圈、话语破圈、体系破圈”四维一体策略框架。研究发现，借鉴亚文化传播规律以创新思政教育模式，能够有效提升其在青年群体中的传播实效与认同度。
+SN 2095-6517
+CN 23-1586/G4
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7RxenKU0R_pYhpoivIyXOJ2VBQdMz244psbsLTyrfo2gWh-Bb5zudWwedWKNkKBXmq1k3CVfJP1-02oKQZ_WMsAnArxQUDTsXT1Yc6kFuDX5tJkKVczGIEfCG8RqHAI4ikPrVAWuazaoIZRGy1NUyS6tT_wn6Em9rc9viX5yYVEGZuRb_1H-BeS&uniplatform=NZKPT&language=CHS
+
+RT Conference Proceeding
+SR 1
+A1 蒋相杰
+AD 江苏理工学院;
+T1 网络亚文化背景下高校思想政治话语创新研究
+JF 2025教育教学创新发展经验交流会论文集（上册）
+PB 中国智慧工程研究会
+PP 中国重庆
+YR 2025
+OP 141-143
+K1 网络亚文化;符号互动;圈层传播;网言网语
+AB 网络亚文化依靠其独特的话语逻辑、传播形态还有情感联结,深入"Z世代"高校学生群体的认知以及表达体系。本文将网络亚文化背景下所形成的青年大学生"网言网语"的"圈层化表达""情感化叙事""互动性建构"作为切入点,结合符号互动理论和话语建构理论,借助文献阅读、深度访谈以及案例分析等方式,系统地对高校思政话语和"网言网语"在传播逻辑、表达范式、价值导向层面的适配与冲突进行剖析,旨在为提升高校思政教育的话语吸引力和育人实效提供实践参考。
+DS CNKI
+LK https://link.cnki.net/doi/10.26914/c.cnkihy.2025.049626
+DO 10.26914/c.cnkihy.2025.049626
+
+RT Newspaper Article
+SR 1
+A1 陈昊
+AD 长春理工大学马克思主义学院;
+T1 网络亚文化背景下大学生思想政治教育路径研究
+JF 安徽科技报
+OP 015
+FD 2025-08-01
+PB 安徽科技报
+LA 中文;
+CN 34-0023
+DS CNKI
+LK https://link.cnki.net/doi/10.27992/n.cnki.nahkj.2025.000563
+DO 10.27992/n.cnki.nahkj.2025.000563
+
+RT Journal Article
+SR 1
+A1 陈丰;杨婷
+AD 井冈山大学;
+T1 网络亚文化视域下大学生思想政治教育工作探索
+JF 世纪桥
+YR 2025
+IS 14
+vo 
+OP 82-84
+K1 网络亚文化;思想政治教育;大学生;新路径
+AB 网络亚文化是一种新型的文化形态，其具有边缘性、时尚性、颠覆性等特点，对大学生的思想和行为影响深远。大学生通过网络平台传播积极的网络亚文化，可有益于他们的身心健康发展，但消极的网络亚文化则易导致大学生的主流价值观发生偏差。因此，文章以网络亚文化为抓手，了解网络亚文化的特征和当代大学生的思想特点，以及网络亚文化对大学生产生的影响，从理性认识网络亚文化、提高网络信息素养、壮大主流网络文化、创新教育理念等方面探索大学生思想政治教育工作的新路径。
+SN 1001-0475
+CN 23-1464/D
+LA 中文;
+DS CNKI
+LK https://link.cnki.net/doi/10.16654/j.cnki.cn23-1464/d.2025.14.027
+DO 10.16654/j.cnki.cn23-1464/d.2025.14.027
+
+RT Journal Article
+SR 1
+A1 石爱华
+AD 金肯职业技术学院经济与管理学院;
+T1 大学生网络亚文化的传播与引导研究
+JF 公关世界
+YR 2025
+IS 13
+vo 
+OP 26-28
+K1 大学生网络亚文化;传播与引导;主流价值观;协同引导机制
+AB 本研究基于传播学与社会学交叉视域，聚焦大学生网络亚文化现象的生成机理与传播干预路径，系统解构其在青年价值形塑、校园文化生态重构及社会化进程加速中的多维影响效应。研究引入符号互动理论与结构功能主义分析框架，揭示亚文化文本编码过程中主流价值观的潜在转译机制，进而提出融合技术治理与文化自觉的动态调适模型。研究创新性地构建“认知解码—情感共振—行为转化”的三阶作用链，主张采用知识图谱驱动的价值弥散策略、多模态叙事重塑的文化符号再造体系以及数字孪生赋能的场景化治理矩阵。方法论层面突破传统规训逻辑，建立传播主体间非线性交互模式，通过构建弹性对话场域实现价值共识的柔性凝聚，最终形成具有自适应调节能力的文化生态系统，为数字化语境下青年思想引领提供兼具理论纵深与实践效度的创新方案。
+SN 1005-3239
+CN 13-1178/C
+LA 中文;
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7QMDAdsFs-SRLqwAe7iCxvix-ayO9v-0WljIDvfkvX95fvw-R2SHM8XYxaRSiX7sNBgaqOYgRty7AY0R96pEBHy0jQeMmEzzRGYOGfv98d-1BgcJ4Er9gZrJdN7BiveIARpzB1Y2hGUPlAwhX8J_x4WqP8nSPjjg4JcMs5ak4qbgJqZ1TYVMcRN&uniplatform=NZKPT&language=CHS
+
+RT Journal Article
+SR 1
+A1 李安
+AD 浙江大学;
+T1 “Z世代”大学生“发疯文学”现象剖析及策略研究
+JF 新媒体研究
+YR 2025
+IS 13
+vo 11
+OP 63-69
+K1 “发疯文学”;网络文化;“Z世代”大学生;网络圈层化;亚文化;情感表达;数字化
+AB 近年来，“发疯文学”成为“Z世代”的“语言面具”，以其独有的话语风格引发了广泛讨论。为此，基于当前网络文化背景，研究系统考察了“Z世代”大学生“发疯文学”的表现特征，包括其多模态的表达体系、戏剧化的情感表达方式、强烈的网络社交互动性。同时，从网络社交平台传播、模因理论传播以及情感共鸣传播等维度，解析“发疯文学”的传播机制；从网络亚文化话语重构、情绪调节作用和群体身份认同构建及社会批判的镜像表达，探讨“发疯文学”的文化与社会意义。在此基础上，提出强化网络价值引领、健全网络治理机制、深化心理健康教育和培育积极社交环境的引导策略。
+SN 2096-0360
+CN 10-1330/G2
+LA 中文;
+DS CNKI
+LK https://link.cnki.net/doi/10.16604/j.cnki.issn2096-0360.2025.13.005
+DO 10.16604/j.cnki.issn2096-0360.2025.13.005
+
+RT Journal Article
+SR 1
+A1 刘保中;赵文涵;陈炜新
+AD 中国社会科学院社会学研究所;中国社会科学院大学社会与民族学院;哈尔滨工程大学人文社会科学学院;
+T1 内卷对大学生心理健康的多重影响效应研究
+JF 中国青年社会科学
+YR 2025
+IS 04
+vo 44
+OP 74-87
+K1 大学生;内卷;竞争心态;竞争环境;心理健康
+AB 近年来，“内卷”一词经由网络亚文化传播、演变，从学术用语下沉为日常话语，并完成了从个体叙事到社会心态的转变。在高等教育领域，过度竞争造成的内容不仅重塑了大学教育生态和亚文化，其引发的心理健康问题正愈发凸显。基于“个体-环境”整体论视角，本文从竞争心态和竞争环境两个维度定义和测量内卷概念，并使用“中国大学生追踪调查”数据分析得出内卷对大学生心理健康的多重效应：一是大学生所处的竞争环境和个体竞争心态均对其心理健康具有显著的负面效应，且竞争环境的影响相对更大；二是竞争环境和竞争心态互动影响，当环境高度“卷”时，心态越“卷”，恰好缓冲了外部环境的心理冲击，心态越“不卷”，心理负面效应越可能被放大；三是社会支持在内卷情境中充当了关键的“减压阀”，可以显著降低内卷对大学生心理健康的消极作用。因此，高校与相关部门需要重视重塑大学生的社会支持网络，并探索完善高等教育评价体系的政策和路径。
+SN 2095-9796
+CN 10-1318/C
+LA 中文;
+DS CNKI
+LK https://link.cnki.net/doi/10.16034/j.cnki.10-1318/c.2025.04.012
+DO 10.16034/j.cnki.10-1318/c.2025.04.012
+
+RT Dissertation/Thesis
+SR 1
+A1 徐迎港
+A3 李红玲
+PB 山东理工大学
+T1 网络亚文化对大学生文化价值观的影响及引导策略研究
+CL 硕士
+YR 2025
+DS CNKI
+LK https://kns.cnki.net/kcms2/article/abstract?v=RTWLtMhoy7Tz2WhDwKBnLBX3bLR6ebgW80h6kFHowJVXmfyYxWaTfN2ZoiazDnKkMoit82rgzkAgopsCRbSi5ZeDI74oQnknT7ps5C2THwoYLS3DjhDGUmRkD2b46SU_7GpEYqebeC2ViInryUS2DnXtm5uWuqvQcebCx6h2RZfDPuITHOWnpS_5poTt0xLv&uniplatform=NZKPT&language=CHS
+
+RT Dissertation/Thesis
+SR 1
+A1 严文清
+A3 孙六平
+PB 西安理工大学
+T1 全媒体时代大学生榜样教育研究
+CL 硕士
+YR 2025
+IS 03
+K1 全媒体时代;大学生;榜样教育
+AB 全媒体时代,随着信息技术的飞速发展,信息传播的方式和渠道发生了深刻变革。大学生作为全媒体的重要受众群体,其学习、生活和娱乐等活动日益受到全媒体技术的影响。在此背景下,大学生榜样教育面临着新的挑战和机遇。榜样教育旨在通过宣传先进典型的事迹、精神和品质,引导大学生树立正确的世界观、人生观、价值观。然而,在全媒体时代,信息过载、偶像泛滥、娱乐化现象盛行、多元价值观并存,使得大学生榜样教育在榜样选择、宣传、内化与外化等方面都面临一系列新挑战。例如,榜样类型选择单一、榜样学习导向偏离、宣传方式传统、网络亚文化的干扰,以及内化扭曲、外化率低、功利化等问题,都影响了榜样教育的效果。针对这些问题,本研究主要采用文献综述法和问卷调查法,深入分析了大学生榜样教育的现状。
+本文研究以问题为导向,以马克思主义理论、心理学理论及传播学相关理论为基础,紧密结合中国共产党领导人关于榜样教育的重要论述,聚焦于全媒体环境下大学生榜样教育的现状、挑战及优化路径,旨在探索如何有效利用全媒体平台提升榜样教育的实效性。一方面,全媒体技术为大学生榜样教育提供了新的机遇,全媒体带来榜样教育资源选择多元化、教育方式呈现多样化、教育主体意识更加明显、教育互动性参与性增加,增强了榜样教育的感染力和针对性。另一方面,信息过载导致大学生在选择榜样时易产生迷茫,信息碎片化、虚假信息泛滥、多元价值观冲击对大学生的价值观产生负面影响,部分大学生对榜样教育的认同感不强,缺乏主动学习和模仿的动力。针对上述问题,本研究提出了一系列优化策略,通过构建全媒体矩阵传播体系,整合教育时代资源,实现榜样教育内容的精准触达;创新榜样教育传播方式,结合短视频虚拟现实等网络平台打造立体的教育场景;重视学校、家庭、社会的教育主体,提升大学生媒介素养;健全榜样教育机制来增强大学生对榜样精神的辨别力和认同感。不仅丰富了思想政治教育领域的研究内容,还为榜样教育领域的实际问题提供新的视角和解决路径。为适应时代发展的需要,为社会主义事业培养德智体美劳全面发展的合格人才与后备力量。
+LA 中文;
+DS CNKI
+LK https://link.cnki.net/doi/10.27398/d.cnki.gxalu.2025.000045
+DO 10.27398/d.cnki.gxalu.2025.000045
+
+ 
