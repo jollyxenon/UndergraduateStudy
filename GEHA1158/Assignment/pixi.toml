@@ -1,0 +1,10 @@
+[workspace]
+name = "geha1158-paper-analysis"
+version = "0.1.0"
+description = "Bibliometric plotting environment for GEHA1158 paper assets"
+channels = ["conda-forge"]
+platforms = ["win-64"]
+
+[dependencies]
+python = "3.12.*"
+matplotlib = ">=3.9,<4"
