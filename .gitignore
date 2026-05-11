@@ -1,4 +1,7 @@
 *.exe
+*.log
+
 __pycache__/
 .vscode/
-*.log
+.codenomad/
+.sisyphus/
