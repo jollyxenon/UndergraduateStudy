@@ -425,7 +425,7 @@ printf("%d",ptr[2]);
 
 `sprintf(str, format, ...)` 以 `format` 格式将后续内容组织起来存入 `str` 中，类似 `printf`。
 
-`snprintf(str, size, format, ...)` 只写入 `size -1` 个字符，并在最后一位补上 `\0`。
+`snprintf(str, size, format, ...)` 只写入 `size-1` 个字符，并在最后一位补上 `\0`。
 
 ## 动态内存管理
 
@@ -442,3 +442,399 @@ printf("%d",ptr[2]);
 传递给 `free` 的指针必须是之前由 `malloc` 或其他分配函数返回的起始内存地址。`free(NULL)` 是安全的。
 
 最好在 `free` 后手动将指针设为 `NULL` 以防范“悬垂指针”。
+
+## C 语言的补充内容
+
+### 结构体
+
+结构体 `struct` 可以将不同类型打包成一个整体。
+
+```c
+struct NewType{
+  int id;
+  char *name;
+};
+```
+
+C 中定义的 `struct NewType` 类型在使用时总要标记这是一个结构体。比如，在函数中要传入结构体时，通常在函数声明中这样写 `void function_name(struct NewType x)`。
+
+结构体是可以整体拷贝的。通常传参数组时我们只传入指向数组第一个元素的指针，但这经常会导致一些危险。而结构体中定义的数组在传参时会先完完全全地拷贝一份，再传进去。尽管导致了灵活性下降和时间损失，不过保证了绝对安全。
+
+值得注意的是，`struct` 传参是按值拷贝。若成员里有指针，默认拷贝只是浅拷贝，之后可能出现 double free 隐患。
+
+### 递归
+
+递归就是自己调用自己。有终止条件、能进行范围缩小的函数就是递归函数。
+
+## C++：C 的进化
+
+在 C 中有太多既麻烦又危险的操作了。有没有简单易用安全快捷的语言？
+
+于是出现了 C++。
+
+### 字符串
+
+`std::string` 替代 C 风格字符串。
+
+#### 优势
+
+- 自动初始化为空。
+- 会自动管理空间，不需要手动补 `\0`。
+- 作为参数传入时会整个复制一份，再也不用担心修改外部字符串了。
+
+#### 使用方法
+
+`std::string` 通过成员函数与重载运算符实现了对简单操作的支持。
+
+- `s=` 赋值，`s.push_back(c)` 在末尾追加单个字母，`+` 和 `s.append(src)` 在末尾追加字符串。
+- 可通过 `s[n]`（无边界检查）和 `s.at(n)`（有边界检查）访问字符。
+- `s.size()` 返回字符数，`s.empty()` 返回是否为空，`s.resize(n)` 调整大小为 n（多余部分用 `\0` 补齐），`s.reserve(n)` 预分配至少这么大的容量。
+- `s.find(src)` 返回子串第一次出现的位置（未找到返回 `std::string::npos`）
+- `s.substr(begin_pos, len)` 取子串，从下标为 `begin_pos` 处开始取 `len` 个字符。
+- 可以使用迭代器或范围 for。
+
+### 数组
+
+`std::vector<Type>` 替代指针式样的 C 风格数组。
+
+#### 优势
+
+- 自动初始化为空。
+- 作为参数传入时会整个复制一份。
+- 自动内存管理。
+
+#### 使用方法
+
+- `v.push_back(x)` 尾部追加单一元素 x。
+- `v[n]` 或 `v.at(n)` 访问元素，`v.front()` 和 `v.back()` 访问头尾元素。
+- `v.pop_back()` 删除尾部元素，`v.erase(v.begin()+x, v.begin()+y)` 删除 \[x, y\) 区间内元素，`v.clear()` 清除所有元素。
+- `v.empty()` 判断是否为空，`v.size()` 查询元素个数，`v.capacity()` 查询当前已分配的内存可容纳元素数，`v.reserve(n)` 预留至少为 n 的内存。
+- 可使用迭代器或范围 for。
+
+### 内存管理
+
+C++ 中可以使用 `new` 和 `delete` 手动管理内存。
+
+分配单个类型时使用 `T* ptr = new T(init_value)`，对应的删除即为 `delete ptr`。分配数组时则用 `T* ptr = new T[n]`（n 是数组大小），对应的删除即为 `delete[] ptr`。注意：分配与删除一定要匹配。
+
+`delete nullptr` 不会产生任何问题。放心用！
+
+### 引用
+
+#### 左值与右值
+
+在讲引用之前，我们需要先讲讲左值和右值。
+
+左值和右值的“左”和“右”可以看作赋值语句 `x = 1` 中等号左边的东西和等号右边的东西。等号左边的东西是一个变量，能反复用一直用；而等号右边的东西是一个临时值，在赋值结束后就湮灭了。可以认为，左值比右值活得要长一点。
+
+任何具名变量、常量（无论 `int var_n` 还是 `const int cst_n`）都是左值。通过指针解引用访问到的对象也是典型的左值（可以用之前提到过的“假装有个变量名只是你不知道”想法来解释）。
+
+返回类型 `T&` 的函数是左值，经典例子是连续赋值：`(a = b) = c;` 中 `a = b` 返回的是 a 的引用。
+
+非字符串的字面量，也就是数字、字符、布尔值等字面常量都是右值。
+
+如果函数按值返回（返回 `T` 而不是 `T&`），其结果也是右值。于是可以用这种方式理解为什么 `c = a + b;` 中的 `a + b` 是右值——当我们把 + 看作一个函数（如把 `a + b` 看作 `a.operator+(b)`）时，我们希望返回的是 `a + b` 这个临时值，而绝不是 a 或者 b！
+
+前置自增自减（`++i` 和 `--i`）返回左值，因为先加减后 return，所以返回的就是自己这个 i；而后置自增自减（`i++` 和 `i--`）返回右值，因为它们是先把原来的 i 存成 prev_i，然后再加减，最后返回 prev_i。而 prev_i 已经跟着函数结束被销毁了，所以返回的一定是一个临时的右值。
+
+比较值得注意的是字符串字面量是一个左值，如 `&("hello")[0]` 是合法的操作。而临时对象（或叫匿名对象）是一个右值，如 `std::string("hello")`。这两者的区别在于，`"hello"` 在编译程序时就已经被编译器写入了只读数据段里。换而言之，当程序一启动，这段内存就存在了。它的内存地址固定不变，直到程序结束才销毁。而 `std::string("hello")` 则调用了 `std::string` 类的构造函数，是临时造出来的一个对象。它没有名字，且在这行代码执行完后就会立刻调用析构函数被销毁，所以是一个右值。
+
+#### 左值引用
+
+实际运用场景中，经常会出现这样的情况：你要把一个参数传进一个函数，但这个参数很大，逐元素拷贝很费劲。你或许会想到用指针，不过我们这里介绍一个更好用的东西：引用。
+
+在一般语境下，引用都指左值引用。`T& a = x` 是创建引用的一般形式，它的意思是给 x 加了一个别名叫 a，之后我们就可以通过 a 来修改 x 里放的东西了。添加引用并没有改动任何底层数据——它只是一个编译器层面的操作。
+
+引用有这些特点与优点：
+
+- 非空保证：引用在初始化时必须绑定到一个合法的对象。
+- 绑定不可变：引用一旦在初始化时绑定到一个对象，就永远不能再改变指向其他对象。
+- 所有权清晰：引用绝对不拥有对象，不需要也不能调用 `delete` 释放内存。
+
+有些时候我们希望保证引用只能读取不能修改（类似 `const T *p`），这时候写 `const T& a = x`。这意味着通过 a 只能访问 x，但不能修改 x。
+
+#### 右值引用
+
+右值引用的符号是 `&&`。通常来说它长成这样：`T&& a = rvalue`。
+
+你可能会觉得很奇怪：右值怎么引用呢？如果要读取的话，直接传参就可以；如果要修改的话——右值是一个临时对象，不仅没必要修改，也没办法修改啊？
+
+右值引用正是利用了“临时对象”——或者说，“将死对象”的特点。后续课程的移动构造和移动赋值就和这个特性有关。不过先不展开讲。也不用着急，很快你就会看到它的应用的。
+
+### 新的类型声明方法
+
+`auto` 让编译器通过变量的初始值来自动推导出变量的类型，用法是 `auto x = a`。它在推导时会发生“退化”，默认会丢弃顶层 const 和引用。
+
+`decltype()` 用于查询一个表达式或变量的精准类型，而不会实际计算该表达式的值。`decltype()` 的用法是 `decltype(exp) x`。
+
+- 传入普通变量：返回该变量声明时的确切类型。
+- 传入表达式：
+  - 传入左值，返回 T&。
+  - 传入将亡值，返回 T&&。
+  - 传入纯右值，返回 T。
+
+### 基于范围的 for 循环
+
+我们可以用 `for (元素声明 : 可迭代范围)` 的语法写一个基于范围的 for 循环。
+
+实际使用时我们几乎总是配合 `auto`。需要在循环内部修改数据但不想影响原容器中的数据时用 `for (auto x : range)`；不需要修改时用 `for (const auto& x : range)`；需要批量修改时用 `for (auto& x : range)`。根据前面引用的知识，用 `&` 可以零拷贝访问对象，大大提高了循环效率。
+
+## C++ 的核心：类
+
+C++ 最初的名字叫“C with Classes”，可见类在 C++ 中的重要性。总的来说，类解决了 C 语言中资源管理困难、结构操作分离等诸多痛点。
+
+### 从结构体开始
+
+```cpp
+class Vec{
+public:  // 先不管这是什么
+  int x;
+  int y;
+};
+```
+
+这个长得很像结构体的东西就是一个类。现在的它与结构体唯一不同的地方在于，结构体的创建总需要写 `struct Vec v`，但类的创建就只需要写 `Vec v`。
+
+### 类内函数
+
+让我们扩容一下这个类
+
+```cpp
+class Vec{
+public:
+  int x;
+  int y;
+  std::size_t Manhattan_Distance()
+  {
+    return (std::size_t)(abs(x) + abs(y));
+  }
+};
+```
+
+让我们看到这个函数。它的调用方法是 `v.Manhattan_Distance()`，返回一个无符号整数。这里，我们把结构和操作绑定到了一起。
+
+### public 与 private
+
+类内的变量与函数分 public 和 private 两种类型。public 可以在类外使用，比如在上面的例子中，我们发现 `x`，`y` 和 `std::size_t Manhattan_Distance()` 都在 public 下，于是可以在任何地方（比如 main 函数中）直接使用 `v.x`，`v.y`，`v.Manhattan_Distance()`。
+
+但如果改成这样：
+
+```cpp
+class Vec{
+  int x;
+  int y;
+public:
+  std::size_t Manhattan_Distance()
+  {
+    return (std::size_t)(abs(x) + abs(y));
+  }
+};
+```
+
+尽管没有写明，在第一个 public 前的变量与函数总是 private 的。所以，现在 `v.x` 和 `v.y` 就不能在类外直接用了。它们变成了一种真实存在但你不能直接看见或摸着的东西。不过你仍然可以调用 `v.Manhattan_Distance()` 来获取曼哈顿距离——毕竟这次是由类内的函数访问 `v.x` 和 `v.y`，当然没问题啦！
+
+#### 类内访问的易错点
+
+值得注意的是一个有趣的小问题：
+
+```cpp
+class Vec{
+  int x;
+  int y;
+public:
+  double Euclidean_Distance(const Vec &other)
+  {
+    int dx = x - other.x;
+    int dy = y - other.y;
+    return std::sqrt(static_cast<double>(dx*dx + dy*dy));
+  }
+};
+```
+
+这里我们调用了 other 作为传入的参数，并且在函数中调用了 `other.x`。这没有问题吗？毕竟我们正在做的是访问 other 的对象啊。
+
+不过这确实没有问题。在类内访问同属于某个类的 private 对象也是被允许的！或许你可以想，class 指的是家族，而 private 指的是对同一个家族开放，所以亲戚当然也可以直接访问啦。
+
+与之形成对比的是这样的例子：
+
+```cpp
+class Dot{
+  int x;
+  int y;
+};
+class Vec{
+  int x;
+  int y;
+public:
+  double Euclidean_Distance(const Dot &other)
+  {
+    return sqrt(static_cast<double>((x-other.x)^2 + (y-other.y)^2))
+  }
+};
+```
+
+因为 Dot 和 Vec 是名称不同的两个类，所以这样做就不行了！
+
+### 构造函数
+
+现在我们换一个例子来举。
+
+```cpp
+class Dyarray{
+  int *begin;
+  int *end;
+};
+```
+
+这是一个经典的自定义数组（尽管日常使用更推荐 `std::vector<T>`）。begin 指向数组的开头，end 指向数组结尾再往后的一个位置。
+
+那么，要怎么开一个数组呢？我们使用构造函数：
+
+```cpp
+class Dynarray{
+  int *begin;
+  int *end;
+public:
+  Dynarray(const std::size_t n) : begin(new int[n]), end(begin + n)
+  {
+    for (int *p = begin; p != end; ++p)
+      *p = 0;
+  }
+};
+```
+
+然后我们就可以使用 `Dynarray arr(10);` 开一个大小为 10，初始化为 0 的数组了。
+
+`:` 后面的东西是初始化列表。尽管在很多时候初始化可以理解为赋值，但它们仍然有一定区别。比如，`const int cst_n = 1;` 是合法的初始化，而 `const int cst_n; cst_n = 1;` 就是非法的给常量赋值。在书写中，尽可能使用初始化而非赋值。
+
+那如果我想开一个大小为 10，初始化为 5 的数组呢？可以定义别的构造函数：
+
+```cpp
+class Dynarray{
+  int *begin;
+  int *end;
+public:
+  explicit Dynarray(const std::size_t n) : begin(new int[n]), end(begin + n)
+  {
+    for (int *p = begin; p != end; ++p)
+      *p = 0;
+  }
+  Dynarray(const std::size_t n, int x) : begin(new int[n]), end(begin + n)
+  {
+    for (int *p = begin; p != end; ++p)
+      *p = x;
+  }
+};
+```
+
+使用 `Dynarray arr(10, 5);` 就可达到这个目标。C++ 会自动适配合适的构造函数。所以，你现在既可以用 `Dynarray arr(10);`，又可以用 `Dynarray arr(10, 5);`。
+
+Dynarray 前面的 `explicit` 的作用是不允许隐式转换。作用我们之后再讲，暂且按下不表。
+
+相同的道理，你也可以不传任何参数，开一个没有长度的数组——只要有对应的构造函数就行了！你可以这么写：
+
+```cpp
+class Dynarray{
+  int *begin;
+  int *end;
+public:
+  Dynarray() : begin(nullptr), end(nullptr) {}
+  explicit Dynarray(const std::size_t n) : begin(new int[n]), end(begin + n)
+  {
+    for (int *p = begin; p != end; ++p)
+      *p = 0;
+  }
+  Dynarray(const std::size_t n, int x) : begin(new int[n]), end(begin + n)
+  {
+    for (int *p = begin; p != end; ++p)
+      *p = x;
+  }
+};
+```
+
+这时候，当你使用 `Dynarray arr;` 的时候，就会自动产生一个没有大小的数组了。值得注意的是，在采用这种初始化时不能使用 `Dynarray arr();`。否则，编译器会把这个看作函数声明
+
+#### 更强大的构造函数
+
+现在，我们的 `Dynarray` 已经支持空初始化、零初始化和带值初始化了。不过，这样难道就足够了吗？
+
+##### 拷贝构造函数
+
+考虑这样一个例子：
+
+```cpp
+int n1=3;
+int n2=n1;
+```
+
+好像没有问题。让 n1 初始化 n2 时，编译器会自动把 n2 解读成一个数值，所以把 n2 的值直接赋给 n1 完全是可行的。
+
+但是对于相似的例子，我们却能发现问题。比如，对于之前的 `Vec`，我们该怎么进行类似的初始化呢？
+
+用 `Vec v2=v1;` 吗？但这是我们自定义的一个类，编译器没法直接把它解读成数值。那用 `Vec v2(v1.x, v1.y);` 呢？看上去不错，但是也不行：出于安全考虑，`Vec` 中的 `x` 和 `y` 大概率是 private 的，所以在类外我们没法访问它！
+
+所以为了支持 `Vec v2=v1;`，我们要写拷贝构造函数：
+
+```cpp
+class Dynarray{
+  int *begin;
+  int *end;
+public:
+  Dynarray() : begin(nullptr), end(nullptr) {}
+  explicit Dynarray(const std::size_t n) : begin(new int[n]), end(begin + n)
+  {
+    for (int *p = begin; p != end; ++p)
+      *p = 0;
+  }
+  Dynarray(const std::size_t n, int x) : begin(new int[n]), end(begin + n)
+  {
+    for (int *p = begin; p != end; ++p)
+      *p = x;
+  }
+  Dynarray(const Dynarray &other) : begin(new int[other.size()]), end(begin + other.size())
+  {
+    int *p = begin;
+    const int *q = other.begin;
+    for (; q != other.end; ++p, ++q)
+        *p = *q;
+  }
+  std::size_t size() const
+  {
+    return end - begin;
+  }
+};
+```
+
+为获取 `v2` 的长度，我们新定义了 `size()` 函数。我们还用了 private 的 `other.begin`，但由于这是类内访问，所以没有问题。
+
+#### 初始化的一些性质
+
+类的初始化是有顺序的（和 `printf("%d%d", f(x), g(x))` 中 `f(x)`、`g(x)` 的计算顺序逻辑有所不同哦！）。初始化总是按定义顺序来的。也就是说：
+
+```cpp
+class Vec{
+  int x;
+  int y;
+public:
+  Vec(const int x, const int y) : y(y), x(x) {}
+  // 诸如 x(x) 一样的初始化是正确的写法！
+  // 外面的 x 是类内被初始化的对象（即 this->x），里面的 x 是构造函数传入的参数（const int x）
+};
+```
+
+事实上还是先初始化 x 再初始化 y。
+
+如果你这么写：
+
+```cpp
+class Vec{
+  int x = 1;
+  int y;
+public:
+  Vec(const int y) : y(y) {}
+};
+```
+
+尽管没有在初始化列表（即 `:` 后面）中写明应该怎么初始化 x，但我们赋予了它一个类内初始值，所以 x 会初始为 1。
+
+总的而言，对于一个类新建实例而言，按定义顺序初始化。初始化过程中，先看初始化列表里有没有初始化。有就用列表初始化，没有再看类内初始值；有类内初始值就用类内初始值初始化，没有就直接初始化（不保证是 0 初始化）。
