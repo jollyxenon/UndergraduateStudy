@@ -2,14 +2,13 @@
 #define WORLDBASE_H__
 
 #include <iostream>
-#include <set>
 #include <memory>
+#include <set>
 
 #include "pvz/utils.hpp"
 
-
 class WorldBase {
-public:
+ public:
   WorldBase() = default;
 
   virtual ~WorldBase() = default;
@@ -19,8 +18,6 @@ public:
   virtual LevelStatus Update() = 0;
 
   virtual void CleanUp() = 0;
-
 };
 
-
-#endif // !WORLDBASE_H__
+#endif  // !WORLDBASE_H__

@@ -14,13 +14,16 @@
 #include "pvz/utils.hpp"
 
 struct SpriteInfo {
-public:
+ public:
   SpriteInfo(std::string filename_, int totalWidth_, int totalHeight_,
              int spriteWidth_, int spriteHeight_, int cols_ = 1,
              int frames_ = 1)
       : filename((std::filesystem::path(ASSET_DIR) / filename_).string()),
-        totalWidth(totalWidth_), totalHeight(totalHeight_),
-        spriteWidth(spriteWidth_), spriteHeight(spriteHeight_), cols(cols_),
+        totalWidth(totalWidth_),
+        totalHeight(totalHeight_),
+        spriteWidth(spriteWidth_),
+        spriteHeight(spriteHeight_),
+        cols(cols_),
         frames(frames_) {}
   std::string filename;
   int totalWidth;
@@ -35,12 +38,12 @@ public:
 using SpriteInfoID = int;
 
 class SpriteManager {
-public:
+ public:
   // Meyers' singleton pattern
   virtual ~SpriteManager() {}
-  SpriteManager(const SpriteManager &other) = delete;
-  SpriteManager &operator=(const SpriteManager &other) = delete;
-  static SpriteManager &Instance() {
+  SpriteManager(const SpriteManager& other) = delete;
+  SpriteManager& operator=(const SpriteManager& other) = delete;
+  static SpriteManager& Instance() {
     static SpriteManager instance;
     return instance;
   }
@@ -49,7 +52,7 @@ public:
   SpriteInfo GetSpriteInfo(ImageID imageID, AnimID animID) const;
   // GLuint GetTexture(ImageID imageID, std::size_t frame) const;
 
-private:
+ private:
   SpriteManager();
 
   bool LoadSprites();
@@ -60,4 +63,4 @@ private:
 
   std::unordered_map<SpriteInfoID, SpriteInfo> m_spriteInfos;
 };
-#endif // !SPRITEMANAGER_HPP__
+#endif  // !SPRITEMANAGER_HPP__

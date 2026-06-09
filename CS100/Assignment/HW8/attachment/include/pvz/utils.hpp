@@ -39,8 +39,7 @@ static const std::string ASSET_DIR = FindAssetDir();
 
 // Returns a random integer within [min, max] (inclusive).
 inline int randInt(int min, int max) {
-  if (max < min)
-    std::swap(max, min);
+  if (max < min) std::swap(max, min);
   static std::random_device rd;
   static std::mt19937 generator(rd());
   std::uniform_int_distribution<> distro(min, max);
@@ -51,8 +50,8 @@ enum class LevelStatus { ONGOING, WINNING, LOSING };
 
 enum class KeyCode {
   NONE,
-  ENTER, // Enter
-  QUIT   // Esc
+  ENTER,  // Enter
+  QUIT    // Esc
 };
 
 const int WINDOW_WIDTH = 800;
@@ -66,9 +65,12 @@ const int FIRST_COL_CENTER = 75;
 const int GAME_ROWS = 5;
 const int GAME_COLS = 9;
 const int LAWN_GRID_LEFT = FIRST_COL_CENTER - LAWN_GRID_WIDTH / 2;
-const int LAWN_GRID_RIGHT = FIRST_COL_CENTER + (GAME_COLS - 1) * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
+const int LAWN_GRID_RIGHT =
+    FIRST_COL_CENTER + (GAME_COLS - 1) * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
 const int LAWN_GRID_BOTTOM = FIRST_ROW_CENTER - LAWN_GRID_HEIGHT / 2;
-const int LAWN_GRID_TOP = FIRST_ROW_CENTER + (GAME_ROWS - 1) * LAWN_GRID_HEIGHT + LAWN_GRID_HEIGHT / 2;
+const int LAWN_GRID_TOP = FIRST_ROW_CENTER +
+                          (GAME_ROWS - 1) * LAWN_GRID_HEIGHT +
+                          LAWN_GRID_HEIGHT / 2;
 const int LAWN_GRID_CENTER_Y = (LAWN_GRID_BOTTOM + LAWN_GRID_TOP) / 2;
 const int TOTAL_ROUNDS = 5;
 const int INITIAL_ZOMBIE_DEPLOYMENT_START_COL = 1;
@@ -148,4 +150,4 @@ enum class LayerID {
 
 const int MS_PER_FRAME = 33;
 
-#endif // !UTILS_HPP__
+#endif  // !UTILS_HPP__

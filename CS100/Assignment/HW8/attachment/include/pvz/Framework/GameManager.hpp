@@ -1,22 +1,24 @@
 #ifndef GAMEMANAGER_H__
 #define GAMEMANAGER_H__
 
+#include <map>
 #include <memory>
+#include <vector>
 
 #include "pvz/Framework/ObjectBase.hpp"
 #include "pvz/Framework/WorldBase.hpp"
 #include "pvz/utils.hpp"
 
-#include <vector>
-#include <map>
-
 class GameManager {
-public:
+ public:
   // Meyers' singleton pattern
   virtual ~GameManager() {}
   GameManager(const GameManager& other) = delete;
   GameManager& operator=(const GameManager& other) = delete;
-  static GameManager& Instance() { static GameManager instance; return instance; }
+  static GameManager& Instance() {
+    static GameManager instance;
+    return instance;
+  }
 
   void Play(int argc, char** argv, std::shared_ptr<WorldBase> world);
 
@@ -32,13 +34,16 @@ public:
   void SpecialKeyUpEvent(int key, int x, int y);
   void MouseDownEvent(int x, int y);
 
-  std::size_t DrawOneObject(ImageID imageID, AnimID animID, double x, double y, std::size_t frame) const;
-private:
-  enum class GameState{TITLE, ANIMATING, PROMPTING, GAMEOVER};
+  std::size_t DrawOneObject(ImageID imageID, AnimID animID, double x, double y,
+                            std::size_t frame) const;
+
+ private:
+  enum class GameState { TITLE, ANIMATING, PROMPTING, GAMEOVER };
   GameManager();
   inline double NormalizeCoord(double pixels, double totalPixels) const;
   inline int DenormalizeCoord(double normalizedCoord, double totalPixels) const;
-  inline void Rotate(double x, double y, double degrees, double& xout, double& yout) const;
+  inline void Rotate(double x, double y, double degrees, double& xout,
+                     double& yout) const;
   void Prompt(const char* title, const char* subtitle) const;
   void ShowLevelFinished(bool zombiesWon) const;
 
@@ -51,6 +56,5 @@ private:
   std::map<KeyCode, bool> m_pressedKeys;
 
   bool m_pause;
-
 };
-#endif // !GAMEMANAGER_H__
+#endif  // !GAMEMANAGER_H__
