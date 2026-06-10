@@ -6,7 +6,9 @@ platforms = ["linux-64", "win-64"]
 version = "0.1.0"
 
 [tasks]
+build = "cmake -B build -S . && cmake --build build"
 format = "sh -c 'find src -name \"*.cpp\" -exec clang-format -i {} +; find include -name \"*.hpp\" -exec clang-format -i {} +; find include -name \"*.h\" -exec clang-format -i {} +'"
+play = "sh -c './build/bin/PvZ'"
 
 [dependencies]
 cmake = ">=4.3.3,<5"
