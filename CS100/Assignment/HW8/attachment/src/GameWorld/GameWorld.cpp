@@ -1,7 +1,30 @@
 #include "pvz/GameWorld/GameWorld.hpp"
 
-// Initializes the object container for a new level.
-void GameWorld::Init() { m_objects.clear(); }
+#include "pvz/GameObject/UIObjects.hpp"
+
+namespace {
+
+// Base interface starts with one regular zombie card and this sun amount.
+constexpr int INITIAL_SUN_AMOUNT = 150;
+
+// Computes the red line x-coordinate from the current stage and its one-column
+// deployment buffer.
+int GetRedLineX(int stageStartCol) {
+  return FIRST_COL_CENTER +
+         (stageStartCol + ZOMBIE_DEPLOYMENT_BUFFER_COLS) * LAWN_GRID_WIDTH;
+}
+
+// The initial red line uses the first stage, not the final stage.
+const int INITIAL_RED_LINE_X = GetRedLineX(INITIAL_ZOMBIE_DEPLOYMENT_START_COL);
+
+}  // namespace
+
+// Initializes the object container and creates the static base interface.
+void GameWorld::Init() {
+  m_objects.clear();
+  m_sunCounterText.reset();
+  InitStaticInterface();
+}
 
 // Advances one frame, then clears objects that died during updates.
 LevelStatus GameWorld::Update() {
@@ -20,8 +43,31 @@ LevelStatus GameWorld::Update() {
   return LevelStatus::ONGOING;
 }
 
-// Clears ownership so ObjectBase unregisters renderable objects.
-void GameWorld::CleanUp() { m_objects.clear(); }
+// Clears ownership so ObjectBase and TextBase unregister renderable elements.
+void GameWorld::CleanUp() {
+  m_objects.clear();
+  m_sunCounterText.reset();
+}
+
+// Creates all non-interactive assets required by the base interface.
+void GameWorld::InitStaticInterface() {
+  // Background is a world object so it participates in the normal render layer.
+  AddObject(std::make_shared<BackgroundObject>());
+
+  // Static top-bar UI elements show available sun, one card, and level
+  // progress.
+  m_sunCounterText = std::make_shared<SunCounterText>(INITIAL_SUN_AMOUNT);
+  AddObject(std::make_shared<ZombieCardObject>(
+      ImageID::ZOMBIE_CARD_REGULAR, ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y));
+  AddObject(
+      std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1));
+
+  // Red line and brains visualize the current deployment boundary and goals.
+  AddObject(std::make_shared<RedLineObject>(INITIAL_RED_LINE_X));
+  for (int row = 0; row < GAME_ROWS; ++row) {
+    AddObject(std::make_shared<BrainObject>(row));
+  }
+}
 
 // Null objects are ignored; valid objects receive a weak owner pointer.
 void GameWorld::AddObject(GameObjectPtr object) {

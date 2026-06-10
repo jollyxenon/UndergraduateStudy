@@ -52,8 +52,14 @@ class GameWorld : public WorldBase,
   std::size_t GetObjectCount() const;
 
  private:
+  // Creates static background and UI elements for the base interface.
+  void InitStaticInterface();
+
   // All gameplay objects currently owned by the world.
   GameObjectList m_objects;
+
+  // Text object for the visible sun counter; TextBase self-registers globally.
+  std::shared_ptr<TextBase> m_sunCounterText;
 };
 
 #endif  // !GAMEWORLD_HPP__

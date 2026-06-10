@@ -4,6 +4,7 @@ add_library(
   GameObject
   STATIC
   GameObject.cpp
+  UIObjects.cpp
 )
 
 target_link_libraries(
