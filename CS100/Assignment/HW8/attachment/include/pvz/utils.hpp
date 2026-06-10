@@ -57,20 +57,25 @@ enum class KeyCode {
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-const int LAWN_GRID_WIDTH = 80;
-const int LAWN_GRID_HEIGHT = 100;
-
-const int FIRST_ROW_CENTER = 75;
-const int FIRST_COL_CENTER = 75;
 const int GAME_ROWS = 5;
 const int GAME_COLS = 9;
-const int LAWN_GRID_LEFT = FIRST_COL_CENTER - LAWN_GRID_WIDTH / 2;
-const int LAWN_GRID_RIGHT =
-    FIRST_COL_CENTER + (GAME_COLS - 1) * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
-const int LAWN_GRID_BOTTOM = FIRST_ROW_CENTER - LAWN_GRID_HEIGHT / 2;
-const int LAWN_GRID_TOP = FIRST_ROW_CENTER +
-                          (GAME_ROWS - 1) * LAWN_GRID_HEIGHT +
-                          LAWN_GRID_HEIGHT / 2;
+
+// Lawn bounds measured from the 800x600 background image's upper-left origin.
+const int LAWN_BACKGROUND_LEFT = 40;
+const int LAWN_BACKGROUND_TOP = 80;
+const int LAWN_BACKGROUND_RIGHT = 770;
+const int LAWN_BACKGROUND_BOTTOM = 580;
+
+// Converts the background-image lawn rectangle into the engine's bottom-left
+// coordinate system.
+const int LAWN_GRID_LEFT = LAWN_BACKGROUND_LEFT;
+const int LAWN_GRID_RIGHT = LAWN_BACKGROUND_RIGHT;
+const int LAWN_GRID_TOP = WINDOW_HEIGHT - LAWN_BACKGROUND_TOP;
+const int LAWN_GRID_BOTTOM = WINDOW_HEIGHT - LAWN_BACKGROUND_BOTTOM;
+const int LAWN_GRID_WIDTH = (LAWN_GRID_RIGHT - LAWN_GRID_LEFT) / GAME_COLS;
+const int LAWN_GRID_HEIGHT = (LAWN_GRID_TOP - LAWN_GRID_BOTTOM) / GAME_ROWS;
+const int FIRST_COL_CENTER = LAWN_GRID_LEFT + LAWN_GRID_WIDTH / 2;
+const int FIRST_ROW_CENTER = LAWN_GRID_BOTTOM + LAWN_GRID_HEIGHT / 2;
 const int LAWN_GRID_CENTER_Y = (LAWN_GRID_BOTTOM + LAWN_GRID_TOP) / 2;
 const int TOTAL_ROUNDS = 5;
 const int INITIAL_ZOMBIE_DEPLOYMENT_START_COL = 1;

@@ -7,11 +7,11 @@ namespace {
 // Base interface starts with one regular zombie card and this sun amount.
 constexpr int INITIAL_SUN_AMOUNT = 150;
 
-// Computes the red line x-coordinate from the current stage and its one-column
-// deployment buffer.
+// Computes the red line x-coordinate from exact grass bounds so the initial
+// line can sit precisely between the second and third columns.
 int GetRedLineX(int stageStartCol) {
-  return FIRST_COL_CENTER +
-         (stageStartCol + ZOMBIE_DEPLOYMENT_BUFFER_COLS) * LAWN_GRID_WIDTH;
+  return LAWN_GRID_LEFT + (stageStartCol + ZOMBIE_DEPLOYMENT_BUFFER_COLS) *
+                              (LAWN_GRID_RIGHT - LAWN_GRID_LEFT) / GAME_COLS;
 }
 
 // The initial red line uses the first stage, not the final stage.

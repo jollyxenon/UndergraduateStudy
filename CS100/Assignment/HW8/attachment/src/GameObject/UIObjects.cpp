@@ -13,11 +13,10 @@ constexpr int PROGRESS_METER_Y = 578;
 // Selected zombie cards rise slightly from their slot as visual feedback.
 constexpr int ZOMBIE_CARD_SELECTED_Y_OFFSET = 5;
 
-// Converts a lawn row index to the center Y coordinate of a brain sitting on
-// that row's bottom boundary line.
+// Converts a top-to-bottom lawn row index to its center Y coordinate in the
+// engine's bottom-left coordinate system.
 int GetBrainCenterY(int row) {
-  const int rowBottom = LAWN_GRID_BOTTOM + row * LAWN_GRID_HEIGHT;
-  return rowBottom + 31 / 2;
+  return LAWN_GRID_TOP - row * LAWN_GRID_HEIGHT - LAWN_GRID_HEIGHT / 2;
 }
 
 // Builds the visible sun text while keeping formatting in one place.
@@ -70,10 +69,10 @@ RedLineObject::RedLineObject(int x)
     : StaticUIObject(ImageID::RED_LINE, x, LAWN_GRID_CENTER_Y, LayerID::UI, 22,
                      502) {}
 
-// Brain icons sit on each row's bottom line in the leftmost lawn column.
+// Brain icons sit on the grass's left border, one centered in each row.
 BrainObject::BrainObject(int row)
-    : StaticUIObject(ImageID::BRAIN_ICON, FIRST_COL_CENTER,
-                     GetBrainCenterY(row), LayerID::UI, 32, 31) {}
+    : StaticUIObject(ImageID::BRAIN_ICON, LAWN_GRID_LEFT, GetBrainCenterY(row),
+                     LayerID::UI, 32, 31) {}
 
 // Progress-meter sprites use assets/flag_meter_*.png in the top-right corner.
 ProgressMeterObject::ProgressMeterObject(ImageID imageID)
