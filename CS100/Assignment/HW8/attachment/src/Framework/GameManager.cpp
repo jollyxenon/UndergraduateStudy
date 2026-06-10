@@ -203,7 +203,12 @@ void GameManager::SpecialKeyUpEvent(int key, int, int) {
   }
 }
 
-void GameManager::MouseDownEvent(int x, int y) { ObjectBase::ClickAt(x, y); }
+void GameManager::MouseDownEvent(int x, int y) {
+  if (m_world) {
+    m_world->BeginMouseDown(x, y);
+  }
+  ObjectBase::ClickAt(x, y);
+}
 
 bool GameManager::GetKey(KeyCode key) const {
   return m_pressedKeys.find(key) != m_pressedKeys.end();

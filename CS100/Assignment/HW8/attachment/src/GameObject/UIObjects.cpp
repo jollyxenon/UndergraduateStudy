@@ -2,11 +2,16 @@
 
 #include <string>
 
+#include "pvz/GameWorld/GameWorld.hpp"
+
 namespace {
 
 // Shared progress-meter anchor used by all progress-meter sprites.
 constexpr int PROGRESS_METER_X = 717;
 constexpr int PROGRESS_METER_Y = 578;
+
+// Selected zombie cards rise slightly from their slot as visual feedback.
+constexpr int ZOMBIE_CARD_SELECTED_Y_OFFSET = 5;
 
 // Converts a lawn row index to the center Y coordinate of a brain sitting on
 // that row's bottom boundary line.
@@ -35,7 +40,30 @@ BackgroundObject::BackgroundObject()
 
 // Zombie cards use assets/zombie_card_*.png and live on the UI layer.
 ZombieCardObject::ZombieCardObject(ImageID imageID, int x, int y)
-    : StaticUIObject(imageID, x, y, LayerID::UI, SEED_WIDTH, SEED_HEIGHT) {}
+    : StaticUIObject(imageID, x, y, LayerID::UI, SEED_WIDTH, SEED_HEIGHT),
+      m_selected(false) {}
+
+// Clicking a card asks the world to make it the only selected card.
+void ZombieCardObject::OnClick() {
+  std::shared_ptr<GameWorld> world = GetWorld();
+  if (world) {
+    world->SelectZombieCard(*this);
+  }
+}
+
+// Changing selection moves the card exactly once in either direction.
+void ZombieCardObject::SetSelected(bool selected) {
+  if (m_selected == selected) {
+    return;
+  }
+  m_selected = selected;
+  const int yOffset =
+      selected ? ZOMBIE_CARD_SELECTED_Y_OFFSET : -ZOMBIE_CARD_SELECTED_Y_OFFSET;
+  MoveTo(GetX(), GetY() + yOffset);
+}
+
+// Selection is cached so duplicate clicks do not move the card repeatedly.
+bool ZombieCardObject::IsSelected() const { return m_selected; }
 
 // The red line sprite marks where the current deployment area starts.
 RedLineObject::RedLineObject(int x)

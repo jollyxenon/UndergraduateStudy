@@ -30,6 +30,19 @@ class ZombieCardObject final : public StaticUIObject {
  public:
   // Places the selected zombie card image at its card slot.
   ZombieCardObject(ImageID imageID, int x, int y);
+
+  // Asks the world to make this the only selected zombie card.
+  void OnClick() override;
+
+  // Applies or removes the selected visual state.
+  void SetSelected(bool selected);
+
+  // Returns whether this card is currently selected.
+  bool IsSelected() const;
+
+ private:
+  // Whether this card has already entered the selected visual state.
+  bool m_selected;
 };
 
 // Draws the red vertical deployment boundary line.

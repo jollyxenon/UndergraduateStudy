@@ -10,6 +10,8 @@
 #include "pvz/GameObject/GameObject.hpp"
 #include "pvz/utils.hpp"
 
+class ZombieCardObject;
+
 // Owns and updates all gameplay objects for the current level.
 class GameWorld : public WorldBase,
                   public std::enable_shared_from_this<GameWorld> {
@@ -48,6 +50,15 @@ class GameWorld : public WorldBase,
   void ForEachObject(
       const std::function<void(const GameObject&)>& visitor) const;
 
+  // Starts a mouse click by cancelling the previous card selection.
+  void BeginMouseDown(int x, int y) override;
+
+  // Makes the given zombie card the only selected card.
+  void SelectZombieCard(ZombieCardObject& card);
+
+  // Clears any selected zombie card.
+  void ClearSelectedZombieCard();
+
   // Returns number of objects currently owned by the world.
   std::size_t GetObjectCount() const;
 
@@ -60,6 +71,12 @@ class GameWorld : public WorldBase,
 
   // Text object for the visible sun counter; TextBase self-registers globally.
   std::shared_ptr<TextBase> m_sunCounterText;
+
+  // Currently selected zombie card; owned by m_objects and cleared on cleanup.
+  ZombieCardObject* m_selectedZombieCard = nullptr;
+
+  // Card cancelled at the start of this click, used to avoid reselecting it.
+  ZombieCardObject* m_cancelledZombieCardThisMouseDown = nullptr;
 };
 
 #endif  // !GAMEWORLD_HPP__

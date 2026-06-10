@@ -23,6 +23,8 @@ const int INITIAL_RED_LINE_X = GetRedLineX(INITIAL_ZOMBIE_DEPLOYMENT_START_COL);
 void GameWorld::Init() {
   m_objects.clear();
   m_sunCounterText.reset();
+  m_selectedZombieCard = nullptr;
+  m_cancelledZombieCardThisMouseDown = nullptr;
   InitStaticInterface();
 }
 
@@ -47,6 +49,8 @@ LevelStatus GameWorld::Update() {
 void GameWorld::CleanUp() {
   m_objects.clear();
   m_sunCounterText.reset();
+  m_selectedZombieCard = nullptr;
+  m_cancelledZombieCardThisMouseDown = nullptr;
 }
 
 // Creates all non-interactive assets required by the base interface.
@@ -80,6 +84,9 @@ void GameWorld::AddObject(GameObjectPtr object) {
 
 // Dead or null objects leave the container at frame end.
 void GameWorld::RemoveDeadObjects() {
+  if (m_selectedZombieCard && !m_selectedZombieCard->IsAlive()) {
+    m_selectedZombieCard = nullptr;
+  }
   m_objects.remove_if([](const GameObjectPtr& object) {
     return !object || !object->IsAlive();
   });
@@ -102,6 +109,29 @@ void GameWorld::ForEachObject(
       visitor(*object);
     }
   }
+}
+
+// Every click first cancels the old card selection before dispatching targets.
+void GameWorld::BeginMouseDown(int, int) {
+  m_cancelledZombieCardThisMouseDown = m_selectedZombieCard;
+  ClearSelectedZombieCard();
+}
+
+// Selecting the just-cancelled card means toggling it off; other cards select.
+void GameWorld::SelectZombieCard(ZombieCardObject& card) {
+  if (m_cancelledZombieCardThisMouseDown == &card) {
+    return;
+  }
+  card.SetSelected(true);
+  m_selectedZombieCard = &card;
+}
+
+// Clearing selection restores the card to its normal slot when it still exists.
+void GameWorld::ClearSelectedZombieCard() {
+  if (m_selectedZombieCard) {
+    m_selectedZombieCard->SetSelected(false);
+  }
+  m_selectedZombieCard = nullptr;
 }
 
 // Object count is exposed for simple validation and later UI/debug logic.

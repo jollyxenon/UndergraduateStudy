@@ -18,6 +18,9 @@ class WorldBase {
   virtual LevelStatus Update() = 0;
 
   virtual void CleanUp() = 0;
+
+  // Runs before ObjectBase dispatches a mouse-down event to clicked objects.
+  virtual void BeginMouseDown(int, int) {}
 };
 
 #endif  // !WORLDBASE_H__
