@@ -8,6 +8,9 @@ namespace {
 // Base interface starts with one regular zombie card and this sun amount.
 constexpr int INITIAL_SUN_AMOUNT = 150;
 
+// A regular zombie costs two small sun units in I, Zombie mode.
+constexpr int REGULAR_ZOMBIE_SUN_COST = 50;
+
 // Computes the red line x-coordinate from exact grass bounds so the initial
 // line can sit precisely between the second and third columns.
 int GetRedLineX(int stageStartCol) {
@@ -35,6 +38,7 @@ int GetGridRowFromY(int y) { return (LAWN_GRID_TOP - y) / LAWN_GRID_HEIGHT; }
 // Initializes the object container and creates the static base interface.
 void GameWorld::Init() {
   m_objects.clear();
+  m_sunAmount = INITIAL_SUN_AMOUNT;
   m_sunCounterText.reset();
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -61,6 +65,7 @@ LevelStatus GameWorld::Update() {
 // Clears ownership so ObjectBase and TextBase unregister renderable elements.
 void GameWorld::CleanUp() {
   m_objects.clear();
+  m_sunAmount = 0;
   m_sunCounterText.reset();
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -73,7 +78,7 @@ void GameWorld::InitStaticInterface() {
 
   // Static top-bar UI elements show available sun, one card, and level
   // progress.
-  m_sunCounterText = std::make_shared<SunCounterText>(INITIAL_SUN_AMOUNT);
+  m_sunCounterText = std::make_shared<SunCounterText>(m_sunAmount);
   AddObject(std::make_shared<ZombieCardObject>(
       ImageID::ZOMBIE_CARD_REGULAR, ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y));
   AddObject(
@@ -142,7 +147,22 @@ bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
 
   const int row = GetGridRowFromY(y);
   const int col = GetGridColFromX(x);
+  if (!TrySpendSun(REGULAR_ZOMBIE_SUN_COST)) {
+    return false;
+  }
   AddObject(std::make_shared<RegularZombieObject>(row, col));
+  return true;
+}
+
+// Spending sun updates both gameplay state and the visible counter atomically.
+bool GameWorld::TrySpendSun(int sunCost) {
+  if (m_sunAmount < sunCost) {
+    return false;
+  }
+  m_sunAmount -= sunCost;
+  if (m_sunCounterText) {
+    m_sunCounterText->SetSunAmount(m_sunAmount);
+  }
   return true;
 }
 

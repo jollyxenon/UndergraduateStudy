@@ -10,6 +10,7 @@
 #include "pvz/GameObject/GameObject.hpp"
 #include "pvz/utils.hpp"
 
+class SunCounterText;
 class ZombieCardObject;
 
 // Owns and updates all gameplay objects for the current level.
@@ -69,11 +70,17 @@ class GameWorld : public WorldBase,
   // Attempts to place the previously selected zombie at the clicked grid cell.
   bool TryPlaceSelectedZombie(int x, int y);
 
+  // Spends sun if enough is available for the requested zombie cost.
+  bool TrySpendSun(int sunCost);
+
   // All gameplay objects currently owned by the world.
   GameObjectList m_objects;
 
+  // Current spendable sun amount for zombie deployment.
+  int m_sunAmount = 0;
+
   // Text object for the visible sun counter; TextBase self-registers globally.
-  std::shared_ptr<TextBase> m_sunCounterText;
+  std::shared_ptr<SunCounterText> m_sunCounterText;
 
   // Currently selected zombie card; owned by m_objects and cleared on cleanup.
   ZombieCardObject* m_selectedZombieCard = nullptr;
