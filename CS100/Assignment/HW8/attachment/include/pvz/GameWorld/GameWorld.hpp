@@ -59,6 +59,12 @@ class GameWorld : public WorldBase,
   // Returns the first living brain touching the given zombie's body.
   GameObject* FindCollidingBrain(const GameObject& zombie);
 
+  // Returns whether a living zombie is on the same row and right side.
+  bool HasZombieOnRight(int row, int x) const;
+
+  // Returns the first living zombie touching the given projectile's body.
+  GameObject* FindCollidingZombie(const GameObject& projectile);
+
   // Starts a mouse click by cancelling the previous card selection.
   void BeginMouseDown(int x, int y) override;
 

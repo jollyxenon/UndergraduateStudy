@@ -28,6 +28,13 @@ class PeashooterObject final : public PlantObject {
  public:
   // Creates a peashooter centered on the requested grid cell.
   PeashooterObject(int row, int col);
+
+  // Fires peas only when a living zombie exists to the right on the same row.
+  void Update() override;
+
+ private:
+  // Tracks frames remaining until this peashooter can fire again.
+  int m_shootCooldown = 0;
 };
 
 #endif  // !PLANTOBJECTS_HPP__

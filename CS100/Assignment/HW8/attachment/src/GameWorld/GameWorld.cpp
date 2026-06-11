@@ -214,6 +214,40 @@ GameObject* GameWorld::FindCollidingBrain(const GameObject& zombie) {
   return nullptr;
 }
 
+// Shooter targeting checks for any same-row zombie strictly to the right.
+bool GameWorld::HasZombieOnRight(int row, int x) const {
+  for (const GameObjectPtr& object : m_objects) {
+    if (object && object->IsAlive() &&
+        object->GetType() == GameObjectType::ZOMBIE &&
+        object->GetRow() == row && object->GetX() > x) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Projectile collision uses same-row bounding boxes and category metadata.
+GameObject* GameWorld::FindCollidingZombie(const GameObject& projectile) {
+  GameObject* firstZombie = nullptr;
+  for (const GameObjectPtr& object : m_objects) {
+    if (!object || !object->IsAlive() ||
+        object->GetType() != GameObjectType::ZOMBIE ||
+        object->GetRow() != projectile.GetRow()) {
+      continue;
+    }
+
+    const int projectileLeft = projectile.GetX() - projectile.GetWidth() / 2;
+    const int projectileRight = projectile.GetX() + projectile.GetWidth() / 2;
+    const int zombieLeft = object->GetX() - object->GetWidth() / 2;
+    const int zombieRight = object->GetX() + object->GetWidth() / 2;
+    if (projectileLeft <= zombieRight && projectileRight >= zombieLeft &&
+        (!firstZombie || object->GetX() < firstZombie->GetX())) {
+      firstZombie = object.get();
+    }
+  }
+  return firstZombie;
+}
+
 // Every click first tries selected-card placement, then clears old selection.
 void GameWorld::BeginMouseDown(int x, int y) {
   m_cancelledZombieCardThisMouseDown = m_selectedZombieCard;

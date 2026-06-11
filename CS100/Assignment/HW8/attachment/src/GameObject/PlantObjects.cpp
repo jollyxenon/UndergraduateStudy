@@ -1,11 +1,16 @@
 #include "pvz/GameObject/PlantObjects.hpp"
 
+#include "pvz/GameObject/ProjectileObjects.hpp"
+#include "pvz/GameWorld/GameWorld.hpp"
+
 namespace {
 
 // Assignment-specified plant sprite dimensions and hit points.
 constexpr int PLANT_WIDTH = 60;
 constexpr int PLANT_HEIGHT = 80;
 constexpr int PLANT_HP = 340;
+constexpr int PEASHOOTER_FIRE_INTERVAL_FRAMES = 30;
+constexpr int PEA_SPAWN_X_OFFSET = 30;
 
 // Converts a grid column index to the center x-coordinate of that cell.
 int GetGridCenterX(int col) {
@@ -44,3 +49,25 @@ SunflowerObject::SunflowerObject(int row, int col)
 PeashooterObject::PeashooterObject(int row, int col)
     : PlantObject(ImageID::PEASHOOTER, GetGridCenterX(col), GetGridCenterY(row),
                   PLANT_HP, row, col) {}
+
+// Peashooters fire at a steady pace while a same-row zombie is to the right.
+void PeashooterObject::Update() {
+  PlantObject::Update();
+  if (!IsAlive()) {
+    return;
+  }
+
+  if (m_shootCooldown > 0) {
+    --m_shootCooldown;
+  }
+
+  const std::shared_ptr<GameWorld> world = GetWorld();
+  if (!world || !world->HasZombieOnRight(GetRow(), GetX()) ||
+      m_shootCooldown > 0) {
+    return;
+  }
+
+  world->AddObject(std::make_shared<PeaObject>(
+      GetRow(), GetX() + PEA_SPAWN_X_OFFSET, GetY() + PLANT_HEIGHT / 8));
+  m_shootCooldown = PEASHOOTER_FIRE_INTERVAL_FRAMES;
+}
