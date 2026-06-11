@@ -1,5 +1,7 @@
 #include "pvz/GameObject/UIObjects.hpp"
 
+#include <algorithm>
+#include <cmath>
 #include <string>
 
 #include "pvz/GameWorld/GameWorld.hpp"
@@ -12,6 +14,9 @@ constexpr int PROGRESS_METER_Y = 578;
 
 // Selected zombie cards rise slightly from their slot as visual feedback.
 constexpr int ZOMBIE_CARD_SELECTED_Y_OFFSET = 5;
+
+// Zombie cards stay unavailable for roughly two seconds after successful use.
+constexpr int ZOMBIE_CARD_COOLDOWN_FRAMES = 2000 / MS_PER_FRAME;
 
 // Converts a top-to-bottom lawn row index to its center Y coordinate in the
 // engine's bottom-left coordinate system.
@@ -37,16 +42,55 @@ BackgroundObject::BackgroundObject()
     : StaticUIObject(ImageID::BACKGROUND, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2,
                      LayerID::BACKGROUND, WINDOW_WIDTH, WINDOW_HEIGHT) {}
 
+// Cooldown masks cover cards and sit on the dedicated cooldown-mask layer.
+CooldownMaskObject::CooldownMaskObject(int x, int y)
+    : StaticUIObject(ImageID::COOLDOWN_MASK, x, y, LayerID::COOLDOWN_MASK,
+                     SEED_WIDTH, SEED_HEIGHT),
+      m_cardCenterY(y) {}
+
+// The mask keeps its top edge fixed and shortens linearly as cooldown expires.
+void CooldownMaskObject::SetRemainingRatio(double remainingRatio) {
+  const double clampedRatio = std::clamp(remainingRatio, 0.0, 1.0);
+  const int maskHeight =
+      static_cast<int>(std::ceil(SEED_HEIGHT * clampedRatio));
+  ResizeTo(SEED_WIDTH, maskHeight);
+  MoveTo(GetX(), m_cardCenterY + (SEED_HEIGHT - maskHeight) / 2);
+}
+
 // Zombie cards use assets/zombie_card_*.png and live on the UI layer.
 ZombieCardObject::ZombieCardObject(ImageID imageID, int x, int y)
     : StaticUIObject(imageID, x, y, LayerID::UI, SEED_WIDTH, SEED_HEIGHT),
-      m_selected(false) {}
+      m_selected(false),
+      m_cooldownFrames(0),
+      m_cooldownMask(nullptr) {}
 
 // Clicking a card asks the world to make it the only selected card.
 void ZombieCardObject::OnClick() {
+  if (IsCoolingDown()) {
+    return;
+  }
+
   std::shared_ptr<GameWorld> world = GetWorld();
   if (world) {
     world->SelectZombieCard(*this);
+  }
+}
+
+// Cooling cards tick down once per frame and clear their overlay at the end.
+void ZombieCardObject::Update() {
+  if (!IsCoolingDown()) {
+    return;
+  }
+
+  --m_cooldownFrames;
+  if (m_cooldownMask) {
+    m_cooldownMask->SetRemainingRatio(static_cast<double>(m_cooldownFrames) /
+                                      ZOMBIE_CARD_COOLDOWN_FRAMES);
+  }
+
+  if (m_cooldownFrames <= 0 && m_cooldownMask) {
+    m_cooldownMask->Kill();
+    m_cooldownMask.reset();
   }
 }
 
@@ -60,6 +104,26 @@ void ZombieCardObject::SetSelected(bool selected) {
       selected ? ZOMBIE_CARD_SELECTED_Y_OFFSET : -ZOMBIE_CARD_SELECTED_Y_OFFSET;
   MoveTo(GetX(), GetY() + yOffset);
 }
+
+// A successful deployment makes the card unavailable and shows a blocking mask.
+void ZombieCardObject::StartCooldown() {
+  SetSelected(false);
+  m_cooldownFrames = ZOMBIE_CARD_COOLDOWN_FRAMES;
+
+  if (m_cooldownMask && m_cooldownMask->IsAlive()) {
+    return;
+  }
+
+  m_cooldownMask = std::make_shared<CooldownMaskObject>(GetX(), GetY());
+  m_cooldownMask->SetRemainingRatio(1.0);
+  std::shared_ptr<GameWorld> world = GetWorld();
+  if (world) {
+    world->AddObject(m_cooldownMask);
+  }
+}
+
+// A positive frame counter means the card cannot currently be selected.
+bool ZombieCardObject::IsCoolingDown() const { return m_cooldownFrames > 0; }
 
 // Selection is cached so duplicate clicks do not move the card repeatedly.
 bool ZombieCardObject::IsSelected() const { return m_selected; }

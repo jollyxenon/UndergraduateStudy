@@ -234,8 +234,10 @@ void GameManager::Display() {
 
   // Display all GameObjects
   ObjectBase::DisplayAllObjects([=](ImageID imageID, AnimID animID, double x,
-                                    double y, std::size_t frame) {
-    return GameManager::Instance().DrawOneObject(imageID, animID, x, y, frame);
+                                    double y, double width, double height,
+                                    std::size_t frame) {
+    return GameManager::Instance().DrawOneObject(imageID, animID, x, y, width,
+                                                 height, frame);
   });
 
   // Display all Texts in game
@@ -271,7 +273,8 @@ inline void GameManager::Rotate(double x, double y, double degrees,
 
 // Draws one object and returns its next frame.
 std::size_t GameManager::DrawOneObject(ImageID imageID, AnimID animID, double x,
-                                       double y, std::size_t frame) const {
+                                       double y, double width, double height,
+                                       std::size_t frame) const {
   SpriteInfo spriteInfo =
       SpriteManager::Instance().GetSpriteInfo(imageID, animID);
   if (spriteInfo.texture == 0) {
@@ -294,8 +297,8 @@ std::size_t GameManager::DrawOneObject(ImageID imageID, AnimID animID, double x,
 
   double centerX = NormalizeCoord(x, WINDOW_WIDTH);
   double centerY = NormalizeCoord(y, WINDOW_HEIGHT);
-  double halfW = spriteInfo.spriteWidth / 2.0;
-  double halfH = spriteInfo.spriteHeight / 2.0;
+  double halfW = width / 2.0;
+  double halfH = height / 2.0;
 
   int spriteRow = frame / spriteInfo.cols, spriteCol = frame % spriteInfo.cols;
   double spriteWidth = (double)spriteInfo.spriteWidth / spriteInfo.totalWidth;
@@ -343,7 +346,7 @@ void GameManager::ShowLevelFinished(bool zombiesWon) const {
 
   if (zombiesWon) {
     DrawOneObject(ImageID::ZOMBIES_WON, AnimID::NO_ANIMATION, WINDOW_WIDTH / 2,
-                  WINDOW_HEIGHT / 2 + 50, 0);
+                  WINDOW_HEIGHT / 2 + 50, 564, 468, 0);
   }
 
   // enables user to display end-game result text.

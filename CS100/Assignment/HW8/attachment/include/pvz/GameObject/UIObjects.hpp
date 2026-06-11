@@ -1,6 +1,7 @@
 #ifndef UIOBJECTS_HPP__
 #define UIOBJECTS_HPP__
 
+#include <memory>
 #include <string>
 
 #include "pvz/Framework/TextBase.hpp"
@@ -25,6 +26,20 @@ class BackgroundObject final : public StaticUIObject {
   BackgroundObject();
 };
 
+// Draws the semi-transparent overlay for a card that is cooling down.
+class CooldownMaskObject final : public StaticUIObject {
+ public:
+  // Places the cooldown mask directly over the card slot.
+  CooldownMaskObject(int x, int y);
+
+  // Resizes the mask according to the remaining cooldown ratio.
+  void SetRemainingRatio(double remainingRatio);
+
+ private:
+  // Original card center used to keep the shrinking mask top-aligned.
+  int m_cardCenterY;
+};
+
 // Draws one zombie card in the top UI bar.
 class ZombieCardObject final : public StaticUIObject {
  public:
@@ -34,8 +49,17 @@ class ZombieCardObject final : public StaticUIObject {
   // Asks the world to make this the only selected zombie card.
   void OnClick() override;
 
+  // Counts down cooldown frames and removes the visible mask when done.
+  void Update() override;
+
   // Applies or removes the selected visual state.
   void SetSelected(bool selected);
+
+  // Starts the post-placement cooldown and shows its mask.
+  void StartCooldown();
+
+  // Returns whether this card is temporarily unavailable.
+  bool IsCoolingDown() const;
 
   // Returns whether this card is currently selected.
   bool IsSelected() const;
@@ -43,6 +67,12 @@ class ZombieCardObject final : public StaticUIObject {
  private:
   // Whether this card has already entered the selected visual state.
   bool m_selected;
+
+  // Remaining update ticks before the card can be selected again.
+  int m_cooldownFrames;
+
+  // World-owned overlay that visually blocks this card while cooling down.
+  std::shared_ptr<CooldownMaskObject> m_cooldownMask;
 };
 
 // Draws the red vertical deployment boundary line.

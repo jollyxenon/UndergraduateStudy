@@ -28,6 +28,9 @@ class ObjectBase {
 
   void MoveTo(int x, int y);
 
+  // Updates the object's rendered and clickable size.
+  void ResizeTo(int width, int height);
+
   AnimID GetCurrentAnimation() const;
   void ChangeImage(ImageID imageID);
   void PlayAnimation(AnimID animID);
@@ -49,9 +52,9 @@ class ObjectBase {
   static void DisplayAllObjects(Func displayAndAnimateFunc) {
     for (int layer = MAX_LAYERS - 1; layer >= 0; layer--) {
       for (auto& obj : GetObjects(static_cast<LayerID>(layer))) {
-        obj->m_currentFrame =
-            displayAndAnimateFunc(obj->m_imageID, obj->m_animID, obj->m_x,
-                                  obj->m_y, obj->m_currentFrame);
+        obj->m_currentFrame = displayAndAnimateFunc(
+            obj->m_imageID, obj->m_animID, obj->m_x, obj->m_y, obj->m_width,
+            obj->m_height, obj->m_currentFrame);
       }
     }
   }

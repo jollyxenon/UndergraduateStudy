@@ -35,6 +35,7 @@ class GameManager {
   void MouseDownEvent(int x, int y);
 
   std::size_t DrawOneObject(ImageID imageID, AnimID animID, double x, double y,
+                            double width, double height,
                             std::size_t frame) const;
 
  private:

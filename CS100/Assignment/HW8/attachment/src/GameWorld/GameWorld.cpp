@@ -151,6 +151,7 @@ bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
     return false;
   }
   AddObject(std::make_shared<RegularZombieObject>(row, col));
+  m_selectedZombieCard->StartCooldown();
   return true;
 }
 
@@ -169,6 +170,9 @@ bool GameWorld::TrySpendSun(int sunCost) {
 // Selecting the just-cancelled card means toggling it off; other cards select.
 void GameWorld::SelectZombieCard(ZombieCardObject& card) {
   if (m_cancelledZombieCardThisMouseDown == &card) {
+    return;
+  }
+  if (card.IsCoolingDown()) {
     return;
   }
   card.SetSelected(true);

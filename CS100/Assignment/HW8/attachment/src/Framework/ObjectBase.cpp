@@ -34,6 +34,12 @@ void ObjectBase::MoveTo(int x, int y) {
   m_y = y;
 }
 
+// Size changes are used by UI state effects such as cooldown masks.
+void ObjectBase::ResizeTo(int width, int height) {
+  m_width = width;
+  m_height = height;
+}
+
 void ObjectBase::ChangeImage(ImageID imageID) { m_imageID = imageID; }
 
 void ObjectBase::PlayAnimation(AnimID animID) {
