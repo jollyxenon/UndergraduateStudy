@@ -1,6 +1,7 @@
 #include "pvz/GameWorld/GameWorld.hpp"
 
 #include "pvz/GameObject/UIObjects.hpp"
+#include "pvz/GameObject/ZombieObjects.hpp"
 
 namespace {
 
@@ -16,6 +17,18 @@ int GetRedLineX(int stageStartCol) {
 
 // The initial red line uses the first stage, not the final stage.
 const int INITIAL_RED_LINE_X = GetRedLineX(INITIAL_ZOMBIE_DEPLOYMENT_START_COL);
+
+// Returns whether a click is inside the lawn's rectangular grid bounds.
+bool IsInsideLawnGrid(int x, int y) {
+  return x >= LAWN_GRID_LEFT && x < LAWN_GRID_RIGHT && y >= LAWN_GRID_BOTTOM &&
+         y < LAWN_GRID_TOP;
+}
+
+// Converts a click x-coordinate to the containing grid column.
+int GetGridColFromX(int x) { return (x - LAWN_GRID_LEFT) / LAWN_GRID_WIDTH; }
+
+// Converts a click y-coordinate to the top-to-bottom grid row.
+int GetGridRowFromY(int y) { return (LAWN_GRID_TOP - y) / LAWN_GRID_HEIGHT; }
 
 }  // namespace
 
@@ -111,10 +124,26 @@ void GameWorld::ForEachObject(
   }
 }
 
-// Every click first cancels the old card selection before dispatching targets.
-void GameWorld::BeginMouseDown(int, int) {
+// Every click first tries selected-card placement, then clears old selection.
+void GameWorld::BeginMouseDown(int x, int y) {
   m_cancelledZombieCardThisMouseDown = m_selectedZombieCard;
+  if (TryPlaceSelectedZombie(x, y)) {
+    m_cancelledZombieCardThisMouseDown = nullptr;
+  }
   ClearSelectedZombieCard();
+}
+
+// Selected regular-zombie cards place one zombie in the deployable lawn cells.
+bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
+  if (!m_selectedZombieCard || !IsInsideLawnGrid(x, y) ||
+      x < INITIAL_RED_LINE_X) {
+    return false;
+  }
+
+  const int row = GetGridRowFromY(y);
+  const int col = GetGridColFromX(x);
+  AddObject(std::make_shared<RegularZombieObject>(row, col));
+  return true;
 }
 
 // Selecting the just-cancelled card means toggling it off; other cards select.

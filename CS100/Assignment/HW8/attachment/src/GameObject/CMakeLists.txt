@@ -5,6 +5,7 @@ add_library(
   STATIC
   GameObject.cpp
   UIObjects.cpp
+  ZombieObjects.cpp
 )
 
 target_link_libraries(
