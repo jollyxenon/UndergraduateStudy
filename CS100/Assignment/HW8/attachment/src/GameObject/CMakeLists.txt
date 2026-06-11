@@ -4,6 +4,7 @@ add_library(
   GameObject
   STATIC
   GameObject.cpp
+  PlantObjects.cpp
   UIObjects.cpp
   ZombieObjects.cpp
 )

@@ -1,5 +1,6 @@
 #include "pvz/GameWorld/GameWorld.hpp"
 
+#include "pvz/GameObject/PlantObjects.hpp"
 #include "pvz/GameObject/UIObjects.hpp"
 #include "pvz/GameObject/ZombieObjects.hpp"
 
@@ -10,6 +11,10 @@ constexpr int INITIAL_SUN_AMOUNT = 150;
 
 // A regular zombie costs two small sun units in I, Zombie mode.
 constexpr int REGULAR_ZOMBIE_SUN_COST = 50;
+
+// Plants are generated only in columns strictly left of the initial red line.
+constexpr int INITIAL_PLANT_DEFENSE_COLS =
+    INITIAL_ZOMBIE_DEPLOYMENT_START_COL + ZOMBIE_DEPLOYMENT_BUFFER_COLS;
 
 // Computes the red line x-coordinate from exact grass bounds so the initial
 // line can sit precisely between the second and third columns.
@@ -42,7 +47,9 @@ void GameWorld::Init() {
   m_sunCounterText.reset();
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
+  ClearPlantGrid();
   InitStaticInterface();
+  GeneratePlantDefense();
 }
 
 // Advances one frame, then clears objects that died during updates.
@@ -69,6 +76,7 @@ void GameWorld::CleanUp() {
   m_sunCounterText.reset();
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
+  ClearPlantGrid();
 }
 
 // Creates all non-interactive assets required by the base interface.
@@ -89,6 +97,43 @@ void GameWorld::InitStaticInterface() {
   for (int row = 0; row < GAME_ROWS; ++row) {
     AddObject(std::make_shared<BrainObject>(row));
   }
+}
+
+// Plant occupancy is reset before generating a new level or stage defense.
+void GameWorld::ClearPlantGrid() {
+  for (auto& row : m_plantGrid) {
+    row.fill(false);
+  }
+}
+
+// Each row receives at least one random plant left of the red line; the second
+// available cell may also receive a plant to vary the defense between runs.
+void GameWorld::GeneratePlantDefense() {
+  for (int row = 0; row < GAME_ROWS; ++row) {
+    const int firstCol = randInt(0, INITIAL_PLANT_DEFENSE_COLS - 1);
+    TryAddPlantAt(row, firstCol, randInt(0, 1) == 1);
+
+    const int secondCol = 1 - firstCol;
+    if (INITIAL_PLANT_DEFENSE_COLS > 1 && randInt(0, 99) < 35) {
+      TryAddPlantAt(row, secondCol, randInt(0, 1) == 1);
+    }
+  }
+}
+
+// Plant creation is centralized so occupancy and world ownership stay in sync.
+bool GameWorld::TryAddPlantAt(int row, int col, bool usePeashooter) {
+  if (row < 0 || row >= GAME_ROWS || col < 0 ||
+      col >= INITIAL_PLANT_DEFENSE_COLS || m_plantGrid[row][col]) {
+    return false;
+  }
+
+  m_plantGrid[row][col] = true;
+  if (usePeashooter) {
+    AddObject(std::make_shared<PeashooterObject>(row, col));
+  } else {
+    AddObject(std::make_shared<SunflowerObject>(row, col));
+  }
+  return true;
 }
 
 // Null objects are ignored; valid objects receive a weak owner pointer.
@@ -189,4 +234,3 @@ void GameWorld::ClearSelectedZombieCard() {
 
 // Object count is exposed for simple validation and later UI/debug logic.
 std::size_t GameWorld::GetObjectCount() const { return m_objects.size(); }
-

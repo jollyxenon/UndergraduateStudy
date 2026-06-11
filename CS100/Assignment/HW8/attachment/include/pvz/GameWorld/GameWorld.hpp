@@ -1,6 +1,7 @@
 #ifndef GAMEWORLD_HPP__
 #define GAMEWORLD_HPP__
 
+#include <array>
 #include <functional>
 #include <list>
 #include <memory>
@@ -12,6 +13,7 @@
 
 class SunCounterText;
 class ZombieCardObject;
+class PlantObject;
 
 // Owns and updates all gameplay objects for the current level.
 class GameWorld : public WorldBase,
@@ -67,6 +69,15 @@ class GameWorld : public WorldBase,
   // Creates static background and UI elements for the base interface.
   void InitStaticInterface();
 
+  // Clears the per-cell plant occupancy records for a fresh level stage.
+  void ClearPlantGrid();
+
+  // Randomly creates a playable plant defense on the red line's left side.
+  void GeneratePlantDefense();
+
+  // Adds one plant if the requested grid cell is legal and empty.
+  bool TryAddPlantAt(int row, int col, bool usePeashooter);
+
   // Attempts to place the previously selected zombie at the clicked grid cell.
   bool TryPlaceSelectedZombie(int x, int y);
 
@@ -75,6 +86,9 @@ class GameWorld : public WorldBase,
 
   // All gameplay objects currently owned by the world.
   GameObjectList m_objects;
+
+  // Plant occupancy records prevent duplicate plants in one lawn cell.
+  std::array<std::array<bool, GAME_COLS>, GAME_ROWS> m_plantGrid{};
 
   // Current spendable sun amount for zombie deployment.
   int m_sunAmount = 0;
@@ -90,4 +104,3 @@ class GameWorld : public WorldBase,
 };
 
 #endif  // !GAMEWORLD_HPP__
-
