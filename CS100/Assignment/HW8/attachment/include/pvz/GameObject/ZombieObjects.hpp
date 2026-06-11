@@ -12,6 +12,9 @@ class ZombieObject : public GameObject {
 
   // Zombies are grouped under the zombie category.
   GameObjectType GetType() const override;
+
+  // Advances the walking zombie one frame toward the left side of the lawn.
+  void Update() override;
 };
 
 // Draws a regular walking zombie placed by the zombie card.

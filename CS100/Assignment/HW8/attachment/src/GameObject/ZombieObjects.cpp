@@ -7,6 +7,7 @@ namespace {
 constexpr int REGULAR_ZOMBIE_WIDTH = 100;
 constexpr int REGULAR_ZOMBIE_HEIGHT = 139;
 constexpr int REGULAR_ZOMBIE_HP = 270;
+constexpr int ZOMBIE_WALK_SPEED = 1;
 
 // Converts a grid column index to the center x-coordinate of that cell.
 int GetGridCenterX(int col) {
@@ -28,6 +29,9 @@ ZombieObject::ZombieObject(ImageID imageID, int x, int y, int width, int height,
 
 // Polymorphic type queries can identify zombies without checking image IDs.
 GameObjectType ZombieObject::GetType() const { return GameObjectType::ZOMBIE; }
+
+// Walking zombies steadily move from right to left each frame.
+void ZombieObject::Update() { MoveTo(GetX() - ZOMBIE_WALK_SPEED, GetY()); }
 
 // Regular zombies start in the walking animation at the target grid center.
 RegularZombieObject::RegularZombieObject(int row, int col)
