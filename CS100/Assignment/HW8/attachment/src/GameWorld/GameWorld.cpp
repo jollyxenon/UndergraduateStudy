@@ -12,10 +12,6 @@ constexpr int INITIAL_SUN_AMOUNT = 150;
 // A regular zombie costs two small sun units in I, Zombie mode.
 constexpr int REGULAR_ZOMBIE_SUN_COST = 50;
 
-// Plants are generated only in columns strictly left of the initial red line.
-constexpr int INITIAL_PLANT_DEFENSE_COLS =
-    INITIAL_ZOMBIE_DEPLOYMENT_START_COL + ZOMBIE_DEPLOYMENT_BUFFER_COLS;
-
 // Computes the red line x-coordinate from exact grass bounds so the initial
 // line can sit precisely between the second and third columns.
 int GetRedLineX(int stageStartCol) {
@@ -45,6 +41,8 @@ void GameWorld::Init() {
   m_objects.clear();
   m_sunAmount = INITIAL_SUN_AMOUNT;
   m_sunCounterText.reset();
+  m_redLineObject.reset();
+  m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
   ClearPlantGrid();
@@ -66,6 +64,9 @@ LevelStatus GameWorld::Update() {
   }
 
   RemoveDeadObjects();
+  if (!HasLivingBrain()) {
+    return AdvanceStage();
+  }
   return LevelStatus::ONGOING;
 }
 
@@ -74,6 +75,8 @@ void GameWorld::CleanUp() {
   m_objects.clear();
   m_sunAmount = 0;
   m_sunCounterText.reset();
+  m_redLineObject.reset();
+  m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
   ClearPlantGrid();
@@ -93,7 +96,8 @@ void GameWorld::InitStaticInterface() {
       std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1));
 
   // Red line and brains visualize the current deployment boundary and goals.
-  AddObject(std::make_shared<RedLineObject>(INITIAL_RED_LINE_X));
+  m_redLineObject = std::make_shared<RedLineObject>(INITIAL_RED_LINE_X);
+  AddObject(m_redLineObject);
   for (int row = 0; row < GAME_ROWS; ++row) {
     AddObject(std::make_shared<BrainObject>(row));
   }
@@ -109,21 +113,82 @@ void GameWorld::ClearPlantGrid() {
 // Each row receives at least one random plant left of the red line; the second
 // available cell may also receive a plant to vary the defense between runs.
 void GameWorld::GeneratePlantDefense() {
+  const int plantDefenseCols = GetPlantDefenseCols();
   for (int row = 0; row < GAME_ROWS; ++row) {
-    const int firstCol = randInt(0, INITIAL_PLANT_DEFENSE_COLS - 1);
+    const int firstCol = randInt(0, plantDefenseCols - 1);
     TryAddPlantAt(row, firstCol, randInt(0, 1) == 1);
 
-    const int secondCol = 1 - firstCol;
-    if (INITIAL_PLANT_DEFENSE_COLS > 1 && randInt(0, 99) < 35) {
+    if (plantDefenseCols > 1 && randInt(0, 99) < 35) {
+      int secondCol = randInt(0, plantDefenseCols - 2);
+      if (secondCol >= firstCol) {
+        ++secondCol;
+      }
       TryAddPlantAt(row, secondCol, randInt(0, 1) == 1);
     }
   }
 }
 
+// Plant columns are all lawn cells to the left of the current deployment area.
+int GameWorld::GetPlantDefenseCols() const {
+  return m_currentZombieDeploymentStartCol + ZOMBIE_DEPLOYMENT_BUFFER_COLS;
+}
+
+// Deployment checks use the same dynamic boundary as the rendered red line.
+int GameWorld::GetCurrentRedLineX() const {
+  return GetRedLineX(m_currentZombieDeploymentStartCol);
+}
+
+// A stage is complete when every row's brain has been removed from the world.
+bool GameWorld::HasLivingBrain() const {
+  for (const GameObjectPtr& object : m_objects) {
+    if (object && object->IsAlive() &&
+        object->GetType() == GameObjectType::BRAIN) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Stage advancement moves the boundary right and rebuilds plant/brain targets.
+LevelStatus GameWorld::AdvanceStage() {
+  if (m_currentZombieDeploymentStartCol >= FINAL_ZOMBIE_DEPLOYMENT_START_COL) {
+    return LevelStatus::WINNING;
+  }
+
+  ++m_currentZombieDeploymentStartCol;
+  if (m_redLineObject && m_redLineObject->IsAlive()) {
+    m_redLineObject->MoveTo(GetCurrentRedLineX(), m_redLineObject->GetY());
+  }
+
+  ClearStagePlants();
+  ClearPlantGrid();
+  GeneratePlantDefense();
+  RegenerateBrains();
+  RemoveDeadObjects();
+  return LevelStatus::ONGOING;
+}
+
+// Old-stage plants are removed so the regenerated stage gets a fresh layout.
+void GameWorld::ClearStagePlants() {
+  for (const GameObjectPtr& object : m_objects) {
+    if (object && object->IsAlive() &&
+        object->GetType() == GameObjectType::PLANT) {
+      object->Kill();
+    }
+  }
+}
+
+// New stages restore the five row targets after the previous brains disappear.
+void GameWorld::RegenerateBrains() {
+  for (int row = 0; row < GAME_ROWS; ++row) {
+    AddObject(std::make_shared<BrainObject>(row));
+  }
+}
+
 // Plant creation is centralized so occupancy and world ownership stay in sync.
 bool GameWorld::TryAddPlantAt(int row, int col, bool usePeashooter) {
-  if (row < 0 || row >= GAME_ROWS || col < 0 ||
-      col >= INITIAL_PLANT_DEFENSE_COLS || m_plantGrid[row][col]) {
+  if (row < 0 || row >= GAME_ROWS || col < 0 || col >= GetPlantDefenseCols() ||
+      m_plantGrid[row][col]) {
     return false;
   }
 
@@ -260,7 +325,7 @@ void GameWorld::BeginMouseDown(int x, int y) {
 // Selected regular-zombie cards place one zombie in the deployable lawn cells.
 bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
   if (!m_selectedZombieCard || !IsInsideLawnGrid(x, y) ||
-      x < INITIAL_RED_LINE_X) {
+      x < GetCurrentRedLineX()) {
     return false;
   }
 

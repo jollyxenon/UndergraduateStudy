@@ -14,6 +14,7 @@
 class SunCounterText;
 class ZombieCardObject;
 class PlantObject;
+class RedLineObject;
 
 // Owns and updates all gameplay objects for the current level.
 class GameWorld : public WorldBase,
@@ -87,6 +88,24 @@ class GameWorld : public WorldBase,
   // Randomly creates a playable plant defense on the red line's left side.
   void GeneratePlantDefense();
 
+  // Returns the number of plant columns available before the current red line.
+  int GetPlantDefenseCols() const;
+
+  // Returns the current red line x-coordinate for deployment checks.
+  int GetCurrentRedLineX() const;
+
+  // Returns whether any living brain remains in the current stage.
+  bool HasLivingBrain() const;
+
+  // Moves into the next stage after all brains have been eaten.
+  LevelStatus AdvanceStage();
+
+  // Marks all plants from the old stage dead before rebuilding the defense.
+  void ClearStagePlants();
+
+  // Recreates one brain target in every lawn row for a fresh stage.
+  void RegenerateBrains();
+
   // Adds one plant if the requested grid cell is legal and empty.
   bool TryAddPlantAt(int row, int col, bool usePeashooter);
 
@@ -107,6 +126,12 @@ class GameWorld : public WorldBase,
 
   // Text object for the visible sun counter; TextBase self-registers globally.
   std::shared_ptr<SunCounterText> m_sunCounterText;
+
+  // Red line object moved when a new stage starts.
+  std::shared_ptr<RedLineObject> m_redLineObject;
+
+  // Leftmost column where zombies may be deployed in the current stage.
+  int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
 
   // Currently selected zombie card; owned by m_objects and cleared on cleanup.
   ZombieCardObject* m_selectedZombieCard = nullptr;
