@@ -136,7 +136,12 @@ RedLineObject::RedLineObject(int x)
 // Brain icons sit on the grass's left border, one centered in each row.
 BrainObject::BrainObject(int row)
     : StaticUIObject(ImageID::BRAIN_ICON, LAWN_GRID_LEFT, GetBrainCenterY(row),
-                     LayerID::UI, 32, 31) {}
+                     LayerID::UI, 32, 31) {
+  SetGridPosition(row, 0);
+}
+
+// Brain targets are queried separately from other static UI sprites.
+GameObjectType BrainObject::GetType() const { return GameObjectType::BRAIN; }
 
 // Progress-meter sprites use assets/flag_meter_*.png in the top-right corner.
 ProgressMeterObject::ProgressMeterObject(ImageID imageID)

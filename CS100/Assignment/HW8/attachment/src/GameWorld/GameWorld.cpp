@@ -174,6 +174,46 @@ void GameWorld::ForEachObject(
   }
 }
 
+// Plant collision uses same-row bounding boxes and category metadata.
+PlantObject* GameWorld::FindCollidingPlant(const GameObject& zombie) {
+  for (const GameObjectPtr& object : m_objects) {
+    if (!object || !object->IsAlive() ||
+        object->GetType() != GameObjectType::PLANT ||
+        object->GetRow() != zombie.GetRow()) {
+      continue;
+    }
+
+    const int zombieLeft = zombie.GetX() - zombie.GetWidth() / 2;
+    const int zombieRight = zombie.GetX() + zombie.GetWidth() / 2;
+    const int plantLeft = object->GetX() - object->GetWidth() / 2;
+    const int plantRight = object->GetX() + object->GetWidth() / 2;
+    if (zombieLeft <= plantRight && zombieRight >= plantLeft) {
+      return static_cast<PlantObject*>(object.get());
+    }
+  }
+  return nullptr;
+}
+
+// Brain collision uses same-row bounding boxes and category metadata.
+GameObject* GameWorld::FindCollidingBrain(const GameObject& zombie) {
+  for (const GameObjectPtr& object : m_objects) {
+    if (!object || !object->IsAlive() ||
+        object->GetType() != GameObjectType::BRAIN ||
+        object->GetRow() != zombie.GetRow()) {
+      continue;
+    }
+
+    const int zombieLeft = zombie.GetX() - zombie.GetWidth() / 2;
+    const int zombieRight = zombie.GetX() + zombie.GetWidth() / 2;
+    const int brainLeft = object->GetX() - object->GetWidth() / 2;
+    const int brainRight = object->GetX() + object->GetWidth() / 2;
+    if (zombieLeft <= brainRight && zombieRight >= brainLeft) {
+      return object.get();
+    }
+  }
+  return nullptr;
+}
+
 // Every click first tries selected-card placement, then clears old selection.
 void GameWorld::BeginMouseDown(int x, int y) {
   m_cancelledZombieCardThisMouseDown = m_selectedZombieCard;

@@ -16,6 +16,7 @@ enum class GameObjectType {
   PROJECTILE,
   UI,
   SUN,
+  BRAIN,
 };
 
 // Provides shared gameplay state and hooks for all world-owned objects.

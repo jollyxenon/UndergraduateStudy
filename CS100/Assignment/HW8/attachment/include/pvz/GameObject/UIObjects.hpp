@@ -87,6 +87,9 @@ class BrainObject final : public StaticUIObject {
  public:
   // Places a brain on the bottom line of the given lawn row.
   explicit BrainObject(int row);
+
+  // Brains are a distinct gameplay target even though they render as UI.
+  GameObjectType GetType() const override;
 };
 
 // Draws one progress meter sprite in the upper-right UI area.

@@ -53,6 +53,12 @@ class GameWorld : public WorldBase,
   void ForEachObject(
       const std::function<void(const GameObject&)>& visitor) const;
 
+  // Returns the first living plant touching the given zombie's body.
+  PlantObject* FindCollidingPlant(const GameObject& zombie);
+
+  // Returns the first living brain touching the given zombie's body.
+  GameObject* FindCollidingBrain(const GameObject& zombie);
+
   // Starts a mouse click by cancelling the previous card selection.
   void BeginMouseDown(int x, int y) override;
 

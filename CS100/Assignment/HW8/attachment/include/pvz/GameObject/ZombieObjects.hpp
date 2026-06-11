@@ -15,6 +15,10 @@ class ZombieObject : public GameObject {
 
   // Advances the walking zombie one frame toward the left side of the lawn.
   void Update() override;
+
+ private:
+  // Tracks frames remaining until this zombie can complete the next bite.
+  int m_biteCooldown = 0;
 };
 
 // Draws a regular walking zombie placed by the zombie card.
