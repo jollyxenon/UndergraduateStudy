@@ -189,3 +189,4 @@ void GameWorld::ClearSelectedZombieCard() {
 
 // Object count is exposed for simple validation and later UI/debug logic.
 std::size_t GameWorld::GetObjectCount() const { return m_objects.size(); }
+
