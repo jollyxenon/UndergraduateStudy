@@ -66,6 +66,9 @@ class GameWorld : public WorldBase,
   // Creates static background and UI elements for the base interface.
   void InitStaticInterface();
 
+  // Attempts to place the previously selected zombie at the clicked grid cell.
+  bool TryPlaceSelectedZombie(int x, int y);
+
   // All gameplay objects currently owned by the world.
   GameObjectList m_objects;
 
