@@ -101,6 +101,9 @@ class GameWorld : public WorldBase,
   // Returns whether any living brain remains in the current stage.
   bool HasLivingBrain() const;
 
+  // Returns whether the player cannot deploy zombies while brains remain.
+  bool IsFailedWithoutDeployableZombie() const;
+
   // Moves into the next stage after all brains have been eaten.
   LevelStatus AdvanceStage();
 

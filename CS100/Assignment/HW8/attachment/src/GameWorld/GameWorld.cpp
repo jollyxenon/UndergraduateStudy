@@ -66,6 +66,9 @@ LevelStatus GameWorld::Update() {
   }
 
   RemoveDeadObjects();
+  if (IsFailedWithoutDeployableZombie()) {
+    return LevelStatus::LOSING;
+  }
   if (!HasLivingBrain()) {
     return AdvanceStage();
   }
@@ -150,6 +153,22 @@ bool GameWorld::HasLivingBrain() const {
     }
   }
   return false;
+}
+
+// Failure occurs when no active zombie can eat the remaining brains and the
+// player cannot afford another regular zombie.
+bool GameWorld::IsFailedWithoutDeployableZombie() const {
+  if (m_sunAmount >= REGULAR_ZOMBIE_SUN_COST || !HasLivingBrain()) {
+    return false;
+  }
+
+  for (const GameObjectPtr& object : m_objects) {
+    if (object && object->IsAlive() &&
+        object->GetType() == GameObjectType::ZOMBIE) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // Stage advancement moves the boundary right and rebuilds all dynamic targets.
