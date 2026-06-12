@@ -42,6 +42,7 @@ void GameWorld::Init() {
   m_sunAmount = INITIAL_SUN_AMOUNT;
   m_sunCounterText.reset();
   m_redLineObject.reset();
+  m_progressMeterObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -76,6 +77,7 @@ void GameWorld::CleanUp() {
   m_sunAmount = 0;
   m_sunCounterText.reset();
   m_redLineObject.reset();
+  m_progressMeterObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -92,8 +94,9 @@ void GameWorld::InitStaticInterface() {
   m_sunCounterText = std::make_shared<SunCounterText>(m_sunAmount);
   AddObject(std::make_shared<ZombieCardObject>(
       ImageID::ZOMBIE_CARD_REGULAR, ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y));
-  AddObject(
-      std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1));
+  m_progressMeterObject =
+      std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1);
+  AddObject(m_progressMeterObject);
 
   // Red line and brains visualize the current deployment boundary and goals.
   m_redLineObject = std::make_shared<RedLineObject>(INITIAL_RED_LINE_X);
@@ -156,6 +159,7 @@ LevelStatus GameWorld::AdvanceStage() {
   if (m_redLineObject && m_redLineObject->IsAlive()) {
     m_redLineObject->MoveTo(GetCurrentRedLineX(), m_redLineObject->GetY());
   }
+  UpdateProgressMeter();
 
   ClearStagePlants();
   ClearDroppedSuns();
@@ -191,6 +195,19 @@ void GameWorld::RegenerateBrains() {
   for (int row = 0; row < GAME_ROWS; ++row) {
     AddObject(std::make_shared<BrainObject>(row));
   }
+}
+
+// The meter stage images are consecutive enum values, so the stage offset maps
+// directly to the current progress sprite.
+void GameWorld::UpdateProgressMeter() {
+  if (!m_progressMeterObject || !m_progressMeterObject->IsAlive()) {
+    return;
+  }
+
+  const int stageIndex =
+      m_currentZombieDeploymentStartCol - INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
+  m_progressMeterObject->ChangeImage(static_cast<ImageID>(
+      static_cast<int>(ImageID::PROGRESS_METER_STAGE_1) + stageIndex));
 }
 
 // Null objects are ignored; valid objects receive a weak owner pointer.

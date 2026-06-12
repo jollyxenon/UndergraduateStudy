@@ -14,6 +14,7 @@
 class SunCounterText;
 class ZombieCardObject;
 class PlantObject;
+class ProgressMeterObject;
 class RedLineObject;
 
 // Owns and updates all gameplay objects for the current level.
@@ -109,6 +110,9 @@ class GameWorld : public WorldBase,
   // Recreates one brain target in every lawn row for a fresh stage.
   void RegenerateBrains();
 
+  // Updates the progress meter sprite to match the current stage.
+  void UpdateProgressMeter();
+
   // Attempts to place the previously selected zombie at the clicked grid cell.
   bool TryPlaceSelectedZombie(int x, int y);
 
@@ -132,6 +136,9 @@ class GameWorld : public WorldBase,
 
   // Red line object moved when a new stage starts.
   std::shared_ptr<RedLineObject> m_redLineObject;
+
+  // Progress meter object updated when a new stage starts.
+  std::shared_ptr<ProgressMeterObject> m_progressMeterObject;
 
   // Leftmost column where zombies may be deployed in the current stage.
   int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
