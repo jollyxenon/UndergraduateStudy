@@ -79,13 +79,8 @@ SunflowerObject::SunflowerObject(int row, int col)
 
 // A defeated sunflower bursts into collectible suns at nearby positions.
 void SunflowerObject::OnDeath() {
-  const std::shared_ptr<GameWorld> world = GetWorld();
-  if (!world) {
-    return;
-  }
-
   for (const auto& [xOffset, yOffset] : SUNFLOWER_DEATH_SUN_OFFSETS) {
-    world->AddObject(
+    GetWorld().AddObject(
         std::make_shared<DroppedSunObject>(GetX() + xOffset, GetY() + yOffset));
   }
 }
@@ -106,13 +101,11 @@ void PeashooterObject::Update() {
     --m_shootCooldown;
   }
 
-  const std::shared_ptr<GameWorld> world = GetWorld();
-  if (!world || !world->HasZombieOnRight(GetRow(), GetX()) ||
-      m_shootCooldown > 0) {
+  if (!GetWorld().HasZombieOnRight(GetRow(), GetX()) || m_shootCooldown > 0) {
     return;
   }
 
-  world->AddObject(std::make_shared<PeaObject>(
+  GetWorld().AddObject(std::make_shared<PeaObject>(
       GetRow(), GetX() + PEA_SPAWN_X_OFFSET, GetY() + PLANT_HEIGHT / 8));
   m_shootCooldown = PEASHOOTER_FIRE_INTERVAL_FRAMES;
 }

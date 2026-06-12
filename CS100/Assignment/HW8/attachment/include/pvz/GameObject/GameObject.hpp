@@ -56,9 +56,6 @@ class GameObject : public ObjectBase {
   // Applies damage and kills the object if hit points reach zero.
   virtual void TakeDamage(int damage);
 
-  // Restores hit points for living objects.
-  void Heal(int amount);
-
   // Returns grid row, or -1 if the object is not on the lawn grid.
   int GetRow() const;
 
@@ -71,8 +68,8 @@ class GameObject : public ObjectBase {
   // Stores the world that owns this object.
   void SetWorld(std::weak_ptr<GameWorld> world);
 
-  // Returns the owning world when it still exists.
-  std::shared_ptr<GameWorld> GetWorld() const;
+  // Returns the owning world; world-owned objects require this to exist.
+  GameWorld& GetWorld() const;
 
  private:
   // Current hit points; non-positive values mean the object should be removed.

@@ -49,8 +49,7 @@ void ZombieObject::TakeDamage(int damage) { GameObject::TakeDamage(damage); }
 
 // Zombies stop to bite colliding plants, otherwise they keep walking left.
 void ZombieObject::Update() {
-  const std::shared_ptr<GameWorld> world = GetWorld();
-  PlantObject* plant = world ? world->FindCollidingPlant(*this) : nullptr;
+  PlantObject* plant = GetWorld().FindCollidingPlant(*this);
   if (plant) {
     if (GetCurrentAnimation() != AnimID::EAT) {
       PlayAnimation(AnimID::EAT);
@@ -64,7 +63,7 @@ void ZombieObject::Update() {
     return;
   }
 
-  GameObject* brain = world ? world->FindCollidingBrain(*this) : nullptr;
+  GameObject* brain = GetWorld().FindCollidingBrain(*this);
   if (brain) {
     brain->Kill();
   }
@@ -153,18 +152,13 @@ void BungeeZombieObject::Update() {
 
 // The landing grab prefers plants and only takes a brain when no plant exists.
 void BungeeZombieObject::GrabTargetAtCell() {
-  const std::shared_ptr<GameWorld> world = GetWorld();
-  if (!world) {
-    return;
-  }
-
-  PlantObject* plant = world->FindPlantAt(GetRow(), GetCol());
+  PlantObject* plant = GetWorld().FindPlantAt(GetRow(), GetCol());
   if (plant) {
     plant->KillWithoutDeathEffect();
     return;
   }
 
-  GameObject* brain = world->FindBrainAt(GetRow(), GetCol());
+  GameObject* brain = GetWorld().FindBrainAt(GetRow(), GetCol());
   if (brain) {
     brain->Kill();
   }

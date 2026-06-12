@@ -80,10 +80,7 @@ void ZombieCardObject::OnClick() {
     return;
   }
 
-  std::shared_ptr<GameWorld> world = GetWorld();
-  if (world) {
-    world->SelectZombieCard(*this);
-  }
+  GetWorld().SelectZombieCard(*this);
 }
 
 // Cooling cards tick down once per frame and clear their overlay at the end.
@@ -126,10 +123,7 @@ void ZombieCardObject::StartCooldown() {
 
   m_cooldownMask = std::make_shared<CooldownMaskObject>(GetX(), GetY());
   m_cooldownMask->SetRemainingRatio(1.0);
-  std::shared_ptr<GameWorld> world = GetWorld();
-  if (world) {
-    world->AddObject(m_cooldownMask);
-  }
+  GetWorld().AddObject(m_cooldownMask);
 }
 
 // Stage resets make the card immediately usable and remove any old overlay.

@@ -49,14 +49,6 @@ void GameObject::TakeDamage(int damage) {
   SetHp(m_hp - damage);
 }
 
-// Healing ignores dead objects and non-positive values.
-void GameObject::Heal(int amount) {
-  if (amount <= 0 || !IsAlive()) {
-    return;
-  }
-  m_hp += amount;
-}
-
 // Row metadata lets subclasses query grid location without recomputing it.
 int GameObject::GetRow() const { return m_row; }
 
@@ -74,7 +66,5 @@ void GameObject::SetWorld(std::weak_ptr<GameWorld> world) {
   m_world = std::move(world);
 }
 
-// Locked pointer is empty after GameWorld is destroyed.
-std::shared_ptr<GameWorld> GameObject::GetWorld() const {
-  return m_world.lock();
-}
+// Game objects are updated only after GameWorld assigns their owner.
+GameWorld& GameObject::GetWorld() const { return *m_world.lock(); }

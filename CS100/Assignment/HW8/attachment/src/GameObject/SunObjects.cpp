@@ -25,9 +25,6 @@ void DroppedSunObject::OnClick() {
     return;
   }
 
-  const std::shared_ptr<GameWorld> world = GetWorld();
-  if (world) {
-    world->AddSun(SUN_VALUE);
-  }
+  GetWorld().AddSun(SUN_VALUE);
   Kill();
 }

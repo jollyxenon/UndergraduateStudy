@@ -27,8 +27,7 @@ void PeaObject::Update() {
     return;
   }
 
-  const std::shared_ptr<GameWorld> world = GetWorld();
-  GameObject* zombie = world ? world->FindCollidingZombie(*this) : nullptr;
+  GameObject* zombie = GetWorld().FindCollidingZombie(*this);
   if (zombie) {
     zombie->TakeDamage(PEA_DAMAGE);
     Kill();
