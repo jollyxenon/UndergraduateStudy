@@ -1,6 +1,10 @@
 #include "pvz/GameObject/PlantObjects.hpp"
 
+#include <array>
+#include <utility>
+
 #include "pvz/GameObject/ProjectileObjects.hpp"
+#include "pvz/GameObject/SunObjects.hpp"
 #include "pvz/GameWorld/GameWorld.hpp"
 
 namespace {
@@ -11,6 +15,7 @@ constexpr int PLANT_HEIGHT = 80;
 constexpr int PLANT_HP = 340;
 constexpr int PEASHOOTER_FIRE_INTERVAL_FRAMES = 30;
 constexpr int PEA_SPAWN_X_OFFSET = 30;
+constexpr int SUNFLOWER_DEATH_SUN_COUNT = 6;
 
 // Converts a grid column index to the center x-coordinate of that cell.
 int GetGridCenterX(int col) {
@@ -24,6 +29,11 @@ int GetGridCenterY(int row) {
 
 }  // namespace
 
+// Offsets spread dropped suns around the defeated sunflower for clicking.
+const std::array<std::pair<int, int>, SUNFLOWER_DEATH_SUN_COUNT>
+    SUNFLOWER_DEATH_SUN_OFFSETS{
+        {{-30, 24}, {0, 30}, {30, 24}, {-24, -18}, {0, -28}, {24, -18}}};
+
 // Plants render on the plant layer and idle by default.
 PlantObject::PlantObject(ImageID imageID, int x, int y, int hp, int row,
                          int col)
@@ -32,6 +42,19 @@ PlantObject::PlantObject(ImageID imageID, int x, int y, int hp, int row,
 
 // Polymorphic type queries can identify plants without checking image IDs.
 GameObjectType PlantObject::GetType() const { return GameObjectType::PLANT; }
+
+// Plants can run subclass-specific cleanup before the shared kill logic.
+void PlantObject::Kill() {
+  if (m_deathHandled) {
+    return;
+  }
+  m_deathHandled = true;
+  OnDeath();
+  GameObject::Kill();
+}
+
+// Most plants do not need death-side effects.
+void PlantObject::OnDeath() {}
 
 // Plant actions are skipped once the object has been killed.
 void PlantObject::Update() {
@@ -44,6 +67,19 @@ void PlantObject::Update() {
 SunflowerObject::SunflowerObject(int row, int col)
     : PlantObject(ImageID::SUNFLOWER, GetGridCenterX(col), GetGridCenterY(row),
                   PLANT_HP, row, col) {}
+
+// A defeated sunflower bursts into collectible suns at nearby positions.
+void SunflowerObject::OnDeath() {
+  const std::shared_ptr<GameWorld> world = GetWorld();
+  if (!world) {
+    return;
+  }
+
+  for (const auto& [xOffset, yOffset] : SUNFLOWER_DEATH_SUN_OFFSETS) {
+    world->AddObject(
+        std::make_shared<DroppedSunObject>(GetX() + xOffset, GetY() + yOffset));
+  }
+}
 
 // Peashooters start in the idle animation at the target grid center.
 PeashooterObject::PeashooterObject(int row, int col)

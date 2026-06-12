@@ -12,8 +12,19 @@ class PlantObject : public GameObject {
   // Plants are grouped under the plant category.
   GameObjectType GetType() const override;
 
+  // Marks the plant dead after running plant-specific death behavior.
+  void Kill() override;
+
   // Dead plants have no per-frame behavior before GameWorld removes them.
   void Update() override;
+
+ protected:
+  // Allows plant subclasses to react when the plant is killed.
+  virtual void OnDeath();
+
+ private:
+  // Prevents duplicate plant death behavior when Kill is called repeatedly.
+  bool m_deathHandled = false;
 };
 
 // Draws an I, Zombie sunflower occupying one lawn grid cell.
@@ -21,6 +32,10 @@ class SunflowerObject final : public PlantObject {
  public:
   // Creates a sunflower centered on the requested grid cell.
   SunflowerObject(int row, int col);
+
+ protected:
+  // Drops collectible sun when the sunflower dies.
+  void OnDeath() override;
 };
 
 // Draws an I, Zombie peashooter occupying one lawn grid cell.

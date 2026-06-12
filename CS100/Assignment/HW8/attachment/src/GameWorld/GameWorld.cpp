@@ -158,6 +158,7 @@ LevelStatus GameWorld::AdvanceStage() {
   }
 
   ClearStagePlants();
+  ClearDroppedSuns();
   ClearPlantGrid();
   GeneratePlantDefense();
   RegenerateBrains();
@@ -170,6 +171,16 @@ void GameWorld::ClearStagePlants() {
   for (const GameObjectPtr& object : m_objects) {
     if (object && object->IsAlive() &&
         object->GetType() == GameObjectType::PLANT) {
+      object->Kill();
+    }
+  }
+}
+
+// Dropped suns from forced stage cleanup should not remain collectible.
+void GameWorld::ClearDroppedSuns() {
+  for (const GameObjectPtr& object : m_objects) {
+    if (object && object->IsAlive() &&
+        object->GetType() == GameObjectType::SUN) {
       object->Kill();
     }
   }
@@ -330,6 +341,17 @@ bool GameWorld::TrySpendSun(int sunCost) {
     m_sunCounterText->SetSunAmount(m_sunAmount);
   }
   return true;
+}
+
+// Collected suns update both gameplay state and visible text atomically.
+void GameWorld::AddSun(int sunAmount) {
+  if (sunAmount <= 0) {
+    return;
+  }
+  m_sunAmount += sunAmount;
+  if (m_sunCounterText) {
+    m_sunCounterText->SetSunAmount(m_sunAmount);
+  }
 }
 
 // Selecting the just-cancelled card means toggling it off; other cards select.

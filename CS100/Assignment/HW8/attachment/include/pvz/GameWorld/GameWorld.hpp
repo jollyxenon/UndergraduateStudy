@@ -66,6 +66,9 @@ class GameWorld : public WorldBase,
   // Returns the first living zombie touching the given projectile's body.
   GameObject* FindCollidingZombie(const GameObject& projectile);
 
+  // Adds collected sun and refreshes the visible counter.
+  void AddSun(int sunAmount);
+
   // Starts a mouse click by cancelling the previous card selection.
   void BeginMouseDown(int x, int y) override;
 
@@ -111,6 +114,9 @@ class GameWorld : public WorldBase,
 
   // Spends sun if enough is available for the requested zombie cost.
   bool TrySpendSun(int sunCost);
+
+  // Removes all dropped sun objects after stage cleanup.
+  void ClearDroppedSuns();
 
   // All gameplay objects currently owned by the world.
   GameObjectList m_objects;

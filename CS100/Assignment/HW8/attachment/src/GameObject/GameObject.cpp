@@ -21,6 +21,9 @@ bool GameObject::IsAlive() const { return m_alive && m_hp > 0; }
 
 // Dead objects are erased by GameWorld after updates finish.
 void GameObject::Kill() {
+  if (!m_alive) {
+    return;
+  }
   m_alive = false;
   m_hp = 0;
 }

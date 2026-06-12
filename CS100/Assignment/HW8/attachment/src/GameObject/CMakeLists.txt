@@ -6,6 +6,7 @@ add_library(
   GameObject.cpp
   PlantObjects.cpp
   ProjectileObjects.cpp
+  SunObjects.cpp
   UIObjects.cpp
   ZombieObjects.cpp
 )

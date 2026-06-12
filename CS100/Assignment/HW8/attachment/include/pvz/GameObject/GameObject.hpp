@@ -45,7 +45,7 @@ class GameObject : public ObjectBase {
   bool IsAlive() const;
 
   // Immediately marks the object for removal at the end of the frame.
-  void Kill();
+  virtual void Kill();
 
   // Returns current hit points.
   int GetHp() const;
