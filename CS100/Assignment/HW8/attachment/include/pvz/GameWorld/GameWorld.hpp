@@ -85,7 +85,7 @@ class GameWorld : public WorldBase,
   // Clears the per-cell plant occupancy records for a fresh level stage.
   void ClearPlantGrid();
 
-  // Randomly creates a playable plant defense on the red line's left side.
+  // Fills the red line's left side with random playable plant defenses.
   void GeneratePlantDefense();
 
   // Returns the number of plant columns available before the current red line.
@@ -105,9 +105,6 @@ class GameWorld : public WorldBase,
 
   // Recreates one brain target in every lawn row for a fresh stage.
   void RegenerateBrains();
-
-  // Adds one plant if the requested grid cell is legal and empty.
-  bool TryAddPlantAt(int row, int col, bool usePeashooter);
 
   // Attempts to place the previously selected zombie at the clicked grid cell.
   bool TryPlaceSelectedZombie(int x, int y);

@@ -110,20 +110,17 @@ void GameWorld::ClearPlantGrid() {
   }
 }
 
-// Each row receives at least one random plant left of the red line; the second
-// available cell may also receive a plant to vary the defense between runs.
+// Every lawn cell before the red line receives one random plant defense.
 void GameWorld::GeneratePlantDefense() {
   const int plantDefenseCols = GetPlantDefenseCols();
   for (int row = 0; row < GAME_ROWS; ++row) {
-    const int firstCol = randInt(0, plantDefenseCols - 1);
-    TryAddPlantAt(row, firstCol, randInt(0, 1) == 1);
-
-    if (plantDefenseCols > 1 && randInt(0, 99) < 35) {
-      int secondCol = randInt(0, plantDefenseCols - 2);
-      if (secondCol >= firstCol) {
-        ++secondCol;
+    for (int col = 0; col < plantDefenseCols; ++col) {
+      m_plantGrid[row][col] = true;
+      if (randInt(0, 1) == 1) {
+        AddObject(std::make_shared<PeashooterObject>(row, col));
+      } else {
+        AddObject(std::make_shared<SunflowerObject>(row, col));
       }
-      TryAddPlantAt(row, secondCol, randInt(0, 1) == 1);
     }
   }
 }
@@ -183,22 +180,6 @@ void GameWorld::RegenerateBrains() {
   for (int row = 0; row < GAME_ROWS; ++row) {
     AddObject(std::make_shared<BrainObject>(row));
   }
-}
-
-// Plant creation is centralized so occupancy and world ownership stay in sync.
-bool GameWorld::TryAddPlantAt(int row, int col, bool usePeashooter) {
-  if (row < 0 || row >= GAME_ROWS || col < 0 || col >= GetPlantDefenseCols() ||
-      m_plantGrid[row][col]) {
-    return false;
-  }
-
-  m_plantGrid[row][col] = true;
-  if (usePeashooter) {
-    AddObject(std::make_shared<PeashooterObject>(row, col));
-  } else {
-    AddObject(std::make_shared<SunflowerObject>(row, col));
-  }
-  return true;
 }
 
 // Null objects are ignored; valid objects receive a weak owner pointer.
