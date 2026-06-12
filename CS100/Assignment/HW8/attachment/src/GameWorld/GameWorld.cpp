@@ -9,8 +9,8 @@ namespace {
 // Base interface starts with one regular zombie card and this sun amount.
 constexpr int INITIAL_SUN_AMOUNT = 150;
 
-// A regular zombie costs two small sun units in I, Zombie mode.
-constexpr int REGULAR_ZOMBIE_SUN_COST = 50;
+// Falling below this amount means no zombie card can be used anymore.
+constexpr int MINIMUM_ZOMBIE_SUN_COST = 50;
 
 // Computes the red line x-coordinate from exact grass bounds so the initial
 // line can sit precisely between the second and third columns.
@@ -44,6 +44,7 @@ void GameWorld::Init() {
   m_redLineObject.reset();
   m_progressMeterObject.reset();
   m_regularZombieCardObject.reset();
+  m_bucketHeadZombieCardObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -83,6 +84,7 @@ void GameWorld::CleanUp() {
   m_redLineObject.reset();
   m_progressMeterObject.reset();
   m_regularZombieCardObject.reset();
+  m_bucketHeadZombieCardObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -94,12 +96,15 @@ void GameWorld::InitStaticInterface() {
   // Background is a world object so it participates in the normal render layer.
   AddObject(std::make_shared<BackgroundObject>());
 
-  // Static top-bar UI elements show available sun, one card, and level
+  // Static top-bar UI elements show available sun, zombie cards, and level
   // progress.
   m_sunCounterText = std::make_shared<SunCounterText>(m_sunAmount);
-  m_regularZombieCardObject = std::make_shared<ZombieCardObject>(
-      ImageID::ZOMBIE_CARD_REGULAR, ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y);
+  m_regularZombieCardObject = std::make_shared<RegularZombieCardObject>(
+      ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y);
   AddObject(m_regularZombieCardObject);
+  m_bucketHeadZombieCardObject = std::make_shared<BucketHeadZombieCardObject>(
+      ZOMBIE_CARD_FIRST_X + ZOMBIE_CARD_SPACING, ZOMBIE_CARD_Y);
+  AddObject(m_bucketHeadZombieCardObject);
   m_progressMeterObject =
       std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1);
   AddObject(m_progressMeterObject);
@@ -158,7 +163,7 @@ bool GameWorld::HasLivingBrain() const {
 // Failure occurs when no active zombie can eat the remaining brains and the
 // player cannot afford another regular zombie.
 bool GameWorld::IsFailedWithoutDeployableZombie() const {
-  if (m_sunAmount >= REGULAR_ZOMBIE_SUN_COST || !HasLivingBrain()) {
+  if (m_sunAmount >= MINIMUM_ZOMBIE_SUN_COST || !HasLivingBrain()) {
     return false;
   }
 
@@ -222,6 +227,9 @@ void GameWorld::ResetSunAmount() {
 void GameWorld::ResetZombieCards() {
   if (m_regularZombieCardObject && m_regularZombieCardObject->IsAlive()) {
     m_regularZombieCardObject->ResetCooldown();
+  }
+  if (m_bucketHeadZombieCardObject && m_bucketHeadZombieCardObject->IsAlive()) {
+    m_bucketHeadZombieCardObject->ResetCooldown();
   }
 }
 
@@ -375,10 +383,10 @@ bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
 
   const int row = GetGridRowFromY(y);
   const int col = GetGridColFromX(x);
-  if (!TrySpendSun(REGULAR_ZOMBIE_SUN_COST)) {
+  if (!TrySpendSun(m_selectedZombieCard->GetSunCost())) {
     return false;
   }
-  AddObject(std::make_shared<RegularZombieObject>(row, col));
+  AddObject(m_selectedZombieCard->CreateZombie(row, col));
   m_selectedZombieCard->StartCooldown();
   return true;
 }

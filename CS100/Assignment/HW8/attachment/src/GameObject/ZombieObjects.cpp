@@ -10,6 +10,7 @@ namespace {
 constexpr int REGULAR_ZOMBIE_WIDTH = 100;
 constexpr int REGULAR_ZOMBIE_HEIGHT = 139;
 constexpr int REGULAR_ZOMBIE_HP = 270;
+constexpr int BUCKET_HEAD_ZOMBIE_HP = REGULAR_ZOMBIE_HP * 5 / 2;
 constexpr int ZOMBIE_WALK_SPEED = 1;
 constexpr int ZOMBIE_BITE_DAMAGE = 68;
 constexpr int ZOMBIE_BITE_INTERVAL_FRAMES = 24;
@@ -37,6 +38,9 @@ ZombieObject::ZombieObject(ImageID imageID, int x, int y, int width, int height,
 
 // Polymorphic type queries can identify zombies without checking image IDs.
 GameObjectType ZombieObject::GetType() const { return GameObjectType::ZOMBIE; }
+
+// Shared zombie damage currently delegates to the common GameObject HP logic.
+void ZombieObject::TakeDamage(int damage) { GameObject::TakeDamage(damage); }
 
 // Zombies stop to bite colliding plants, otherwise they keep walking left.
 void ZombieObject::Update() {
@@ -75,3 +79,25 @@ RegularZombieObject::RegularZombieObject(int row, int col)
     : ZombieObject(ImageID::REGULAR_ZOMBIE, GetGridCenterX(col),
                    GetGridCenterY(row), REGULAR_ZOMBIE_WIDTH,
                    REGULAR_ZOMBIE_HEIGHT, REGULAR_ZOMBIE_HP, row, col) {}
+
+// Bucket-head zombies reuse the regular zombie body size with higher HP.
+BucketHeadZombieObject::BucketHeadZombieObject(int row, int col)
+    : ZombieObject(ImageID::BUCKET_HEAD_ZOMBIE, GetGridCenterX(col),
+                   GetGridCenterY(row), REGULAR_ZOMBIE_WIDTH,
+                   REGULAR_ZOMBIE_HEIGHT, BUCKET_HEAD_ZOMBIE_HP, row, col) {}
+
+// Damage can break the bucket armor before the zombie itself dies.
+void BucketHeadZombieObject::TakeDamage(int damage) {
+  ZombieObject::TakeDamage(damage);
+  RefreshHealthStageImage();
+}
+
+// Once armor HP is gone, regular walk/eat animations represent the exposed
+// body.
+void BucketHeadZombieObject::RefreshHealthStageImage() {
+  if (m_bucketBroken || !IsAlive() || GetHp() > REGULAR_ZOMBIE_HP) {
+    return;
+  }
+  m_bucketBroken = true;
+  ChangeImage(ImageID::REGULAR_ZOMBIE);
+}

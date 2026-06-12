@@ -4,6 +4,7 @@
 #include <cmath>
 #include <string>
 
+#include "pvz/GameObject/ZombieObjects.hpp"
 #include "pvz/GameWorld/GameWorld.hpp"
 
 namespace {
@@ -17,6 +18,12 @@ constexpr int ZOMBIE_CARD_SELECTED_Y_OFFSET = 5;
 
 // Zombie cards stay unavailable for roughly two seconds after successful use.
 constexpr int ZOMBIE_CARD_COOLDOWN_FRAMES = 2000 / MS_PER_FRAME;
+
+// Regular zombies cost two small sun units in I, Zombie mode.
+constexpr int REGULAR_ZOMBIE_SUN_COST = 50;
+
+// Bucket-head zombies cost more because the bucket gives them armor HP.
+constexpr int BUCKET_HEAD_ZOMBIE_SUN_COST = 125;
 
 // Converts a top-to-bottom lawn row index to its center Y coordinate in the
 // engine's bottom-left coordinate system.
@@ -137,6 +144,36 @@ bool ZombieCardObject::IsCoolingDown() const { return m_cooldownFrames > 0; }
 
 // Selection is cached so duplicate clicks do not move the card repeatedly.
 bool ZombieCardObject::IsSelected() const { return m_selected; }
+
+// Regular zombie cards use the regular zombie card art.
+RegularZombieCardObject::RegularZombieCardObject(int x, int y)
+    : ZombieCardObject(ImageID::ZOMBIE_CARD_REGULAR, x, y) {}
+
+// Regular zombies use the base deployment cost.
+int RegularZombieCardObject::GetSunCost() const {
+  return REGULAR_ZOMBIE_SUN_COST;
+}
+
+// Placement creates one regular zombie in the chosen lawn cell.
+std::shared_ptr<GameObject> RegularZombieCardObject::CreateZombie(
+    int row, int col) const {
+  return std::make_shared<RegularZombieObject>(row, col);
+}
+
+// Bucket-head zombie cards use the bucket card art.
+BucketHeadZombieCardObject::BucketHeadZombieCardObject(int x, int y)
+    : ZombieCardObject(ImageID::ZOMBIE_CARD_BUCKET, x, y) {}
+
+// Bucket-head zombies cost more than regular zombies.
+int BucketHeadZombieCardObject::GetSunCost() const {
+  return BUCKET_HEAD_ZOMBIE_SUN_COST;
+}
+
+// Placement creates one bucket-head zombie in the chosen lawn cell.
+std::shared_ptr<GameObject> BucketHeadZombieCardObject::CreateZombie(
+    int row, int col) const {
+  return std::make_shared<BucketHeadZombieObject>(row, col);
+}
 
 // The red line sprite marks where the current deployment area starts.
 RedLineObject::RedLineObject(int x)

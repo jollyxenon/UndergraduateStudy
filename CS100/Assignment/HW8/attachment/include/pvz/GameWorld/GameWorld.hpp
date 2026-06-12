@@ -149,6 +149,9 @@ class GameWorld : public WorldBase,
   // Reusable zombie card object whose cooldown resets between stages.
   std::shared_ptr<ZombieCardObject> m_regularZombieCardObject;
 
+  // Reusable bucket-head card object whose cooldown resets between stages.
+  std::shared_ptr<ZombieCardObject> m_bucketHeadZombieCardObject;
+
   // Leftmost column where zombies may be deployed in the current stage.
   int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
 

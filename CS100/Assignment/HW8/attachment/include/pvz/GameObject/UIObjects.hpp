@@ -41,10 +41,13 @@ class CooldownMaskObject final : public StaticUIObject {
 };
 
 // Draws one zombie card in the top UI bar.
-class ZombieCardObject final : public StaticUIObject {
+class ZombieCardObject : public StaticUIObject {
  public:
   // Places the selected zombie card image at its card slot.
   ZombieCardObject(ImageID imageID, int x, int y);
+
+  // Destroys zombie card UI through the polymorphic base pointer.
+  ~ZombieCardObject() override = default;
 
   // Asks the world to make this the only selected zombie card.
   void OnClick() override;
@@ -67,6 +70,12 @@ class ZombieCardObject final : public StaticUIObject {
   // Returns whether this card is currently selected.
   bool IsSelected() const;
 
+  // Returns the sun amount required to place this card's zombie.
+  virtual int GetSunCost() const = 0;
+
+  // Creates this card's zombie at the requested grid cell.
+  virtual std::shared_ptr<GameObject> CreateZombie(int row, int col) const = 0;
+
  private:
   // Whether this card has already entered the selected visual state.
   bool m_selected;
@@ -76,6 +85,32 @@ class ZombieCardObject final : public StaticUIObject {
 
   // World-owned overlay that visually blocks this card while cooling down.
   std::shared_ptr<CooldownMaskObject> m_cooldownMask;
+};
+
+// Card that deploys a regular zombie.
+class RegularZombieCardObject final : public ZombieCardObject {
+ public:
+  // Places the regular zombie card at the requested slot.
+  RegularZombieCardObject(int x, int y);
+
+  // Returns the regular zombie deployment cost.
+  int GetSunCost() const override;
+
+  // Creates a regular zombie at the requested grid cell.
+  std::shared_ptr<GameObject> CreateZombie(int row, int col) const override;
+};
+
+// Card that deploys a bucket-head zombie.
+class BucketHeadZombieCardObject final : public ZombieCardObject {
+ public:
+  // Places the bucket-head zombie card at the requested slot.
+  BucketHeadZombieCardObject(int x, int y);
+
+  // Returns the bucket-head zombie deployment cost.
+  int GetSunCost() const override;
+
+  // Creates a bucket-head zombie at the requested grid cell.
+  std::shared_ptr<GameObject> CreateZombie(int row, int col) const override;
 };
 
 // Draws the red vertical deployment boundary line.

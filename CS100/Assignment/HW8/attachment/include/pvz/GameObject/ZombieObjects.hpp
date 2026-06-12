@@ -16,6 +16,9 @@ class ZombieObject : public GameObject {
   // Advances the walking zombie one frame toward the left side of the lawn.
   void Update() override;
 
+  // Applies damage through the common zombie health pipeline.
+  void TakeDamage(int damage) override;
+
  private:
   // Tracks frames remaining until this zombie can complete the next bite.
   int m_biteCooldown = 0;
@@ -26,6 +29,23 @@ class RegularZombieObject final : public ZombieObject {
  public:
   // Creates a regular zombie centered on the requested grid cell.
   RegularZombieObject(int row, int col);
+};
+
+// Draws a tougher bucket-head zombie that loses its bucket when weakened.
+class BucketHeadZombieObject final : public ZombieObject {
+ public:
+  // Creates a bucket-head zombie centered on the requested grid cell.
+  BucketHeadZombieObject(int row, int col);
+
+  // Applies damage and refreshes the visible health stage immediately.
+  void TakeDamage(int damage) override;
+
+ private:
+  // Switches to the regular zombie sprites after the bucket armor breaks.
+  void RefreshHealthStageImage();
+
+  // Records whether the bucket armor sprite has already been removed.
+  bool m_bucketBroken = false;
 };
 
 #endif  // !ZOMBIEOBJECTS_HPP__

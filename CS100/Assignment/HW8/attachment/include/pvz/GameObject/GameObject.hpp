@@ -54,7 +54,7 @@ class GameObject : public ObjectBase {
   void SetHp(int hp);
 
   // Applies damage and kills the object if hit points reach zero.
-  void TakeDamage(int damage);
+  virtual void TakeDamage(int damage);
 
   // Restores hit points for living objects.
   void Heal(int amount);
