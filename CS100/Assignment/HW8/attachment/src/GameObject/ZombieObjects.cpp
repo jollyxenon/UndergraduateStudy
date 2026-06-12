@@ -14,6 +14,9 @@ constexpr int ZOMBIE_WALK_SPEED = 1;
 constexpr int ZOMBIE_BITE_DAMAGE = 68;
 constexpr int ZOMBIE_BITE_INTERVAL_FRAMES = 24;
 
+// Zombies die after their whole sprite leaves the left edge of the window.
+constexpr int ZOMBIE_LEFT_EXIT_X = 0;
+
 // Converts a grid column index to the center x-coordinate of that cell.
 int GetGridCenterX(int col) {
   return LAWN_GRID_LEFT + col * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
@@ -62,6 +65,9 @@ void ZombieObject::Update() {
     PlayAnimation(AnimID::WALK);
   }
   MoveTo(GetX() - ZOMBIE_WALK_SPEED, GetY());
+  if (GetX() + GetWidth() / 2 < ZOMBIE_LEFT_EXIT_X) {
+    Kill();
+  }
 }
 
 // Regular zombies start in the walking animation at the target grid center.
