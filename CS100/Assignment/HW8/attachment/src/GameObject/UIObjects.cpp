@@ -122,6 +122,16 @@ void ZombieCardObject::StartCooldown() {
   }
 }
 
+// Stage resets make the card immediately usable and remove any old overlay.
+void ZombieCardObject::ResetCooldown() {
+  SetSelected(false);
+  m_cooldownFrames = 0;
+  if (m_cooldownMask) {
+    m_cooldownMask->Kill();
+    m_cooldownMask.reset();
+  }
+}
+
 // A positive frame counter means the card cannot currently be selected.
 bool ZombieCardObject::IsCoolingDown() const { return m_cooldownFrames > 0; }
 

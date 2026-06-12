@@ -58,6 +58,9 @@ class ZombieCardObject final : public StaticUIObject {
   // Starts the post-placement cooldown and shows its mask.
   void StartCooldown();
 
+  // Clears any active cooldown and removes its visible mask immediately.
+  void ResetCooldown();
+
   // Returns whether this card is temporarily unavailable.
   bool IsCoolingDown() const;
 

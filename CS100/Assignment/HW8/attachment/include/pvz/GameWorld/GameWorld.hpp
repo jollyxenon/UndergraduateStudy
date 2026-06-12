@@ -104,8 +104,11 @@ class GameWorld : public WorldBase,
   // Moves into the next stage after all brains have been eaten.
   LevelStatus AdvanceStage();
 
-  // Marks all plants from the old stage dead before rebuilding the defense.
-  void ClearStagePlants();
+  // Resets dynamic stage state before rebuilding the next defense layout.
+  void ResetStageState();
+
+  // Restores spendable sun and refreshes the visible counter.
+  void ResetSunAmount();
 
   // Recreates one brain target in every lawn row for a fresh stage.
   void RegenerateBrains();
@@ -119,8 +122,8 @@ class GameWorld : public WorldBase,
   // Spends sun if enough is available for the requested zombie cost.
   bool TrySpendSun(int sunCost);
 
-  // Removes all dropped sun objects after stage cleanup.
-  void ClearDroppedSuns();
+  // Clears the zombie card's selection and cooldown state for a fresh stage.
+  void ResetZombieCards();
 
   // All gameplay objects currently owned by the world.
   GameObjectList m_objects;
@@ -139,6 +142,9 @@ class GameWorld : public WorldBase,
 
   // Progress meter object updated when a new stage starts.
   std::shared_ptr<ProgressMeterObject> m_progressMeterObject;
+
+  // Reusable zombie card object whose cooldown resets between stages.
+  std::shared_ptr<ZombieCardObject> m_regularZombieCardObject;
 
   // Leftmost column where zombies may be deployed in the current stage.
   int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;

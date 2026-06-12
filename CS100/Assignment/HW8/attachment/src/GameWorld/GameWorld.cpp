@@ -43,6 +43,7 @@ void GameWorld::Init() {
   m_sunCounterText.reset();
   m_redLineObject.reset();
   m_progressMeterObject.reset();
+  m_regularZombieCardObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -78,6 +79,7 @@ void GameWorld::CleanUp() {
   m_sunCounterText.reset();
   m_redLineObject.reset();
   m_progressMeterObject.reset();
+  m_regularZombieCardObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -92,8 +94,9 @@ void GameWorld::InitStaticInterface() {
   // Static top-bar UI elements show available sun, one card, and level
   // progress.
   m_sunCounterText = std::make_shared<SunCounterText>(m_sunAmount);
-  AddObject(std::make_shared<ZombieCardObject>(
-      ImageID::ZOMBIE_CARD_REGULAR, ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y));
+  m_regularZombieCardObject = std::make_shared<ZombieCardObject>(
+      ImageID::ZOMBIE_CARD_REGULAR, ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y);
+  AddObject(m_regularZombieCardObject);
   m_progressMeterObject =
       std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1);
   AddObject(m_progressMeterObject);
@@ -149,7 +152,7 @@ bool GameWorld::HasLivingBrain() const {
   return false;
 }
 
-// Stage advancement moves the boundary right and rebuilds plant/brain targets.
+// Stage advancement moves the boundary right and rebuilds all dynamic targets.
 LevelStatus GameWorld::AdvanceStage() {
   if (m_currentZombieDeploymentStartCol >= FINAL_ZOMBIE_DEPLOYMENT_START_COL) {
     return LevelStatus::WINNING;
@@ -161,8 +164,7 @@ LevelStatus GameWorld::AdvanceStage() {
   }
   UpdateProgressMeter();
 
-  ClearStagePlants();
-  ClearDroppedSuns();
+  ResetStageState();
   ClearPlantGrid();
   GeneratePlantDefense();
   RegenerateBrains();
@@ -170,23 +172,37 @@ LevelStatus GameWorld::AdvanceStage() {
   return LevelStatus::ONGOING;
 }
 
-// Old-stage plants are removed so the regenerated stage gets a fresh layout.
-void GameWorld::ClearStagePlants() {
+// Stage reset removes transient actors and restores reusable UI state.
+void GameWorld::ResetStageState() {
+  ClearSelectedZombieCard();
+  m_cancelledZombieCardThisMouseDown = nullptr;
+  ResetSunAmount();
+  ResetZombieCards();
+
   for (const GameObjectPtr& object : m_objects) {
     if (object && object->IsAlive() &&
-        object->GetType() == GameObjectType::PLANT) {
+        (object->GetType() == GameObjectType::PLANT ||
+         object->GetType() == GameObjectType::PROJECTILE ||
+         object->GetType() == GameObjectType::SUN ||
+         object->GetType() == GameObjectType::ZOMBIE ||
+         object->GetType() == GameObjectType::BRAIN)) {
       object->Kill();
     }
   }
 }
 
-// Dropped suns from forced stage cleanup should not remain collectible.
-void GameWorld::ClearDroppedSuns() {
-  for (const GameObjectPtr& object : m_objects) {
-    if (object && object->IsAlive() &&
-        object->GetType() == GameObjectType::SUN) {
-      object->Kill();
-    }
+// Stage starts always grant the same deployment budget as the first stage.
+void GameWorld::ResetSunAmount() {
+  m_sunAmount = INITIAL_SUN_AMOUNT;
+  if (m_sunCounterText) {
+    m_sunCounterText->SetSunAmount(m_sunAmount);
+  }
+}
+
+// Reusable card UI should not carry selection or cooldown into a new stage.
+void GameWorld::ResetZombieCards() {
+  if (m_regularZombieCardObject && m_regularZombieCardObject->IsAlive()) {
+    m_regularZombieCardObject->ResetCooldown();
   }
 }
 
