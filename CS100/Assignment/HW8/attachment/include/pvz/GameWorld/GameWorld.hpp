@@ -58,8 +58,14 @@ class GameWorld : public WorldBase,
   // Returns the first living plant touching the given zombie's body.
   PlantObject* FindCollidingPlant(const GameObject& zombie);
 
+  // Returns the living plant occupying the requested grid cell.
+  PlantObject* FindPlantAt(int row, int col);
+
   // Returns the first living brain touching the given zombie's body.
   GameObject* FindCollidingBrain(const GameObject& zombie);
+
+  // Returns the living brain occupying the requested grid cell.
+  GameObject* FindBrainAt(int row, int col);
 
   // Returns whether a living zombie is on the same row and right side.
   bool HasZombieOnRight(int row, int x) const;
@@ -151,6 +157,9 @@ class GameWorld : public WorldBase,
 
   // Reusable bucket-head card object whose cooldown resets between stages.
   std::shared_ptr<ZombieCardObject> m_bucketHeadZombieCardObject;
+
+  // Reusable bungee card object whose cooldown resets between stages.
+  std::shared_ptr<ZombieCardObject> m_bungeeZombieCardObject;
 
   // Leftmost column where zombies may be deployed in the current stage.
   int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;

@@ -15,6 +15,9 @@ class PlantObject : public GameObject {
   // Marks the plant dead after running plant-specific death behavior.
   void Kill() override;
 
+  // Marks the plant dead without running plant-specific death behavior.
+  void KillWithoutDeathEffect();
+
   // Dead plants have no per-frame behavior before GameWorld removes them.
   void Update() override;
 

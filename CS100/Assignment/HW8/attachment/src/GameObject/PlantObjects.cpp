@@ -53,6 +53,15 @@ void PlantObject::Kill() {
   GameObject::Kill();
 }
 
+// Some effects remove a plant without triggering its death animation or drops.
+void PlantObject::KillWithoutDeathEffect() {
+  if (m_deathHandled) {
+    return;
+  }
+  m_deathHandled = true;
+  GameObject::Kill();
+}
+
 // Most plants do not need death-side effects.
 void PlantObject::OnDeath() {}
 

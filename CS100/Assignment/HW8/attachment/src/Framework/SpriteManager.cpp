@@ -153,9 +153,15 @@ SpriteManager::SpriteManager() : m_spriteInfos() {
       {EncodeAnim(ImageID::BUNGEE_ZOMBIE, AnimID::NO_ANIMATION),
        SpriteInfo{"bungee_zombie_spritesheet.png", 102, 90, 102, 90}});
   m_spriteInfos.insert(
+      {EncodeAnim(ImageID::BUNGEE_ZOMBIE, AnimID::JUMP),
+       SpriteInfo{"bungee_zombie_spritesheet.png", 102, 90, 102, 90}});
+  m_spriteInfos.insert(
       {EncodeAnim(ImageID::BUNGEE_ZOMBIE_GRAB, AnimID::NO_ANIMATION),
        SpriteInfo{"bungee_zombie_grab_spritesheet.png", 408, 90, 102, 90, 4,
                   4}});
+  m_spriteInfos.insert({EncodeAnim(ImageID::BUNGEE_ZOMBIE_GRAB, AnimID::JUMP),
+                        SpriteInfo{"bungee_zombie_grab_spritesheet.png", 408,
+                                   90, 102, 90, 4, 4}});
 
   m_spriteInfos.insert({EncodeAnim(ImageID::PEA, AnimID::NO_ANIMATION),
                         SpriteInfo{"pea.png", 28, 28, 28, 28}});

@@ -25,6 +25,9 @@ constexpr int REGULAR_ZOMBIE_SUN_COST = 50;
 // Bucket-head zombies cost more because the bucket gives them armor HP.
 constexpr int BUCKET_HEAD_ZOMBIE_SUN_COST = 125;
 
+// Bungee zombies cost the same as bucket-head zombies in this implementation.
+constexpr int BUNGEE_ZOMBIE_SUN_COST = 125;
+
 // Converts a top-to-bottom lawn row index to its center Y coordinate in the
 // engine's bottom-left coordinate system.
 int GetBrainCenterY(int row) {
@@ -145,6 +148,9 @@ bool ZombieCardObject::IsCoolingDown() const { return m_cooldownFrames > 0; }
 // Selection is cached so duplicate clicks do not move the card repeatedly.
 bool ZombieCardObject::IsSelected() const { return m_selected; }
 
+// Most zombie cards cannot be placed into the protected plant area.
+bool ZombieCardObject::CanPlaceBeforeRedLine() const { return false; }
+
 // Regular zombie cards use the regular zombie card art.
 RegularZombieCardObject::RegularZombieCardObject(int x, int y)
     : ZombieCardObject(ImageID::ZOMBIE_CARD_REGULAR, x, y) {}
@@ -173,6 +179,25 @@ int BucketHeadZombieCardObject::GetSunCost() const {
 std::shared_ptr<GameObject> BucketHeadZombieCardObject::CreateZombie(
     int row, int col) const {
   return std::make_shared<BucketHeadZombieObject>(row, col);
+}
+
+// Bungee zombie cards use the bungee card art.
+BungeeZombieCardObject::BungeeZombieCardObject(int x, int y)
+    : ZombieCardObject(ImageID::ZOMBIE_CARD_BUNGEE, x, y) {}
+
+// Bungee zombies may target any grass cell, including cells before the red
+// line.
+bool BungeeZombieCardObject::CanPlaceBeforeRedLine() const { return true; }
+
+// Bungee zombies use the requested deployment cost.
+int BungeeZombieCardObject::GetSunCost() const {
+  return BUNGEE_ZOMBIE_SUN_COST;
+}
+
+// Placement creates one bungee zombie in the chosen lawn cell.
+std::shared_ptr<GameObject> BungeeZombieCardObject::CreateZombie(
+    int row, int col) const {
+  return std::make_shared<BungeeZombieObject>(row, col);
 }
 
 // The red line sprite marks where the current deployment area starts.

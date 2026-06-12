@@ -70,6 +70,9 @@ class ZombieCardObject : public StaticUIObject {
   // Returns whether this card is currently selected.
   bool IsSelected() const;
 
+  // Returns whether this card may deploy before the current red line.
+  virtual bool CanPlaceBeforeRedLine() const;
+
   // Returns the sun amount required to place this card's zombie.
   virtual int GetSunCost() const = 0;
 
@@ -110,6 +113,22 @@ class BucketHeadZombieCardObject final : public ZombieCardObject {
   int GetSunCost() const override;
 
   // Creates a bucket-head zombie at the requested grid cell.
+  std::shared_ptr<GameObject> CreateZombie(int row, int col) const override;
+};
+
+// Card that deploys a bungee zombie onto any lawn grid cell.
+class BungeeZombieCardObject final : public ZombieCardObject {
+ public:
+  // Places the bungee zombie card at the requested slot.
+  BungeeZombieCardObject(int x, int y);
+
+  // Allows bungee zombies to target plant-side cells before the red line.
+  bool CanPlaceBeforeRedLine() const override;
+
+  // Returns the bungee zombie deployment cost.
+  int GetSunCost() const override;
+
+  // Creates a bungee zombie at the requested grid cell.
   std::shared_ptr<GameObject> CreateZombie(int row, int col) const override;
 };
 

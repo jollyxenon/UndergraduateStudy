@@ -11,9 +11,14 @@ constexpr int REGULAR_ZOMBIE_WIDTH = 100;
 constexpr int REGULAR_ZOMBIE_HEIGHT = 139;
 constexpr int REGULAR_ZOMBIE_HP = 270;
 constexpr int BUCKET_HEAD_ZOMBIE_HP = REGULAR_ZOMBIE_HP * 5 / 2;
+constexpr int BUNGEE_ZOMBIE_WIDTH = 102;
+constexpr int BUNGEE_ZOMBIE_HEIGHT = 90;
+constexpr int BUNGEE_ZOMBIE_HP = REGULAR_ZOMBIE_HP;
 constexpr int ZOMBIE_WALK_SPEED = 1;
 constexpr int ZOMBIE_BITE_DAMAGE = 68;
 constexpr int ZOMBIE_BITE_INTERVAL_FRAMES = 24;
+constexpr int BUNGEE_ZOMBIE_SPEED = 24;
+constexpr int BUNGEE_ZOMBIE_GRAB_FRAMES = 30;
 
 // Zombies die after their whole sprite leaves the left edge of the window.
 constexpr int ZOMBIE_LEFT_EXIT_X = 0;
@@ -100,4 +105,67 @@ void BucketHeadZombieObject::RefreshHealthStageImage() {
   }
   m_bucketBroken = true;
   ChangeImage(ImageID::REGULAR_ZOMBIE);
+}
+
+// Bungee zombies start above the screen and keep their target cell metadata.
+BungeeZombieObject::BungeeZombieObject(int row, int col)
+    : ZombieObject(ImageID::BUNGEE_ZOMBIE, GetGridCenterX(col),
+                   WINDOW_HEIGHT + BUNGEE_ZOMBIE_HEIGHT, BUNGEE_ZOMBIE_WIDTH,
+                   BUNGEE_ZOMBIE_HEIGHT, BUNGEE_ZOMBIE_HP, row, col),
+      m_state(BungeeState::Descending),
+      m_targetY(GetGridCenterY(row)),
+      m_grabFramesRemaining(0) {
+  PlayAnimation(AnimID::JUMP);
+}
+
+// Bungee zombies do not use the shared walk-and-bite zombie behavior.
+void BungeeZombieObject::Update() {
+  if (m_state == BungeeState::Descending) {
+    const int nextY = GetY() - BUNGEE_ZOMBIE_SPEED;
+    if (nextY <= m_targetY) {
+      MoveTo(GetX(), m_targetY);
+      ChangeImage(ImageID::BUNGEE_ZOMBIE_GRAB);
+      PlayAnimation(AnimID::JUMP);
+      GrabTargetAtCell();
+      m_state = BungeeState::Grabbing;
+      m_grabFramesRemaining = BUNGEE_ZOMBIE_GRAB_FRAMES;
+    } else {
+      MoveTo(GetX(), nextY);
+    }
+    return;
+  }
+
+  if (m_state == BungeeState::Grabbing) {
+    if (m_grabFramesRemaining > 0) {
+      --m_grabFramesRemaining;
+      return;
+    }
+    ChangeImage(ImageID::BUNGEE_ZOMBIE);
+    PlayAnimation(AnimID::JUMP);
+    m_state = BungeeState::Ascending;
+  }
+
+  MoveTo(GetX(), GetY() + BUNGEE_ZOMBIE_SPEED);
+  if (GetY() - GetHeight() / 2 > WINDOW_HEIGHT) {
+    Kill();
+  }
+}
+
+// The landing grab prefers plants and only takes a brain when no plant exists.
+void BungeeZombieObject::GrabTargetAtCell() {
+  const std::shared_ptr<GameWorld> world = GetWorld();
+  if (!world) {
+    return;
+  }
+
+  PlantObject* plant = world->FindPlantAt(GetRow(), GetCol());
+  if (plant) {
+    plant->KillWithoutDeathEffect();
+    return;
+  }
+
+  GameObject* brain = world->FindBrainAt(GetRow(), GetCol());
+  if (brain) {
+    brain->Kill();
+  }
 }

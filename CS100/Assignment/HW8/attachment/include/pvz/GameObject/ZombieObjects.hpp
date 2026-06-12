@@ -48,4 +48,30 @@ class BucketHeadZombieObject final : public ZombieObject {
   bool m_bucketBroken = false;
 };
 
+// Drops from above, grabs one target cell, then exits upward without walking.
+class BungeeZombieObject final : public ZombieObject {
+ public:
+  // Creates a bungee zombie targeting the requested grid cell.
+  BungeeZombieObject(int row, int col);
+
+  // Advances the bungee-specific drop, grab, and retreat phases.
+  void Update() override;
+
+ private:
+  // Tracks which part of the bungee attack is currently playing.
+  enum class BungeeState { Descending, Grabbing, Ascending };
+
+  // Removes the plant or brain in the target cell when the grab lands.
+  void GrabTargetAtCell();
+
+  // Current bungee attack phase.
+  BungeeState m_state = BungeeState::Descending;
+
+  // Center y-coordinate of the target lawn cell.
+  int m_targetY;
+
+  // Remaining frames for the grab animation pause.
+  int m_grabFramesRemaining = 0;
+};
+
 #endif  // !ZOMBIEOBJECTS_HPP__

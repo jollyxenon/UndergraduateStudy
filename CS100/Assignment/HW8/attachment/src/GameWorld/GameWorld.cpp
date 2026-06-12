@@ -45,6 +45,7 @@ void GameWorld::Init() {
   m_progressMeterObject.reset();
   m_regularZombieCardObject.reset();
   m_bucketHeadZombieCardObject.reset();
+  m_bungeeZombieCardObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -85,6 +86,7 @@ void GameWorld::CleanUp() {
   m_progressMeterObject.reset();
   m_regularZombieCardObject.reset();
   m_bucketHeadZombieCardObject.reset();
+  m_bungeeZombieCardObject.reset();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -105,6 +107,9 @@ void GameWorld::InitStaticInterface() {
   m_bucketHeadZombieCardObject = std::make_shared<BucketHeadZombieCardObject>(
       ZOMBIE_CARD_FIRST_X + ZOMBIE_CARD_SPACING, ZOMBIE_CARD_Y);
   AddObject(m_bucketHeadZombieCardObject);
+  m_bungeeZombieCardObject = std::make_shared<BungeeZombieCardObject>(
+      ZOMBIE_CARD_FIRST_X + 2 * ZOMBIE_CARD_SPACING, ZOMBIE_CARD_Y);
+  AddObject(m_bungeeZombieCardObject);
   m_progressMeterObject =
       std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1);
   AddObject(m_progressMeterObject);
@@ -231,6 +236,9 @@ void GameWorld::ResetZombieCards() {
   if (m_bucketHeadZombieCardObject && m_bucketHeadZombieCardObject->IsAlive()) {
     m_bucketHeadZombieCardObject->ResetCooldown();
   }
+  if (m_bungeeZombieCardObject && m_bungeeZombieCardObject->IsAlive()) {
+    m_bungeeZombieCardObject->ResetCooldown();
+  }
 }
 
 // New stages restore the five row targets after the previous brains disappear.
@@ -311,6 +319,18 @@ PlantObject* GameWorld::FindCollidingPlant(const GameObject& zombie) {
   return nullptr;
 }
 
+// Grid lookup uses category metadata instead of concrete type or image checks.
+PlantObject* GameWorld::FindPlantAt(int row, int col) {
+  for (const GameObjectPtr& object : m_objects) {
+    if (object && object->IsAlive() &&
+        object->GetType() == GameObjectType::PLANT && object->GetRow() == row &&
+        object->GetCol() == col) {
+      return static_cast<PlantObject*>(object.get());
+    }
+  }
+  return nullptr;
+}
+
 // Brain collision uses same-row bounding boxes and category metadata.
 GameObject* GameWorld::FindCollidingBrain(const GameObject& zombie) {
   for (const GameObjectPtr& object : m_objects) {
@@ -325,6 +345,18 @@ GameObject* GameWorld::FindCollidingBrain(const GameObject& zombie) {
     const int brainLeft = object->GetX() - object->GetWidth() / 2;
     const int brainRight = object->GetX() + object->GetWidth() / 2;
     if (zombieLeft <= brainRight && zombieRight >= brainLeft) {
+      return object.get();
+    }
+  }
+  return nullptr;
+}
+
+// Grid lookup finds a living brain at the requested cell when one exists.
+GameObject* GameWorld::FindBrainAt(int row, int col) {
+  for (const GameObjectPtr& object : m_objects) {
+    if (object && object->IsAlive() &&
+        object->GetType() == GameObjectType::BRAIN && object->GetRow() == row &&
+        object->GetCol() == col) {
       return object.get();
     }
   }
@@ -374,15 +406,18 @@ void GameWorld::BeginMouseDown(int x, int y) {
   ClearSelectedZombieCard();
 }
 
-// Selected regular-zombie cards place one zombie in the deployable lawn cells.
+// Selected zombie cards place one zombie when their placement rule allows it.
 bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
-  if (!m_selectedZombieCard || !IsInsideLawnGrid(x, y) ||
-      x < GetCurrentRedLineX()) {
+  if (!m_selectedZombieCard || !IsInsideLawnGrid(x, y)) {
     return false;
   }
 
   const int row = GetGridRowFromY(y);
   const int col = GetGridColFromX(x);
+  if (x < GetCurrentRedLineX() &&
+      !m_selectedZombieCard->CanPlaceBeforeRedLine()) {
+    return false;
+  }
   if (!TrySpendSun(m_selectedZombieCard->GetSunCost())) {
     return false;
   }
