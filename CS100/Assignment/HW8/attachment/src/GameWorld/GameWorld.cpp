@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <functional>
 
+#include "pvz/GameGeometry/GridGeometry.hpp"
 #include "pvz/GameObject/PlantObjects.hpp"
 #include "pvz/GameObject/UIObjects.hpp"
 #include "pvz/GameObject/ZombieObjects.hpp"
@@ -25,23 +26,6 @@ int GetRedLineX(int stageStartCol) {
 
 // The initial red line uses the first stage, not the final stage.
 const int INITIAL_RED_LINE_X = GetRedLineX(INITIAL_ZOMBIE_DEPLOYMENT_START_COL);
-
-// Returns whether a click is inside the lawn's rectangular grid bounds.
-bool IsInsideLawnGrid(int x, int y) {
-  return x >= LAWN_GRID_LEFT && x < LAWN_GRID_RIGHT && y >= LAWN_GRID_BOTTOM &&
-         y < LAWN_GRID_TOP;
-}
-
-// Converts a click x-coordinate to the containing grid column.
-int GetGridColFromX(int x) { return (x - LAWN_GRID_LEFT) / LAWN_GRID_WIDTH; }
-
-// Converts a click y-coordinate to the top-to-bottom grid row.
-int GetGridRowFromY(int y) { return (LAWN_GRID_TOP - y) / LAWN_GRID_HEIGHT; }
-
-// Converts a grid column index to the center x-coordinate of that cell.
-int GetGridCenterX(int col) {
-  return LAWN_GRID_LEFT + col * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
-}
 
 }  // namespace
 

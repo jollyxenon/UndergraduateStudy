@@ -3,6 +3,7 @@
 #include <array>
 #include <utility>
 
+#include "pvz/GameGeometry/GridGeometry.hpp"
 #include "pvz/GameObject/ProjectileObjects.hpp"
 #include "pvz/GameObject/SunObjects.hpp"
 #include "pvz/GameWorld/GameWorld.hpp"
@@ -21,16 +22,6 @@ constexpr int SUNFLOWER_DEATH_SUN_COUNT = 6;
 const std::array<std::pair<int, int>, SUNFLOWER_DEATH_SUN_COUNT>
     SUNFLOWER_DEATH_SUN_OFFSETS{
         {{-30, 24}, {0, 30}, {30, 24}, {-24, -18}, {0, -28}, {24, -18}}};
-
-// Converts a grid column index to the center x-coordinate of that cell.
-int GetGridCenterX(int col) {
-  return LAWN_GRID_LEFT + col * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
-}
-
-// Converts a top-to-bottom grid row index to the center y-coordinate.
-int GetGridCenterY(int row) {
-  return LAWN_GRID_TOP - row * LAWN_GRID_HEIGHT - LAWN_GRID_HEIGHT / 2;
-}
 
 }  // namespace
 

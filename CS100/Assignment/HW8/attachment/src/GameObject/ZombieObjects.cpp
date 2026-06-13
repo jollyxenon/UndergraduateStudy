@@ -1,5 +1,6 @@
 #include "pvz/GameObject/ZombieObjects.hpp"
 
+#include "pvz/GameGeometry/GridGeometry.hpp"
 #include "pvz/GameObject/PlantObjects.hpp"
 #include "pvz/GameWorld/GameWorld.hpp"
 
@@ -22,16 +23,6 @@ constexpr int BUNGEE_ZOMBIE_GRAB_FRAMES = 30;
 
 // Zombies die after their whole sprite leaves the left edge of the window.
 constexpr int ZOMBIE_LEFT_EXIT_X = 0;
-
-// Converts a grid column index to the center x-coordinate of that cell.
-int GetGridCenterX(int col) {
-  return LAWN_GRID_LEFT + col * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
-}
-
-// Converts a top-to-bottom grid row index to the center y-coordinate.
-int GetGridCenterY(int row) {
-  return LAWN_GRID_TOP - row * LAWN_GRID_HEIGHT - LAWN_GRID_HEIGHT / 2;
-}
 
 }  // namespace
 
