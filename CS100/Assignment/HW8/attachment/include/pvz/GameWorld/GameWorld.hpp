@@ -5,6 +5,7 @@
 #include <functional>
 #include <list>
 #include <memory>
+#include <vector>
 
 #include "pvz/Framework/TextBase.hpp"
 #include "pvz/Framework/WorldBase.hpp"
@@ -98,6 +99,9 @@ class GameWorld : public WorldBase,
   // Creates static background and UI elements for the base interface.
   void InitStaticInterface();
 
+  // Creates all reusable zombie cards in their top-bar slots.
+  void CreateZombieCards();
+
   // Clears the per-cell plant occupancy records for a fresh level stage.
   void ClearPlantGrid();
 
@@ -158,14 +162,8 @@ class GameWorld : public WorldBase,
   // Progress meter object updated when a new stage starts.
   std::shared_ptr<ProgressMeterObject> m_progressMeterObject;
 
-  // Reusable zombie card object whose cooldown resets between stages.
-  std::shared_ptr<ZombieCardObject> m_regularZombieCardObject;
-
-  // Reusable bucket-head card object whose cooldown resets between stages.
-  std::shared_ptr<ZombieCardObject> m_bucketHeadZombieCardObject;
-
-  // Reusable bungee card object whose cooldown resets between stages.
-  std::shared_ptr<ZombieCardObject> m_bungeeZombieCardObject;
+  // Reusable zombie card objects whose cooldowns reset between stages.
+  std::vector<std::shared_ptr<ZombieCardObject>> m_zombieCardObjects;
 
   // Leftmost column where zombies may be deployed in the current stage.
   int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;

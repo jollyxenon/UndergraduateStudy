@@ -1,5 +1,8 @@
 #include "pvz/GameWorld/GameWorld.hpp"
 
+#include <array>
+#include <functional>
+
 #include "pvz/GameObject/PlantObjects.hpp"
 #include "pvz/GameObject/UIObjects.hpp"
 #include "pvz/GameObject/ZombieObjects.hpp"
@@ -51,9 +54,7 @@ void GameWorld::ResetWorldObjects() {
   m_sunCounterText.reset();
   m_redLineObject.reset();
   m_progressMeterObject.reset();
-  m_regularZombieCardObject.reset();
-  m_bucketHeadZombieCardObject.reset();
-  m_bungeeZombieCardObject.reset();
+  m_zombieCardObjects.clear();
 }
 
 // Resets all scalar level state to the first-stage starting values.
@@ -94,9 +95,7 @@ void GameWorld::CleanUp() {
   m_sunCounterText.reset();
   m_redLineObject.reset();
   m_progressMeterObject.reset();
-  m_regularZombieCardObject.reset();
-  m_bucketHeadZombieCardObject.reset();
-  m_bungeeZombieCardObject.reset();
+  m_zombieCardObjects.clear();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
@@ -111,15 +110,7 @@ void GameWorld::InitStaticInterface() {
   // Static top-bar UI elements show available sun, zombie cards, and level
   // progress.
   m_sunCounterText = std::make_shared<SunCounterText>(m_sunAmount);
-  m_regularZombieCardObject = std::make_shared<RegularZombieCardObject>(
-      ZOMBIE_CARD_FIRST_X, ZOMBIE_CARD_Y);
-  AddObject(m_regularZombieCardObject);
-  m_bucketHeadZombieCardObject = std::make_shared<BucketHeadZombieCardObject>(
-      ZOMBIE_CARD_FIRST_X + ZOMBIE_CARD_SPACING, ZOMBIE_CARD_Y);
-  AddObject(m_bucketHeadZombieCardObject);
-  m_bungeeZombieCardObject = std::make_shared<BungeeZombieCardObject>(
-      ZOMBIE_CARD_FIRST_X + 2 * ZOMBIE_CARD_SPACING, ZOMBIE_CARD_Y);
-  AddObject(m_bungeeZombieCardObject);
+  CreateZombieCards();
   m_progressMeterObject =
       std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1);
   AddObject(m_progressMeterObject);
@@ -151,6 +142,35 @@ void GameWorld::GeneratePlantDefense() {
         AddObject(std::make_shared<SunflowerObject>(row, col));
       }
     }
+  }
+}
+
+// Zombie card creation is table-driven so adding a card does not affect reset
+// or cleanup logic elsewhere in GameWorld.
+void GameWorld::CreateZombieCards() {
+  using ZombieCardFactory =
+      std::function<std::shared_ptr<ZombieCardObject>(int, int)>;
+  const std::array<ZombieCardFactory, 3> zombieCardFactories = {
+      [](int x, int y) {
+        return std::make_shared<RegularZombieCardObject>(x, y);
+      },
+      [](int x, int y) {
+        return std::make_shared<BucketHeadZombieCardObject>(x, y);
+      },
+      [](int x, int y) {
+        return std::make_shared<BungeeZombieCardObject>(x, y);
+      },
+  };
+
+  m_zombieCardObjects.clear();
+  for (std::size_t cardIndex = 0; cardIndex < zombieCardFactories.size();
+       ++cardIndex) {
+    const int cardX =
+        ZOMBIE_CARD_FIRST_X + static_cast<int>(cardIndex) * ZOMBIE_CARD_SPACING;
+    std::shared_ptr<ZombieCardObject> card =
+        zombieCardFactories[cardIndex](cardX, ZOMBIE_CARD_Y);
+    m_zombieCardObjects.push_back(card);
+    AddObject(card);
   }
 }
 
@@ -240,14 +260,10 @@ void GameWorld::ResetSunAmount() {
 
 // Reusable card UI should not carry selection or cooldown into a new stage.
 void GameWorld::ResetZombieCards() {
-  if (m_regularZombieCardObject && m_regularZombieCardObject->IsAlive()) {
-    m_regularZombieCardObject->ResetCooldown();
-  }
-  if (m_bucketHeadZombieCardObject && m_bucketHeadZombieCardObject->IsAlive()) {
-    m_bucketHeadZombieCardObject->ResetCooldown();
-  }
-  if (m_bungeeZombieCardObject && m_bungeeZombieCardObject->IsAlive()) {
-    m_bungeeZombieCardObject->ResetCooldown();
+  for (const std::shared_ptr<ZombieCardObject>& card : m_zombieCardObjects) {
+    if (card && card->IsAlive()) {
+      card->ResetCooldown();
+    }
   }
 }
 
