@@ -309,25 +309,6 @@ void GameWorld::RemoveDeadObjects() {
   });
 }
 
-// Mutable visitor supports later interaction and collision systems.
-void GameWorld::ForEachObject(const std::function<void(GameObject&)>& visitor) {
-  for (const GameObjectPtr& object : m_objects) {
-    if (object) {
-      visitor(*object);
-    }
-  }
-}
-
-// Const visitor supports read-only queries and tests.
-void GameWorld::ForEachObject(
-    const std::function<void(const GameObject&)>& visitor) const {
-  for (const GameObjectPtr& object : m_objects) {
-    if (object) {
-      visitor(*object);
-    }
-  }
-}
-
 // Plant collision uses same-row bounding boxes and category metadata.
 PlantObject* GameWorld::FindCollidingPlant(const GameObject& zombie) {
   for (const GameObjectPtr& object : m_objects) {
@@ -497,6 +478,3 @@ void GameWorld::ClearSelectedZombieCard() {
   }
   m_selectedZombieCard = nullptr;
 }
-
-// Object count is exposed for simple validation and later UI/debug logic.
-std::size_t GameWorld::GetObjectCount() const { return m_objects.size(); }

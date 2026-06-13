@@ -2,7 +2,6 @@
 #define GAMEWORLD_HPP__
 
 #include <array>
-#include <functional>
 #include <list>
 #include <memory>
 #include <vector>
@@ -49,13 +48,6 @@ class GameWorld : public WorldBase,
   // Removes objects that have been marked dead.
   void RemoveDeadObjects();
 
-  // Visits every currently owned object.
-  void ForEachObject(const std::function<void(GameObject&)>& visitor);
-
-  // Visits every currently owned object without allowing mutation.
-  void ForEachObject(
-      const std::function<void(const GameObject&)>& visitor) const;
-
   // Returns the first living plant touching the given zombie's body.
   PlantObject* FindCollidingPlant(const GameObject& zombie);
 
@@ -85,9 +77,6 @@ class GameWorld : public WorldBase,
 
   // Clears any selected zombie card.
   void ClearSelectedZombieCard();
-
-  // Returns number of objects currently owned by the world.
-  std::size_t GetObjectCount() const;
 
  private:
   // Clears all owned object containers and non-owning gameplay references.
