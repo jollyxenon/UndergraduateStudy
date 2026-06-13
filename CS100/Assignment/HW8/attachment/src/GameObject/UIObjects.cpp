@@ -69,6 +69,7 @@ void CooldownMaskObject::SetRemainingRatio(double remainingRatio) {
 ZombieCardObject::ZombieCardObject(ImageID imageID, int x, int y)
     : StaticUIObject(imageID, x, y, LayerID::UI, SEED_WIDTH, SEED_HEIGHT),
       m_selected(false),
+      m_slotCenterY(y),
       m_cooldownFrames(0),
       m_cooldownMask(nullptr) {}
 
@@ -97,12 +98,12 @@ void ZombieCardObject::Update() {
   }
 }
 
-// Changing selection moves the card exactly once in either direction.
+// Selection state determines an absolute card slot position, not a relative
+// movement from the current frame position.
 void ZombieCardObject::SetSelected(bool selected) {
   m_selected = selected;
-  const int yOffset =
-      selected ? ZOMBIE_CARD_SELECTED_Y_OFFSET : -ZOMBIE_CARD_SELECTED_Y_OFFSET;
-  MoveTo(GetX(), GetY() + yOffset);
+  const int selectedOffset = selected ? ZOMBIE_CARD_SELECTED_Y_OFFSET : 0;
+  MoveTo(GetX(), m_slotCenterY + selectedOffset);
 }
 
 // A successful deployment makes the card unavailable and shows a blocking mask.

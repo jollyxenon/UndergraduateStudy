@@ -83,6 +83,9 @@ class ZombieCardObject : public StaticUIObject {
   // Whether this card has already entered the selected visual state.
   bool m_selected;
 
+  // Fixed slot center Y used to derive the card's visual selected position.
+  int m_slotCenterY;
+
   // Remaining update ticks before the card can be selected again.
   int m_cooldownFrames;
 
