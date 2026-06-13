@@ -45,9 +45,6 @@ GameObjectType PlantObject::GetType() const { return GameObjectType::PLANT; }
 
 // Plants can run subclass-specific cleanup before the shared kill logic.
 void PlantObject::Kill() {
-  if (m_deathHandled) {
-    return;
-  }
   m_deathHandled = true;
   OnDeath();
   GameObject::Kill();
@@ -55,9 +52,6 @@ void PlantObject::Kill() {
 
 // Some effects remove a plant without triggering its death animation or drops.
 void PlantObject::KillWithoutDeathEffect() {
-  if (m_deathHandled) {
-    return;
-  }
   m_deathHandled = true;
   GameObject::Kill();
 }
@@ -65,12 +59,8 @@ void PlantObject::KillWithoutDeathEffect() {
 // Most plants do not need death-side effects.
 void PlantObject::OnDeath() {}
 
-// Plant actions are skipped once the object has been killed.
-void PlantObject::Update() {
-  if (!IsAlive()) {
-    return;
-  }
-}
+// Base plants have no per-frame behavior by default.
+void PlantObject::Update() {}
 
 // Sunflowers start in the idle animation at the target grid center.
 SunflowerObject::SunflowerObject(int row, int col)
@@ -93,10 +83,6 @@ PeashooterObject::PeashooterObject(int row, int col)
 // Peashooters fire at a steady pace while a same-row zombie is to the right.
 void PeashooterObject::Update() {
   PlantObject::Update();
-  if (!IsAlive()) {
-    return;
-  }
-
   if (m_shootCooldown > 0) {
     --m_shootCooldown;
   }

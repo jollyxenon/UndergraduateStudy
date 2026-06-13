@@ -99,7 +99,7 @@ void BucketHeadZombieObject::TakeDamage(int damage) {
 // Once armor HP is gone, regular walk/eat animations represent the exposed
 // body.
 void BucketHeadZombieObject::RefreshHealthStageImage() {
-  if (m_bucketBroken || !IsAlive() || GetHp() > REGULAR_ZOMBIE_HP) {
+  if (GetHp() > REGULAR_ZOMBIE_HP) {
     return;
   }
   m_bucketBroken = true;

@@ -21,9 +21,6 @@ bool GameObject::IsAlive() const { return m_alive && m_hp > 0; }
 
 // Dead objects are erased by GameWorld after updates finish.
 void GameObject::Kill() {
-  if (!m_alive) {
-    return;
-  }
   m_alive = false;
   m_hp = 0;
 }
@@ -41,13 +38,8 @@ void GameObject::SetHp(int hp) {
   }
 }
 
-// Damage ignores non-positive values to avoid accidental healing.
-void GameObject::TakeDamage(int damage) {
-  if (damage <= 0 || !IsAlive()) {
-    return;
-  }
-  SetHp(m_hp - damage);
-}
+// Damage subtracts from hit points through the shared health setter.
+void GameObject::TakeDamage(int damage) { SetHp(m_hp - damage); }
 
 // Row metadata lets subclasses query grid location without recomputing it.
 int GameObject::GetRow() const { return m_row; }

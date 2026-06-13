@@ -73,9 +73,7 @@ LevelStatus GameWorld::Update() {
        updated < objectsToUpdate && iter != m_objects.end(); ++updated) {
     GameObjectPtr object = *iter;
     ++iter;
-    if (object && object->IsAlive()) {
-      object->Update();
-    }
+    object->Update();
   }
 
   RemoveDeadObjects();
@@ -190,8 +188,7 @@ int GameWorld::GetCurrentRedLineX() const {
 // A stage is complete when every row's brain has been removed from the world.
 bool GameWorld::IsVictorious() const {
   for (const GameObjectPtr& object : m_objects) {
-    if (object && object->IsAlive() &&
-        object->GetType() == GameObjectType::BRAIN) {
+    if (object->GetType() == GameObjectType::BRAIN) {
       return false;
     }
   }
@@ -206,8 +203,7 @@ bool GameWorld::IsFailed() const {
   }
 
   for (const GameObjectPtr& object : m_objects) {
-    if (object && object->IsAlive() &&
-        object->GetType() == GameObjectType::ZOMBIE) {
+    if (object->GetType() == GameObjectType::ZOMBIE) {
       return false;
     }
   }
@@ -221,9 +217,7 @@ LevelStatus GameWorld::AdvanceStage() {
   }
 
   ++m_currentZombieDeploymentStartCol;
-  if (m_redLineObject && m_redLineObject->IsAlive()) {
-    m_redLineObject->MoveTo(GetCurrentRedLineX(), m_redLineObject->GetY());
-  }
+  m_redLineObject->MoveTo(GetCurrentRedLineX(), m_redLineObject->GetY());
   UpdateProgressMeter();
 
   ResetStageState();
@@ -242,12 +236,11 @@ void GameWorld::ResetStageState() {
   ResetZombieCards();
 
   for (const GameObjectPtr& object : m_objects) {
-    if (object && object->IsAlive() &&
-        (object->GetType() == GameObjectType::PLANT ||
-         object->GetType() == GameObjectType::PROJECTILE ||
-         object->GetType() == GameObjectType::SUN ||
-         object->GetType() == GameObjectType::ZOMBIE ||
-         object->GetType() == GameObjectType::BRAIN)) {
+    if (object->GetType() == GameObjectType::PLANT ||
+        object->GetType() == GameObjectType::PROJECTILE ||
+        object->GetType() == GameObjectType::SUN ||
+        object->GetType() == GameObjectType::ZOMBIE ||
+        object->GetType() == GameObjectType::BRAIN) {
       object->Kill();
     }
   }
@@ -256,17 +249,13 @@ void GameWorld::ResetStageState() {
 // Stage starts always grant the same deployment budget as the first stage.
 void GameWorld::ResetSunAmount() {
   m_sunAmount = INITIAL_SUN_AMOUNT;
-  if (m_sunCounterText) {
-    m_sunCounterText->SetSunAmount(m_sunAmount);
-  }
+  m_sunCounterText->SetSunAmount(m_sunAmount);
 }
 
 // Reusable card UI should not carry selection or cooldown into a new stage.
 void GameWorld::ResetZombieCards() {
   for (ZombieCardObject* card : m_zombieCardObjects) {
-    if (card && card->IsAlive()) {
-      card->ResetCooldown();
-    }
+    card->ResetCooldown();
   }
 }
 
@@ -280,40 +269,28 @@ void GameWorld::RegenerateBrains() {
 // The meter stage images are consecutive enum values, so the stage offset maps
 // directly to the current progress sprite.
 void GameWorld::UpdateProgressMeter() {
-  if (!m_progressMeterObject || !m_progressMeterObject->IsAlive()) {
-    return;
-  }
-
   const int stageIndex =
       m_currentZombieDeploymentStartCol - INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_progressMeterObject->ChangeImage(static_cast<ImageID>(
       static_cast<int>(ImageID::PROGRESS_METER_STAGE_1) + stageIndex));
 }
 
-// Null objects are ignored; valid objects receive a weak owner pointer.
+// New objects receive a weak owner pointer before entering the world.
 void GameWorld::AddObject(GameObjectPtr object) {
-  if (!object) {
-    return;
-  }
   object->SetWorld(weak_from_this());
   m_objects.push_back(std::move(object));
 }
 
-// Dead or null objects leave the container at frame end.
+// Dead objects leave the container at frame end.
 void GameWorld::RemoveDeadObjects() {
-  if (m_selectedZombieCard && !m_selectedZombieCard->IsAlive()) {
-    m_selectedZombieCard = nullptr;
-  }
-  m_objects.remove_if([](const GameObjectPtr& object) {
-    return !object || !object->IsAlive();
-  });
+  m_objects.remove_if(
+      [](const GameObjectPtr& object) { return !object->IsAlive(); });
 }
 
 // Plant collision uses same-row bounding boxes and category metadata.
 PlantObject* GameWorld::FindCollidingPlant(const GameObject& zombie) {
   for (const GameObjectPtr& object : m_objects) {
-    if (!object || !object->IsAlive() ||
-        object->GetType() != GameObjectType::PLANT ||
+    if (object->GetType() != GameObjectType::PLANT ||
         object->GetRow() != zombie.GetRow()) {
       continue;
     }
@@ -332,8 +309,7 @@ PlantObject* GameWorld::FindCollidingPlant(const GameObject& zombie) {
 // Grid lookup uses category metadata instead of concrete type or image checks.
 PlantObject* GameWorld::FindPlantAt(int row, int col) {
   for (const GameObjectPtr& object : m_objects) {
-    if (object && object->IsAlive() &&
-        object->GetType() == GameObjectType::PLANT && object->GetRow() == row &&
+    if (object->GetType() == GameObjectType::PLANT && object->GetRow() == row &&
         object->GetCol() == col) {
       return static_cast<PlantObject*>(object.get());
     }
@@ -344,8 +320,7 @@ PlantObject* GameWorld::FindPlantAt(int row, int col) {
 // Brain collision uses same-row bounding boxes and category metadata.
 GameObject* GameWorld::FindCollidingBrain(const GameObject& zombie) {
   for (const GameObjectPtr& object : m_objects) {
-    if (!object || !object->IsAlive() ||
-        object->GetType() != GameObjectType::BRAIN ||
+    if (object->GetType() != GameObjectType::BRAIN ||
         object->GetRow() != zombie.GetRow()) {
       continue;
     }
@@ -364,8 +339,7 @@ GameObject* GameWorld::FindCollidingBrain(const GameObject& zombie) {
 // Grid lookup finds a living brain at the requested cell when one exists.
 GameObject* GameWorld::FindBrainAt(int row, int col) {
   for (const GameObjectPtr& object : m_objects) {
-    if (object && object->IsAlive() &&
-        object->GetType() == GameObjectType::BRAIN && object->GetRow() == row &&
+    if (object->GetType() == GameObjectType::BRAIN && object->GetRow() == row &&
         object->GetCol() == col) {
       return object.get();
     }
@@ -376,8 +350,7 @@ GameObject* GameWorld::FindBrainAt(int row, int col) {
 // Shooter targeting checks for any same-row zombie strictly to the right.
 bool GameWorld::HasZombieOnRight(int row, int x) const {
   for (const GameObjectPtr& object : m_objects) {
-    if (object && object->IsAlive() &&
-        object->GetType() == GameObjectType::ZOMBIE &&
+    if (object->GetType() == GameObjectType::ZOMBIE &&
         object->GetRow() == row && object->GetX() > x) {
       return true;
     }
@@ -389,8 +362,7 @@ bool GameWorld::HasZombieOnRight(int row, int x) const {
 GameObject* GameWorld::FindCollidingZombie(const GameObject& projectile) {
   GameObject* firstZombie = nullptr;
   for (const GameObjectPtr& object : m_objects) {
-    if (!object || !object->IsAlive() ||
-        object->GetType() != GameObjectType::ZOMBIE ||
+    if (object->GetType() != GameObjectType::ZOMBIE ||
         object->GetRow() != projectile.GetRow()) {
       continue;
     }
@@ -442,29 +414,19 @@ bool GameWorld::TrySpendSun(int sunCost) {
     return false;
   }
   m_sunAmount -= sunCost;
-  if (m_sunCounterText) {
-    m_sunCounterText->SetSunAmount(m_sunAmount);
-  }
+  m_sunCounterText->SetSunAmount(m_sunAmount);
   return true;
 }
 
 // Collected suns update both gameplay state and visible text atomically.
 void GameWorld::AddSun(int sunAmount) {
-  if (sunAmount <= 0) {
-    return;
-  }
   m_sunAmount += sunAmount;
-  if (m_sunCounterText) {
-    m_sunCounterText->SetSunAmount(m_sunAmount);
-  }
+  m_sunCounterText->SetSunAmount(m_sunAmount);
 }
 
 // Selecting the just-cancelled card means toggling it off; other cards select.
 void GameWorld::SelectZombieCard(ZombieCardObject& card) {
   if (m_cancelledZombieCardThisMouseDown == &card) {
-    return;
-  }
-  if (card.IsCoolingDown()) {
     return;
   }
   card.SetSelected(true);

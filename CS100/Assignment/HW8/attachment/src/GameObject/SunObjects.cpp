@@ -21,10 +21,6 @@ GameObjectType DroppedSunObject::GetType() const { return GameObjectType::SUN; }
 
 // Clicking a sun collects its value exactly once and removes the sprite.
 void DroppedSunObject::OnClick() {
-  if (!IsAlive()) {
-    return;
-  }
-
   GetWorld().AddSun(SUN_VALUE);
   Kill();
 }

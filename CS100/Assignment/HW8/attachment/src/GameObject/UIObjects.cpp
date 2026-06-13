@@ -1,6 +1,5 @@
 #include "pvz/GameObject/UIObjects.hpp"
 
-#include <algorithm>
 #include <cmath>
 #include <string>
 
@@ -60,9 +59,8 @@ CooldownMaskObject::CooldownMaskObject(int x, int y)
 
 // The mask keeps its top edge fixed and shortens linearly as cooldown expires.
 void CooldownMaskObject::SetRemainingRatio(double remainingRatio) {
-  const double clampedRatio = std::clamp(remainingRatio, 0.0, 1.0);
   const int maskHeight =
-      static_cast<int>(std::ceil(SEED_HEIGHT * clampedRatio));
+      static_cast<int>(std::ceil(SEED_HEIGHT * remainingRatio));
   ResizeTo(SEED_WIDTH, maskHeight);
   MoveTo(GetX(), m_cardCenterY + (SEED_HEIGHT - maskHeight) / 2);
 }
@@ -90,12 +88,10 @@ void ZombieCardObject::Update() {
   }
 
   --m_cooldownFrames;
-  if (m_cooldownMask) {
-    m_cooldownMask->SetRemainingRatio(static_cast<double>(m_cooldownFrames) /
-                                      ZOMBIE_CARD_COOLDOWN_FRAMES);
-  }
+  m_cooldownMask->SetRemainingRatio(static_cast<double>(m_cooldownFrames) /
+                                    ZOMBIE_CARD_COOLDOWN_FRAMES);
 
-  if (m_cooldownFrames <= 0 && m_cooldownMask) {
+  if (m_cooldownFrames <= 0) {
     m_cooldownMask->Kill();
     m_cooldownMask = nullptr;
   }
@@ -103,9 +99,6 @@ void ZombieCardObject::Update() {
 
 // Changing selection moves the card exactly once in either direction.
 void ZombieCardObject::SetSelected(bool selected) {
-  if (m_selected == selected) {
-    return;
-  }
   m_selected = selected;
   const int yOffset =
       selected ? ZOMBIE_CARD_SELECTED_Y_OFFSET : -ZOMBIE_CARD_SELECTED_Y_OFFSET;
@@ -116,11 +109,6 @@ void ZombieCardObject::SetSelected(bool selected) {
 void ZombieCardObject::StartCooldown() {
   SetSelected(false);
   m_cooldownFrames = ZOMBIE_CARD_COOLDOWN_FRAMES;
-
-  if (m_cooldownMask && m_cooldownMask->IsAlive()) {
-    return;
-  }
-
   std::shared_ptr<CooldownMaskObject> cooldownMask =
       std::make_shared<CooldownMaskObject>(GetX(), GetY());
   m_cooldownMask = cooldownMask.get();

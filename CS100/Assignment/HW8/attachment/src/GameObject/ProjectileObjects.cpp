@@ -23,10 +23,6 @@ GameObjectType PeaObject::GetType() const { return GameObjectType::PROJECTILE; }
 
 // A pea damages one zombie, otherwise moves right until it leaves the window.
 void PeaObject::Update() {
-  if (!IsAlive()) {
-    return;
-  }
-
   GameObject* zombie = GetWorld().FindCollidingZombie(*this);
   if (zombie) {
     zombie->TakeDamage(PEA_DAMAGE);
