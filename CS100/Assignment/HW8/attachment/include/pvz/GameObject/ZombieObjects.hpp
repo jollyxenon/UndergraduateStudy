@@ -61,7 +61,7 @@ class BungeeZombieObject final : public ZombieObject {
   // Tracks which part of the bungee attack is currently playing.
   enum class BungeeState { Descending, Grabbing, Ascending };
 
-  // Removes the plant or brain in the target cell when the grab lands.
+  // Removes the plant in the target cell when the grab lands.
   void GrabTargetAtCell();
 
   // Current bungee attack phase.

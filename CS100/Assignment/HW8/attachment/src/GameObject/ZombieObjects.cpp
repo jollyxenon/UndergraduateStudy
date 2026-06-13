@@ -150,16 +150,10 @@ void BungeeZombieObject::Update() {
   }
 }
 
-// The landing grab prefers plants and only takes a brain when no plant exists.
+// The landing grab only steals a plant from the target cell.
 void BungeeZombieObject::GrabTargetAtCell() {
   PlantObject* plant = GetWorld().FindPlantAt(GetRow(), GetCol());
   if (plant) {
     plant->KillWithoutDeathEffect();
-    return;
-  }
-
-  GameObject* brain = GetWorld().FindBrainAt(GetRow(), GetCol());
-  if (brain) {
-    brain->Kill();
   }
 }
