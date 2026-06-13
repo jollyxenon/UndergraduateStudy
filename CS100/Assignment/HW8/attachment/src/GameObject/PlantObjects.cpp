@@ -17,6 +17,11 @@ constexpr int PEASHOOTER_FIRE_INTERVAL_FRAMES = 30;
 constexpr int PEA_SPAWN_X_OFFSET = 30;
 constexpr int SUNFLOWER_DEATH_SUN_COUNT = 6;
 
+// Offsets spread dropped suns around the defeated sunflower for clicking.
+const std::array<std::pair<int, int>, SUNFLOWER_DEATH_SUN_COUNT>
+    SUNFLOWER_DEATH_SUN_OFFSETS{
+        {{-30, 24}, {0, 30}, {30, 24}, {-24, -18}, {0, -28}, {24, -18}}};
+
 // Converts a grid column index to the center x-coordinate of that cell.
 int GetGridCenterX(int col) {
   return LAWN_GRID_LEFT + col * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
@@ -28,11 +33,6 @@ int GetGridCenterY(int row) {
 }
 
 }  // namespace
-
-// Offsets spread dropped suns around the defeated sunflower for clicking.
-const std::array<std::pair<int, int>, SUNFLOWER_DEATH_SUN_COUNT>
-    SUNFLOWER_DEATH_SUN_OFFSETS{
-        {{-30, 24}, {0, 30}, {30, 24}, {-24, -18}, {0, -28}, {24, -18}}};
 
 // Plants render on the plant layer and idle by default.
 PlantObject::PlantObject(ImageID imageID, int x, int y, int hp, int row,
