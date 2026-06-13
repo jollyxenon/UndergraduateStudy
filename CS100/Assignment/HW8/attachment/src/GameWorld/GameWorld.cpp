@@ -52,8 +52,8 @@ void GameWorld::Init() {
 void GameWorld::ResetWorldObjects() {
   m_objects.clear();
   m_sunCounterText.reset();
-  m_redLineObject.reset();
-  m_progressMeterObject.reset();
+  m_redLineObject = nullptr;
+  m_progressMeterObject = nullptr;
   m_zombieCardObjects.clear();
 }
 
@@ -93,8 +93,8 @@ void GameWorld::CleanUp() {
   m_objects.clear();
   m_sunAmount = 0;
   m_sunCounterText.reset();
-  m_redLineObject.reset();
-  m_progressMeterObject.reset();
+  m_redLineObject = nullptr;
+  m_progressMeterObject = nullptr;
   m_zombieCardObjects.clear();
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
@@ -111,13 +111,16 @@ void GameWorld::InitStaticInterface() {
   // progress.
   m_sunCounterText = std::make_shared<SunCounterText>(m_sunAmount);
   CreateZombieCards();
-  m_progressMeterObject =
+  std::shared_ptr<ProgressMeterObject> progressMeterObject =
       std::make_shared<ProgressMeterObject>(ImageID::PROGRESS_METER_STAGE_1);
-  AddObject(m_progressMeterObject);
+  m_progressMeterObject = progressMeterObject.get();
+  AddObject(progressMeterObject);
 
   // Red line and brains visualize the current deployment boundary and goals.
-  m_redLineObject = std::make_shared<RedLineObject>(INITIAL_RED_LINE_X);
-  AddObject(m_redLineObject);
+  std::shared_ptr<RedLineObject> redLineObject =
+      std::make_shared<RedLineObject>(INITIAL_RED_LINE_X);
+  m_redLineObject = redLineObject.get();
+  AddObject(redLineObject);
   for (int row = 0; row < GAME_ROWS; ++row) {
     AddObject(std::make_shared<BrainObject>(row));
   }
@@ -169,7 +172,7 @@ void GameWorld::CreateZombieCards() {
         ZOMBIE_CARD_FIRST_X + static_cast<int>(cardIndex) * ZOMBIE_CARD_SPACING;
     std::shared_ptr<ZombieCardObject> card =
         zombieCardFactories[cardIndex](cardX, ZOMBIE_CARD_Y);
-    m_zombieCardObjects.push_back(card);
+    m_zombieCardObjects.push_back(card.get());
     AddObject(card);
   }
 }
@@ -260,7 +263,7 @@ void GameWorld::ResetSunAmount() {
 
 // Reusable card UI should not carry selection or cooldown into a new stage.
 void GameWorld::ResetZombieCards() {
-  for (const std::shared_ptr<ZombieCardObject>& card : m_zombieCardObjects) {
+  for (ZombieCardObject* card : m_zombieCardObjects) {
     if (card && card->IsAlive()) {
       card->ResetCooldown();
     }

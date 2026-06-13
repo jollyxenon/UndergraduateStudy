@@ -86,8 +86,9 @@ class ZombieCardObject : public StaticUIObject {
   // Remaining update ticks before the card can be selected again.
   int m_cooldownFrames;
 
-  // World-owned overlay that visually blocks this card while cooling down.
-  std::shared_ptr<CooldownMaskObject> m_cooldownMask;
+  // Non-owning overlay handle that visually blocks this card while cooling
+  // down.
+  CooldownMaskObject* m_cooldownMask;
 };
 
 // Card that deploys a regular zombie.

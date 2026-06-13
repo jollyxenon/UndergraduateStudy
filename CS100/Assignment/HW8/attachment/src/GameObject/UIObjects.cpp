@@ -97,7 +97,7 @@ void ZombieCardObject::Update() {
 
   if (m_cooldownFrames <= 0 && m_cooldownMask) {
     m_cooldownMask->Kill();
-    m_cooldownMask.reset();
+    m_cooldownMask = nullptr;
   }
 }
 
@@ -121,9 +121,11 @@ void ZombieCardObject::StartCooldown() {
     return;
   }
 
-  m_cooldownMask = std::make_shared<CooldownMaskObject>(GetX(), GetY());
+  std::shared_ptr<CooldownMaskObject> cooldownMask =
+      std::make_shared<CooldownMaskObject>(GetX(), GetY());
+  m_cooldownMask = cooldownMask.get();
   m_cooldownMask->SetRemainingRatio(1.0);
-  GetWorld().AddObject(m_cooldownMask);
+  GetWorld().AddObject(cooldownMask);
 }
 
 // Stage resets make the card immediately usable and remove any old overlay.
@@ -132,7 +134,7 @@ void ZombieCardObject::ResetCooldown() {
   m_cooldownFrames = 0;
   if (m_cooldownMask) {
     m_cooldownMask->Kill();
-    m_cooldownMask.reset();
+    m_cooldownMask = nullptr;
   }
 }
 

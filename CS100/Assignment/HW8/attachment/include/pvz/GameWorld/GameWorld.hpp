@@ -156,14 +156,15 @@ class GameWorld : public WorldBase,
   // Text object for the visible sun counter; TextBase self-registers globally.
   std::shared_ptr<SunCounterText> m_sunCounterText;
 
-  // Red line object moved when a new stage starts.
-  std::shared_ptr<RedLineObject> m_redLineObject;
+  // Non-owning red line object handle moved when a new stage starts.
+  RedLineObject* m_redLineObject = nullptr;
 
-  // Progress meter object updated when a new stage starts.
-  std::shared_ptr<ProgressMeterObject> m_progressMeterObject;
+  // Non-owning progress meter handle updated when a new stage starts.
+  ProgressMeterObject* m_progressMeterObject = nullptr;
 
-  // Reusable zombie card objects whose cooldowns reset between stages.
-  std::vector<std::shared_ptr<ZombieCardObject>> m_zombieCardObjects;
+  // Non-owning reusable zombie card handles whose cooldowns reset between
+  // stages.
+  std::vector<ZombieCardObject*> m_zombieCardObjects;
 
   // Leftmost column where zombies may be deployed in the current stage.
   int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
