@@ -89,6 +89,12 @@ class GameWorld : public WorldBase,
   std::size_t GetObjectCount() const;
 
  private:
+  // Clears all owned object containers and non-owning gameplay references.
+  void ResetWorldObjects();
+
+  // Restores per-level counters, selection state, and deployment boundaries.
+  void ResetLevelState();
+
   // Creates static background and UI elements for the base interface.
   void InitStaticInterface();
 

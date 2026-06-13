@@ -38,20 +38,30 @@ int GetGridRowFromY(int y) { return (LAWN_GRID_TOP - y) / LAWN_GRID_HEIGHT; }
 
 // Initializes the object container and creates the static base interface.
 void GameWorld::Init() {
+  ResetWorldObjects();
+  ResetLevelState();
+  ClearPlantGrid();
+  InitStaticInterface();
+  GeneratePlantDefense();
+}
+
+// Clears owned objects and stale UI handles before building a new level.
+void GameWorld::ResetWorldObjects() {
   m_objects.clear();
-  m_sunAmount = INITIAL_SUN_AMOUNT;
   m_sunCounterText.reset();
   m_redLineObject.reset();
   m_progressMeterObject.reset();
   m_regularZombieCardObject.reset();
   m_bucketHeadZombieCardObject.reset();
   m_bungeeZombieCardObject.reset();
+}
+
+// Resets all scalar level state to the first-stage starting values.
+void GameWorld::ResetLevelState() {
+  m_sunAmount = INITIAL_SUN_AMOUNT;
   m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
   m_selectedZombieCard = nullptr;
   m_cancelledZombieCardThisMouseDown = nullptr;
-  ClearPlantGrid();
-  InitStaticInterface();
-  GeneratePlantDefense();
 }
 
 // Advances one frame, then clears objects that died during updates.
