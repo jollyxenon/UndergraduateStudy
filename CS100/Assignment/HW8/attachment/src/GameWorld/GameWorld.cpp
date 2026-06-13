@@ -1,6 +1,7 @@
 #include "pvz/GameWorld/GameWorld.hpp"
 
 #include <array>
+#include <cstdlib>
 #include <functional>
 
 #include "pvz/GameObject/PlantObjects.hpp"
@@ -36,6 +37,11 @@ int GetGridColFromX(int x) { return (x - LAWN_GRID_LEFT) / LAWN_GRID_WIDTH; }
 
 // Converts a click y-coordinate to the top-to-bottom grid row.
 int GetGridRowFromY(int y) { return (LAWN_GRID_TOP - y) / LAWN_GRID_HEIGHT; }
+
+// Converts a grid column index to the center x-coordinate of that cell.
+int GetGridCenterX(int col) {
+  return LAWN_GRID_LEFT + col * LAWN_GRID_WIDTH + LAWN_GRID_WIDTH / 2;
+}
 
 }  // namespace
 
@@ -198,16 +204,32 @@ bool GameWorld::IsVictorious() const {
 // Failure occurs when no active zombie can eat the remaining brains and the
 // player cannot afford another regular zombie.
 bool GameWorld::IsFailed() const {
-  if (m_sunAmount >= MINIMUM_ZOMBIE_SUN_COST || IsVictorious()) {
+  if (m_sunAmount >= MINIMUM_ZOMBIE_SUN_COST || IsVictorious() ||
+      HasCollectibleSun()) {
     return false;
   }
 
+  return !HasBrainThreateningZombie();
+}
+
+// Collectible suns mean the player still has a possible resource path.
+bool GameWorld::HasCollectibleSun() const {
   for (const GameObjectPtr& object : m_objects) {
-    if (object->GetType() == GameObjectType::ZOMBIE) {
-      return false;
+    if (object->GetType() == GameObjectType::SUN) {
+      return true;
     }
   }
-  return true;
+  return false;
+}
+
+// Only zombies that actually walk toward brains can keep the stage alive.
+bool GameWorld::HasBrainThreateningZombie() const {
+  for (const GameObjectPtr& object : m_objects) {
+    if (object->CanThreatenBrain()) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Stage advancement moves the boundary right and rebuilds all dynamic targets.
@@ -336,7 +358,7 @@ GameObject* GameWorld::FindCollidingBrain(const GameObject& zombie) {
   return nullptr;
 }
 
-// Grid lookup finds a living brain at the requested cell when one exists.
+// Grid lookup finds a brain at the requested cell when one exists.
 GameObject* GameWorld::FindBrainAt(int row, int col) {
   for (const GameObjectPtr& object : m_objects) {
     if (object->GetType() == GameObjectType::BRAIN && object->GetRow() == row &&
@@ -400,12 +422,31 @@ bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
       !m_selectedZombieCard->CanPlaceBeforeRedLine()) {
     return false;
   }
+  if (m_selectedZombieCard->RequiresPlantTarget()) {
+    if (!FindPlantAt(row, col)) {
+      return false;
+    }
+  } else if (HasZombieNearPlacement(row, col)) {
+    return false;
+  }
   if (!TrySpendSun(m_selectedZombieCard->GetSunCost())) {
     return false;
   }
   AddObject(m_selectedZombieCard->CreateZombie(row, col));
   m_selectedZombieCard->StartCooldown();
   return true;
+}
+
+// Walking zombie cards cannot stack another zombie on an occupied spawn cell.
+bool GameWorld::HasZombieNearPlacement(int row, int col) const {
+  const int targetX = GetGridCenterX(col);
+  for (const GameObjectPtr& object : m_objects) {
+    if (object->CanThreatenBrain() && object->GetRow() == row &&
+        std::abs(object->GetX() - targetX) < ZOMBIE_DEPLOYMENT_WIDTH) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Spending sun updates both gameplay state and the visible counter atomically.

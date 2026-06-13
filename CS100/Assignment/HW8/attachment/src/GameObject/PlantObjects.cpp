@@ -13,7 +13,7 @@ namespace {
 constexpr int PLANT_WIDTH = 60;
 constexpr int PLANT_HEIGHT = 80;
 constexpr int PLANT_HP = 340;
-constexpr int PEASHOOTER_FIRE_INTERVAL_FRAMES = 30;
+constexpr int PEASHOOTER_FIRE_INTERVAL_FRAMES = 32;
 constexpr int PEA_SPAWN_X_OFFSET = 30;
 constexpr int SUNFLOWER_DEATH_SUN_COUNT = 6;
 

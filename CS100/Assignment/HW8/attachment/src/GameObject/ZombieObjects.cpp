@@ -9,14 +9,14 @@ namespace {
 // frames.
 constexpr int REGULAR_ZOMBIE_WIDTH = 100;
 constexpr int REGULAR_ZOMBIE_HEIGHT = 139;
-constexpr int REGULAR_ZOMBIE_HP = 270;
-constexpr int BUCKET_HEAD_ZOMBIE_HP = REGULAR_ZOMBIE_HP * 5 / 2;
+constexpr int REGULAR_ZOMBIE_HP = 260;
+constexpr int BUCKET_HEAD_ZOMBIE_HP = 1450;
 constexpr int BUNGEE_ZOMBIE_WIDTH = 102;
 constexpr int BUNGEE_ZOMBIE_HEIGHT = 90;
-constexpr int BUNGEE_ZOMBIE_HP = REGULAR_ZOMBIE_HP;
+constexpr int BUNGEE_ZOMBIE_HP = 450;
 constexpr int ZOMBIE_WALK_SPEED = 1;
-constexpr int ZOMBIE_BITE_DAMAGE = 68;
-constexpr int ZOMBIE_BITE_INTERVAL_FRAMES = 24;
+constexpr int ZOMBIE_BITE_DAMAGE = 4;
+constexpr int ZOMBIE_BITE_INTERVAL_FRAMES = 1;
 constexpr int BUNGEE_ZOMBIE_SPEED = 24;
 constexpr int BUNGEE_ZOMBIE_GRAB_FRAMES = 30;
 
@@ -46,6 +46,9 @@ GameObjectType ZombieObject::GetType() const { return GameObjectType::ZOMBIE; }
 
 // Shared zombie damage currently delegates to the common GameObject HP logic.
 void ZombieObject::TakeDamage(int damage) { GameObject::TakeDamage(damage); }
+
+// Normal walking zombies are valid progress threats for failure detection.
+bool ZombieObject::CanThreatenBrain() const { return true; }
 
 // Zombies stop to bite colliding plants, otherwise they keep walking left.
 void ZombieObject::Update() {
@@ -150,10 +153,11 @@ void BungeeZombieObject::Update() {
   }
 }
 
+// A bungee zombie exits upward after stealing a plant, so it cannot eat brains.
+bool BungeeZombieObject::CanThreatenBrain() const { return false; }
+
 // The landing grab only steals a plant from the target cell.
 void BungeeZombieObject::GrabTargetAtCell() {
   PlantObject* plant = GetWorld().FindPlantAt(GetRow(), GetCol());
-  if (plant) {
-    plant->KillWithoutDeathEffect();
-  }
+  plant->KillWithoutDeathEffect();
 }

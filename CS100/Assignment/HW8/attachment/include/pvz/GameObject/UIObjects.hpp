@@ -73,6 +73,9 @@ class ZombieCardObject : public StaticUIObject {
   // Returns whether this card may deploy before the current red line.
   virtual bool CanPlaceBeforeRedLine() const;
 
+  // Returns whether placement must target a living plant cell.
+  virtual bool RequiresPlantTarget() const;
+
   // Returns the sun amount required to place this card's zombie.
   virtual int GetSunCost() const = 0;
 
@@ -128,6 +131,9 @@ class BungeeZombieCardObject final : public ZombieCardObject {
 
   // Allows bungee zombies to target plant-side cells before the red line.
   bool CanPlaceBeforeRedLine() const override;
+
+  // Bungee zombies must target an occupied plant cell.
+  bool RequiresPlantTarget() const override;
 
   // Returns the bungee zombie deployment cost.
   int GetSunCost() const override;

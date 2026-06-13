@@ -15,8 +15,8 @@ constexpr int PROGRESS_METER_Y = 578;
 // Selected zombie cards rise slightly from their slot as visual feedback.
 constexpr int ZOMBIE_CARD_SELECTED_Y_OFFSET = 5;
 
-// Zombie cards stay unavailable for roughly two seconds after successful use.
-constexpr int ZOMBIE_CARD_COOLDOWN_FRAMES = 2000 / MS_PER_FRAME;
+// Zombie cards stay unavailable for about 120 ticks after successful use.
+constexpr int ZOMBIE_CARD_COOLDOWN_FRAMES = 120;
 
 // Regular zombies cost two small sun units in I, Zombie mode.
 constexpr int REGULAR_ZOMBIE_SUN_COST = 50;
@@ -136,6 +136,9 @@ bool ZombieCardObject::IsSelected() const { return m_selected; }
 // Most zombie cards cannot be placed into the protected plant area.
 bool ZombieCardObject::CanPlaceBeforeRedLine() const { return false; }
 
+// Most zombie cards target empty deployment cells rather than plants.
+bool ZombieCardObject::RequiresPlantTarget() const { return false; }
+
 // Regular zombie cards use the regular zombie card art.
 RegularZombieCardObject::RegularZombieCardObject(int x, int y)
     : ZombieCardObject(ImageID::ZOMBIE_CARD_REGULAR, x, y) {}
@@ -173,6 +176,9 @@ BungeeZombieCardObject::BungeeZombieCardObject(int x, int y)
 // Bungee zombies may target any grass cell, including cells before the red
 // line.
 bool BungeeZombieCardObject::CanPlaceBeforeRedLine() const { return true; }
+
+// Bungee placement is valid only when a plant occupies the clicked cell.
+bool BungeeZombieCardObject::RequiresPlantTarget() const { return true; }
 
 // Bungee zombies use the requested deployment cost.
 int BungeeZombieCardObject::GetSunCost() const {

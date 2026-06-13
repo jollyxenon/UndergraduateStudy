@@ -48,22 +48,22 @@ class GameWorld : public WorldBase,
   // Removes objects that have been marked dead.
   void RemoveDeadObjects();
 
-  // Returns the first living plant touching the given zombie's body.
+  // Returns the first plant touching the given zombie's body.
   PlantObject* FindCollidingPlant(const GameObject& zombie);
 
-  // Returns the living plant occupying the requested grid cell.
+  // Returns the plant occupying the requested grid cell.
   PlantObject* FindPlantAt(int row, int col);
 
-  // Returns the first living brain touching the given zombie's body.
+  // Returns the first brain touching the given zombie's body.
   GameObject* FindCollidingBrain(const GameObject& zombie);
 
-  // Returns the living brain occupying the requested grid cell.
+  // Returns the brain occupying the requested grid cell.
   GameObject* FindBrainAt(int row, int col);
 
-  // Returns whether a living zombie is on the same row and right side.
+  // Returns whether a zombie is on the same row and right side.
   bool HasZombieOnRight(int row, int x) const;
 
-  // Returns the first living zombie touching the given projectile's body.
+  // Returns the first zombie touching the given projectile's body.
   GameObject* FindCollidingZombie(const GameObject& projectile);
 
   // Adds collected sun and refreshes the visible counter.
@@ -109,6 +109,12 @@ class GameWorld : public WorldBase,
   // Returns whether the player cannot deploy zombies while brains remain.
   bool IsFailed() const;
 
+  // Returns whether a dropped sun can still be collected by the player.
+  bool HasCollectibleSun() const;
+
+  // Returns whether an advancing zombie remains able to eat a brain.
+  bool HasBrainThreateningZombie() const;
+
   // Moves into the next stage after all brains have been eaten.
   LevelStatus AdvanceStage();
 
@@ -126,6 +132,9 @@ class GameWorld : public WorldBase,
 
   // Attempts to place the previously selected zombie at the clicked grid cell.
   bool TryPlaceSelectedZombie(int x, int y);
+
+  // Returns whether the target cell is blocked by a nearby advancing zombie.
+  bool HasZombieNearPlacement(int row, int col) const;
 
   // Spends sun if enough is available for the requested zombie cost.
   bool TrySpendSun(int sunCost);

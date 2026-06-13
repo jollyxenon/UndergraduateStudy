@@ -19,6 +19,9 @@ class ZombieObject : public GameObject {
   // Applies damage through the common zombie health pipeline.
   void TakeDamage(int damage) override;
 
+  // Walking zombies can eventually reach and eat a brain target.
+  bool CanThreatenBrain() const override;
+
  private:
   // Tracks frames remaining until this zombie can complete the next bite.
   int m_biteCooldown = 0;
@@ -56,6 +59,9 @@ class BungeeZombieObject final : public ZombieObject {
 
   // Advances the bungee-specific drop, grab, and retreat phases.
   void Update() override;
+
+  // Bungee zombies remove plants but do not walk toward brain targets.
+  bool CanThreatenBrain() const override;
 
  private:
   // Tracks which part of the bungee attack is currently playing.

@@ -9,7 +9,7 @@ constexpr int PEA_WIDTH = 28;
 constexpr int PEA_HEIGHT = 28;
 constexpr int PEA_HP = 1;
 constexpr int PEA_MOVE_SPEED = 8;
-constexpr int PEA_DAMAGE = 20;
+constexpr int PEA_DAMAGE = 24;
 
 }  // namespace
 

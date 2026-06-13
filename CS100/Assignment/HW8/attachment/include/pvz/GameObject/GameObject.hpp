@@ -41,6 +41,9 @@ class GameObject : public ObjectBase {
   // Returns the broad object category without checking image IDs.
   virtual GameObjectType GetType() const = 0;
 
+  // Returns whether this object can still move toward and eat brain targets.
+  virtual bool CanThreatenBrain() const;
+
   // Returns whether the object should remain in GameWorld's container.
   bool IsAlive() const;
 

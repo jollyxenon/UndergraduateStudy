@@ -16,6 +16,9 @@ void GameObject::Update() {}
 // Base objects do not react to clicks by default.
 void GameObject::OnClick() {}
 
+// Most objects cannot directly complete a row by eating a brain target.
+bool GameObject::CanThreatenBrain() const { return false; }
+
 // The world container keeps only living objects.
 bool GameObject::IsAlive() const { return m_alive && m_hp > 0; }
 
