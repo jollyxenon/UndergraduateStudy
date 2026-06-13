@@ -2,14 +2,13 @@
 #define WORLDBASE_H__
 
 #include <iostream>
-#include <set>
 #include <memory>
+#include <set>
 
 #include "pvz/utils.hpp"
 
-
 class WorldBase {
-public:
+ public:
   WorldBase() = default;
 
   virtual ~WorldBase() = default;
@@ -20,7 +19,8 @@ public:
 
   virtual void CleanUp() = 0;
 
+  // Runs before ObjectBase dispatches a mouse-down event to clicked objects.
+  virtual void BeginMouseDown(int, int) {}
 };
 
-
-#endif // !WORLDBASE_H__
+#endif  // !WORLDBASE_H__

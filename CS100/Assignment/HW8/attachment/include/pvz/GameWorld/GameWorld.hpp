@@ -1,32 +1,177 @@
 #ifndef GAMEWORLD_HPP__
 #define GAMEWORLD_HPP__
 
+#include <array>
 #include <list>
 #include <memory>
-
-#include "pvz/Framework/WorldBase.hpp"
-
-#include "pvz/GameObject/GameObject.hpp"
+#include <vector>
 
 #include "pvz/Framework/TextBase.hpp"
+#include "pvz/Framework/WorldBase.hpp"
+#include "pvz/GameObject/GameObject.hpp"
 #include "pvz/utils.hpp"
 
-class GameWorld : public WorldBase {
-public:
-  // Consider:
-  // Use shared_from_this() instead of "this" to create a pointer to oneself?
-  // Use unique_ptr<> / shared_ptr<> to manage GameObjects?
+class SunCounterText;
+class ZombieCardObject;
+class PlantObject;
+class ProgressMeterObject;
+class RedLineObject;
+
+// Owns and updates all gameplay objects for the current level.
+class GameWorld : public WorldBase,
+                  public std::enable_shared_from_this<GameWorld> {
+ public:
+  // Shared pointer type used for world-owned gameplay objects.
+  using GameObjectPtr = std::shared_ptr<GameObject>;
+
+  // Ordered container preserving stable iterators during frame updates.
+  using GameObjectList = std::list<GameObjectPtr>;
+
+  // Creates an empty game world; Init fills per-level state.
   GameWorld() = default;
+
+  // Destroys the world and releases all owned objects.
   ~GameWorld() = default;
 
+  // Prepares the world before the first frame.
   void Init() override;
 
+  // Updates all owned game objects and returns current level state.
   LevelStatus Update() override;
 
+  // Removes all owned objects and resets world state.
   void CleanUp() override;
 
-private:
+  // Adds an object to world ownership and records its owning world.
+  void AddObject(GameObjectPtr object);
 
+  // Removes objects that have been marked dead.
+  void RemoveDeadObjects();
+
+  // Returns the first plant touching the given zombie's body.
+  PlantObject* FindCollidingPlant(const GameObject& zombie);
+
+  // Returns the plant occupying the requested grid cell.
+  PlantObject* FindPlantAt(int row, int col);
+
+  // Returns the first brain touching the given zombie's body.
+  GameObject* FindCollidingBrain(const GameObject& zombie);
+
+  // Returns the brain occupying the requested grid cell.
+  GameObject* FindBrainAt(int row, int col);
+
+  // Returns whether a zombie is on the same row and right side.
+  bool HasZombieOnRight(int row, int x) const;
+
+  // Returns the first zombie touching the given projectile's body.
+  GameObject* FindCollidingZombie(const GameObject& projectile);
+
+  // Adds collected sun and refreshes the visible counter.
+  void AddSun(int sunAmount);
+
+  // Starts a mouse click by cancelling the previous card selection.
+  void BeginMouseDown(int x, int y) override;
+
+  // Makes the given zombie card the only selected card.
+  void SelectZombieCard(ZombieCardObject& card);
+
+  // Clears any selected zombie card.
+  void ClearSelectedZombieCard();
+
+ private:
+  // Clears all owned object containers and non-owning gameplay references.
+  void ResetWorldObjects();
+
+  // Restores per-level counters, selection state, and deployment boundaries.
+  void ResetLevelState();
+
+  // Creates static background and UI elements for the base interface.
+  void InitStaticInterface();
+
+  // Creates all reusable zombie cards in their top-bar slots.
+  void CreateZombieCards();
+
+  // Clears the per-cell plant occupancy records for a fresh level stage.
+  void ClearPlantGrid();
+
+  // Fills the red line's left side with random playable plant defenses.
+  void GeneratePlantDefense();
+
+  // Returns the number of plant columns available before the current red line.
+  int GetPlantDefenseCols() const;
+
+  // Returns the current red line x-coordinate for deployment checks.
+  int GetCurrentRedLineX() const;
+
+  // Returns whether all brains have been eaten in the current stage.
+  bool IsVictorious() const;
+
+  // Returns whether the player cannot deploy zombies while brains remain.
+  bool IsFailed() const;
+
+  // Returns whether a dropped sun can still be collected by the player.
+  bool HasCollectibleSun() const;
+
+  // Returns whether an advancing zombie remains able to eat a brain.
+  bool HasBrainThreateningZombie() const;
+
+  // Moves into the next stage after all brains have been eaten.
+  LevelStatus AdvanceStage();
+
+  // Resets dynamic stage state before rebuilding the next defense layout.
+  void ResetStageState();
+
+  // Restores spendable sun and refreshes the visible counter.
+  void ResetSunAmount();
+
+  // Recreates one brain target in every lawn row for a fresh stage.
+  void RegenerateBrains();
+
+  // Updates the progress meter sprite to match the current stage.
+  void UpdateProgressMeter();
+
+  // Attempts to place the previously selected zombie at the clicked grid cell.
+  bool TryPlaceSelectedZombie(int x, int y);
+
+  // Returns whether the target cell is blocked by a nearby advancing zombie.
+  bool HasZombieNearPlacement(int row, int col) const;
+
+  // Spends sun if enough is available for the requested zombie cost.
+  bool TrySpendSun(int sunCost);
+
+  // Clears the zombie card's selection and cooldown state for a fresh stage.
+  void ResetZombieCards();
+
+  // All gameplay objects currently owned by the world.
+  GameObjectList m_objects;
+
+  // Plant occupancy records prevent duplicate plants in one lawn cell.
+  std::array<std::array<bool, GAME_COLS>, GAME_ROWS> m_plantGrid{};
+
+  // Current spendable sun amount for zombie deployment.
+  int m_sunAmount = 0;
+
+  // Text object for the visible sun counter; TextBase self-registers globally.
+  std::shared_ptr<SunCounterText> m_sunCounterText;
+
+  // Non-owning red line object handle moved when a new stage starts.
+  RedLineObject* m_redLineObject = nullptr;
+
+  // Non-owning progress meter handle updated when a new stage starts.
+  ProgressMeterObject* m_progressMeterObject = nullptr;
+
+  // Non-owning reusable zombie card handles whose cooldowns reset between
+  // stages.
+  std::vector<ZombieCardObject*> m_zombieCardObjects;
+
+  // Leftmost column where zombies may be deployed in the current stage.
+  int m_currentZombieDeploymentStartCol = INITIAL_ZOMBIE_DEPLOYMENT_START_COL;
+
+  // Currently selected zombie card; owned by m_objects and cleared on cleanup.
+  ZombieCardObject* m_selectedZombieCard = nullptr;
+
+  // Card cancelled at the start of this click, used to avoid reselecting it.
+  ZombieCardObject* m_cancelledZombieCardThisMouseDown = nullptr;
 };
 
-#endif // !GAMEWORLD_HPP__
+#endif  // !GAMEWORLD_HPP__

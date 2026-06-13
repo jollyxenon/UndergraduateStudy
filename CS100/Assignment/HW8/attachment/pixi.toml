@@ -1,0 +1,25 @@
+[workspace]
+authors = ["jollyxenon <1378319314@qq.com>"]
+channels = ["conda-forge"]
+name = "attachment"
+platforms = ["linux-64", "win-64"]
+version = "0.1.0"
+
+[tasks]
+build = "cmake -B build -S . && cmake --build build"
+format = "sh -c 'find src -name \"*.cpp\" -exec clang-format -i {} +; find include -name \"*.hpp\" -exec clang-format -i {} +; find include -name \"*.h\" -exec clang-format -i {} +'"
+play = "sh -c './build/bin/PvZ'"
+
+[dependencies]
+cmake = ">=4.3.3,<5"
+make = ">=4.4.1,<5"
+compilers = ">=1.11.0,<2"
+glfw = ">=3.4,<4"
+glew = ">=2.3.0,<3"
+clang-format = ">=22.1.7,<23"
+
+[target.linux-64.dependencies]
+libgl-devel = ">=1.7.0,<2"
+
+[target.win-64.dependencies]
+freeglut = ">=3.2.2,<4"
