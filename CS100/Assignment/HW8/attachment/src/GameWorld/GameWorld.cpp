@@ -79,10 +79,10 @@ LevelStatus GameWorld::Update() {
   }
 
   RemoveDeadObjects();
-  if (IsFailedWithoutDeployableZombie()) {
+  if (IsFailed()) {
     return LevelStatus::LOSING;
   }
-  if (!HasLivingBrain()) {
+  if (IsVictorious()) {
     return AdvanceStage();
   }
   return LevelStatus::ONGOING;
@@ -185,20 +185,20 @@ int GameWorld::GetCurrentRedLineX() const {
 }
 
 // A stage is complete when every row's brain has been removed from the world.
-bool GameWorld::HasLivingBrain() const {
+bool GameWorld::IsVictorious() const {
   for (const GameObjectPtr& object : m_objects) {
     if (object && object->IsAlive() &&
         object->GetType() == GameObjectType::BRAIN) {
-      return true;
+      return false;
     }
   }
-  return false;
+  return true;
 }
 
 // Failure occurs when no active zombie can eat the remaining brains and the
 // player cannot afford another regular zombie.
-bool GameWorld::IsFailedWithoutDeployableZombie() const {
-  if (m_sunAmount >= MINIMUM_ZOMBIE_SUN_COST || !HasLivingBrain()) {
+bool GameWorld::IsFailed() const {
+  if (m_sunAmount >= MINIMUM_ZOMBIE_SUN_COST || IsVictorious()) {
     return false;
   }
 

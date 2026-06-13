@@ -114,11 +114,11 @@ class GameWorld : public WorldBase,
   // Returns the current red line x-coordinate for deployment checks.
   int GetCurrentRedLineX() const;
 
-  // Returns whether any living brain remains in the current stage.
-  bool HasLivingBrain() const;
+  // Returns whether all brains have been eaten in the current stage.
+  bool IsVictorious() const;
 
   // Returns whether the player cannot deploy zombies while brains remain.
-  bool IsFailedWithoutDeployableZombie() const;
+  bool IsFailed() const;
 
   // Moves into the next stage after all brains have been eaten.
   LevelStatus AdvanceStage();
