@@ -410,8 +410,6 @@ bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
     if (!FindPlantAt(row, col)) {
       return false;
     }
-  } else if (HasZombieNearPlacement(row, col)) {
-    return false;
   }
   if (!TrySpendSun(m_selectedZombieCard->GetSunCost())) {
     return false;
