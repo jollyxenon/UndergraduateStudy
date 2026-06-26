@@ -411,6 +411,9 @@ bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
       return false;
     }
   }
+  if (HasZombieAtPlacementCell(row, col)) {
+    return false;
+  }
   if (!TrySpendSun(m_selectedZombieCard->GetSunCost())) {
     return false;
   }
@@ -419,12 +422,11 @@ bool GameWorld::TryPlaceSelectedZombie(int x, int y) {
   return true;
 }
 
-// Walking zombie cards cannot stack another zombie on an occupied spawn cell.
-bool GameWorld::HasZombieNearPlacement(int row, int col) const {
-  const int targetX = GetGridCenterX(col);
+// Zombie cards cannot stack another zombie on an occupied grid cell.
+bool GameWorld::HasZombieAtPlacementCell(int row, int col) const {
   for (const GameObjectPtr& object : m_objects) {
-    if (object->CanThreatenBrain() && object->GetRow() == row &&
-        std::abs(object->GetX() - targetX) < ZOMBIE_DEPLOYMENT_WIDTH) {
+    if (object->GetType() == GameObjectType::ZOMBIE &&
+        object->GetRow() == row && object->GetCol() == col) {
       return true;
     }
   }

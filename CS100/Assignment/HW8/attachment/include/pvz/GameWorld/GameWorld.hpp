@@ -133,8 +133,8 @@ class GameWorld : public WorldBase,
   // Attempts to place the previously selected zombie at the clicked grid cell.
   bool TryPlaceSelectedZombie(int x, int y);
 
-  // Returns whether the target cell is blocked by a nearby advancing zombie.
-  bool HasZombieNearPlacement(int row, int col) const;
+  // Returns whether a live zombie already occupies the target grid cell.
+  bool HasZombieAtPlacementCell(int row, int col) const;
 
   // Spends sun if enough is available for the requested zombie cost.
   bool TrySpendSun(int sunCost);
