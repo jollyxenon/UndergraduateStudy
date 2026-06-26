@@ -55,4 +55,18 @@ class PeashooterObject final : public PlantObject {
   int m_shootCooldown = 0;
 };
 
+// Draws an I, Zombie repeater occupying one lawn grid cell.
+class RepeaterObject final : public PlantObject {
+ public:
+  // Creates a repeater centered on the requested grid cell.
+  RepeaterObject(int row, int col);
+
+  // Fires two peas when a living zombie exists to the right on the same row.
+  void Update() override;
+
+ private:
+  // Tracks frames remaining until this repeater can fire again.
+  int m_shootCooldown = 0;
+};
+
 #endif  // !PLANTOBJECTS_HPP__

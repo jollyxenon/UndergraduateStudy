@@ -16,6 +16,7 @@ constexpr int PLANT_HEIGHT = 80;
 constexpr int PLANT_HP = 340;
 constexpr int PEASHOOTER_FIRE_INTERVAL_FRAMES = 32;
 constexpr int PEA_SPAWN_X_OFFSET = 30;
+constexpr int REPEATER_SECOND_PEA_X_OFFSET = 12;
 constexpr int SUNFLOWER_DEATH_SUN_COUNT = 6;
 
 // Offsets spread dropped suns around the defeated sunflower for clicking.
@@ -84,5 +85,30 @@ void PeashooterObject::Update() {
 
   GetWorld().AddObject(std::make_shared<PeaObject>(
       GetRow(), GetX() + PEA_SPAWN_X_OFFSET, GetY() + PLANT_HEIGHT / 8));
+  m_shootCooldown = PEASHOOTER_FIRE_INTERVAL_FRAMES;
+}
+
+// Repeaters start in the idle animation at the target grid center.
+RepeaterObject::RepeaterObject(int row, int col)
+    : PlantObject(ImageID::REPEATER, GetGridCenterX(col), GetGridCenterY(row),
+                  PLANT_HP, row, col) {}
+
+// Repeaters fire two peas at a steady pace while a same-row zombie is to the
+// right.
+void RepeaterObject::Update() {
+  PlantObject::Update();
+  if (m_shootCooldown > 0) {
+    --m_shootCooldown;
+  }
+
+  if (!GetWorld().HasZombieOnRight(GetRow(), GetX()) || m_shootCooldown > 0) {
+    return;
+  }
+
+  const int peaY = GetY() + PLANT_HEIGHT / 8;
+  const int firstPeaX = GetX() + PEA_SPAWN_X_OFFSET;
+  GetWorld().AddObject(std::make_shared<PeaObject>(GetRow(), firstPeaX, peaY));
+  GetWorld().AddObject(std::make_shared<PeaObject>(
+      GetRow(), firstPeaX - REPEATER_SECOND_PEA_X_OFFSET, peaY));
   m_shootCooldown = PEASHOOTER_FIRE_INTERVAL_FRAMES;
 }

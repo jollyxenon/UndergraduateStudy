@@ -127,8 +127,11 @@ void GameWorld::GeneratePlantDefense() {
   for (int row = 0; row < GAME_ROWS; ++row) {
     for (int col = 0; col < plantDefenseCols; ++col) {
       m_plantGrid[row][col] = true;
-      if (randInt(0, 1) == 1) {
+      const int plantRoll = randInt(0, 5);
+      if (plantRoll < 2) {
         AddObject(std::make_shared<PeashooterObject>(row, col));
+      } else if (plantRoll == 2) {
+        AddObject(std::make_shared<RepeaterObject>(row, col));
       } else {
         AddObject(std::make_shared<SunflowerObject>(row, col));
       }
