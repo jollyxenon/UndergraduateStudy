@@ -1,0 +1,181 @@
+===== PAGE 1 =====
+Geographical Review of Japan Series B 87(2): 99–102 (2015)
+Research Note of the Special Issue on “Environment Evolution and Human Activity in the Late Quaternary:
+Geographical Pattern”
+Balancing Afforestation with Grain
+The Association of Japanese Geographers
+http://www.ajg.or.jp
+Production and Water Use for
+Sustainable Effects of Soil Conservation
+in the Chinese Loess Plateau
+MATSUNAGA Kohei
+Graduate School of Media and Governance, Keio University; Kanagawa 252-0882, Japan.
+E-mail: matunaga@sfc.keio.ac.jp
+Received July 31, 2014; Accepted February 26, 2015
+Abstract The Chinese Loess Plateau experiences the most severe soil erosion in the world, induced by the destruc-
+tion of natural vegetation for cultivation. To stop soil erosion, in 1999 the Chinese government began an intensive
+afforestation program named Grain-for-Green-Policy in order to convert steep cultivated land to forest and grass-
+land. Balancing afforestation with grain production and water use is crucial for obtaining sustainable effects of soil
+conservation. This study assessed the current balance among afforestation, grain production, and water use in river
+basins on the Chinese Loess Plateau. Annual afforested area, planted area of grain fields, precipitation, and irrigated
+area in these river basins were compared based on the data collected from the statistical yearbooks of the Yan’an City.
+River discharge and sediment yield in the areas were compared based on data collected from the Annual Report on
+Chinese Soil Conservation. The evapotranspiration rates of the main crops cultivated in each river basin were also
+compared. Collectively, the data suggest that the balance between afforestation, grain production, and water use has
+been improved by the Grain-for-Green-Policy in the river basins on the Chinese Loess Plateau.
+Key words Afforestation, Grain production, Water use, Soil conservation, Chinese Loess Plateau
+Introduction tion and water is crucial for achieving sustainable effects
+of soil conservation. However, because the physical envi-
+The Chinese Loess Plateau, located in the middle ronment and human activities differ among river basins,
+reaches of the Yellow river basin, suffers from the most the optimal balance between these three factors needs to
+severe soil erosion in the world (Figure 1). The soft loess be defined separately for each river basin. To this end, we
+soil is easily eroded by summer rainfall. assessed the current balance among afforestation, grain
+For decades, soil erosion on the Chinese Loess Plateau production, and water use in individual river basins on
+has been accelerated by deforestation by humans (Shi the Chinese Loess Plateau.
+2001). The plateau was heavily forested 3,000 years ago,
+but wars and other human activities in the intervening Study Area
+time have continuously decreased the forested area, lead-
+ing to soil erosion (Shi 2001). Typical river basins included in the Grain-for-Green-
+Since 1999, the Chinese government has been strug- Policy in Shaanxi Province were selected for this study.
+gling to stop soil erosion with an intensive afforestation Two river basins were also chosen from the Yan’an City
+program named the Grain-for-Green-Policy, which en- (Figure 1), where afforestation has been intensively im-
+tails converting steep cultivated land to forest and grass- plemented as part of the Grain-for-Green-Policy.
+land. One of the study areas is the Yan river basin(Figure
+Although the policy has facilitated the successful re- 1). Mean annual precipitation is approximately 500 mm.
+duction of soil erosion, the conversion of steep cultivated Steep loess hills named Liang and Mao are distributed
+land to forest and grassland has also dramatically reduced in the basin, and soil erosion in these areas occurs due
+the total grain production in China (Matsunaga 2013). to summer water flow. Since the implementation of the
+Moreover, as the planted trees grow larger, they consume Grain-for-Green-Policy, vegetables have been planted as
+more water, placing pressure on the limited water re- cash crops instead of grains (Sato et al. 2008).
+sources (Fukushima and Taniguchi 2008). The other study area is the Luo River basin (Figure
+Therefore, balancing afforestation with grain produc- 1). Mean annual precipitation is approximately 500 mm.
+© 2015 The Association of Japanese Geographers
+
+===== PAGE 2 =====
+MATSUNAGA K
+Figure 1. The Chinese Loess Plateau and study areas.
+The small rectangle shows the locations of the Shaanxi Province and study areas in the Yan’an City. Black isosceles triangles show the loca-
+tions of the hydrological observation stations.
+Loess hills are distributed in the upper reaches of the Luo annual increases until 2004, when afforestation by the
+river basin. Loess tablelands are distributed in the middle policy nearly ceased (Table 1). Although the planted area
+and lower reaches of the Luo river basin, and wheat and of grain is approximately 60,000 ha per year in the Yan
+maize are planted in flat areas. river basin, the sediment yield (the amount of soil erosion
+within the basin) has drastically decreased since 2006.
+Methods The annual precipitation, input of water resources within
+the basin, and the river discharge (which represents the
+To assess the balance among afforestation, grain pro- residual amount of water resources within the basin)
+duction, and water use from the viewpoint of soil conser- showed no significant decrease after 2006. Thus, afforesta-
+vation, the annual afforested area, planted area of grain tion appears to have decreased soil erosion without the
+fields, precipitation, and irrigated area in the river basins depletion of the water resources, although Fukushima
+were compared based on the data collected from the sta- and Taniguchi (2008) pointed out that soil-water content
+tistical yearbooks of the Yan’an City. River discharge and reduces as trees grow due to the increasing evapotranspi-
+sediment yield were compared based on data collected ration rate from the trees. The reason why this soil-water
+from the Annual Report on Chinese Soil Conservation. content reduction was not observed here might be that
+The total evapotranspiration of the main crops cultivated planted trees did not grow larger within the Yan River
+in the river basins, including wheat, rice, maize, and veg- basin. No clear increasing trend was observed for the
+etables, was calculated; the total evapotranspiration of total evapotranspiration of the main crops within the
+each crop was calculated based on its water requirements basin. Therefore, agriculture also had no significant effect
+(Liu et al. 2007) and its planted area, which is recorded in on the basin’s water resources.
+the statistical yearbooks of Yan’an City. In the Luo river basin, the implementation of the
+Grain-for-Green-Policy also appears to have improved
+Results and Discussion the balance among afforestation, grain production, and
+water use. As observed in the Yan river basin, the afforest-
+In the Yan river basin, the balance among afforesta- ed area significantly increased following the implementa-
+tion, grain production, and water use was improved by tion of the policy in 1999. In contrast, the planted area of
+the Grain-for-Green-Policy. Following 1999, when the grain declined more drastically than the Yan river basin
+policy was introduced, the afforested area showed large until 2002; however, it remained constant subsequently.
+— 1 0 0 —
+
+===== PAGE 3 =====
+Balancing Afforestation with Grain Production and Water Use for Sustainable Effects of Soil Conservation in the Chinese Loess Plateau
+The sediment yield has decreased since 2006, although Due to climate change, the probability of extreme
+precipitation and river discharge showed no significant events such as drought and flood will increase (Oki and
+changes. Therefore, the afforestation promoted by the Kanae 2006). Therefore, to ensure food security during
+Grain-for-Green-Policy appears to have protected the soil drought, irrigation is important. However, there has been
+from erosion. As the total evapotranspiration of the main no significant increase in the irrigated area from 1994 to
+crops was almost stable, the river discharge showed no 2008 (Tables 1 and 2). The implementation of irrigation
+significant decline. Thus, as seen in the Yan River basin, should be investigated in future studies to reduce the vul-
+the impacts of afforestation and agriculture on the water nerability of agriculture in the Loess Plateau to extreme
+resources within the Luo river basin remained negligible events. Additionally, to maintain soil resources during
+up to 2008. flooding, maintenance of the afforested area within each
+Table 1. The balance among afforestation, grain production, and water use in the Yan river basin
+Total ET from Planted area
+Precipitation Afforested area Irrigated area Sediment yield Discharge
+main crops of grain
+(billion m3) (ha) (ha) (billion ton) (billion m3)
+(billion m3) (ha)
+1994 36.579 0.076 60694.000 15960.000 6000.000
+1995 24.398 0.107 68199.000 20520.000
+0.045 0.211
+1998 33.646 0.100 66937.000 20840.000
+1999 21.803 0.093 65598.000 27280.000
+2000 22.768 0.074 59137.000 25430.000 0.011 0.116
+2001 35.506 0.078 62017.000 25230.000 0.022 0.178
+2002 35.031 0.063 56523.000 28315.000 0.067 0.264
+2004 29.084 0.072 61044.000 23227.000 0.024 0.147
+2005 31.506 0.083 59307.000 8733.000 0.027 0.149
+2006 33.573 0.082 58723.000 4399.000 6740.000 0.004 0.117
+2007 35.597 0.082 58235.000 3373.000 5550.000 0.005 0.127
+2008 27.910 0.080 56190.000 2946.667 7360.000 0.001 0.106
+Blank shows no data.
+Source: The statistical yearbooks of the Yan’an City, the Annual Report on Chinese Soil Conservation, and Liu et al. (2007).
+Table 2. The balance among afforestation, grain production, and water use in the Luo river basin
+Total ET from Planted area
+Precipitation Afforested area Irrigated area Sediment yield Discharge
+main crops of grain
+(billion m3) (ha) (ha) (billion ton) (billion m3)
+(billion m3) (ha)
+1994 121.006 0.274 122198.000 24510.000 19680.000
+1995 76.439 0.272 125053.000 28150.000
+0.080 0.848
+1998 116.120 0.308 162569.000 40210.000
+1999 82.829 0.290 128722.000 63910.000
+2000 0.272 119917.000 67870.000 0.034 0.588
+2001 0.196 94759.000 80640.000 0.070 0.691
+2002 0.172 84085.000 55321.000 0.044 0.643
+2004 0.215 89764.000 35224.000 0.028 0.620
+2005 0.207 87734.000 15073.000 0.011 0.549
+2006 0.218 89862.000 26546.000 25570.000 0.003 0.445
+2007 123.806 0.206 86007.000 10772.000 22430.000 0.009 0.581
+2008 93.626 0.212 81890.000 16874.733 23140.000 0.001 0.450
+Blank shows no data.
+Source: The statistical yearbooks of the Yan’an City, the Annual Report on Chinese Soil Conservation, and Liu et al. (2007).
+— 1 0 1 —
+
+===== PAGE 4 =====
+MATSUNAGA K
+basin is essential. Further observation of the afforested References
+area is necessary to assess the effects of the afforested area
+on soil conservation during heavy rainfall. Fukushima, Y. and Taniguchi, M. eds. 2008. Water environmental
+issues of the Yellow River: Analyzing the cut-off of the Yellow
+The present study could not clarify the direct influ-
+River. Tokyo: Gakuhosha. (J)
+ence of afforestation on water resources due to the lack
+Liu, J., Zehnder, A. and Yang, H. 2007. Historical trends in China’s
+of data on the evapotranspiration rates of forests. Direct
+virtual water trade. Water International 32: 78–90.
+measurements of evapotranspiration in afforested areas Matsunaga, K. 2013. Soil and water loss in China: History and a
+should be performed to assess more precisely the balance turning point in contemporary China. Tokyo: Keisoshobo. (J)
+among afforestation, grain production, and water use. Oki, T. and Kanae, S. 2006. Global hydrological cycles and world
+water resources. Science 313: 1068–1072.
+Sato, R., Nawata, H., Buhe, A., Nagasawa, R., Jia, R., Zhang, W.,
+Conclusion
+Hou, Q. and Yamanaka, N. 2008. Traditional land use in Loess
+Plateau (China) and the ‘Grain-for-Green’ project: A case
+The balance among afforestation, grain production,
+from Ansai Province, Shaanxi. Bulletin of the Graduate School
+and water use was improved by the Grain-for-Green-Pol- of Social and Cultural Studies, Kyushu University 14: 7–21.
+icy in both the Yan and Luo river basins on the Chinese Shi, N. 2001. Researches on historical geography in of the Loess Plat-
+Loess Plateau. Climate change will increase the risks of eau. Zhengzhou: Yellow River Conservation Press. (C)
+water shortage and soil erosion during natural calamities
+(J) written in Japanese
+such as droughts and floods. Therefore, further research
+(C) written in Chinese
+is essential to maintain a harmonious balance between
+afforestation, grain production, and water use for achiev-
+ing sustainable effects of soil conservation in the Chinese
+Loess Plateau.
+Acknowledgements
+This study was supported by JSPS KAKENHI Grant
+Number 24710055.
+— 1 0 2 —

@@ -1,0 +1,1600 @@
+===== PAGE 1 =====
+sustainability
+Article
+The Impact of China’s Grain for Green Program on
+Rural Economy and Precipitation: A Case Study of
+Yan River Basin in the Loess Plateau
+BiyunGuo1,2,TaipingXie3,*andM.V.Subrahmanyam1
+1 MarineScienceandTechnologyCollege,ZhejiangOceanUniversity,Zhoushan316022,Zhejiang,China;
+biyunguo@163.com(B.G.);mvsm.au@gmail.com(M.V.S.)
+2 StateKeyLaboratoryofPlateauEcologyandAgriculture,QinghaiUniversity,Xining810016,Qinghai,China
+3 RuralEconomyInstitute,TonglingUniversity,Tongling244000,Anhui,China
+* Correspondence: xtp90@tlu.edu.cn
+(cid:1)(cid:2)(cid:3)(cid:1)(cid:4)(cid:5)(cid:6)(cid:7)(cid:8)(cid:1)
+(cid:1)(cid:2)(cid:3)(cid:4)(cid:5)(cid:6)(cid:7)
+Received: 25July2019;Accepted: 25September2019;Published: 27September2019
+Abstract: Large-scaledeforestationandabandonedplantingwillbringaboutthedestructionofthe
+ecologicalenvironmentandthedeteriorationoftheclimate. In1999,Chinainitiatedits“Grainfor
+Green”Program(GGP)toimprovetheecologicalenvironment,controlsoilerosion,andadjustthe
+agriculturalindustrialstructuretopromotethesustainabledevelopmentoftheruraleconomy. Inthis
+paper,economicstatistics,rainfall,andremotesensingdataareusedtoanalyzetheimpactofthe
+GGPonagriculturalandruraleconomicdevelopmentandregionalprecipitationinthehillyand
+gullyregionsoftheLoessPlateau. Theresultsshowthatsincetheimplementationoftheprogram,
+the employment structure of the labor force has changed and the regional economic growth and
+farmers’incomehaveincreased. From2000to2016, thetotalgrossdomesticproduct(GDP)and
+percapitaGDPoftheYanRiverBasinincreased. Theconversionoflarge-scaleslopingfarmlandto
+forestryandgrasslandresultedinthedecreaseoffarmlandareaandtheincreaseofforestryarea.
+Themaximum,minimum,andmeanvalueofvegetationcoverageincreasedyearbyyear. Withthe
+increaseofvegetationcoverage,thesurfaceroughness,soilwatercontent,andevapotranspiration
+improvedandannualaverageprecipitationgrewsignificantlyaftertheimplementationoftheprogram
+(2000to2018). From1970totheimplementationoftheproject(1999),theannualaveragerainfall
+decreasedatthetroughfrom1988to1999,andtherewasanoverallupwardtrendfrom1970to2018.
+TheGGPhasanimportantimpactontheeconomyandpeople’sincomeintheYanRiverBasin,and
+thevegetationchangecausedbythevariationoflandusetypeshasacertainimpactonregional
+rainfall. Underthebackgroundofglobalandregionalclimatechange,itisofgreatsignificanceto
+fullyunderstandtheimpactsofvegetationconversiononclimateanditsmechanismforobjective
+assessmentofdrivingfactorsinregionalandglobalclimate,aswellasforscientificplanningoffuture
+landuse.
+Keywords:GrainforGreenProgram;LoessPlateau;VegetationCoverage;RuralEconomy;Precipitation
+1. Introduction
+For a long time, due to natural factors, such as rainfall and landforms, and human activities,
+theLoessPlateauhasbecomeoneofthemostseverelyaffectedareasofsoilerosionintheworld. Inthe
+caseoftheloesshillyandgullyregion,owingtounreasonablelanduseandlowvegetationcoverage,
+thesoillossamountedto5000–10,000kg/km2/year[1–3],resultingindeteriorationoftheecological
+environment. Large-scalereclamationofslopingfarmlandisconsideredtobeoneofthemaincauses
+ofsoilerosionandenvironmentaldegradation[4–6]. Basedonthis,in1999,theChinesegovernment
+launched the “Grain for Green” Program (GGP), aimed at improving the ecological environment,
+Sustainability2019,11,5336;doi:10.3390/su11195336 www.mdpi.com/journal/sustainability
+
+===== PAGE 2 =====
+Sustainability2019,11,5336 2of18
+controllingsoilerosion,adjustingtheagriculturalindustrialstructure,andpromotingthesustainable
+developmentoftheruraleconomy[7–10].
+The GGP in China is known as the Sloping Land Conversion Program or the Conversion of
+Cropland to Forest Program [11,12]. The main goal of the GGP is to motivate farmers to convert
+farmlandonsteepslopesandotherecologicallysensitiveareasintoforestsbypayingtheequivalent
+of lost crop income [11]. The GGP is an important decision made by the state in order to protect
+andimprovetheecologicalenvironment. Itismainlyforslopingfarmlandthatispronetocausing
+soilerosion. Itisplannedtocultivateandplanttreesaccordingtothesizeofthelandindifferent
+regions,soitisnecessaryfortheprovincestoplanttreesandrestoreforestvegetationaccordingto
+localconditions. TheconstructionoftheGGPmainlyincludestwoaspects: oneistheconversionof
+slopingfarmlandtoforestry;theotheristheafforestationofbarrenhillsandwastelandsuitablefor
+forestation. TheChinesegovernmenthasaspecialfundfortheproject,andhasestablishedagrain
+subsidysystem. Accordingtotheapprovedareaofreturningfarmlandtoforestry,thegovernmentwill
+grantanappropriategrainsubsidyforthepeopleinacertainperiod,andwillprovidetheseedling
+afforestationfeeandsomecashsubsidy. ThecashsubsidyforfarmlandintheYangtzeRiverBasinand
+thesouthernregionis125yuanpermu(=0.0667hectares)peryear,whichis90yuanintheYellow
+RiverBasinandthenorthernregion. Thesubsidyperiodconsistsofeightyearsforecologicalforest
+andfiveyearsforeconomicforest[13]. Conversionofarablelandandslopingland(wheresoilerosion
+isveryseriousorlow-yield)toforestsnotonlybettersthelocalindustrialandeconomicstructure,
+butalsopromoteslocalsustainabledevelopment. Inrecentyears,theforestryinChinahasgradually
+decreased,whichseriouslythreatenstheforestvegetationandtheoverallecologicalenvironment[14].
+Therefore,thepolicyoftheGGPisstronglysupportedbythestate. Inordertocoordinatethelocal
+economicdevelopmentonthebasisofrespectingtheobjectivelawsofnature,meetthebasicliving
+needsofresidents,andimprovethequalityoflifeoflocalresidents,returningfarmlandtoforestryis
+mainlytakingmeasurestorestoreeconomicforests,supplementedbynecessaryagriculturalland.
+Surface vegetation changes affect the concentration of greenhouse gases and aerosols in the
+atmospherethroughtheinteractionofenergybalance,watervaporexchange,andbiogeochemical
+cyclesbetweenthegroundandtheatmosphere,whichinturnaffectsclimatechange[15–24]. Thestate
+ofvegetationgrowthiscriticaltothehealthofterrestrialecosystemsandbiospheres,andisclosely
+relatedtotherainfall[25]. Therelationshipbetweenprecipitationandvegetationhasalwaysbeenthe
+focusofresearchersinvariousdisciplines[26–28],suchasecology,meteorology,andeco-hydrology.
+Althoughtherelationshipbetweentheprecipitationandvegetationonaglobalscaleiswellunderstood,
+itvariesindifferentregionsandecosystems,andtheimpactoflandusechangeonregionalclimate
+changeisuncertain[29].
+In1999,ChinainitiateditsGGPinShaanxi,Gansu,andSichuanprovinces. TheStateCouncil
+intendedtofullystarttheprojectonJanuary10,2002andextenditto25provincesinChina. TheGGP
+isanimportantdecisionofthecountry’sstrategyforsustainabledevelopmenttoreduceorprevent
+soilerosionwhichhasenlargedtheareaofvegetation,decreasedthesoilerosion,andmanifestedan
+impactontheecologicalenvironmentintheprojectareasuchastheLoessPlateau.
+BasedontheprogramandtheeconomicandclimaticchangesintheYanRiverBasinoftheLoess
+Plateau, theobjectiveofthisstudyistoexploretherelationshipsamongpolicy(GGP),vegetation,
+people’sincome,andclimatechangesintheYanRiverBasinoverthepast20years. Weselectedland
+useandcoverchange,normalizeddifferencevegetationindex(NDVI),andvegetationcoverageasthe
+vegetationfactor,precipitationastheclimatefactor,andtotalGDP,percapitaGDP,andpercapitanet
+incomeofruralresidentsastheindicatorsoftheruraleconomy. Studyingtherelationshipbetween
+vegetation cover and rainfall at a regional scale is helpful to understand the interaction between
+vegetationandclimatechange,andtobetterformulatelanduseplanningforgovernment.
+
+===== PAGE 3 =====
+Sustainability2019,11,5336 3of18
+2Su.sMtaineatbhiloitdy s2019, 11, x FOR PEER REVIEW 3 of 18
+22..11.. SSttuuddyy AArreeaa
+TThhee YYaann RRiivveerr BBaassiinn iiss llooccaatteedd iinn tthhee nnoorrtthh ooff SShhaaaannxxii PPrroovviinnccee,, CChhiinnaa ((tthhee lloonnggiittuuddee iiss
+110088 ◦ °3399 (cid:48) ’4433”’’––111100 ◦ °3300 (cid:48) ’EE aanndd tthhee llaattiittuuddeei sis3 366 ◦ °1100 (cid:48) 4’400”’–’–3377 ◦ 1°199 (cid:48) 4’411”’N’N),),w witihtha nana raeraeao fo7f 772752k5 mkm2;2s;e seeFe iFgiugruer1e.
+I1t. iIst aisty ap itcyaplihcialll yhailnlyd ganudll ygruelglyio nreogfiothne oLf otehses PLloaetsesa uP,laantedaua,k aenydb aas ikneoyf bthaesiYne ollfo wtheR iYveelrlosewd iRmivenert
+ssoeduirmcee.nYt asnouRricvee. rYiasnt hReivfierrs tistr itbhue tafirrysto tfritbhuetaYreyll oowf tRheiv eYre.llIotwo rRigiivneart. eIst ionriZghinoautsehs ainn, ZTihaonucsiwhaann,
+TToiawnncsiwhiapn, JTinogwbniasnhiCpo, uJinntgy.biIatnfl oCwosufnrtoym. Int oflrothwws efsrtotmo snoourtthhewasetstth troo usoguhtZhheaidsta ntharnodugAhn Zsahiicdoaunn atineds,
+aAnndsaYia cno’uanntCieist,y a.nIdt cYoannv’earng Cesitiyn. tIot ctohnevYeerlgloews inRtiov tehren Yeealrlothwe RLiivaenrg nsehauri tBhaen LkiaonfgSsohuutih BRanivke orfV Saoluletyh,
+YRaivnecrh VanaglleCyo, uYnatnyc,hwanitgh Caotoutnatlyl,e wngitthh ao tfo2t8a6l .l9enkgmth. oTfh 2e8t6e.9rr kamin. oTfhteh teebrraasiinn oisf thhieg hbaisninth ise hniogrhth inw tehset
+annodrthlowwesitn athned sloouwth eina stt,hwe isthoustphaerasset,v ewgiethta tsiopnarasen dviengteetnastieoenr oasniodn .inTtehnesaen enruoasliopnr.e cTiphiet aatinonnuoafl
+tphreecbiapsiitnatiison51 o4f mthme baansdint hise 5a1n4n muaml aavnedr athgee arunnnouffali asv2e9r3agmei lrluionnofmf i3s. 2T9h3e msoilillioerno msio3.n TohfeY saonil Rerivoesiroins
+soefr Yioauns Rainvdert hise sseerdioimuse nantdco tnhtee nsetdoifmthenetr civoenrteisntl aorfg teh.eT rhiveearn ins ulaarlgaev. eTrhaeg eansenduiaml eanvtertaragnes speodritmaenndt
+streadnimspeonrtt caonndt esnetdaimree7n1t. 6comnitlelniotn atrea n7d1.264 m4–i3ll1io1nk gt /amn3d, r2e4s4p–e3c1t1iv kelgy/.mT3h, ereYsapnecRtiivveelryB. aTshine bYealno nRgisvteor
+tBhaesikne ybeimlopnlgesm teon ttahteio kneayr eiamopflethmeeGnGtaPt.ioTnh earmeaa inofl atnhde tGyGpePs. iTnhthe embaaisnin laarnedc utyltpiveas teind tlahned b,afosirne satrrye,
+gcuraltsisvlaatnedd, laannddc, ofonrsetsrturcyt,i ognralsasnladn.d, and construction land.
+Figure1. TheYanRiverBasinstudyarea.
+Figure 1. The Yan River Basin study area.
+2.2. SourcesandMethodsofDataCollectionandAnalysis
+2.2. Sources and Methods of Data Collection and Analysis
+2.2.1. EconomicData
+2.2.1. Economic Data
+The economic statistics of the Yan River Basin came from the China Statistical Yearbook
+(counTthye-l eecvoenl)oamnidc sStatatitsistitcics oYfe tahreb oYoakn RofivSehr aBaansxini cParmovei nfrcoem[ 3th0]e. CIhnintah iSstasttiustdicya,lt Yheeaercboonookm (ciocudnattya-
+ilnevcleul)d aentdh eStpaetrisctiacp Yiteaanrbeotoinkc oofm Sehoaafnfaxrim Perorsv,inGcDe P[,3a0n].d Inp ethricsa sptuitdayG, DthPe. Techoenpoemricc adpaittaa ninectluindceo mthee
+opferf acrampietras nisett hinecosumme ooff ftahremteortsa,l GinDcPom, aendea prnere dcabpyitar uGraDlPr.e Tsihdee nptesr fcraopmitaa lnlesto iunrccoemsein otfh fearcmuerrres nist
+ytheea rsaufmte rodfe tdhuec ttiontgalt hineceoxmpeen esaersniendcu brrye dru.rGaDl Prerseidfeernsttso ftrhoems uamll vsoaulureceosf ianll tthhee ficunrarlepnrto dyeuacrt saafntedr
+sdeerdvuiccetsinpgr othdeu ceexdpebnyseasc ionucnutrrryed(o. rGrDegPi orne)feirns atoc etrhtea isnupme rvioadlu.eP oGf DaPll itshep efirncaalp pitraodGuDcPts. and services
+prodWucheedn bpyr aes ceonutinntgryd (aotar ,raengaiolyns)t isnc aa ncecrhtoaoins epbereitowde.e PnGnDoPm iisn aplearn cdapreitaal GprDicPe.s torepresentbenefits
+andcWoshtse.nE pitrheesrencatinngb edcahtao,s aennawlyistthso cuatni nchflouoesnec ibnegtwtheeenou ntocmomineaol fatnhde raenaal lpyrsiicseisf tcoo rnespisrteesnetnlyt baepnpelifeitds
+taondal lcobsetnse. Efiittsh,ecro sctasn, abned chdoissceonu wnitthraotuets .inRfeluaelnvcailnuge sthree foeurttcootmhee osaf mthee satnaatilsytsiicss iaf dcojunsstiesdtefnotrlyin aflpaptliioend.
+Ntoo amlli bneanlevfailtus,e csoasrtes,m aneads udrisecdoiunnctu rrarteens.t Rvaelaul evsawluieths oreuftetra tkoi nthgei nsflamatieo sntaintitsotiacsc caodujunts.teNdo fmori ninafllvaatiloune.,
+bNyofmarinthael vmaolusetsim arpeo mrteaanstumreedas iunr ceuinrreecnot nvoamluiecss ,wisituhsoeudt ataskthinegv ianlfulaetoiofna ninittoe macmcoeuanstu. rNedomininmaol nveatlaurey,
+tbeyr mfasr[ 3t1h–e3 3m].oTsth eimthproeretaencot nmomeaiscudrea taini necthoinsosmtuidcsy, airse unsoemd inasa ltvhael uveasl.ue of an item measured in
+monetary terms [31–33]. The three economic data in this study are nominal values.
+2.2.2. Precipitation
+
+===== PAGE 4 =====
+Sustainability 2019, 11, x FOR PEER REVIEW 4 of 18
+Meteorological data used for this study, such as rainfall, was taken from the Global Precipitation
+Climatology Project (GPCP) precipitation datasets over the study area. The product provides
+precipitation estimates on a one-degree grid over the entire globe for one day (daily) [34]. The GPCP
+v1.3 daily precipitation (mm/day) data was used, with a time resolution of 24 hours and the range
+from January 1, 1970 to December 31, 2018. See Figure 2.
+2.2.3. Remote Sensing Image
+Sustainability2019,11,5336 4of18
+The remote sensing images included Landsat-5 theme imager (TM) and Landsat-8 operational
+land imager (OLI) from 1999 to 2015, provided by International Scientific & Technical Data Mirror
+2S.2it.e2,. CPoremcippuittaetri oNnetwork Information Center, Chinese Academy of Sciences (http://www.gscloud.cn);
+for detailed information, see Table 1 and Figure 2.
+Meteorologicaldatausedforthisstudy,suchasrainfall,wastakenfromtheGlobalPrecipitation
+The ENVI remote sensing image processing software was used to perform geometric correction,
+Climatology Project (GPCP) precipitation datasets over the study area. The product provides
+radiometric calibration, and atmospheric correction. Land use maps of different periods have been
+precipitationestimatesonaone-degreegridovertheentireglobeforoneday(daily)[34]. TheGPCP
+obtained by remote sensing images in 1999, 2005, 2010, and 2015 based on supervised classification
+v1.3dailyprecipitation(mm/day)datawasused,withatimeresolutionof24hoursandtherange
+method of ERDAS software. The result is shown in Figure 3.
+fromJanuary1,1970toDecember31,2018. SeeFigure2.
+Figure2. RemotesensingimageryoftheYanRiverBasinfrom1999to2015.
+Figure 2. Remote sensing imagery of the Yan River Basin from 1999 to 2015.
+2.2.3. RemoteSensingImage
+Table 1. Remote sensing images of the Yan River Basin from 1999 to 2015.
+TheremotesensingimagesincludedLandsat-5themeimager(TM)andLandsat-8operational
+landimLaangdesra(t-O7 L(EI)TfMro+m) 1999to2015,proviLdaenddsbayt-5In (tTeMrn)a tionalScientific&TLeacnhdnsiacta-8l (DOaLtIa) Mirror
+Site,Com19p9u9t esurmNmetewr orkInforma2t0i0o5n SCuemnmteerr, ChineseAc2a0d1e0m SyumofmSecri ences(http20:/ 1 / 5w Swuwm.mgsecrl oud.cn);
+fordetlaei7l1e2d60in35fo19rm99a08ti2o3n ,seeTaltb5l1e2160a3n5d20F05ig0u71r4e 2. lt512603520100712 lc812603520150726
+le712703419991017 lt512703420050603 lt512703420100708 lc812703420150701
+le7127035199T9a0b9l1e51 . Remotlet5s1e2n7s0in35g2i0m05a0g9e0s7o ftheYanlt5R1i2v7e0r3B5a2s0i1n0f0r7o0m8 1999to2lc081152.703520150701
+Landsat-7(ETM+) Landsat-5(TM) Landsat-8(OLI)
+2.2.4. Normalized Difference Vegetation Index (NDVI)
+1999Summer 2005Summer 2010Summer 2015Summer
+The MODIS (Moderate Resolution Imaging Spectroradiometer) product MOD09GA was
+le712603519990823 lt512603520050714 lt512603520100712 lc812603520150726
+adopted to drive the vegetation coverage map. Vegetation coverage was described by the normalized
+le712703419991017 lt512703420050603 lt512703420100708 lc812703420150701
+le712703519990915 lt512703520050907 lt512703520100708 lc812703520150701
+TheENVIremotesensingimageprocessingsoftwarewasusedtoperformgeometriccorrection,
+radiometriccalibration,andatmosphericcorrection. Landusemapsofdifferentperiodshavebeen
+obtainedbyremotesensingimagesin1999,2005,2010,and2015basedonsupervisedclassification
+methodofERDASsoftware. TheresultisshowninFigure3.
+
+===== PAGE 5 =====
+Sustainability 2019, 11, x FOR PEER REVIEW 6 of 18
+and 𝑁𝐷𝑉𝐼 is the NDVI value of completely covered pixels, that is, the NDVI value of pure
+(cid:3040)(cid:3028)(cid:3051)
+vegetation pixels [38,39]. The Equation 3 changes to Equation 4.
+VFC=(𝑁𝐷𝑉𝐼−𝑁𝐷𝑉𝐼 )⁄(cid:3435)𝑁𝐷𝑉𝐼 −𝑁𝐷𝑉𝐼 (cid:3439) (4)
+(cid:3046)(cid:3042)(cid:3036)(cid:3039) (cid:3049)(cid:3032)(cid:3034) (cid:3046)(cid:3042)(cid:3036)(cid:3039)
+2.2.6. Linear Regression
+A linear trend line can be used for a best-fit line for a simple dataset [40–42]. The linear trend
+line usually indicates the event increases (coefficient of independent variable is greater than zero) or
+decreases (coefficient of independent variable is less than zero) at a constant rate [43–46].
+3. Results and Discussion
+3.1. Land Use and Cover Change
+The land use and cover change (LUCC) in the Yan River Basin has undergone tremendous
+changes since the implementation of the “Western Development” strategy in 2000 and “Grain for
+Green” Program at the end of 1999. The runoff and sediment discharge of Ganguyi hydrological
+station in the Yan River Basin decreased significantly from 2000 to 2010 [47]. Using ETM+, TM, and
+OLI remote sensing images, land use data was obtained by the supervised classification method of
+ERDAS software [48]. According to the actual situation of the study area, referring to the “National
+1:100,000 Land Use Classification Standards” of the Chinese Academy of Sciences Resource and
+Environmental Data Center, the land use types are divided into six types: agricultural land, forestry,
+grassland (low, medium, and high coverage), water body, construction, and unused land. Wasteland
+with sparse vegetation on the surface is divided into grassland. Figure 3 shows the land use maps in
+the Yan River Basin from 1999 to 2015. The main types of land use in the basin are sparse grassland
+and cropland. The land use structure has changed greatly in different periods. The area of cropland
+and sparse grassland has decreased significantly, and the area of woodland and grassland with high
+Sustainability2019,11,5336 5of18
+coverage has increased significantly.
+Figure3. LandusedinYanRiverBasinfrom1999to2015.
+Figure 3. Land used in Yan River Basin from 1999 to 2015.
+2.2.4. NormalizedDifferenceVegetationIndex(NDVI)
+TheMODIS(ModerateResolutionImagingSpectroradiometer)productMOD09GAwasadopted
+todrivethevegetationcoveragemap. Vegetationcoveragewasdescribedbythenormalizeddifference
+vegetation index (NDVI), which is an indicator of plant growth status and spatial distribution of
+vegetation. TheNDVIvariesbetween−1.0and+1.0. Forthesamevegetation,thegreatertheNDVI
+value,thebetterthevegetationgrowth. TheNDVIwascalculatedfromtheseindividualmeasurements
+asfollows:
+(NIR−Red)
+NDVI = (1)
+(NIR+Red)
+where Red and NIR stand for the spectral reflectance measurements acquired in the red (visible,
+0.58–0.68µm)andnear-infrared(0.725–1.1µm)regions,respectively.
+In this research, the NDVI was calculated by MODIS images and provided by International
+Scientific&TechnicalDataMirrorSite,ComputerNetworkInformationCenter,ChineseAcademyof
+Sciences(http://www.gscloud.cn).
+Themethodwasasfollows:
+(B2−B1)
+NDVI = (2)
+(B2+B1)
+In the formula, B1 and B2 represent the band 1 and band 2 of MODIS remote sensing
+images,respectively.
+Inthisresearch,NDVIwasadailyproductofMODND1DChina500m;TERRAChina500m
+NDVIdailyproductswereprocessedbyMOD09GAthroughstitching,cutting,projectionconversion,
+unitconversion, andotherprocesses. MOD09GAisMODISTerra/AquaSurfaceReflectanceDaily
+L2GGlobal500mand1000m,whichprovidesMODISband1–7dailysurfacereflectanceat500m
+resolution and 1000 m observation and geolocation statistics. In order to compare the vegetation
+coverageindifferentyears,eachphaseofNDVIwasselectedonJuly1. Datadescriptionisshownin
+Table2.
+
+===== PAGE 6 =====
+Sustainability2019,11,5336 6of18
+Table2. NDVIofYanRiverBasinfrom2000to2015.
+Date Production Resolution
+2000.7.1 MODND1M.20000701.CN.NDVI.MAX.V2 500m
+2005.7.1 MODND1M.20050701.CN.NDVI.MAX.V2 500m
+2010.7.1 MODND1M.20100701.CN.NDVI.MAX.V2 500m
+2015.7.1 MODND1M.20150701.CN.NDVI.MAX.V2 500m
+2.2.5. VegetationCoverage
+Vegetationcoverageisthepercentageofverticalprojectionareaofvegetation(includingleaves,
+stems, and branches) on the ground as a percentage of the total area of the statistical area [35–37].
+Themeasurementofvegetationcoverageincludestwomethods: groundmeasurementandremote
+sensingestimation. Groundsurveysareoftenusedforfieldscalesandremotesensingestimatesare
+usedforregionalscales. Atpresent,manymethodsformeasuringvegetationcoveragebyremote
+sensinghavebeenestablished. Amorepracticalmethodistoapproximatevegetationcoverageby
+usingavegetationindex. Thecommonlyusedvegetationindexisthenormalizeddifferencevegetation
+index(NDVI).TheNDVIquantifiesvegetationbymeasuringthedifferencebetweennear-infrared
+(strongvegetationreflection)andredlight(vegetationabsorption). Itrangesfrom−1to1. Whenthe
+valueisnegative,itishighlylikelythatitiswater;ontheotherhand,ifitiscloseto1,thereisahigh
+possibilitythatitisdensegreenleaves. Inaddition,whenitisclosetozero,thereisnovegetationand
+itcouldbeabareground. Thecalculationmethodsofvegetationcoveragewereasfollows:
+VFC= (NDVI−NDVI )/(NDVI −NDVI ) (3)
+min max min
+Intheformula,NDVI andNDVI aretheminimumandmaximumvaluesofNDVIinthe
+min max
+studyarea,respectively. NDVI istheNDVIvalueofcompletelybaresoilorvegetation-freeareas,
+min
+andNDVI istheNDVIvalueofcompletelycoveredpixels,thatis,theNDVIvalueofpurevegetation
+max
+pixels[38,39]. TheEquation(3)changestoEquation(4).
+(cid:16) (cid:17)
+VFC= (NDVI−NDVI )/ NDVI −NDVI (4)
+soil veg soil
+2.2.6. LinearRegression
+Alineartrendlinecanbeusedforabest-fitlineforasimpledataset[40–42]. Thelineartrend
+lineusuallyindicatestheeventincreases(coefficientofindependentvariableisgreaterthanzero)or
+decreases(coefficientofindependentvariableislessthanzero)ataconstantrate[43–46].
+3. ResultsandDiscussion
+3.1. LandUseandCoverChange
+Thelanduseandcoverchange(LUCC)intheYanRiverBasinhasundergonetremendouschanges
+since the implementation of the “Western Development” strategy in 2000 and “Grain for Green”
+Program at the end of 1999. The runoff and sediment discharge of Ganguyi hydrological station
+in the Yan River Basin decreased significantly from 2000 to 2010 [47]. Using ETM+, TM, and OLI
+remotesensingimages,landusedatawasobtainedbythesupervisedclassificationmethodofERDAS
+software[48]. Accordingtotheactualsituationofthestudyarea,referringtothe“National1:100,000
+LandUseClassificationStandards”oftheChineseAcademyofSciencesResourceandEnvironmental
+DataCenter,thelandusetypesaredividedintosixtypes: agriculturalland,forestry,grassland(low,
+medium, and high coverage), water body, construction, and unused land. Wasteland with sparse
+vegetationonthesurfaceisdividedintograssland. Figure3showsthelandusemapsintheYanRiver
+Basinfrom1999to2015. Themaintypesoflanduseinthebasinaresparsegrasslandandcropland.
+The land use structure has changed greatly in different periods. The area of cropland and sparse
+
+===== PAGE 7 =====
+Sustainability2019,11,5336 7of18
+grasslandhasdecreasedsignificantly,andtheareaofwoodlandandgrasslandwithhighcoveragehas
+Sustainability 2019, 11, x FOR PEER REVIEW 7 of 18
+increasedsignificantly.
+3.2. Vegetation Coverage
+3.2. VegetationCoverage
+In order to study the influence of GGP on vegetation coverage, the NDVI of Yan River Basin on
+InordertostudytheinfluenceofGGPonvegetationcoverage,theNDVIofYanRiverBasinon
+July 1 of each year from 2000 to 2015 was used as the basic data. The vegetation coverage of the Yan
+July1ofeachyearfrom2000to2015wasusedasthebasicdata. ThevegetationcoverageoftheYan
+R
+R
+i
+i
+v
+v
+e
+e
+r
+r
+B
+B
+a
+a
+s
+s
+i
+i
+n
+n
+i
+i
+n
+n
+d
+d
+i
+i
+ffffe
+e
+r
+r
+e
+e
+n
+n
+t
+t
+p
+p
+e
+e
+r
+r
+i
+i
+o
+o
+d
+d
+s
+s
+w
+w
+a
+a
+s
+s
+c
+c
+a
+a
+l
+l
+c
+c
+u
+u
+l
+l
+a
+a
+t
+t
+e
+e
+d
+d
+b
+b
+y
+y
+u
+u
+s
+s
+i
+i
+n
+n
+g
+g
+N
+N
+D
+D
+V
+V
+I
+I
+a
+a
+n
+n
+d
+d
+E
+E
+R
+R
+D
+D
+A
+A
+S
+S
+I
+I
+m
+m
+a
+a
+g
+g
+e
+e
+,
+,
+a
+a
+r
+r
+e
+e
+m
+m
+o
+o
+t
+t
+e
+e
+s
+s
+e
+e
+n
+n
+s
+s
+i
+i
+n
+n
+g
+g
+image analysis software. Figure 4 shows the change of vegetation in Yan River from 2000 to 2015 in
+imageanalysissoftware. Figure4showsthechangeofvegetationinYanRiverfrom2000to2015in
+summer. The vegetation coverage map ranges from green to red color, the value from low to high,
+summer. Thevegetationcoveragemaprangesfromgreentoredcolor,thevaluefromlowtohigh,
+respectively. From the maps, the vegetation cover in the south and southwest is higher than that in
+respectively. Fromthemaps,thevegetationcoverinthesouthandsouthwestishigherthanthatinthe
+the north, and the vegetation coverage increases gradually during the study period.
+north,andthevegetationcoverageincreasesgraduallyduringthestudyperiod.
+Figure4. ThevegetationcoveragemapsinYanRiverBasinfrom2000to2015.
+Figure 4. The vegetation coverage maps in Yan River Basin from 2000 to 2015.
+Figure5isahistogramofthevegetationcoverageoftheYanRiverBasininfourperiodscalculated
+byFiFgiugruer4e. 5T hise vaa hluisetdogisrtarimbu otifo nthies svimegielatarttioonth econvoerrmagael doisf trtihbeu tYioann, aRnidvetrh eBmasainx iminu mfo,umr ipneimrioudms,
+caanldcumlaeteadn bvya lFuigesurine 4d.i T ff heree vnatlupee rdioisdtrsibauretisohno iws sniminilTaar btole th3e. nAosrcmaanl bdeisstreiebnutinionTa, abnled3 t,hteh mevaxailmueusmo,f
+mveigneimtautimon, aconvde mraegaeni nvcarleuaesse dinf droifmfer2e0n0t0 ptoer2io01d5s yaerea rshboywyena irn. TThaeblGe G3.P Ahsa csapnl abyee sdeeann iimn Tpaobrtlaen 3t, rtohlee
+vinalvueegs eotaf tvioengeatnatdioenc ocloovgeircaagler eisntcorreaatisoend. fMroema n2w00h0i leto, d2u0e15t oyethaer ibmy pyleeamr.e nTthaeti oGnGoPf hsoaisl panladyewda taenr
+icmonpsoerrtvaantti oronlea nind vtheegeGtaGtPio,na laanrdge eacroelaogoifccaul lrteivstaotreadtiloann.d Mheaasnbweehnilaeb, adnudeo tnoe tdh,es iomthpaletmitecnantabtieonre ostfo sroeidl
+annadtu wraalltye,rf coormnsienrgvaatbiaonnd aonnde dthvee GgeGtaPt,i oan lainrgdei ff areeraen otfy ceualrtsiv,aantedd ilnacnrdea hsiansg bteheenv aebgaentadtoionnedco, vsoe rtahgaet iint
+ctahne rbeeg iorens.tored naturally, forming abandoned vegetation in different years, and increasing the
+vegetation coverage in the region.
+Table3. VegetationcoverageoftheYanRiverBasininthesummerfrom2000to2015.
+Value 2000.7.1 2005.7.1 2010.7.1 2015.7.1
+Maximum 0.9925 0.9665 0.9917 0.9650
+Minimum 0.1688 0.2907 0.2731 0.1712
+Mean 0.3934 0.5183 0.6531 0.6898
+
+===== PAGE 8 =====
+Sustainability2019,11,5336 8of18
+Sustainability 2019, 11, x FOR PEER REVIEW 8 of 18
+2000.7.1 2005.7.1
+2010.7.1 2015.7.1
+2015.7.
+1
+Figure 5. The histogram of vegetatiFoing ucoreve5r.aTghe eohf iYstaong Rraimvero fBvaseigne tfarotimon 2c0o0v0e troa g2e01o5f.YanRiverBasinfrom2000to2015.
+
+===== PAGE 9 =====
+Sustainability2019,11,5336 9of18
+Sustainability 2019, 11, x FOR PEER REVIEW 9 of 18
+3.3. GrainforGreenProgramHasIncreasedtheIncomeofFarmers
+Table 3. Vegetation coverage of the Yan River Basin in the summer from 2000 to 2015.
+Since the implementation of the Western Development Policy in 2000, a series of incentive
+Value 2000.7.1 2005.7.1 2010.7.1 2015.7.1
+policieshavebeenissuedinlandmanagement,populationandlabormobility,majorinfrastructure
+Maximum 0.9925 0.9665 0.9917 0.9650
+construction,andimportanMtininimduumstr ial0l.a1y68o8u t,w0h.2ic9h07h ave0.p27ro31m ote0d.1t7h1e2 developmentoftheurban
+andruraleconomy. PolicyfMacetaonr shav0e.3a93m4 and0a.t5o1r8y3 imp0a.6c5t3o1n lan0.d68u98s echange[49]. Affectedby
+theGGPinthedevelopmentofthewesternregioninChina,theforestinthisregionhasincreased
+s3i.g3n. Gifircaainn tfloyr Ganredena cPhrioegvreadm rHemasa Irnkcarebalseedre tshuel Itns,cowmhei cohf Fhaarsmaerps ositiveimpactontheimprovementof
+regionallandcover[50].
+Since the implementation of the Western Development Policy in 2000, a series of incentive
+With the adjustment of industrial structure, the land use pattern in the basin has changed.
+policies have been issued in land management, population and labor mobility, major infrastructure
+Theoutstandingmanifestationisthesignificantreductionofcultivatedlandandtheincreaseofforestry.
+construction, and important industrial layout, which have promoted the development of the urban
+High-coveragegrasslandincreased,whilethemedium-andlow-coveragegrasslandtransferredto
+and rural economy. Policy factors have a mandatory impact on land use change [49]. Affected by the
+woodlandandhigh-coveragegrassland. Socialandeconomicdevelopmentandnationalpoliciesare
+GGP in the development of the western region in China, the forest in this region has increased
+thereasonsforthetransformationofindustrialstructure,whichleadstothechangeofemployment
+significantly and achieved remarkable results, which has a positive impact on the improvement of
+postsandlandusepatternsofresidents. From2000to2010,theproportionofthenonagricultural
+regional land cover [50].
+populationinthebasinincreasedfrom25.31%to39.09%[47]. Theshareofagriculturalgrossdomestic
+With the adjustment of industrial structure, the land use pattern in the basin has changed. The
+product(GDP)showedadownwardtrend,from19.42%to9.32%[47]. Inthenonagriculturalindustry,
+outstanding manifestation is the significant reduction of cultivated land and the increase of forestry.
+thedevelopmentofthepetroleumindustryisthemostsignificant. TakingAnsaiCountyasanexample,
+High-coverage grassland increased, while the medium- and low-coverage grassland transferred to
+thepetroleumrevenueaccountsformorethan80%ofthecounty’sfinances[51].
+woodland and high-coverage grassland. Social and economic development and national policies are
+TheimplementationoftheGGPhassignificantlypromotedtheincreaseinfarmers’income. Since
+the reasons for the transformation of industrial structure, which leads to the change of employment
+theimplementationofthepolicyin1999,thepercapitaarablelandareahasdecreasedsignificantly,
+posts and land use patterns of residents. From 2000 to 2010, the proportion of the nonagricultural
+whilethepercapitanetincomehassteadilyincreased. AccordingtothedataofAnsaiCountyStatistical
+population in the basin increased from 25.31% to 39.09% [47]. The share of agricultural gross domestic
+Bureau,thepercapitanetincomeoffarmerswas1,504yuanin1999beforetheproject,andreached
+product (GDP) showed a downward trend, from 19.42% to 9.32% [47]. In the nonagricultural industry,
+11,271yuanin2016. TheimplementationofGGPhasresultedinalargenumberofsurplusrurallabor
+the development of the petroleum industry is the most significant. Taking Ansai County as an
+forcetransferringtononagriculturalindustriesinAnsaiCounty,whichhaspromotedtheincreaseof
+example, the petroleum revenue accounts for more than 80% of the county’s finances [51].
+farmers’income[52].
+The implementation of the GGP has significantly promoted the increase in farmers’ income.
+Figure6showsthetotalGDPoftheYanRiverBasinfrom2000to2016(billionyuan). From2000
+Since the implementation of the policy in 1999, the per capita arable land area has decreased
+to2016,thegrossandPGDPoftheYanRiverBasinincreasedsignificantly(Figures6and7),from
+significantly, while the per capita net income has steadily increased. According to the data of Ansai
+13.063billionto108.291billionyuanand6690to48,300yuan,respectively. ThegrossGDPandPGDP
+County Statistical Bureau, the per capita net income of farmers was 1,504 yuan in 1999 before the
+oftheYanRiverBasindecreasedfrom2015to2016.
+project, and reached 11,271 yuan in 2016. The implementation of GGP has resulted in a large number
+RegressionanalysiswasperformedonGDPandPGDPfrom2000to2016,andlinearregression
+of surplus rural labor force transferring to nonagricultural industries in Ansai County, which has
+equationswereusedtoobtainlinearequations. TheregressionequationandR2ofGDPintheYan
+promoted the increase of farmers’ income [52].
+RiverBasinareasfollows:
+Figure 6 shows the total GDP of the Yan River Basin from 2000 to 2016 (billion yuan). From 2000
+y=8.5103x−4.0827; R2=0.9119 (5)
+to 2016, the gross and PGDP of the Yan River Basin increased significantly (Figures 6 and 7), from
+13.06F3r boimlliothne teoq 1u0a8t.i2o9n1, bthilelioann nyuuaalng arnodw 6th,6r9a0t etoo 4f8G,3D00P yinuathne, rYeasnpeRcitviveerlBy.a Tsihnef groromss2 G00D0Pto an20d1 P6GwDaPs
+8o.f5 t1h0e3 Ytiamne Rsihviegrh Bearsainnd d9e6cr%eaosfepdo firnotmsi 2n0d1ic5a ttoin 2g01a6g.r eementwiththedata.
+FFiigguurree 66.. TThhee ttoottaall GGDDPP ooff YYaann RRiivveerr BBaassiinn ffrroomm 22000000 ttoo 22001166 ((bbiilllliioonn yyuuaann))..
+
+===== PAGE 10 =====
+Sustainability 2019, 11, x FOR PEER REVIEW 10 of 18
+Sustainability 2019, 11, x FOR PEER REVIEW 10 of 18
+Regression analysis was performed on GDP and PGDP from 2000 to 2016, and linear regression
+Regression analysis was performed on GDP and PGDP from 2000 to 2016, and linear regression
+equations were used to obtain linear equations. The regression equation and R2 of GDP in the Yan
+equations were used to obtain linear equations. The regression equation and R2 of GDP in the Yan
+River Basin are as follows:
+River Basin are as follows:
+y=8.5103x−4.0827; R2 = 0.9119 (5)
+y=8.5103x−4.0827; R2 = 0.9119 (5)
+From the equation, the annual growth rate of GDP in the Yan River Basin from 2000 to 2016 was
+SustainFarbiolimty 2t0h1e9 ,e1q1,u5a3t3i6on, the annual growth rate of GDP in the Yan River Basin from 2000 to 201160 owfa18s
+8.5103 times higher and 96% of points indicating agreement with the data.
+8.5103 times higher and 96% of points indicating agreement with the data.
+FFiigguurree 77.. PPeerr ccaappiittaa GGDDPP ooff YYaann RRiivveerr BBaassiinn aanndd SShhaaaannxxii PPrroovviinnccee ffrroomm 22000000 ttoo 22001166 ((11000000 yyuuaann))..
+Figure 7. Per capita GDP of Yan River Basin and Shaanxi Province from 2000 to 2016 (1000 yuan).
+IInn FFiigguurree 77,,t htehere grergesrseisosnioenq ueaqtuioantioann daRnd2 oRf2P GoDf PPGfoDrPth efoYra tnhRe ivYearnB Rasiivnera nBdaSsihna aannxdi PSrhoavainncxei
+In Figure 7, the regression equation and R2 of PGDP for the Yan River Basin and Shaanxi
+Pfrroomvin20ce0 0frtoom2 021060a0r teoa 2s0f1o6l laorwe sa:s follows:
+Province from 2000 to 2016 are as follows:
+Y Y Ya a an n nR R Riv i i v ve e re r rB B Ba a sa s isn i i n n: : : y y y === 3 33 . .. 7 77 6 669 9 95 5 5x x x −− −0 0 0.5 . . 5 52 2 28 8 78 7 ;7 ; ;R R R2 2 2= = = 0 00 . .. 9 99 0 00 5 55 4 44 ( ( 6 6( ) 6) )
+Shaanxi Province: y=3.2136x−5.3407; R2 = 0.9513 (7)
+S S h h a a a a n n x x i i P P ro ro v v in in ce ce : : y y = = 3 3 . . 2 2 1 1 3 3 6 6 x x−− 5 5 .3 .3 4 4 07 0 ; 7; R R 2 2= = 0 0 . . 9 9 5 5 1 1 3 3 (7 (7 ) )
+From the above two equations, the annual growth rate of PGPD is faster in the Yan River Basin
+From the above two equations, the annual growth rate of PGPD is faster in the Yan River Basin
+Fromtheabovetwoequations,theannualgrowthrateofPGPDisfasterintheYanRiverBasin
+than that in Shaanxi Province; the slope of the Yan River Basin is 3.7695, and that of Shaanxi Province
+than that in Shaanxi Province; the slope of the Yan River Basin is 3.7695, and that of Shaanxi Province
+thanthatinShaanxiProvince;theslopeoftheYanRiverBasinis3.7695,andthatofShaanxiProvince
+is 3.2136.
+is 3.2136.
+is3.2136.
+Figure 8 shows the per capita net income of rural residents in the Yan River Basin and Shaanxi
+Figure 8 shows the per capita net income of rural residents in the Yan River Basin and Shaanxi
+Figure8showsthepercapitanetincomeofruralresidentsintheYanRiverBasinandShaanxi
+Province from 2000 to 2016 (1000 yuan). As can be seen from Figure 8, the per capita net income of
+Province from 2000 to 2016 (1000 yuan). As can be seen from Figure 8, the per capita net income of
+Provincefrom2000to2016(1000yuan). AscanbeseenfromFigure8,thepercapitanetincomeof
+rural residents is increasing steadily, and it is higher in the Yan River Basin than in Shaanxi Province,
+rural residents is increasing steadily, and it is higher in the Yan River Basin than in Shaanxi Province,
+ruralresidentsisincreasingsteadily,anditishigherintheYanRiverBasinthaninShaanxiProvince,
+which is more obvious since 2008, with the fact that the slope of the Yan River Basin is 0.6216 and
+which is more obvious since 2008, with the fact that the slope of the Yan River Basin is 0.6216 and
+whichismoreobvioussince2008,withthefactthattheslopeoftheYanRiverBasinis0.6216andthat
+that of Shaanxi Province is 0.509.
+that of Shaanxi Province is 0.509.
+ofShaanxiProvinceis0.509.
+Figure 8. Per capita net income of rural residents in Yan River Basin and Shaanxi Province from 2000
+FFiigguurree 88.. PPeerr ccaappiittaa nneett iinnccoommeeo offr ruurraallr eresisdidenentstsi ninY aYnanR iRvievreBr aBsainsiann adnSdh SahaanaxnixPir oPvroinvciencfreo fmro2m0 0200t0o0
+to 2016 (1000 yuan).
+2to0 1260(1160 (0100y00u aynu)a.n).
+Figure8representstheregressionequationsforruralresidents’percapitanetincomeintheYan
+RiverBasinandShaanxiProvincefrom2000to2016whichareasfollows:
+YanRiverBasin: y=0.6216x−0.8757; R2=0.9116 (8)
+ShaanxiProvince:y=0.509x−0.4833; R2=0.8948 (9)
+
+===== PAGE 11 =====
+Sustainability2019,11,5336 11of18
+Fromtheabovetwoequations,theannualgrowthrateofpercapitanetincome(0.6216billion
+yuan)intheYanRiverBasinisfasterthanthatinShaanxiProvince(0.509billionyuan). Thecorrelation
+of95%and94.59%respectivelysatisfythetwotrendlinesofFormulas8and9.
+AfterthecompensationfortheGGP,therewasadeclineintheruralpeople’sincomeinafewareas
+ofprojectimplementation(forexample,theGDPandPGDPoftheYanRiverBasinin2015and2016;
+seeFigures6and7). ItismainlyduetothefactthattheimplementationoftheGGPcaneffectively
+increasetheincomeoffarmersinashortperiod. Itcanbeillustratedasfollows: (1)Throughoutthe
+implementationperiod,thestateprovidesrelevantsubsidiesforfarmers,whicheffectivelyincreases
+farmers’income. (2)Duringtheterm,farmerscanobtainacertainamountofnonagriculturalincome
+(eightyearsforecologicalforestcompensation,fiveyearsforeconomicforestcompensation,three
+yearsforreturningfarmlandtograssland). However,afterthecompensationfortheGGP,theincome
+offarmersdeclined. Themainreasonsareasfollows: (1)AfterthecompensationfortheGGP,itis
+difficultformostfarmerstofindotherjobs,whichaffectstheincomeoffarmerstoacertainextent.
+(2)Thefarmerswithforestryplantingasthemainincomeaccountsforasmallamount,andevenif
+theycanobtainacertainincome,thereisadropintheGDP.(3)TheGGPismainlybasedonecological
+construction,sotheplantingofecologicalforestshindersthepossibilityoffarmersgettingincome
+fromforeststosomedegree,whichlowersthepossibilityoffarmersobtainingincomefromforeststo
+someextent. (4)Duetotheinfluenceofvariousenvironmentalfactors,theforestgrowthcycleistoo
+long,anditisdifficultforfarmerstoobtaincorrespondingincome. Exceptforsomesubsidies,thereis
+nocorrespondingincome,whichseriouslyaffectsthelivelihoodoffarmers.
+3.4. ChangesinRainfallovertheLast40Years
+Thevariationofprecipitationismainlyaffectedbyfactorssuchasclimate(barometricandwind
+belt,monsoon),topography,oceancurrent,landandseaposition,underlyingsurface,andotherfactors.
+Interannual variations in vegetation coverage are mainly due to climate fluctuations and human
+activities. Most of the Yellow River Basin belongs to arid and semiarid areas. Precipitation is the
+mostimportantlimitingfactoraffectingthegrowthofnaturalvegetation. Therefore,inashortperiod,
+themostsignificantfactoraffectingvegetationcovershouldbetheamountofprecipitationandthe
+distributionduringtheyear. Atthesametime,changesinvegetationalsoadverselyaffectlocalclimate
+change. Theinfluencemechanismofvegetationonclimateiscomplexandvariesindifferentregions.
+Vegetationgrowthcanaffectregionalclimatethroughtheexchangeofwater,energy,andmomentum
+betweenlandandair,aswellasvariousbiologicalprocessessuchasCO2andCH4emissions[53].
+Inadditiontoregionalscales,theeffectsofvegetationcanalsoaffectlarge-scalecirculationbyaffecting
+localatmosphericcirculationorbiogeochemicalcycles,ultimatelyaffectinglarge-scaleclimatechange,
+evenglobalclimate[54–57]. Inrecentyears,researchershaveusedremotesensingdatatodiagnose
+andsimulatetheinteractionbetweenvegetationandclimatechange[58–62]. Studieshaveshownthat
+vegetationchangeshaveasignificantimpactonsurfacetemperatureandprecipitationinChinaand
+severevegetationchangescanaffecttheintensityofEastAsiansummermonsoons. Inmostregions
+ofChina,NDVIispositivelycorrelatedwithprecipitation,andthereareregionaldifferencesinthe
+correlationbetweenthem[63].
+The rainfall data in this study from the Global Precipitation Climatology Project (GPCP)
+precipitationdatasetswereusedtoanalyzetheimpactofvegetationchangeonrainfall. Figures9–11
+showtheannualaveragerainfallchangesintheYanRiverBasinfrom1970to2018,beforeandafterthe
+program. Itcanbeseenfromthefiguresthattheaveragerainfallfrom1970to2018wasincreasingwith
+theslopeof1.0525. Beforetheimplementationofthepolicy(before1999),therainfallwasdeclining,
+whentheslopewas−1.0351. After1999,thetrendwasontherisewiththeslopeof4.2935. Before
+theimplementationofthepolicy,duetolocalindiscriminateslashing,thesurfacecoverwasseriously
+damagedandthevegetationcoveragereduced.
+
+===== PAGE 12 =====
+Sustainability 2019, 11, x FOR PEER REVIEW 12 of 18
+Before the implementation of the policy, due to local indiscriminate slashing, the surface cover was
+seriously damaged and the vegetation coverage reduced.
+Vegetation cover has a great impact on the moisture content and convective activity in the
+atmosphere: the total amount of water vapor entering the atmosphere with vegetation cover has
+increased significantly, the convective activity in large or small scales has strengthened, the regional
+precipitation has increased, and the number of days without precipitation has decreased. Surfaces
+without vegetation cover show the opposite situation [64]. Studies on the relationship between
+vegetation change and precipitation have found that the two can influence each other. From our
+research, the vegetation cover had a positive effect on rainfall in the research period. Generally, local
+vegetation change with sufficient precipitation or sufficient irrigation conditions is less affected by
+precipitation [64]. Some scholars believe that forests can enhance precipitation to a certain extent, and
+the effect of vegetation change on precipitation increases with the decrease of atmospheric humidity.
+Some studies have suggested that vegetation has little effect on rainfall. The correlation between
+vegetation coverage and temperature is the highest, followed by rainfall, sunshine hours, and relative
+humidity in Northeast China [65]. A recent study shows that vegetation growth can alleviate local
+surface temperature [66,67].
+After the implementation of the GGP (after 1999), some vegetation types in the Loess Plateau
+changed from farmland to temperate deciduous broad-leaved forest. The surface state characteristic
+variables also changed accordingly (such as surface albedo, surface roughness, and soil moisture),
+which made the radiant flux and effective heat flux (sensible heat flux and latent heat flux) in the
+study area change in different degrees. The increase of vegetation cover, with the surface roughness,
+the soil water-holding capacity, the soil water content, and the surface evapotranspiration increase
+due to the increase of latent heat flux, has played a certain role in the increase of precipitation in this
+area [68]. The Yan River Basin is located in the central part of the Loess Plateau. Since the
+implementation of the GGP, part of the agricultural land has changed into forestry, and sparse
+vegetation area has reduced. The surface cover has changed and the surface reflectance has decreased,
+while the roughness rate, the soil water content, and the surface evapotranspiration have increased,
+Sustainability2019,11,5336 12of18
+thus an increase of rainfall was caused in the region.
+Sustainability 2019, 11, x FOR PEER REVIEW 13 of 18
+Sustainability 2019, 11, x FOR PEER REVIEW 13 of 18
+Figure9. ThechangeofannualaverageprecipitationinYanRiverBasinfrom1970to2018.
+Figure 9. The change of annual average precipitation in Yan River Basin from 1970 to 2018.
+Figure 10. The annual average precipitation before GGP (1970–1999) in Yan River Basin.
+Figure10. TheannualaverageprecipitationbeforeGGP(1970–1999)inYanRiverBasin.
+Figure 10. The annual average precipitation before GGP (1970–1999) in Yan River Basin.
+FiFgiugurer e111.1 T.hTeh eanannunaula alvaevreargaeg eprperceicpiiptiattaitoino nafatfetre rGGGGPP (2(020000–02–021081)8 )inin YYaann RRiviveer rBBaasisnin. .
+VegetaFtiigounrec o11v.e Trhhe aasnnauaglr aevaetriamgep parcetciopnitatthioen maftoeirs tGuGreP (c2o0n0t0e–n20t1a8n) din cYoannv Reicvteirv Beaasicnt.i vity in the
+3.5. Impact of Vegetation Change on Climate
+atmosphere: the total amount of water vapor entering the atmosphere with vegetation cover has
+3in.5c.r I eInma c spr eae dcats s oi i n gf gVn ies figc ceietaan ntt tiiol f yni , c Ct e hhv eaidncogeen n c voene c sCt h ilv oimw eaa stc et t h iv at i t a y n i t n hr la o r p g o e g o e r ni s c m la a n ll d s u ca s l e e a s n h d a s co s v tr e e r n c g h t a h n e g n e e d (L , U th C e C re ) g h i a o v n e a l
+a significant impact on regional and global climate [69]. The interactions between the land surface
+precipitationhasincreased,andthenumberofdayswithoutprecipitationhasdecreased. Surfaces
+Increasing scientific evidence shows that anthropogenic land use and cover change (LUCC) have
+and the atmosphere at various temporal and spatial scales and the exchange of momentum, energy,
+without vegetation cover show the opposite situation [64]. Studies on the relationship between
+a significant impact on regional and global climate [69]. The interactions between the land surface
+matter, and radiation have a great impact on atmospheric circulation and climatic conditions [70,71].
+vegetation change and precipitation have found that the two can influence each other. From our
+and the atmosphere at various temporal and spatial scales and the exchange of momentum, energy,
+T
+r
+h
+e
+e
+s e
+c
+a
+h
+r
+a
+ch
+n
+,
+ge
+th
+o
+e
+f
+v
+v
+e
+e
+g
+g
+e
+e
+ta
+ta
+ti
+t
+o
+io
+n
+n
+c
+c
+o
+o
+v
+v
+e
+e
+r
+r
+h
+a
+a
+f
+d
+fec
+a
+ts
+p o
+th
+si
+e
+t iv
+p
+e
+ro
+e
+cffes
+e
+s
+c
+e
+t
+s
+o
+o
+n
+f
+r
+r
+a
+a
+in
+d
+f
+ia
+a
+t
+ll
+io
+i
+n
+n
+b
+th
+a
+e
+la
+r
+n
+e
+c
+s
+e
+e a
+a
+r
+n
+c
+d
+h p
+w
+e
+a
+r
+t
+i
+e
+o
+r
+d .
+ba
+G
+la
+e
+n
+n
+c
+e
+e
+r a
+b
+l
+y
+ly ,
+matter, and radiation have a great impact on atmospheric circulation and climatic conditions [70,71].
+ch
+lo
+a
+c
+n
+a
+g
+l
+i
+v
+n
+e
+g
+g
+t
+e
+h
+ta
+e
+t
+s
+io
+u
+n
+rfa
+ch
+ce
+a n
+p
+g
+ro
+e
+p
+w
+e
+i
+r
+t
+t
+h
+ie
+s
+s
+u
+sffiuc
+c
+h
+ie
+a
+n
+s
+t
+a
+p
+l
+r
+b
+e
+e
+c
+d
+ip
+o
+i
+,
+t
+r
+a
+o
+t
+u
+io
+g
+n
+h
+o
+n
+r
+es
+s
+s
+u
+,ffi an
+c
+d
+ie n
+so
+t
+i
+i
+l
+r
+m
+rig
+o
+a
+is
+ti
+t
+o
+u
+n
+re
+c
+,
+o
+a
+n
+n
+d
+d
+i t
+u
+io
+lt
+n
+im
+si
+a
+s
+te
+le
+ly
+ss
+le
+a
+affd
+e
+s
+c t
+t
+e
+o
+d
+The change of vegetation cover affects the processes of radiation balance and water balance by
+changes in regional precipitation, circulation, atmospheric temperature, and humidity, and other
+byprecipitation[64]. Somescholarsbelievethatforestscanenhanceprecipitationtoacertainextent,
+changing the surface properties such as albedo, roughness, and soil moisture, and ultimately leads to
+cl
+a
+i
+n
+m
+d
+a
+t
+t
+h
+e
+e
+c
+e
+hffa
+e
+n
+c
+g
+t
+e
+o
+s
+f v
+[7
+e
+2
+g
+]
+e
+.
+t
+R
+at
+e
+i
+c
+o
+e
+n
+n
+c
+t
+h
+s
+a
+t
+n
+u
+g
+d
+e
+ie
+o
+s
+n
+h
+p
+a
+r
+v
+e
+e
+ci p
+sh
+it
+o
+a
+w
+tio
+n
+n
+t
+i
+h
+n
+a
+c
+t
+r e
+e
+a
+x
+s
+t
+e
+e
+s
+n
+w
+si
+i
+v
+t
+e
+h t
+d
+h
+e
+e
+fo
+d
+r
+e
+e
+c
+s
+r
+t
+e
+a
+a
+t
+s
+io
+e
+n
+o f
+in
+at m
+th
+o
+e
+s
+A
+ph
+m
+e
+a
+ri
+z
+c
+o
+h
+n
+u
+B
+m
+a
+i
+s
+d
+i
+i
+n
+ty .
+changes in regional precipitation, circulation, atmospheric temperature, and humidity, and other
+re
+S
+d
+o
+u
+m
+c
+e
+es
+s
+r
+t
+e
+u
+g
+d
+i
+i
+o
+e
+n
+s
+a
+h
+l
+a
+m
+v
+o
+e
+is
+s
+t
+u
+u
+g
+r
+g
+e
+e
+c
+s
+y
+t
+c
+e
+l
+d
+es
+t
+a
+h
+n
+a
+d
+t v
+d
+e
+e
+g
+e
+e
+p
+t
+c
+a
+o
+ti
+n
+o
+v
+n
+e
+h
+ct
+a
+io
+s
+n
+li
+i
+t
+n
+tl e
+th
+e
+eff a
+e
+t
+c
+m
+t
+o
+o
+s
+n
+ph
+ra
+e
+i
+r
+n
+e
+f
+[
+a
+7
+l
+3
+l.
+,7
+T
+4]
+h
+.
+e
+C
+c
+h
+o
+a
+r
+r
+r
+n
+e
+e
+la
+y
+t
+[
+i
+7
+o
+5
+n
+] s
+b
+t
+e
+u
+t
+d
+w
+i
+e
+e
+e
+d
+n
+climate changes [72]. Recent studies have shown that extensive deforestation in the Amazon Basin
+drought in Sahel, Africa, and proposed the Earth’s biofeedback mechanism to explain the aggravation
+vegetationcoverageandtemperatureisthehighest,followedbyrainfall,sunshinehours,andrelative
+reduces regional moisture cycles and deep convection in the atmosphere [73,74]. Charney [75] studied
+of drought in desert margins. He believes that overgrazing destroyed the vegetation and increased
+dhruomuigdhitt yini nSaNheolr,t AhefraisctaC, ahnidn apr[6o5p]o.sAedr tehcee nEtasrttuh’dsy bisohfoewedsbtahcakt mveegchetaantiisomn gtoro ewxpthlaicna nthael laegvgiraatevaloticoanl
+the reflectivity, which changed the energy balance of the surface and made it a radiation heat sink.
+osuf rdfaroceugtehmt ipne rdaetsuerret [m66a,r6g7i]n.s. He believes that overgrazing destroyed the vegetation and increased
+Vegetation is an important feature of surface condition. Each vegetation has its own reflectivity,
+the reflectivity, which changed the energy balance of the surface and made it a radiation heat sink.
+roughness, and soil moisture, forming a unique radiation, heat, and water balance relationship and
+Vegetation is an important feature of surface condition. Each vegetation has its own reflectivity,
+local climate system. Different vegetation conditions affect atmospheric circulation and climate
+roughness, and soil moisture, forming a unique radiation, heat, and water balance relationship and
+change by affecting surface albedo, soil temperature, and humidity, while the atmosphere affects
+local climate system. Different vegetation conditions affect atmospheric circulation and climate
+vegetation by changing clouds, precipitation, and temperature. Precipitation and temperature have
+change by affecting surface albedo, soil temperature, and humidity, while the atmosphere affects
+a restrictive effect on plant communities. Vegetation increases the surface roughness and has less
+vegetation by changing clouds, precipitation, and temperature. Precipitation and temperature have
+albedo than bare land. Vegetation changes surface runoff and surface hydrological processes through
+a restrictive effect on plant communities. Vegetation increases the surface roughness and has less
+transpiration and water-fixing effects on soil, and thus impacts climate.
+albedo than bare land. Vegetation changes surface runoff and surface hydrological processes through
+The Yan River Basin is located in the inland area of China. With the increase of vegetation
+transpiration and water-fixing effects on soil, and thus impacts climate.
+coverage, rainfall increases significantly and so does humidity. In summer, when forestry changes
+The Yan River Basin is located in the inland area of China. With the increase of vegetation
+into grassland, or grassland changes into cultivated land, the temperature of the land surface
+coverage, rainfall increases significantly and so does humidity. In summer, when forestry changes
+increases continuously, which is due to the increase of sensible heat caused by vegetation degradation
+into grassland, or grassland changes into cultivated land, the temperature of the land surface
+increases continuously, which is due to the increase of sensible heat caused by vegetation degradation
+
+===== PAGE 13 =====
+Sustainability2019,11,5336 13of18
+AftertheimplementationoftheGGP(after1999),somevegetationtypesintheLoessPlateau
+changedfromfarmlandtotemperatedeciduousbroad-leavedforest. Thesurfacestatecharacteristic
+variablesalsochangedaccordingly(suchassurfacealbedo, surfaceroughness, andsoilmoisture),
+whichmadetheradiantfluxandeffectiveheatflux(sensibleheatfluxandlatentheatflux)inthestudy
+areachangeindifferentdegrees. Theincreaseofvegetationcover,withthesurfaceroughness,thesoil
+water-holdingcapacity,thesoilwatercontent,andthesurfaceevapotranspirationincreaseduetothe
+increaseoflatentheatflux,hasplayedacertainroleintheincreaseofprecipitationinthisarea[68].
+TheYanRiverBasinislocatedinthecentralpartoftheLoessPlateau. Sincetheimplementationofthe
+GGP,partoftheagriculturallandhaschangedintoforestry,andsparsevegetationareahasreduced.
+Thesurfacecoverhaschangedandthesurfacereflectancehasdecreased,whiletheroughnessrate,
+thesoilwatercontent,andthesurfaceevapotranspirationhaveincreased,thusanincreaseofrainfall
+wascausedintheregion.
+3.5. ImpactofVegetationChangeonClimate
+Increasingscientificevidenceshowsthatanthropogeniclanduseandcoverchange(LUCC)have
+asignificantimpactonregionalandglobalclimate[69]. Theinteractionsbetweenthelandsurface
+andtheatmosphereatvarioustemporalandspatialscalesandtheexchangeofmomentum,energy,
+matter,andradiationhaveagreatimpactonatmosphericcirculationandclimaticconditions[70,71].
+Thechangeofvegetationcoveraffectstheprocessesofradiationbalanceandwaterbalancebychanging
+thesurfacepropertiessuchasalbedo,roughness,andsoilmoisture,andultimatelyleadstochanges
+in regional precipitation, circulation, atmospheric temperature, and humidity, and other climate
+changes[72]. RecentstudieshaveshownthatextensivedeforestationintheAmazonBasinreduces
+regionalmoisturecyclesanddeepconvectionintheatmosphere[73,74]. Charney[75]studieddrought
+in Sahel, Africa, and proposed the Earth’s biofeedback mechanism to explain the aggravation of
+droughtindesertmargins. Hebelievesthatovergrazingdestroyedthevegetationandincreasedthe
+reflectivity,whichchangedtheenergybalanceofthesurfaceandmadeitaradiationheatsink.
+Vegetationisanimportantfeatureofsurfacecondition. Eachvegetationhasitsownreflectivity,
+roughness,andsoilmoisture,formingauniqueradiation,heat,andwaterbalancerelationshipand
+localclimatesystem. Differentvegetationconditionsaffectatmosphericcirculationandclimatechange
+byaffectingsurfacealbedo,soiltemperature,andhumidity,whiletheatmosphereaffectsvegetation
+bychangingclouds,precipitation,andtemperature. Precipitationandtemperaturehavearestrictive
+effectonplantcommunities. Vegetationincreasesthesurfaceroughnessandhaslessalbedothanbare
+land. Vegetationchangessurfacerunoffandsurfacehydrologicalprocessesthroughtranspirationand
+water-fixingeffectsonsoil,andthusimpactsclimate.
+TheYanRiverBasinislocatedintheinlandareaofChina. Withtheincreaseofvegetationcoverage,
+rainfallincreasessignificantlyandsodoeshumidity. Insummer,whenforestrychangesintograssland,
+orgrasslandchangesintocultivatedland,thetemperatureofthelandsurfaceincreasescontinuously,
+whichisduetotheincreaseofsensibleheatcausedbyvegetationdegradationandlanddryinginthis
+area. Usually,thedegradationofsurfacevegetationwillmakesummerhotterandwintercolder,butin
+differentregions(differentnaturalenvironmentsandclimateconditions),thesamechangeofsurface
+vegetationwillproducedifferentclimaticeffects.
+4. Conclusions
+It is found that by adjusting the land use patterns and carrying out engineering measures to
+restorevegetation,suchasartificialafforestation,conversionoffarmlandtoforestsandgrasses,andso
+forth,climatechangecanbemitigatedonacertainscale. However,thefeedbackofvegetationchange
+ontheclimatehasnotyetbeendetermined.
+Chinalaunchedtheecologicalprotectionproject,the“GrainforGreen”Program(GGP),aimedat
+improvingtheecologicalenvironment,controllingsoilerosion,andadjustingtheagriculturalindustrial
+structuretopromotethesustainabledevelopmentoftheruraleconomy. Sincetheimplementationof
+
+===== PAGE 14 =====
+Sustainability2019,11,5336 14of18
+thisproject,remarkableachievementshavebeenmadeinimprovingtheecologicalenvironmentand
+reducingsoilerosion. Atthesametime,theconversionoflarge-scaleslopingfarmlandtoforestry
+andgrasslandhasgreatlyaffectedtheagriculturalandruraleconomicdevelopmentoftheproject
+implementation area. The implementation of the project has created favorable conditions for the
+adjustmentoftheagriculturalindustrialstructureinthemountainousareas. Thepeasantlifeandthe
+localeconomyhaveimprovedtovaryingdegrees,whichhaspromotedlocaleconomicdevelopment
+andincreasedfarmers’income. Theadjustmentoftheagriculturalindustrialstructurehaschangedthe
+landusetype,andthechangeofsurfacecoverhasanimpactontheregionalclimate.
+ThisstudyusedLandsatremotesensingimagery,TERRAsatellite500MNDVIdailyproduct,
+and remote sensing image processing software ERDAS to obtain land use data for four different
+periods(1999–2015)intheYanRiverBasin,andvegetationcoverageonJuly1ofeachyearafterthe
+implementation of the GGP (after 1999). Cropland in the Yan River Basin decreased significantly,
+whiletheforestryincreased,andthetransformationfromlow-coveragegrasslandtohigh-coverage
+grasslandwasobvious. Themaximum,minimum,andmeanvaluesofvegetationcoverageincreased
+year by year in summer. The surface coverage of the Yan River Basin increased, and vegetation
+changeshavehadanimportantimpactonprecipitation. From1970to2018,theannualaveragerainfall
+showedanincreasingtrend,whilebeforetheimplementationoftheproject(1970–1999),thetrend
+wasdownward. Duringthisperiod,deforestation,vegetationdegradation,surfacebareness,lowsoil
+watercontent,andthesurfaceevapotranspirationdecreasedintheYanRiverBasin,whichadversely
+affectedtherainfallintheregion. Aftertheimplementationoftheproject(after1999),thevegetation
+coverage,thesurfaceroughness,thesoilwater-holdingcapacity,thesoilwatercontent,andthesurface
+evapotranspirationincreasedsignificantly,whichhadapositiveimpactonregionalprecipitation,and
+theannualaveragerainfallincreasedfrom1999to2018.
+Precipitation in the Yan River Basin is mainly related to large-scale climate system activities.
+Thewholerainfallprocessisoftenaccompaniedbylarge-scalewatervaportransport,andalsohasa
+certainrelationshipwithvegetationcover. Withtheincreaseofvegetationcoverageandtheincreaseof
+watervaporcontentnearthesurface,precipitationislikelytooccurifupdraftisencountered. TheGGP
+is found to be the main driving factor for the vegetation coverage increase. Increased vegetation
+resultsinlowersurfacealbedoandhighertemperature. Thispositiveeffectcanbeoffsetbyhigher
+evaporation,whiletheneteffectisadecreaseinsurfacetemperatureduringthedaytime. Theincrease
+ofevapotranspirationaftervegetationrestorationisthemainreasonforthedecreaseofrunoff[76].
+The influence mechanism of vegetation on climate varies in different regions. Scientifically
+exploringtheimpactsofvegetationonclimateindifferentregionsisconducivetotheknowledgeof
+climate,ecologicalenvironmentalprotection,andimprovementprograms.
+Author Contributions: Conceptualization, B.G.; methodology, B.G. and T.X.; software, B.G. and M.V.S.;
+validation, B.G., M.V.S. and T.X.; formal analysis, M.V.S.; investigation, B.G.; resources, B.G.; data curation,
+B.G.;writing—originaldraftpreparation,B.G.;writing—reviewandediting,T.X.andM.V.S.;supervision,B.G.;
+projectadministration,B.G.;fundingacquisition,B.G.
+Funding: ThisstudyissupportedbytheStateKeyLaboratoryofPlateauEcologyandAgriculture,Qinghai
+University(GrantNo. 2018-KF-02),theNationalNaturalScienceFoundationofChina(GrantNo. 51479179and
+51579230),andtheScienceFoundationofZhejiangOceanUniversity(GrantNO.21105011713).
+Acknowledgments: AuthorsthankRunshengYinforhisvaluablesuggestion.
+ConflictsofInterest: Theauthorsdeclarenoconflictofinterest.
+References
+1. Chen, L.; Messing, I.; Zhang, S.; Fu, B.; Ledin, S. Land use evaluation and scenario analysis towards
+sustainableplanningontheLoessPlateauinChina—Casestudyinasmallcatchment. Catena2003,54,
+303–316. [CrossRef]
+2. Wu,X.;Wang,S.;Fu,B.;Feng,X.;Chen,Y.Socio-ecologicalchangesontheLoessPlateauofChinaafterGrain
+toGreenProgram. Sci. TotalEnviron. 2019,678,565–573. [CrossRef][PubMed]
+
+===== PAGE 15 =====
+Sustainability2019,11,5336 15of18
+3. Wang,S.;Fu,B.;Piao,S.;Lü,Y.;Ciais,P.;Feng,X.;Wang,Y.Reducedsedimenttrans-portintheYellowRiver
+duetoanthropogenicchanges. Nat. Geosci. 2015,9,38–41. [CrossRef]
+4. Yang,R.Cultivatedlandsoilandwaterlossforourcountryandcontrolmeasures. Bull. SoilWaterConserv.
+1994,14,32–36.
+5. Bakker,M.M.;Govers,G.;vanDoom,A.;Quetier,F.;Chouvardas,D.;Rounsevell,M.Theresponseofsoil
+erosionandsedimentexporttoland-usechangeinfourareasofEurope: Theimportanceoflandscape.
+Geomorphology2008,98,213–226. [CrossRef]
+6. Fu,B.;Wang,S.;Liu,Y.;Liu,J.;Liang,W.;Miao,C.Hydrogeomorphicecosystemresponsestonaturaland
+anthropogenicchangesintheLoessPlateauofChina. Annu. Rev. EarthPlanet. Sci. 2007, 45, 223–243.
+[CrossRef]
+7. Cao,S.;Chen,L.;Yu,X.ImpactofChina’sGrainforGreenProjectonthelandscapeofvulnerablearidand
+semi-aridagriculturalregions: AcasestudyinnorthernShaanxiProvince. J.Appl. Ecol. 2009,46,536–543.
+[CrossRef]
+8. Lu,Y.;Fu,B.;Feng,X.;Zeng,Y.;Liu,Y.;Chang,R.;Sun,G.;Wu,B.Apolicy-drivenlargescaleecological
+restoration: QuantifyingecosystemserviceschangesintheLoessPlateauofChina. PLoSONE2012, 7,
+e31782.
+9. Feng,X.;Fu,B.;Lu,N.;Zeng,Y.;Wu,B.Howecologicalrestorationaltersecosystemservices: Ananalysisof
+carbonsequestrationinChina’sLoessPlateau. Sci. Rep. 2013,3,2846. [CrossRef]
+10. Jiang, C.; Wang, F.; Zhang, H.Y.; Dong, X.L. Quantifying changes in multiple ecosystem services
+during2000–2012ontheLoessPlateau,China,asaresultofclimatevariabilityandecologicalrestoration.
+Ecol. Eng. 2016,97,258–271. [CrossRef]
+11. Treacy,P.;Jagger,P.;Song,C.;Zhang,Q.;Bilsborrow,R.E.ImpactsofChina’sGrainforGreenProgramon
+MigrationandHouseholdIncome. Environ. Manag. 2018,62,489–499. [CrossRef]
+12. Delang,C.O.;Yuan,Z.China’sGrainforGreenProgram: AReviewoftheLargestEcologicalRestorationandRural
+DevelopmentProgramintheWorld;Springer: Cham,Switzerland,2015.
+13. Ministry of Finance of China, State Administration of Forestry and Grassland, Management Measures
+of Fund for Forestry Ecological Protection Recovery, China Forestry Website. Available online: http:
+//www.forestry.gov.cn/(accessedon8November2016).
+14. Li,Y.;Sulla-Menashe,D.;Motesharrei,S.;Song,X.P.;Kalnay,E.;Ying,Q.;Li,S.;Ma,Z.Inconsistentestimates
+offorestcoverchangeinChinabetween2000and2013frommultipledatasets: Differencesinparameters,
+spatialresolution,anddefinitions. Sci. Rep. 2017,7,8748. [CrossRef]
+15. Singh,D.;McDermid,S.P.;Cook,B.I.;Puma,M.J.;Nazarenko,L.;Kelley,M.DistinctInfluencesofLand
+CoverandLandManagementonSeasonalClimate. J.Geophys. Res. Atmos. 2018,123,12–017. [CrossRef]
+16. Diffenbaugh,N.S.InfluenceofmodernlandcoverontheclimateoftheUnitedStates. Clim. Dyn. 2009,
+33,945. [CrossRef]
+17. Douglas, E.M.; Niyogi, D.; Frolking, S.; Yeluripati, J.B.; Pielke, R.A., Sr.; Niyogi, N.; Vörösmarty, C.J.;
+Mohanty,U.C.Changesinmoistureandenergyfluxesduetoagriculturallanduseandirrigationinthe
+IndianMonsoonBelt. Geophys. Res. Lett. 2006,33,L14403. [CrossRef]
+18. Halder,S.; Saha,S.K.; Dirmeyer,P.A.; Chase,T.N.; Goswami,B.N.Investigatingtheimpactofland-use
+land-coverchangeonIndiansummermonsoondailyrainfallandtemperatureduring1951–2005usinga
+regionalclimatemodel. Hydrol. EarthSyst. Sci. 2016,20,1765–1784. [CrossRef]
+19. Hirsch,A.L.; Pitman,A.J.; Kala,J.; Lorenz,R.; Donat,M.G.Modulationofland-usechangeimpactson
+temperatureextremesvialand–atmospherecouplingoverAustralia. EarthInteract. 2015,19,1–24. [CrossRef]
+20. Lee,E.;Chase,T.N.;Rajagopalan,B.;Barry,R.G.;Biggs,T.W.;Lawrence,P.J.Effectsofirrigationandvegetation
+activityonearlyIndiansummermonsoonvariability. Int. J.Climatol. 2009,29,573–581. [CrossRef]
+21. McDermid,S.S.;Mearns,L.O.;Ruane,A.C.RepresentingagricultureinEarthsystemmodels: Approaches
+andprioritiesfordevelopment. J.Adv. Model. EarthSyst. 2017,9,2230–2265. [CrossRef]
+22. Pielke,R.A.;Pitman,A.;Niyogi,D.;Mahmood,R.;McAlpine,C.;Hossain,F.;Goldewijk,K.K.;Nair,U.;
+Betts,R.;Fall,S.;etal. Landuse/landcoverchangesandclimate: Modelinganalysisandobservational
+evidence. WileyInterdiscip. Rev. Clim. Chang. 2011,2,828–850. [CrossRef]
+23. Quesada,B.;Arneth,A.;deNoblet-Ducoudré,N.Atmospheric,radiative,andhydrologiceffectsoffuture
+landuseandlandcoverchanges: Aglobalandmultimodelclimatepicture. J.Geophys. Res. Atmos. 2017,
+122,5113–5131. [CrossRef]
+
+===== PAGE 16 =====
+Sustainability2019,11,5336 16of18
+24. Yamashima,R.;Matsumoto,J.;Takata,K.;Takahashi,H.G.Impactofhistoricalland-usechangesonthe
+Indiansummermonsoononset. Int. J.Climatol. 2015,35,2419–2430. [CrossRef]
+25. Jiang,W.;Hou,P.;Zhu,X.;Cao,G.;Liu,X.;Cao,R.Analysisofvegetationresponsetorainfallwithsatellite
+imagesinDongtingLake. J.Geogr. Sci. 2011,21,135–149. [CrossRef]
+26. Sale,O.E.;Parton,W.J.;Joyce,L.A.;Lauenroth,W.K.Primaryproductionofthecentralgrasslandregionof
+theUnitedStates. Ecology1988,69,40–45. [CrossRef]
+27. Sun,R.;Liu,C.;Zhu,Q.Relationshipbetweenthefractionalvegetationcoverchangeandrainfallinthe
+YellowRiverBasin. ActaGeogr. Sin. 2001,56,667–672. (InChinese)
+28. Cui,L.;Shi,J.;Yang,Y.;Fan,W.Ten-dayresponseofvegetationNDVItothevariationsoftemperatureand
+precipitationineasternChina. ActaGeogr. Sin. 2009,64,850–860. (InChinese)
+29. Chandrasekar,K.;Sai,M.V.R.S.;Jeyaseelan,A.T.;Dwivedi,R.S.;Roy,P.S.Vegetationresponsetorainfallas
+monitoredbyNOAA-AVHRR.Curr. Sci. 2006,91,1626–1633.
+30. Xie,L.;Wen,G.;Fu,G.Theresponseofthevegetationseasonalvariabilityanditsspatialpatterntoclimate
+variationinChina: Multi-yearaverage. ActaMeteorol. Sin. 2002,60,181–187. (InChinese)
+31. Mankiw,N.BriefPrinciplesofMacroeconomics;Cengage: Boston,MA,USA,2006.
+32. Diana,F.;Wilcox,S.J.Cost-benefitAnalysisforPublicSectorDecisionMakers;GreenwoodPublishingGroup:
+Westport,CT,USA,1999.
+33. Barro,R.J.Macroeconomics;MITPress: Cambridge,MA,USA,1997.
+34. Robert,F.;George,A.;Huffman,J.;Chang,A.;Ferraro,R.;Xie,P.-P.;Janowiak,J.;Rudolf,B.;Schneider,U.;
+Curtis, S.; et al. The Version-2 Global Precipitation Climatology Project (GPCP) monthly precipitation
+analysis(1979–Present). J.Hydrometeorol. 2003,4,1147–1167.
+35. Liu,Q.;Shi,T.SpatiotemporalDifferentiationandtheFactorsofEcologicalVulnerabilityintheToutunRiver
+BasinBasedonRemoteSensingData. Sustainability2019,11,4160. [CrossRef]
+36. Carlos,J.;Hernández,B.M.;Rico,A.M.;Olcina,J.TheHydrosocialCycleinCoastalTouristDestinationsin
+Alicante,Spain: IncreasingResiliencetoDrought. Sustainability2019,11,4494. [CrossRef]
+37. Chou,J.;Xian,T.;Zhao,R.;Xu,Y.;Yang,F.;Sun,M.DroughtRiskAssessmentandEstimationinVulnerable
+Eco-RegionsofChina: UndertheBackgroundofClimateChange. Sustainability2019,11,4463. [CrossRef]
+38. Liu,X.;Xu,Z.;Peng,D.Spatio-TemporalPatternsofVegetationintheYarlungZangboRiver,Chinaduring
+1998–2014. Sustainability2019,11,4334. [CrossRef]
+39. Liu,Y.ClassificationResearchonRegionalConservationofWaterandSoilVegetationSynthesisBasedonthe
+HighTimeResolutionRemoteSensingData-TakingtheLoessPlateauasanExample. Ph.D.Thesis,Chinese
+AcademyofScienceGraduateSchool,Beijing,China,2006. (InChinese).
+40. Aitchison,J.TheStatisticalAnalysisofCompositionalData;BlackburnPress: Caldwell,NJ,USA,2003.
+41. AccessforOffice365. ChoosingtheBestTrendLineforYourData. Availableonline: https://support.office.
+com/en-us/article/(accessedon14September2019).
+42. Hron,K.;Filzmoser,P.;Thompson,K.Linearregressionwithcompositionalexplanatoryvariables.J.Appl.Stat.
+2012,39,1115–1128. [CrossRef]
+43. Jolliffe,I.T.PrincipalComponentAnalysis;Springer: NewYork,NY,USA,2005.
+44. Dobson,A.J.;Barnett,A.G.AnIntroductiontoGeneralizedLinearModels,3rded.;CRCPress: BocaRaton,FL,
+USA,2008.
+45. Montgomery,D.C.;Peck,E.A.;Vining,G.G.IntroductiontoLinearRegressionAnalysis;JohnWiley&Sons,Inc.:
+Hoboken,NJ,USA,2006.
+46. Filzmoser,P.StatDA:StatisticalAnalysisforEnvironmentalData. RPackageVersion1.6.7. 2013. Available
+online: http://CRAN.R-project.org/package=StatDA(accessedon9August2019).
+47. Lou,H.;Yang,S.;Zhou,Q.;Luo,Y.;Hou,L.Analysisofthelanduse/coverchangeanddrivingforcesinYan
+RiverBasinfrom2000to2010. J.AridLandResour. Environ. 2014,28,15–21.
+48. Tang,G.;Zhang,Y.;Liu,Y.DigitalRemoteSensingDataProcessing;PressofScience: Beijing,China,2004.
+(InChinese)
+49. Wood,D.;Lenné,J.M.‘Rreceivedwisdom’inagriculturelandusepolicy:10yearsonfromRio.LandUsePolicy
+2005,22,75–93. [CrossRef]
+
+===== PAGE 17 =====
+Sustainability2019,11,5336 17of18
+50. Liu,J.;Zhang,Z.;Xu,X.;Kuang,W.;Zhou,W.;Zhang,S.;Li,R.;Yan,C.;Yu,D.;Wu,S.;etal. Spatialpatterns
+anddrivingforcesoflandusechangeinChinaintheearly21stcentury. ActaGeogr. Sin. 2009,64,1411–1420.
+[CrossRef]
+51. NationalBureauofStatistics. StatisticalDataonNationalEconomicandSocialDevelopmentofAnsaiCounty.
+Availableonline: http://www.stats.gov.cn(accessedon28February2017). (InChinese)
+52. Hu,C.;Fu,B.;Chen,L.AgricultureandruraleconomicsdevelopmentintheLoessHillyandGullyarea-A
+casestudyinAnsaiCounty. J.AridLandResour. Environ. 2006,20,67–72. (InChinese)
+53. Wendler,G.;Eaton,F.OnthedesertificationoftheSahelzone. Clim. Chang. 1983,5,365–380. [CrossRef]
+54. Snyder,P.k.;Delire,C.ASystematicanalysisoftheinfluenceofvegetationonlocalandglobalclimateusing
+acoupledatmosphere-biospheremodel,CCM3-IBIS[C].InAGUFallMeetingAbstracts;EOSTransactions:
+SanFrancisco,CA,USA,2001.
+55. Neelin,J.D.;Su,H.MoistteleconnectionmechanismsforthetropicalSouthAmericanandAtlanticsector.
+J.Clim. 2005,18,3928–3950. [CrossRef]
+56. Voldoire,A.;Royer,J.F.Tropicaldeforestationandclimatevariability.Clim.Dyn.2004,22,857–874.[CrossRef]
+57. Voldoire,A.;Royer,J.F.Climatesensitivitytotropicallandsurfacechangeswithcoupledversusprescribed
+SSTs. Clim. Dyn. 2005,24,843–862. [CrossRef]
+58. Ding,Y.;Li,Q.;Dong,W.Anumericalsimulationstudyoftheimpactsofvegetationchangesonregional
+climateinChina. ActaMeteorol. Sin. 2005,63,613–621. (InChinese)
+59. Fu,C.;Wen,G.;Xie,L.;Zhao,M.;Yuan,H.Thediagnosisandsimulationstudiesonclimateandecosystem
+interactionsinEastAsiamonsoonregion. J.NanjingUniv. (Nat. Sci.) 2002,38,281–294. (InChinese)
+60. Gong,D.; Shi,P.Inter-annualchangesinEurasiancontinentNDVIanditssensitivitytothelarge-scale
+climatevariationsinthelast20years. ActaBot. Sin. 2004,46,186–193.
+61. Li,X.;Wang,Y.;Li,K.NDVIsensitivitytoseasonalandinterannualrainfallvariationsinNorthernChina.
+ActaGeogr. Sin. 2000,55,82–89. (InChinese)
+62. Pu,S.;Fang,J.SeasonalchangesinvegetationactivityinresponsetoclimatechangesinChinabetween1982
+and1999. ActaGeogr. Sin. 2003,58,119–125. (InChinese)
+63. Zhang,J.Y.;Dong,W.J.;Fu,C.B.;Wu,L.Y.Theinfluenceofvegetationcoveronsummerprecipitationin
+China: AstatisticalanalysisofNDVIandclimatedata. Adv. Atmos. Sci. 2003,20,1002–1006.
+64. Ma,W.;Zhao,Z.;Liu,X.;Yan,D.Aquantitativeanalysisoftherelationshipbetweenvegetationindices
+andlandsurfacetemperaturebasedonremotesensing: AcasestudyofTMdataforBeijing. RemoteSens.
+LandResour. 2010,87,109–112. (InChinese)
+65. Nie,Q.;Xu,J.;Ji,M.;Cao,L.;Yang,Y.;Hong,Y.Thevegetationcoveragedynamiccouplingwithclimatic
+factorsinNortheastChina. Environ. Manag. 2012,50,405–417. [CrossRef]
+66. Peng,S.S.;Piao,S.L.;Zeng,Z.Z.;Ciais,P.;Zhou,L.;Li,L.Z.;Myneni,R.B.;Yin,Y.;Zeng,H.Afforestationin
+Chinacoolslocallandsurfacetemperature. Proc. Natl. Acad. Sci. USA2014,111,2915–2919. [CrossRef]
+67. Shen,M.;Piao,S.L.;Jeong,S.J.;Zhou,L.;Zeng,Z.;Ciais,P.;Chen,D.;Huang,M.;Jin,C.-S.;Li,L.Z.X.;etal.
+EvaporativecoolingovertheTibetanPlateauinducedbyvegetationgrowth. Proc. Natl. Acad. Sci. USA2015,
+112,9299–9304. [CrossRef]
+68. Wang,P.;Shen,R.VegetationcoverchangeeffectsonclimateintheLoessPlateauregionbasedonCLM
+Model. Sci. Technol. Eng. 2013,13,5754–5760.
+69. Zhao,M.;Pitman,A.J.;Chase,T.N.Theimpactoflandcoverontheatmosphericcirculation. Clim. Dynam.
+2001,17,467–477. [CrossRef]
+70. Pielke,R.A.;Marland,G.;Betts,R.A.;Chase,T.N.;Eastman,J.L.;Niles,J.O.;Niyogi,D.D.S.;Running,S.W.
+Theinfluenceofland-usechangeandlandscapedynamicsontheclimatesystem:Relevancetoclimate-change
+policybeyondtheradiativeeffectofgreenhousegases. Philos. Trans. R.Soc. Lond. Ser. A-Math. Phys. Eng.Sci.
+2002,360,1705–1719. [CrossRef]
+71. NationalResearchCounciloftheNationalAcademies. RadiativeForcingofClimateChangeExpandingthe
+ConceptandAddressingUncertainties;TheNationalAcademiesPress: Washington,DC,USA,2005.
+72. Rial,J.A.;Pielke,R.A.,Sr.;Beniston,M.;Claussen,M.;Canadell,J.;Cox,P.;Held,H.;deNoblet-Ducoudré,N.;
+Prinn,R.;Reynolds,J.F.;etal. Nonlinearities,feedbacksandcriticalthresholdswithintheearth’sclimate
+system. Clim. Chang. 2004,65,11–38. [CrossRef]
+
+===== PAGE 18 =====
+Sustainability2019,11,5336 18of18
+73. Roy,S.B.;Avissar,R.Impactoflanduse/landcoverchangeonregionalhydrometeorologyinAmazonian.
+J.Geophys. Res. 2002,107,8037.
+74. Werth,D.;Avissar,R.ThelocalandglobaleffectsofAmazondeforestation. J.Geophys. Res. 2002,107,8087.
+[CrossRef]
+75. Ju,C.DynamicsofdesertsanddroughtinSahel. Quartj. R.Meteor. Soc. 1975,101,193–202.
+76. Li,S.;Liang,W.;Fu,B.;Lü,Y.;Fu,S.;Wang,S.;Su,H.Vegetationchangesinrecentlarge-scaleecological
+restorationprojectsandsubsequentimpactonwaterresourcesinChina’sLoessPlateau. Sci. TotalEnviron.
+2016,569–570,1032–1039. [CrossRef]
+©2019bytheauthors. LicenseeMDPI,Basel,Switzerland. Thisarticleisanopenaccess
+articledistributedunderthetermsandconditionsoftheCreativeCommonsAttribution
+(CCBY)license(http://creativecommons.org/licenses/by/4.0/).
