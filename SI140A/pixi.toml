@@ -1,0 +1,11 @@
+[workspace]
+authors = ["jollyxenon <1378319314@qq.com>"]
+channels = ["conda-forge"]
+name = "SI140A"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+matplotlib = ">=3.11.2,<4"
