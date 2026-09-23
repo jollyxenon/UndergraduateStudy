@@ -1,0 +1,108 @@
+\titledquestion{Stacks and Queues Using Linked Lists}
+
+Use acyclic singly linked lists. For each list, retain only its head pointer; do not keep a tail pointer. You may use temporary node pointers. Explain your algorithms in pseudocode or clear English. Handle an empty structure explicitly.
+
+\begin{parts}
+\part[4] Implement a stack using one such list. Describe \ttt{push(x)} and \ttt{pop()}, where \ttt{pop()} removes and returns the top value. Each operation must take constant time.
+\begin{solution}
+
+\begin{lstlisting}[language=C++]
+template <typename T> class Stack {
+private:
+struct Node {
+    T data;
+    Node *nxt;
+    Node(const T &_data, Node *_nxt = nullptr) : data(_data), nxt(_nxt) {}
+};
+
+// Keep top of the stack
+Node *head;
+
+public:
+Stack() : head(nullptr) {}
+~Stack() {
+    while (!isEmpty()) {
+    pop();
+    }
+}
+
+bool isEmpty() const { return head == nullptr; }
+
+void push(const T &value) { head = new Node(value, head); }
+
+T pop() {
+    if (isEmpty())
+    throw std::runtime_error("Stack is empty");
+
+    Node *temp = head;
+    T pop_data = head->data;
+    head = head->nxt;
+    delete temp;
+
+    return pop_data;
+}
+
+T top() const {
+    if (isEmpty())
+    throw std::runtime_error("Stack is empty");
+
+    return head->data;
+}
+};
+\end{lstlisting}
+\end{solution}
+
+\part[4] Implement a queue using two stacks from part (a), called \ttt{in} and \ttt{out}. Describe \ttt{enqueue(x)} and \ttt{dequeue()}, and explain why values leave in FIFO order. Move values between the stacks only when necessary.
+\begin{solution}
+
+\begin{lstlisting}[language=C++]
+template <typename T> class Queue {
+private:
+    Stack<T> in, out;
+
+public:
+    bool isEmpty() const { return in.isEmpty() && out.isEmpty(); }
+
+    void enqueue(const T &value) { in.push(value); }
+
+    T dequeue() {
+        if (out.isEmpty()) {
+        while (!in.isEmpty()) {
+            out.push(in.pop());
+        }
+        }
+        if (out.isEmpty())
+        throw std::runtime_error("Queue is empty");
+        return out.pop();
+    }
+};
+\end{lstlisting}
+
+enqueue(x) pushes x onto the \ttt{in} stack.
+
+dequeue() pops from the \ttt{out} stack. If \ttt{out} is empty, it transfers all elements from \ttt{in} to \ttt{out}, reversing their order. This ensures FIFO behavior, as the first element enqueued will be at the top of \ttt{out} after the transfer.
+
+Stack is a LIFO structure, so we inplement the LIFO behavior twice to reverse the order, thus achieving FIFO structure.
+\end{solution}
+
+\part[2] Starting with an empty queue, perform
+\[
+\mathtt{enqueue(1),\ enqueue(2),\ dequeue(),\ enqueue(3),\ dequeue().}
+\]
+Give the two returned values and the final contents of each stack, from bottom to top.
+\begin{solution}
+\begin{enumerate}
+  \item[(1)] enqueue(1): in = [1], out = []
+  \item[(2)] enqueue(2): in = [1, 2], out = []
+  \item[(3)] dequeue(): out is empty, transfer from in to out:
+  \begin{enumerate}
+    \item[] pop 2 from in, push to out: in = [1], out = [2]
+    \item[] pop 1 from in, push to out: in = [], out = [2, 1]
+    \item[] pop from out: return 1, now in = [], out = [2]
+  \end{enumerate}
+  \item[(4)] enqueue(3): in = [3], out = [2]
+  \item[(5)] dequeue(): pop from out: return 2, now in = [3], out = []
+
+\end{enumerate}
+\end{solution}
+\end{parts}
