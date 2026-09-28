@@ -1,0 +1,976 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,xcolor}
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\setlength{\parindent}{0pt}
+\newcommand{\solution}{\par\medskip
+    \textcolor{blue}{\textbf{Solution:}}\par\smallskip}
+
+\begin{document}
+
+\begin{center}
+    {\Large\bfseries SI152 --- Fall 2026 --- Homework 1}\\[0.6em]
+    \textbf{Due: 2026/10/4, 23:59}
+\end{center}
+
+
+
+\section*{Problem 1 (Convexity and Positive Definiteness)}
+
+Consider the quadratic function
+\[
+    f(\mathbf{x})
+    =\frac12 \mathbf{x}^\top\mathbf{A}\mathbf{x}
+    +\mathbf{b}^\top\mathbf{x}+c,
+\]
+where $\mathbf{A}\in\mathbb{R}^{n\times n}$ is symmetric,
+$\mathbf{b}\in\mathbb{R}^n$, and $c\in\mathbb{R}$.
+
+\begin{enumerate}
+    \item 
+    Recall that $f$ is convex if
+    \[
+        f(\alpha\mathbf{x}+(1-\alpha)\mathbf{y})
+        \leq \alpha f(\mathbf{x})+(1-\alpha)f(\mathbf{y})
+    \]
+    for all $\mathbf{x},\mathbf{y}\in\mathbb{R}^n$
+    and $\alpha\in[0,1]$.
+    Using this definition directly, prove that $f$ is convex
+    if and only if $\mathbf{A}$ is positive semidefinite. \textbf{(5 points)}
+
+    \item 
+    Prove that $\mathbf{A}$ is positive semidefinite if and only if
+    all its eigenvalues are nonnegative. \textbf{(5 points)}
+
+    (\textit{Hint: Every real symmetric matrix admits an
+    orthogonal diagonalization
+    $\mathbf{A}=\mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\top$,
+    where $\mathbf{Q}^\top\mathbf{Q}=\mathbf{I}$
+    and $\boldsymbol{\Lambda}$ is diagonal.})
+
+    \item 
+    For $t\in\mathbb{R}$, consider
+    \[
+        g_t(x_1,x_2,x_3)
+        =
+        \frac12 x_1^2+2x_2^2+\frac12 x_3^2
+        +2t x_1x_2+2t x_2x_3+x_1x_3.
+    \]
+    Write $g_t$ in the matrix-vector form
+    \[
+        g_t(\mathbf{x})
+        =\frac12 \mathbf{x}^\top\mathbf{A}_t\mathbf{x}
+        +\mathbf{b}_t^\top\mathbf{x}+c_t,
+        \qquad \mathbf{x}=(x_1,x_2,x_3)^\top,
+    \]
+    with $\mathbf{A}_t$ symmetric.
+    Determine all values of $t$ for which $g_t$ is convex. \textbf{(5 points)}
+\end{enumerate}
+
+
+\solution
+% Write the solution here.
+
+\begin{enumerate}
+    \item[1. ]
+    \begin{enumerate}
+        \item[] Prove $\Rightarrow$:
+        
+        Given that $A$ is symmetric, we have
+        $\mathbf{x}^\top \mathbf{A} \mathbf{y}
+        = (\mathbf{x}^\top \mathbf{A} \mathbf{y})^\top
+        = \mathbf{y}^\top \mathbf{A}^\top \mathbf{x}
+        = \mathbf{y}^\top \mathbf{A} \mathbf{x}$.
+
+        For all $\alpha \in (0, 1)$, we have
+
+        $$
+        f(\alpha\mathbf{x}+(1-\alpha)\mathbf{y}) - (\alpha f(\mathbf{x})+(1-\alpha)f(\mathbf{y})) \leq 0
+        $$
+
+        $$
+        (\alpha\mathbf{x}+(1-\alpha)\mathbf{y})^\top\mathbf{A}(\alpha\mathbf{x}+(1-\alpha)\mathbf{y}) - \alpha \mathbf{x}^\top\mathbf{A}\mathbf{x} - (1-\alpha) \mathbf{y}^\top\mathbf{A}\mathbf{y} \leq 0
+        $$
+
+        $$
+        \alpha^2 \mathbf{x}^\top\mathbf{A}\mathbf{x} + 2\alpha(1-\alpha) \mathbf{x}^\top\mathbf{A}\mathbf{y} + (1-\alpha)^2 \mathbf{y}^\top\mathbf{A}\mathbf{y} - \alpha \mathbf{x}^\top\mathbf{A}\mathbf{x} - (1-\alpha) \mathbf{y}^\top\mathbf{A}\mathbf{y} \leq 0
+        $$
+
+        $$
+        -\alpha(1-\alpha) \mathbf{x}^\top\mathbf{A}\mathbf{x} + 2\alpha(1-\alpha) \mathbf{x}^\top\mathbf{A}\mathbf{y} - \alpha(1-\alpha) \mathbf{y}^\top\mathbf{A}\mathbf{y} \leq 0
+        $$
+
+        Since $\alpha(1-\alpha) > 0$ for all $\alpha \in (0,1)$, we have
+        
+        $$
+        \mathbf{x}^\top\mathbf{A}\mathbf{x} - 2 \mathbf{x}^\top\mathbf{A}\mathbf{y} + \mathbf{y}^\top\mathbf{A}\mathbf{y} \geq 0
+        $$
+
+        $$
+        (\mathbf{x}-\mathbf{y})^\top\mathbf{A}(\mathbf{x}-\mathbf{y}) \geq 0
+        $$
+
+        Let $\mathbf{u} = \mathbf{x}-\mathbf{y}$, then we have $\mathbf{u}^\top\mathbf{A}\mathbf{u} \geq 0$ for all $\mathbf{u} \in \mathbb{R}^n$, which means that $\mathbf{A}$ is positive semidefinite.
+        
+        \item[] Prove $\Leftarrow$:
+        
+        $\mathbf{A}$ is positive semidefinite, so for all $\mathbf{x} \in \mathbb{R}^n$, we have $\mathbf{x}^\top A \mathbf{x} \geq 0$.
+    
+        $$
+        \begin{aligned}
+        &f(\alpha\mathbf{x}+(1-\alpha)\mathbf{y}) - (\alpha f(\mathbf{x})+(1-\alpha)f(\mathbf{y})) \\
+        =& \frac12 (\alpha\mathbf{x}+(1-\alpha)\mathbf{y})^\top\mathbf{A}(\alpha\mathbf{x}+(1-\alpha)\mathbf{y}) - \frac12 \alpha \mathbf{x}^\top\mathbf{A}\mathbf{x} - \frac12 (1-\alpha) \mathbf{y}^\top\mathbf{A}\mathbf{y} \\
+        =& \frac12 \left( \alpha^2 \mathbf{x}^\top\mathbf{A}\mathbf{x} + 2\alpha(1-\alpha) \mathbf{x}^\top\mathbf{A}\mathbf{y} + (1-\alpha)^2 \mathbf{y}^\top\mathbf{A}\mathbf{y} - \alpha \mathbf{x}^\top\mathbf{A}\mathbf{x} - (1-\alpha) \mathbf{y}^\top\mathbf{A}\mathbf{y} \right) \\
+        =& \frac12 \left( -\alpha(1-\alpha) \mathbf{x}^\top\mathbf{A}\mathbf{x} + 2\alpha(1-\alpha) \mathbf{x}^\top\mathbf{A}\mathbf{y} - \alpha(1-\alpha) \mathbf{y}^\top\mathbf{A}\mathbf{y} \right) \\
+        =& \frac12 \alpha(1-\alpha) \left( -\mathbf{x}^\top\mathbf{A}\mathbf{x} + 2 \mathbf{x}^\top\mathbf{A}\mathbf{y} - \mathbf{y}^\top\mathbf{A}\mathbf{y} \right) \\
+        =& \frac12 \alpha(1-\alpha) \left( -(\mathbf{x}-\mathbf{y})^\top\mathbf{A}(\mathbf{x}-\mathbf{y}) \right) \\
+        \leq& 0
+        \end{aligned}
+        $$
+
+        As a result, $f(\mathbf{x})$ is convex.
+    \end{enumerate}
+
+    \item[2. ]
+
+    \begin{enumerate}
+        \item[] Prove $\Rightarrow$:
+
+        According to the spectral theorem, we can write $\mathbf{A} = \mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\top$, where $\mathbf{Q}$ is an orthogonal matrix and $\boldsymbol{\Lambda}$ is a diagonal matrix containing the eigenvalues of $\mathbf{A}$.
+
+        Assuming that there exists an eigenvalue $\lambda_i < 0$, which locates at $$\boldsymbol{\Lambda}_{ii}$$. We can construct a vector $\mathbf{v} = \mathbf{Q}\mathbf{e}_i$, where $\mathbf{e}_i$ is the $i$-th standard basis vector. Then we have
+        
+        $$
+        \mathbf{v}^\top \mathbf{A} \mathbf{v} = (\mathbf{Q}\mathbf{e}_i)^\top \mathbf{Q}\boldsymbol{\Lambda}\mathbf{Q}^\top (\mathbf{Q}\mathbf{e}_i) = \mathbf{e}_i^\top \boldsymbol{\Lambda} \mathbf{e}_i = \lambda_i < 0
+        $$
+
+        This contradicts the assumption that $\mathbf{A}$ is positive semidefinite, which requires that $\mathbf{v}^\top \mathbf{A} \mathbf{v} \geq 0$ for all $\mathbf{v} \in \mathbb{R}^n$. Therefore, all eigenvalues of $\mathbf{A}$ must be nonnegative.
+        
+        \item[] Prove $\Leftarrow$:
+        
+        If all eigenvalues of $\mathbf{A}$ are nonnegative, then for any vector $\mathbf{x} \in \mathbb{R}^n$, we can express $\mathbf{x}$ in terms of the eigenvectors of $\mathbf{A}$, say $\mathbf{x} = \sum_{i=1}^{n} c_i \mathbf{q}_i$, where $\mathbf{q}_i$ are the eigenvectors corresponding to the eigenvalues $\lambda_i$. Then we have
+
+        $$
+        \mathbf{x}^\top \mathbf{A} \mathbf{x} = \left(\sum_{i=1}^{n} c_i \mathbf{q}_i\right)^\top \mathbf{A} \left(\sum_{i=1}^{n} c_i \mathbf{q}_i\right) = \sum_{i=1}^{n} c_i^2 \lambda_i \geq 0
+        $$
+        
+        As a result, $\mathbf{A}$ is positive semidefinite.
+    \end{enumerate}
+
+    \item[3. ]
+    
+    $$
+    \mathbf{A}
+    =
+    \begin{bmatrix}
+        1 & 2t & 1\\
+        2t & 4 & 2t\\
+        1 & 2t & 1
+    \end{bmatrix}
+    ,\qquad
+    \mathbf{b} = \mathbf{0}
+    ,\qquad
+    \mathbf{c} = 0
+    $$
+
+    Let $\det(\mathbf{A} - \lambda \mathbf{I}) = 0$, we have
+
+    $$
+    \begin{vmatrix}
+        1-\lambda & 2t & 1\\
+        2t & 4-\lambda & 2t\\
+        1 & 2t & 1-\lambda
+    \end{vmatrix}
+    =0
+    $$
+
+    $$
+    \lambda(\lambda^2 - 6\lambda + 8 - 8t^2) = 0
+    $$
+
+    $$
+    \lambda = 0 \quad \text{or} \quad \lambda^2 - 6\lambda + 8 - 8t^2 = 0
+    $$
+
+    Let $\lambda_3 = 0$, then
+
+    $$
+    \lambda_1 + \lambda_2 = 6, \quad \lambda_1 \lambda_2 = 8 - 8t^2, \quad \Delta = 4 + 32t^2 > 0
+    $$
+
+    In order to have all eigenvalues nonnegative, we need $\lambda_1 \lambda_2 = 8 - 8t^2 \geq 0$.
+    
+    Therefore,
+
+    $$
+    t \in [-1, 1].
+    $$
+
+\end{enumerate}
+
+\newpage
+
+
+
+\section*{Problem 2 (Gradients and Hessians)}
+
+Let $U\subseteq\mathbb{R}^n$ be open and let
+$f:U\to\mathbb{R}$ be twice continuously differentiable.
+For $\mathbf{x}=(x_1,\ldots,x_n)^\top\in U$,
+the gradient and Hessian are given by
+\[
+    \nabla f(\mathbf{x})
+    =
+    \begin{bmatrix}
+        \dfrac{\partial f}{\partial x_1}\\[0.4em]
+        \vdots\\[0.4em]
+        \dfrac{\partial f}{\partial x_n}
+    \end{bmatrix},
+    \qquad
+    \nabla^2 f(\mathbf{x})
+    =
+    \begin{bmatrix}
+        \dfrac{\partial^2 f}{\partial x_1^2}
+        & \cdots
+        & \dfrac{\partial^2 f}{\partial x_1\partial x_n}
+        \\[0.6em]
+        \vdots & \ddots & \vdots
+        \\[0.6em]
+        \dfrac{\partial^2 f}{\partial x_n\partial x_1}
+        & \cdots
+        & \dfrac{\partial^2 f}{\partial x_n^2}
+    \end{bmatrix}.
+\]
+The Hessian is symmetric, and all derivatives are evaluated
+at $\mathbf{x}$. Show the main steps of your calculations.
+
+\begin{enumerate}
+    \item
+    Let $f(\mathbf{x})=\mathbf{x}^\top\mathbf{A}\mathbf{x}$,
+    where $\mathbf{A}\in\mathbb{R}^{n\times n}$ is
+    \textbf{not necessarily symmetric}.
+    Compute the gradient and Hessian directly using
+    componentwise partial derivatives.
+    \textbf{(4 points)}
+
+    \item
+    Let $f(\mathbf{x})
+    =\frac12\|\mathbf{A}\mathbf{x}-\mathbf{b}\|_2^2
+    +\frac{\lambda}{2}\|\mathbf{x}\|_2^2$,
+    where $\mathbf{A}\in\mathbb{R}^{m\times n}$,
+    $\mathbf{b}\in\mathbb{R}^m$, and $\lambda\geq0$.
+    Compute the gradient and Hessian. Prove that the Hessian
+    is positive semidefinite.
+    \textbf{(5 points)}
+
+    \item
+    Let $f(x_1,x_2)=(1-x_1)^2+100(x_2-x_1^2)^2$
+    be the Rosenbrock function.
+    Compute the gradient and Hessian, and determine all points
+    at which the Hessian is positive semidefinite.
+    \textbf{(5 points)}
+    
+    \item
+    Let $f(x_1,x_2)=e^{x_1}\cos x_2$.
+    Compute the gradient and Hessian, and determine all points
+    at which the Hessian is positive semidefinite.
+    \textbf{(5 points)}
+
+    \item
+    Let $f(\mathbf{x})=\|\mathbf{x}\|_2
+    =\left(\sum_{i=1}^n x_i^2\right)^{1/2}$,
+    where $\mathbf{x}\in\mathbb{R}^n\setminus\{\mathbf{0}\}$.
+    Compute the gradient.
+    \textbf{(3 points)}
+
+    \item
+    Let $f(\mathbf{x})=\log(1+\|\mathbf{x}\|_2^2)$,
+    where $\mathbf{x}\in\mathbb{R}^n$ and $\log$ is the
+    natural logarithm.
+    Compute the gradient.
+    \textbf{(3 points)}
+    
+\end{enumerate}
+
+
+\solution
+% Write the solution here.
+
+\begin{enumerate}
+    \item[1. ]
+    $$
+    f(\mathbf{x}) = \sum_{i=1}^n \sum_{j=1}^n A_{ij} x_i x_j
+    $$
+
+    $$
+    \frac{\partial f}{\partial x_k} = \frac{\partial}{\partial x_k} \left( A_{kk} x_k^2 + \sum_{j \neq k} A_{kj} x_k x_j + \sum_{i \neq k} A_{ik} x_i x_k + \sum_{i \neq k} \sum_{j \neq k} A_{ij} x_i x_j \right)
+    $$
+
+    $$
+    \frac{\partial f}{\partial x_k} = 2 A_{kk} x_k + \sum_{j \neq k} A_{kj} x_j + \sum_{i \neq k} A_{ik} x_i = \sum_{j=1}^n A_{kj} x_j + \sum_{i=1}^n A_{ik} x_i = (\mathbf{A}\mathbf{x})_k + (\mathbf{A}^\top \mathbf{x})_k
+    $$
+
+    $$
+    \nabla f(\mathbf{x}) = (\mathbf{A} + \mathbf{A}^\top)\mathbf{x}
+    $$
+
+    $$
+    \nabla^2 f(\mathbf{x}) = \mathbf{A} + \mathbf{A}^\top
+    $$
+
+    \item[2. ]
+    Let $\mathbf{r} = \mathbf{A}\mathbf{x}-\mathbf{b}$, then
+
+    $$
+    f(\mathbf{x}) = \frac12 \mathbf{r}^\top \mathbf{r} + \frac{\lambda}{2} \Vert\mathbf{x}\Vert_2^2
+    $$
+
+    $d\mathbf{r} = \mathbf{A} d\mathbf{x}$, So
+    
+    $$
+    d f = \mathbf{r}^\top d\mathbf{r} + \lambda \mathbf{x}^\top d\mathbf{x} = \mathbf{r}^\top \mathbf{A} d\mathbf{x} + \lambda \mathbf{x}^\top d\mathbf{x}
+    $$
+
+    $$
+    d f = (\mathbf{A}^\top \mathbf{r} + \lambda \mathbf{x})^\top d\mathbf{x}
+    $$
+
+    And $d f = \nabla f^\top d\mathbf{x}$, so
+
+    $$
+    \nabla f(\mathbf{x}) = \mathbf{A}^\top (\mathbf{A}\mathbf{x}-\mathbf{b}) + \lambda \mathbf{x}
+    $$
+
+    $$
+    \nabla^2 f(\mathbf{x}) = \mathbf{A}^\top \mathbf{A} + \lambda \mathbf{I}
+    $$
+
+    $\forall \mathbf{x} \in \mathbb{R}^n$,
+    
+    $$
+    \mathbf{x}^\top \nabla^2 f(\mathbf{x}) \mathbf{x}
+    = \mathbf{x}^\top \mathbf{A}^\top \mathbf{A} \mathbf{x} + \lambda \mathbf{x}^\top \mathbf{x}
+    = \Vert\mathbf{A}\mathbf{x}\Vert_2^2 + \lambda \Vert\mathbf{x}\Vert_2^2
+    \geq 0
+    $$
+
+    As a result, $\nabla^2 f(\mathbf{x})$ is positive semidefinite.
+
+    \item[3. ]
+    $$
+    \frac{\partial f}{\partial x_1} = -2(1-x_1) - 400(x_2-x_1^2)x_1
+    ,\quad
+    \frac{\partial f}{\partial x_2} = 200(x_2-x_1^2)
+    $$
+
+    $$
+    \nabla f(\mathbf{x}) =
+    \begin{pmatrix}
+        -2(1-x_1) - 400(x_2-x_1^2)x_1\\
+        200(x_2-x_1^2)
+    \end{pmatrix}
+    $$
+
+    $$
+    \nabla^2 f(\mathbf{x}) =
+    \begin{bmatrix}
+        2 - 400x_2+ 1200 x_1^2 & -400x_1\\
+        -400x_1 & 200
+    \end{bmatrix}
+    $$
+
+    When $\nabla^2 f(\mathbf{x})$ is positive semidefinite, we have
+
+    $$
+    2 - 400x_2+ 1200 x_1^2 \geq 0
+    ,\quad
+    200 \geq 0
+    ,\quad
+    \det(\nabla^2 f(\mathbf{x})) = (2 - 400x_2+ 1200 x_1^2) \cdot 200 - (-400x_1)^2 \geq 0
+    $$
+
+    $$
+    x_2 \leq x_1^2 + \frac{1}{200}
+    $$
+
+    As a result, the set of points at which the Hessian is positive semidefinite is
+
+    $$
+    \left\{(x_1, x_2) \in \mathbb{R}^2 \;\middle\vert{}\; x_2 \le x_1^2 + \frac{1}{200}\right\}
+    $$
+
+    \item[4. ]
+    $$
+    \frac{\partial f}{\partial x_1} = e^{x_1}
+    ,\quad
+    \frac{\partial f}{\partial x_2} = -e^{x_1}\sin x_2
+    $$
+
+    $$
+    \nabla f(\mathbf{x}) =
+    \begin{pmatrix}
+        e^{x_1}\cos x_2\\
+        -e^{x_1}\sin x_2
+    \end{pmatrix}
+    $$
+
+    $$
+    \nabla^2 f(\mathbf{x}) =
+    \begin{bmatrix}
+        e^{x_1}\cos x_2 & -e^{x_1}\sin x_2\\
+        -e^{x_1}\sin x_2 & -e^{x_1}\cos x_2
+    \end{bmatrix}
+    $$
+
+    When $\nabla^2 f(\mathbf{x})$ is positive semidefinite, we have
+
+    $$
+    e^{x_1} \geq 0
+    ,\quad
+    -e^{x_1}\cos x_2 \geq 0
+    ,\quad
+    \det(\nabla^2 f(\mathbf{x})) = (e^{x_1}\cos x_2) \cdot (-e^{x_1}\cos x_2) - (-e^{x_1}\sin x_2)^2 \geq 0
+    $$
+
+    There are no points at which the Hessian is positive semidefinite.
+
+    \item[5. ]
+    $$
+    \frac{\partial f}{\partial x_k}
+    = \frac{1}{2}\left(\sum_{i=1}^n x_i^2\right)^{-1/2} \cdot \frac{\partial}{\partial x_k}\left(\sum_{i=1}^n x_i^2\right)
+    = \frac{1}{2\Vert{}\mathbf{x}\Vert{}_2} \cdot 2x_k
+    = \frac{x_k}{\Vert{}\mathbf{x}\Vert{}_2}
+    $$
+
+    $$
+    \nabla f(\mathbf{x}) = \frac{\mathbf{x}}{\Vert{}\mathbf{x}\Vert{}_2}
+    $$
+
+    \item[6. ]
+    $$
+    f(\mathbf{x}) = \log\left(1 + \sum_{i=1}^n x_i^2\right)
+    $$
+
+    $$
+    \frac{\partial f}{\partial x_k}
+    = \frac{1}{1 + \Vert{}\mathbf{x}\Vert{}_2^2} \cdot \frac{\partial}{\partial x_k}\left(1 + \sum_{i=1}^n x_i^2\right)
+    = \frac{2x_k}{1 + \Vert{}\mathbf{x}\Vert{}_2^2}
+    $$
+
+    $$
+    \nabla f(\mathbf{x}) = \frac{2\mathbf{x}}{1 + \Vert{}\mathbf{x}\Vert{}_2^2}
+    $$
+\end{enumerate}
+
+\newpage
+
+
+
+\section*{Problem 3 (Taylor Expansion and Optimality Conditions)}
+
+Let $f:\mathbb{R}^n\to\mathbb{R}$ be twice continuously
+differentiable.
+
+\begin{enumerate}
+    \item \textbf{Taylor expansion.}
+    \begin{enumerate}
+        \item
+        For fixed $\mathbf{x},\mathbf{d}\in\mathbb{R}^n$,
+        define $\phi(t)=f(\mathbf{x}+t\mathbf{d})$.
+        Compute $\phi'(t)$ and $\phi''(t)$.
+        \textbf{(5 points)}
+
+        \item
+        Prove that
+        \[
+            f(\mathbf{x}+\mathbf{d})
+            =
+            f(\mathbf{x})+\nabla f(\mathbf{x})^\top\mathbf{d}
+            +\int_0^1(1-t)\,
+            \mathbf{d}^\top\nabla^2 f(\mathbf{x}+t\mathbf{d})
+            \mathbf{d}\,dt,
+        \]
+        using the one-variable Taylor formula
+        $\phi(b)=\phi(a)+(b-a)\phi'(a)
+        +\int_a^b(b-t)\phi''(t)\,dt$.
+        \textbf{(5 points)}
+
+        \item
+        Deduce that, as $\mathbf{d}\to\mathbf{0}$,
+        \[
+            f(\mathbf{x}+\mathbf{d})
+            =
+            f(\mathbf{x})+\nabla f(\mathbf{x})^\top\mathbf{d}
+            +\frac12\mathbf{d}^\top\nabla^2 f(\mathbf{x})\mathbf{d}
+            +o(\|\mathbf{d}\|_2^2).
+        \]
+        Explain where continuity of the Hessian is used.
+        \textbf{(5 points)}
+
+        \item
+        Assume additionally that $f\in C^3$.
+        For fixed $\mathbf{x},\mathbf{d}\in\mathbb{R}^n$,
+        the forward and central differences approximate
+        $\nabla f(\mathbf{x})^\top\mathbf{d}$ as follows:
+        \[
+            \begin{aligned}
+                \frac{f(\mathbf{x}+t\mathbf{d})-f(\mathbf{x})}{t}
+                &=
+                \nabla f(\mathbf{x})^\top\mathbf{d}+O(t),\\
+                \frac{f(\mathbf{x}+t\mathbf{d})
+                -f(\mathbf{x}-t\mathbf{d})}{2t}
+                &=
+                \nabla f(\mathbf{x})^\top\mathbf{d}+O(t^2),
+            \end{aligned}
+            \qquad t\to0.
+        \]
+        Prove both approximations using Taylor expansion.
+        \textbf{(6 points)}
+    \end{enumerate}
+
+    \item \textbf{Local optimality conditions.}
+    Use Taylor expansion to prove the following statements.
+    \begin{enumerate}
+        \item
+        If $\mathbf{x}^\star$ is a local minimizer, then
+        $\nabla f(\mathbf{x}^\star)=\mathbf{0}$ and
+        $\nabla^2 f(\mathbf{x}^\star)\succeq\mathbf{0}$.
+        \textbf{(7 points)}
+
+        \item
+        If $\nabla f(\mathbf{x}^\star)=\mathbf{0}$ and
+        $\nabla^2 f(\mathbf{x}^\star)\succ\mathbf{0}$,
+        then $\mathbf{x}^\star$ is a strict local minimizer.
+        \textbf{(7 points)}
+    \end{enumerate}
+\end{enumerate}
+
+
+\solution
+% Write the solution here.
+\begin{enumerate}
+    \item[1. ]
+    \begin{enumerate}
+        \item[(a)]
+        
+        Let $\mathbf{z}(t) = \mathbf{x} + t\mathbf{d}$, then
+
+        $$
+        \phi(t) = f(\mathbf{z}(t))
+        $$
+
+        $$
+        \phi'(t)
+        =\frac{d \mathbf{\phi}}{dt}
+        = \frac{df}{\partial \mathbf{z}} \frac{\partial \mathbf{z}}{dt}
+        = \nabla f(\mathbf{z})^\top \frac{\partial \mathbf{z}}{\partial t}
+        = \nabla f(\mathbf{x} + t\mathbf{d})^\top \mathbf{d}
+        $$
+
+        $$
+        \phi''(t)
+        = \frac{d}{dt} \phi'(t)
+        = \frac{d}{dt} (\mathbf{d}^\top \nabla f(\mathbf{x} + t\mathbf{d}))
+        = \mathbf{d}^\top \frac{d}{dt} \nabla f(\mathbf{x} + t\mathbf{d}) 
+        = \mathbf{d}^\top \nabla^2 f(\mathbf{x} + t\mathbf{d}) \frac{\partial (\mathbf{x} + t\mathbf{d})}{\partial t}
+        = \mathbf{d}^\top \nabla^2 f(\mathbf{x} + t\mathbf{d}) \mathbf{d}
+        $$
+
+        \item[(b)]
+        
+        $$
+        \int_0^1 (1-t) \mathbf{d}^\top \nabla^2 f(\mathbf{x} + t\mathbf{d}) \mathbf{d} dt
+        = \int_0^1 (1-t) \phi''(t) dt
+        $$
+
+        According to the one-variable Taylor formula, we have
+
+        $$
+        \int_0^1 (1-t) \mathbf{d}^\top \nabla^2 f(\mathbf{x} + t\mathbf{d}) \mathbf{d} dt
+        = \phi(1) - \phi(0) - (1-0)\phi'(0)
+        = f(\mathbf{x} + \mathbf{d}) - f(\mathbf{x}) - \nabla f(\mathbf{x})^\top \mathbf{d}
+        $$
+
+        Therefore, we have
+
+        $$
+        f(\mathbf{x} + \mathbf{d}) = f(\mathbf{x}) + \nabla f(\mathbf{x})^\top \mathbf{d} + \int_0^1 (1-t) \mathbf{d}^\top \nabla^2 f(\mathbf{x} + t\mathbf{d}) \mathbf{d} dt
+        $$
+
+        \item[(c)]
+        
+        $$
+        \frac12 \mathbf{d}^\top \nabla^2 f(\mathbf{x}) \mathbf{d} = \int_0^1 (1-t) dt \mathbf{d}^\top \nabla^2 f(\mathbf{x}) \mathbf{d} = \int_0^1 (1-t) \mathbf{d}^\top \nabla^2 f(\mathbf{x}) \mathbf{d} dt  
+        $$
+
+        $$
+        f(\mathbf{x} + \mathbf{d}) - \left[ f(\mathbf{x}) + \nabla f(\mathbf{x})^\top \mathbf{d} + \frac{1}{2}\mathbf{d}^\top \nabla^2 f(\mathbf{x})\mathbf{d} \right]
+        =
+        \int_0^1 (1 - t) \mathbf{d}^\top \left[ \nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x}) \right] \mathbf{d} dt
+        $$
+
+        $$
+        \begin{aligned}
+        &\left\vert{} \int_0^1 (1 - t)\mathbf{d}^\top \left[ \nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x}) \right]\mathbf{d} dt \right\vert{}
+        \\
+        \leq &
+        \Vert{}\mathbf{d}\Vert{}_2^2 \int_0^1 (1 - t) \Vert{}\nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x})\Vert{}_2 dt
+        \\
+        \leq &
+        \Vert{}\mathbf{d}\Vert{}_2^2 \int_0^1 (1-t) \sup_{t\in[0,1]} \Vert{}\nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x})\Vert{}_2 dt
+        \\
+        =&
+        \frac12 \Vert{}\mathbf{d}\Vert{}_2^2 \sup_{t\in[0,1]} \Vert{}\nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x})\Vert{}_2
+        \end{aligned}
+        $$
+
+        We need to prove $\int_0^1 (1 - t) \mathbf{d}^\top \left[ \nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x}) \right] \mathbf{d} dt = o(\Vert \mathbf{d} \Vert_2^2 )$, which is equivalent to prove
+
+        $$
+        \lim_{\mathbf{d} \to 0} \frac{\int_0^1 (1 - t) \mathbf{d}^\top \left[ \nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x}) \right] \mathbf{d} dt}{\Vert \mathbf{d} \Vert_2^2} = 0
+        $$
+
+        Now we have 
+
+        $$
+        0
+        \leq
+        \left\vert{} \int_0^1 (1 - t)\mathbf{d}^\top \left[ \nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x}) \right]\mathbf{d} dt \right\vert{}
+        \leq
+        \frac12 \Vert{}\mathbf{d}\Vert{}_2^2 \sup_{t\in[0,1]} \Vert{}\nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x})\Vert{}_2
+        $$
+
+        So if we prove $\lim_{\mathbf{d} \to 0} \sup_{t\in[0,1]} \Vert{}\nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x})\Vert{}_2 = 0$, then we have proved the desired result.
+
+        Because of the \textbf{continuity of the Hessian}, to every given $\epsilon > 0$, there exists a $\delta > 0$ satisfying
+        
+        $$
+        \Vert{}\nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x})\Vert{}_2 < 2\varepsilon
+        $$
+
+        when $\Vert \mathbf{d} \Vert_2 < \delta$.
+
+        As a result, 
+
+        $$
+        \lim_{\mathbf{d} \to \mathbf{0}} \sup_{t\in[0,1]} \Vert{}\nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x})\Vert{}_2 = 0
+        $$
+        
+        Then according to the squeezing theorem, when $\mathbf{r} \rightarrow 0$, we have
+
+        $$
+        \lim_{\mathbf{d} \to 0} \frac{\int_0^1 (1 - t) \mathbf{d}^\top \left[ \nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x}) \right] \mathbf{d} dt}{\Vert \mathbf{d} \Vert_2^2} = 0
+        $$
+
+        , which implies that $\int_0^1 (1 - t) \mathbf{d}^\top \left[ \nabla^2 f(\mathbf{x} + t\mathbf{d}) - \nabla^2 f(\mathbf{x}) \right] \mathbf{d} dt = o(\Vert d \Vert_2^2)$.
+        
+        Therefore, we prove that, as $\mathbf{d} \to \mathbf{0}$,
+
+        $$
+        f(\mathbf{x}+\mathbf{d})
+        =
+        f(\mathbf{x})+\nabla f(\mathbf{x})^\top\mathbf{d}+\frac12\mathbf{d}^\top\nabla^2 f(\mathbf{x})\mathbf{d}+o(\|\mathbf{d}\|_2^2)
+        $$
+
+        \item[(d)]
+        
+        $$
+        \phi(t) = \phi(0) + t\phi'(0) + \frac{t^2}{2}\phi''(0) + \frac{t^3}{6}\phi'''(\xi_1), \quad \xi_1 \in (0, t)
+        $$
+
+        $$
+        \phi(-t) = \phi(0) - t\phi'(0) + \frac{t^2}{2}\phi''(0) - \frac{t^3}{6}\phi'''(\xi_2), \quad \xi_2 \in (-t, 0)
+        $$
+
+        $$
+        \phi(t) = \phi(0) + t\phi'(0) + O(t^2)
+        $$
+
+        $$
+        f(\mathbf{x} + t\mathbf{d}) - f(\mathbf{x}) = t \nabla f(\mathbf{x})^\top \mathbf{d} + O(t^2)
+        $$
+
+        $$
+        \frac{f(\mathbf{x} + t\mathbf{d}) - f(\mathbf{x})}{t} = \nabla f(\mathbf{x})^\top \mathbf{d} + O(t) \quad \text{as } t \to 0
+        $$
+
+        $$
+        \phi(t) - \phi(-t) = 2t\phi'(0) + O(t^3)
+        $$
+
+        $$
+        f(\mathbf{x} + t\mathbf{d}) - f(\mathbf{x} - t\mathbf{d}) = 2t \nabla f(\mathbf{x})^\top \mathbf{d} + O(t^3)
+        $$
+
+        $$
+        \frac{f(\mathbf{x} + t\mathbf{d}) - f(\mathbf{x} - t\mathbf{d})}{2t} = \nabla f(\mathbf{x})^\top \mathbf{d} + O(t^2) \quad \text{as } t \to 0
+        $$
+    \end{enumerate}
+    
+    \item[2. ]
+    \begin{enumerate}
+        \item[(a)]
+        
+        $\mathbf{x}^\star$ is a local minimizer, so $\exists \varepsilon > 0 \in \mathbb{R}$ such that $\forall \mathbf{d}$ satisfying $\Vert \mathbf{d} \Vert_2 \leq \varepsilon$, $f(\mathbf{x}^\star + \mathbf{d}) \geq f(\mathbf{x}^\star)$.
+    
+        $$
+        f(\mathbf{x}^\star + \mathbf{d}) = f(\mathbf{x}^\star) + \nabla f(\mathbf{x}^\star)^\top \mathbf{d} + o(\Vert \mathbf{d} \Vert_2)
+        $$
+
+        If $\nabla f(\mathbf{x}^\star) \neq \mathbf{0}$, then there exists a direction $\mathbf{d}$ such that $\nabla f(\mathbf{x}^\star)^\top \mathbf{d} < 0$(for example, let $\mathbf{d}$ be $\nabla f(\mathbf{x}^\star)$ or $-\nabla f(\mathbf{x}^\star)$), which would contradict the assumption that $\mathbf{x}^\star$ is a local minimizer.
+
+        Therefore, $\nabla f(\mathbf{x}^\star) = \mathbf{0}$.
+
+        $\nabla^2 f(\mathbf{x}^\star)$ is equivalent to $\nabla^2 f(\mathbf{x}^\star)$ is a positive semi-definite matrix.
+
+        $$
+        f(\mathbf{x}^\star + \mathbf{d}) - f(\mathbf{x}^\star)
+        = \frac12 \mathbf{d}^\top \nabla^2 f(\mathbf{x}^\star) \mathbf{d} + o(\Vert \mathbf{d} \Vert_2^2)
+        \geq 0
+        $$
+
+        If $\nabla^2 f(\mathbf{x}^\star)$ is not positive semi-definite, then there exists a $\lambda_i < 0$ locates in $\nabla^2 f(\mathbf{x}^\star)_{i, i}$.
+        
+        Construct $\mathbf{d} = \mathbf{e}_i$, then we have $\mathbf{d}^\top \nabla^2 f(\mathbf{x}^\star) \mathbf{d} = \lambda_i < 0$, which would contradict the assumption that $\mathbf{x}^\star$ is a local minimizer.
+
+        As a result, $\nabla^2 f(\mathbf{x}^\star) \succeq \mathbf{0}$.
+    
+        \item[(b)]
+        
+        $\nabla f(\mathbf{x}^\star) = \mathbf{0}$ and $\nabla^2 f(\mathbf{x}^\star) \succ \mathbf{0}$, so $\exists \lambda_{\min} > 0$ such that $\forall \mathbf{d} \neq \mathbf{0}$, $\mathbf{d}^\top \nabla^2 f(\mathbf{x}^\star) \mathbf{d} \geq \lambda_{\min} \Vert \mathbf{d} \Vert_2^2$.
+
+        $$
+        f(\mathbf{x}^\star + \mathbf{d}) - f(\mathbf{x}^\star)
+        = \frac12 \mathbf{d}^\top \nabla^2 f(\mathbf{x}^\star) \mathbf{d} + o(\Vert \mathbf{d} \Vert_2^2)
+        \geq \frac12 \lambda_{\min} \Vert \mathbf{d} \Vert_2^2 + o(\Vert \mathbf{d} \Vert_2^2)
+        > 0
+        $$
+
+        Therefore, $\mathbf{x}^\star$ is a strict local minimizer.
+    \end{enumerate}
+\end{enumerate}
+
+\newpage
+
+
+
+\section*{Problem 4 (Application: Gasoline Blending)}
+A refinery must produce exactly 100 tonnes of regular gasoline
+and 80 tonnes of premium gasoline using the following components.
+
+\begin{center}
+\begin{tabular}{c|cccc}
+\hline
+Component & Cost (\$/tonne) & Octane rating & Sulfur content
+          & Availability (tonnes) \\
+\hline
+A & 400 & 80  & 0.10\% & 80  \\
+B & 550 & 90  & 0.04\% & 100 \\
+C & 750 & 100 & 0.01\% & 80  \\
+\hline
+\end{tabular}
+\end{center}
+
+The availability limits apply to the total amount of each
+component used across both products. The products must meet the following quality requirements.
+
+\begin{center}
+\begin{tabular}{c|cc}
+\hline
+Product & Minimum octane rating & Maximum sulfur content \\
+\hline
+Regular & 90 & 0.034\% \\
+Premium & 95 & 0.030\% \\
+\hline
+\end{tabular}
+\end{center}
+
+Assume no mass loss during blending. Both quality measures are
+mass-weighted averages of the component values, and sulfur content
+is expressed as a mass percentage.
+
+\begin{enumerate}
+    \item Define the decision variables and formulate a model
+    that minimizes the total cost in the form
+    \[
+        \min_{\mathbf{x}} f(\mathbf{x})
+        \quad \text{s.t.} \quad
+        c_i(\mathbf{x})=0,\ i\in\mathcal{E},
+        \qquad
+        c_i(\mathbf{x})\leq 0,\ i\in\mathcal{I}.
+    \]
+    \textbf{(10 points)}
+
+    \item Write the AMPL model (\texttt{.mod}) and data (\texttt{.dat})
+    files, and show their code in your solution.
+    Name the objective \texttt{TotalCost} and the variables \texttt{x}.
+    Use these commands in the commands file (\texttt{.run}):
+    \begin{Verbatim}[frame=single,fontsize=\small]
+    solve;
+    display TotalCost, x;
+    \end{Verbatim}
+    \textbf{(10 points)}
+
+    \item Solve the model using NEOS. State the solver used,
+    report the optimal blending quantities and minimum cost,
+    and include a screenshot of the NEOS output showing
+    the solution status and results.
+    \textbf{(5 points)}
+\end{enumerate}
+
+
+\solution
+% Write the solution here.
+
+\begin{enumerate}
+    \item[1. ]
+    Let the total cost be $f(\mathbf{x}) = \begin{pmatrix} 400 \\ 550 \\ 750 \\ 400 \\ 550 \\ 750 \end{pmatrix}^\top \begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6 \end{pmatrix}$.
+
+    The origin problem converts to:
+
+    $$
+    \min_{\mathbf{x}} f(\mathbf{x})
+    $$
+
+    s.t.
+    
+    $$
+    c_1(\mathbf{x}) = x_1 + x_2 + x_3 - 100 = 0
+    ,\quad
+    c_2(\mathbf{x}) = x_4 + x_5 + x_6 - 80 = 0
+    $$
+
+    $$
+    c_3(\mathbf{x}) = x_1 + x_4 - 80 \leq 0
+    ,\quad
+    c_4(\mathbf{x}) = x_2 + x_5 - 100 \leq 0
+    ,\quad
+    c_5(\mathbf{x}) = x_3 + x_6 - 80 \leq 0
+    $$
+
+    $$
+    c_6(\mathbf{x}) = 90 - \frac{80x_1 + 90x_2 + 100x_3}{100} \leq 0
+    ,\quad
+    c_7(\mathbf{x}) = 95 - \frac{80x_4 + 90x_5 + 100x_6}{80} \leq 0
+    $$
+
+    $$
+    c_8(\mathbf{x}) = \frac{0.10x_1 + 0.04x_2 + 0.01x_3}{100} - 0.034 \leq 0
+    ,\quad
+    c_9(\mathbf{x}) = \frac{0.10x_4 + 0.04x_5 + 0.01x_6}{80} - 0.030 \leq 0
+    $$
+
+    $$
+    c_{10}(\mathbf{x}) = -x_1 \leq 0
+    ,\quad
+    c_{11}(\mathbf{x}) = -x_2 \leq 0
+    ,\quad
+    c_{12}(\mathbf{x}) = -x_3 \leq 0
+    $$
+
+    $$
+    c_{13}(\mathbf{x}) = -x_4 \leq 0
+    ,\quad
+    c_{14}(\mathbf{x}) = -x_5 \leq 0
+    ,\quad
+    c_{15}(\mathbf{x}) = -x_6 \leq 0
+    $$
+
+    \item[2. ]
+    \begin{lstlisting}[caption=AMPL Code Block]
+    set COMPONENTS;
+    set PRODUCTS;
+
+    param cost {COMPONENTS};
+    param octane {COMPONENTS};
+    param sulfur {COMPONENTS};
+    param availability {COMPONENTS};
+
+    param demand {PRODUCTS};
+    param min_octane {PRODUCTS};
+    param max_sulfur {PRODUCTS};
+
+    var x {COMPONENTS, PRODUCTS} >= 0;
+
+    minimize TotalCost:
+        sum {c in COMPONENTS, p in PRODUCTS} cost[c] * x[c, p];
+
+    subject to ProductionDemand {p in PRODUCTS}:
+        sum {c in COMPONENTS} x[c, p] = demand[p];
+
+    subject to ComponentAvailability {c in COMPONENTS}:
+        sum {p in PRODUCTS} x[c, p] <= availability[c];
+
+    subject to OctaneRequirement {p in PRODUCTS}:
+        sum {c in COMPONENTS} octane[c] * x[c, p] >= min_octane[p] * demand[p];
+
+    subject to SulfurRequirement {p in PRODUCTS}:
+        sum {c in COMPONENTS} sulfur[c] * x[c, p] <= max_sulfur[p] * demand[p];
+    \end{lstlisting}
+
+    \begin{lstlisting}[caption=AMPL Data Block]
+    set COMPONENTS := A B C;
+    set PRODUCTS := Regular Premium;
+
+    param cost :=
+        A 400
+        B 550
+        C 750;
+
+    param octane :=
+        A 80
+        B 90
+        C 100;
+
+    param sulfur :=
+        A 0.10
+        B 0.04
+        C 0.01;
+
+    param availability :=
+        A 80
+        B 100
+        C 80;
+
+    param demand :=
+        Regular 100
+        Premium  80;
+
+    param min_octane :=
+        Regular 90
+        Premium 95;
+
+    param max_sulfur :=
+        Regular 0.034
+        Premium 0.030;
+    \end{lstlisting}
+
+    \begin{lstlisting}[caption=AMPL Commands Block]
+    model gasoline.mod;
+    data gasoline.dat;
+    option solver cplex;
+    solve;
+    display TotalCost, x;
+    \end{lstlisting}
+
+    \item[3. ]
+    The solver used is CPLEX. Screenshot of the running record is shown in the next page. The optimal blending quantities and minimum cost are as follows:
+
+    Total Cost: 103,000 \$
+
+    Regular: A = 0 tonnes, B = 80 tonnes, C = 20 tonnes
+
+    Premium: A = 10 tonnes, B = 20 tonnes, C = 50 tonnes
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Record.png}
+        \caption{Running Record}
+    \end{figure}
+\end{enumerate}
+
+
+\end{document}

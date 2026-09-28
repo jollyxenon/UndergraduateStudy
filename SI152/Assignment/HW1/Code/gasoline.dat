@@ -1,0 +1,34 @@
+set COMPONENTS := A B C;
+set PRODUCTS := Regular Premium;
+
+param cost :=
+    A 400
+    B 550
+    C 750;
+
+param octane :=
+    A 80
+    B 90
+    C 100;
+
+param sulfur :=
+    A 0.10
+    B 0.04
+    C 0.01;
+
+param availability :=
+    A 80
+    B 100
+    C 80;
+
+param demand :=
+    Regular 100
+    Premium  80;
+
+param min_octane :=
+    Regular 90
+    Premium 95;
+
+param max_sulfur :=
+    Regular 0.034
+    Premium 0.030;
