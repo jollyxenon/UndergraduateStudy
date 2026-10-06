@@ -1,0 +1,70 @@
+\titledquestion{Inversions and Insertion Sort}
+
+\begin{parts}
+
+\part[2]
+List all inversions of
+\[
+A=\langle18,43,27,9,35,12\rangle
+\]
+as pairs of entries \((a_i,a_j)\) with \(i<j\).
+
+What is the largest possible number of inversions in an array of \(n\) distinct entries, and which ordering attains it?
+
+\begin{solution}
+$$
+(18, 9),\ (18, 12),\ (43, 27),\ (43, 9),\ (43, 35),\ (43, 12),\ (27, 9),\ (27, 12),\ (35, 12)
+$$
+
+Most inversions occur when the array is sorted in decreasing order. The largest possible number of inversions is $\binom{n}{2} = \frac{n(n-1)}{2}$.
+\end{solution}
+
+\part[3]
+During each outer iteration of Insertion Sort, the new entry is inserted into a prefix that is already sorted. A student proposes using binary search to find the insertion position and claims that this improves the worst-case running time of Insertion Sort to \(O(n\log n)\). Is the student's analysis correct? Justify your answer.
+
+\begin{solution}
+
+It's wrong.
+
+The binary search can save time in finding the position to insert the new entry, but it does not change the fact that we still need to shift all the larger entries to the right to make space for the new entry.
+
+In the worst case, we may need to shift \(O(n)\) entries for each of the \(n\) iterations, leading to a total running time of \(O(n^2)\). Therefore, using binary search does not improve the worst-case running time of Insertion Sort.
+
+\end{solution}
+
+\part[3]
+Suppose an array of \(n\) distinct entries has \(d\) inversions before sorting. Express the running time of Insertion Sort in terms of \(n\) and \(d\), and justify your answer.
+
+\begin{solution}
+
+A single shift operation can be seen as deminishing a single inversion. Therefore, the total number of shift operations is equal to the number of inversions $d$.
+
+The primary cycle of Insertion Sort iterates $n-1$ times, and each iteration requires at least one comparison, so it costs $O(n)$ time.
+
+Therefore, the total time complexity is $O(n+d)$.
+
+\end{solution}
+
+\part[6]
+Suppose that, in an array of \(n\) distinct entries, every entry is at most \(k\) positions away from its position in the sorted array, where \(1\le k<n\). Determine the worst-case running time of Insertion Sort as a function of \(n\) and \(k\), and justify your answer.
+
+\begin{solution}
+
+For every entry $x$, assmue its original position is $p_x$ and its final position is $p_x^\star$, there are $\vert p - p^\star \vert \leq k$.
+
+For every element that larger than $x$ and is to the left of $x$, they should finally be to the right of $x$.
+
+Therefore, at most $k$ elements that are larger than $x$ are to the left of $x$. So to every entry, it only needs at most $k$ shift operations.
+
+As a result, the total number of shift operations is at most $O(nk)$.
+
+We can construct an array that needs $O(nk)$ time to sort by Insertion Sort.
+
+Assume the sorted array is $\langle 1, 2, 3, \ldots, n \rangle$. Divide it into disjoint blocks of size $k+1$, which is $A = \langle k+1, k, \dots, 2, 1, 2k+2, 2k+1, \ldots, k+2, \dots \rangle$.
+
+There are $\frac{n}{k+1}$ such blocks, and each block has $\binom{k+1}{2}$ inversions. Therefore, the total number of inversions is $\frac{n}{k+1} \cdot \binom{k+1}{2} = O(nk)$.
+
+The total number of shift operations is equal to the number of inversions, which is $O(nk)$.
+\end{solution}
+
+\end{parts}

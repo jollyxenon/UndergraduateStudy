@@ -1,0 +1,105 @@
+\titledquestion{Sorting Implementations and Analysis}
+
+\begin{parts}
+
+\part[3]
+Assume all keys are distinct. In Bubble Sort with left-to-right passes, which of the following statements is true?
+
+\begin{choices}
+\choice In one pass, both the smallest and the largest key can move at most one position toward their final positions.
+\choice In one pass, the largest key can move several positions to the right, while the smallest key can move at most one position to the left.
+\choice In one pass, the smallest key can move several positions to the left, while the largest key can move at most one position to the right.
+\choice In one pass, both the smallest and the largest key can move several positions toward their final positions.
+\end{choices}
+
+\begin{solution}
+B
+\end{solution}
+
+\part[4]
+Complete the following Insertion Sort implementation for a singly linked list. The function sorts the list in increasing order by relinking the existing nodes and stores the number of inversions in \texttt{*inversions}. The input list contains distinct values.
+
+Each blank should contain exactly one statement or expression.
+
+\begin{lstlisting}
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+ListNode* insertionSortAndCount(ListNode* head, long long* inversions) {
+    ListNode dummy(0);
+    int seen = 0;
+    *inversions = 0;
+
+    while (head != nullptr) {
+        ListNode* node = head;
+        head = head->next;
+
+        ListNode* prev = &dummy;
+        int before = 0;
+
+        while (________________________________________) { // (1)
+            prev = prev->next;
+            ++before;
+        }
+
+        ________________________________;                 // (2)
+        ________________________________;                 // (3)
+        *inversions += __________________;                // (4)
+        ++seen;
+    }
+
+    return dummy.next;
+}
+\end{lstlisting}
+
+\begin{solution}
+
+\begin{enumerate}
+
+\item[(1)] prev->next != nullptr \&\& prev->next->val < node->val
+
+\item[(2)] node->next = prev->next
+
+\item[(3)] prev->next = node
+
+\item[(4)] seen - before
+
+\end{enumerate}
+\end{solution}
+
+\part[2]
+Consider the following swapping implementation of Insertion Sort. Immediately before each execution of \texttt{std::swap}, which of the following statements are always true? Select all that apply.
+
+\begin{lstlisting}
+for (int i = 1; i < n; ++i) {
+    for (int j = i; j > 0 && a[j - 1] > a[j]; --j) {
+        // assertion here
+        std::swap(a[j - 1], a[j]);
+    }
+}
+\end{lstlisting}
+
+\begin{choices}
+\choice The value originally at index \(i\) is currently at index \(j\).
+\choice The subarray \(a[0..i]\) is already sorted.
+\choice The value at \(a[j]\) is smaller than every element in \(a[0..j-1]\).
+\choice The entries \(a[j+1..i]\), if any, are in nondecreasing order and are all larger than \(a[j]\).
+\end{choices}
+
+\begin{solution}
+AD
+\end{solution}
+
+\part[2]
+What is the minimum number of pairwise comparisons required to find the smallest of \(n\) items?
+
+\begin{solution}
+
+$n-1$ 次。
+
+\end{solution}
+
+\end{parts}

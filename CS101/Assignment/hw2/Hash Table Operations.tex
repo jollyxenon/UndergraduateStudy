@@ -1,0 +1,228 @@
+\titledquestion{Hash Table Operations}
+
+Use \(E\) for an empty bin and \(D\) for a bin marked as deleted. Parts (b) and (c) concern the same table \(T\). The other parts are independent.
+
+For open-addressing operations involving deleted bins, a search continues past a deleted bin and stops at the first empty bin or when the key is found. When inserting a key that is not already present, use the first deleted bin in its probing sequence if one occurs before the first empty bin; otherwise, use the first empty bin.
+
+\begin{parts}
+
+\part[2]
+Suppose we wish to search a linked list of length \(n\), where each element contains a key \(k\) together with a hash value \(h(k)\). Each key is a long character string. How might we take advantage of the stored hash values when searching for a given key \(x\)?
+
+\begin{solution}
+
+When given a key $x$, we compute $h(x)$ firstly.
+
+For every element in the linked list, we compare $h(x)$ with the stored hash value $h(k)$. If they are not equal, we skip to the next element. If they are equal, we then perform a full string comparison to confirm they are same character by character.
+
+\end{solution}
+
+\part[2]
+Table \(T\) has capacity 11 and uses quadratic probing:
+\[
+h(k)=(5k+7)\bmod 11,\qquad
+H_i(k)=(h(k)+i^2)\bmod 11,\qquad i=0,1,2,\ldots.
+\]
+Its current contents are:
+\medskip
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Index&0&1&2&3&4&5&6&7&8&9&10\\\hline
+Key&126&\(E\)&\(E\)&148&\(E\)&147&\(E\)&\(E\)&170&\(E\)&104\\\hline
+\end{tabular}
+\end{center}
+\medskip
+
+Execute \texttt{Insert 192}. Write the probing sequence (indices) and the resulting table.
+
+\begin{solution}
+$$
+h(192)=10
+$$
+
+$$
+H_0 = (10 + 0) \bmod 11 = 10
+$$
+
+$$
+H_1 = (10 + 1^2) \bmod 11 = 11 \bmod 11 = 0
+$$
+
+$$
+H_2 = (10 + 2^2) \bmod 11 = 14 \bmod 11 = 3
+$$
+
+$$
+H_3 = (10 + 3^2) \bmod 11 = 19 \bmod 11 = 8
+$$
+
+$$
+H_4 = (10 + 4^2) \bmod 11 = 26 \bmod 11 = 4
+$$
+
+Index 4 is empty, so we insert 192 there.
+
+So the probing sequence is: 10, 0, 3, 8, 4
+
+And the resulting table is:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Index&0&1&2&3&4&5&6&7&8&9&10\\\hline
+Key&126&\(E\)&\(E\)&148&192&147&\(E\)&\(E\)&170&\(E\)&104\\\hline
+\end{tabular}
+\end{center}
+
+\end{solution}
+
+\part[3]
+Continue from the table obtained in part (b). Execute \texttt{Delete 148} using lazy deletion. Then perform \texttt{Search 192} and \texttt{Search 214}. For each search, write the probing sequence (indices) and whether the search succeeds. Finally execute \texttt{Insert 214} and write the resulting table.
+
+\begin{solution}
+After deleting 148, the table becomes:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Index&0&1&2&3&4&5&6&7&8&9&10\\\hline
+Key&126&\(E\)&\(E\)&\(D\)&192&147&\(E\)&\(E\)&170&\(E\)&104\\\hline
+\end{tabular}
+\end{center}
+
+$$h(192) = 10$$
+
+The probing sequence for searching 192 is: 10, 0, 3, 8, 4. The worth-noticing thing is we encounter $D$ at index 3, and the search continues. And after searching to index 4, we find 192, so the search succeeds.
+
+$$h(214) = 10$$
+
+$$
+H_5(214) = (10 + 5^2) \bmod 11 = 35 \bmod 11 = 2
+$$
+
+The probing sequence for searching 214 is: 10, 0, 3, 8, 4, 2. When we reach index 2, we find an empty bin, so the search fails.
+
+Then we insert 214. The probing sequence is: 10, 0, 3. When we reach index 3, we find $D$, so we insert 214 there.
+
+The resulting table is:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Index&0&1&2&3&4&5&6&7&8&9&10\\\hline
+Key&126&\(E\)&\(E\)&214&192&147&\(E\)&\(E\)&170&\(E\)&104\\\hline
+\end{tabular}
+\end{center}
+
+\end{solution}
+
+\part[2]
+Insert the letters
+\[
+C,\ O,\ M,\ P,\ U,\ T,\ I,\ N,\ G
+\]
+in that order into an empty hash table of capacity 12 using linear probing. The hash function is
+\[
+h(k)=5k\bmod 12,
+\]
+where \(k\) is the position of the letter in the alphabet: \(A=1,B=2,\ldots,Z=26\). Write the final table.
+
+\begin{solution}
+
+C($k = 3$): $h(3) = 5 \times 3 \bmod 12 = 15 \bmod 12 = 3$
+
+O($k = 15$): $h(15) = 5 \times 15 \bmod 12 = 75 \bmod 12 = 3$. Collision with 3, store to index 4.
+
+M($k = 13$): $h(13) = 5 \times 13 \bmod 12 = 65 \bmod 12 = 5$
+
+P($k = 16$): $h(16) = 5 \times 16 \bmod 12 = 80 \bmod 12 = 8$
+
+U($k = 21$): $h(21) = 5 \times 21 \bmod 12 = 105 \bmod 12 = 9$
+
+T($k = 20$): $h(20) = 5 \times 20 \bmod 12 = 100 \bmod 12 = 4$. Collision with 4 and 5, store to index 6.
+
+I($k = 9$): $h(9) = 5 \times 9 \bmod 12 = 45 \bmod 12 = 9$. Collision with 9, store to index 10.
+
+N($k = 14$): $h(14) = 5 \times 14 \bmod 12 = 70 \bmod 12 = 10$. Collision with 10, store to index 11.
+
+G($k = 7$): $h(7) = 5 \times 7 \bmod 12 = 35 \bmod 12 = 11$. Collision with 11, store to index 0.
+
+The resulting table is:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Index&0&1&2&3&4&5&6&7&8&9&10&11\\\hline
+Key&G&\(E\)&\(E\)&C&O&M&T&\(E\)&P&U&I&N\\\hline
+\end{tabular}
+\end{center}
+
+\end{solution}
+
+\part[3]
+For the keys
+\[
+91,\ 54,\ 67,\ 35,\ 69,\ 65,
+\]
+consider a hash table of capacity 6 with
+\[
+h_c(k)=((7k+3)\bmod c)\bmod 6.
+\]
+Find the smallest positive integer \(c\) for which the six keys have distinct hash values. Justify that your value is the smallest.
+
+\begin{solution}
+
+Let $y_k = 7k+3$.
+
+$$
+y_{91} = 7 \times 91 + 3 = 640
+$$
+
+$$
+y_{54} = 7 \times 54 + 3 = 381
+$$
+
+$$
+y_{67} = 7 \times 67 + 3 = 472
+$$
+
+$$
+y_{35} = 7 \times 35 + 3 = 248
+$$
+
+$$
+y_{69} = 7 \times 69 + 3 = 486
+$$
+
+$$
+y_{65} = 7 \times 65 + 3 = 458
+$$
+
+They should not collide in a hash table of capacity 6, so $c \ge 6$.
+
+When $c = 6$, we have $y_{35} = 248 \equiv 2 \pmod 6$ and $y_{65} = 458 \equiv 2 \pmod 6$, so $c \neq 6$.
+
+When $c = 7$, $(7k + 3) \equiv 3 \pmod 7$, so $c \neq 7$.
+
+When $c = 8$, we have $y_{35} = 248 \equiv 0 \pmod 8$ and $y_{69} = 486 \equiv 6 \pmod 8$, so $c \neq 8$.
+
+When $c = 9$, we have
+
+$$y_{91} = 640 \equiv 1 \pmod 9 \implies 1 \bmod 6 = 1$$
+
+$$y_{54} = 381 \equiv 3 \pmod 9 \implies 3 \bmod 6 = 3$$
+
+$$y_{67} = 472 \equiv 4 \pmod 9 \implies 4 \bmod 6 = 4$$
+
+$$y_{35} = 248 \equiv 5 \pmod 9 \implies 5 \bmod 6 = 5$$
+
+$$y_{69} = 486 \equiv 0 \pmod 9 \implies 0 \bmod 6 = 0$$
+
+$$y_{65} = 458 \equiv 8 \pmod 9 \implies 8 \bmod 6 = 2$$
+
+So $c = 9$ is the smallest positive integer for which the six keys have distinct hash values.
+
+\end{solution}
+
+\end{parts}

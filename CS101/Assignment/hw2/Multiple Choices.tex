@@ -1,0 +1,79 @@
+\titledquestion{Multiple Choices}
+
+Each question has one or more correct answers. Select all correct answers. You receive 3 points if you select all and only the correct answers, 1 point if you select at least one but not all correct answers and no incorrect answers, and 0 points otherwise.
+
+Write your answers in the following table.
+
+\medskip
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+\hline
+(a)&(b)&(c)&(d)&(e)&(f)\\\hline
+AC & ABC & BD & AC & AC & AB \\\hline
+\end{tabular}
+\end{table}
+\medskip
+
+\begin{parts}
+
+\part[3] For each scenario, consider only the main operation described. In which scenarios is a hash table a suitable primary data structure for performing that operation efficiently?
+\begin{choices}
+\choice A program counts how many times each word occurs in a text file.
+\choice A text editor stores changes so that the most recent change can be undone first.
+\choice A web cache retrieves a stored object using its URL.
+\choice A message buffer processes messages in the order in which they arrive.
+\end{choices}
+
+\part[3] In which of the following cases do standard Insertion Sort and Flagged Bubble Sort have the same tight asymptotic running-time bound? Both algorithms move or swap elements only when they are strictly out of order, and Flagged Bubble Sort terminates after a full pass with no swaps.
+\begin{choices}
+\choice the input array is a list containing \(n\) copies of the same number.
+\choice the input array of distinct entries is sorted in reverse order.
+\choice the input array of distinct entries is already sorted.
+\choice None of the above.
+\end{choices}
+
+\part[3] Consider a table of capacity 9 using open addressing with hash function \(k\bmod 9\) and linear probing; that is, key \(k\) probes positions \(((k\bmod 9)+i)\bmod 9\) for \(i=0,1,2,\ldots\). After inserting seven values into an empty hash table, the table is:
+\medskip
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Index&0&1&2&3&4&5&6&7&8\\\hline
+Keys&35&44&18&27&49&56&&&62\\\hline
+\end{tabular}
+\end{table}
+\medskip
+Which of the following could be a possible insertion order?
+\begin{choices}
+\choice 62, 35, 44, 18, 27, 56, 49
+\choice 49, 62, 35, 44, 18, 27, 56
+\choice 62, 35, 44, 18, 49, 56, 27
+\choice 62, 35, 49, 44, 18, 27, 56
+\end{choices}
+
+\part[3] We have a hash table of size \(M\) storing \(n\) elements. Assume the hash value of each key is independent and uniformly distributed over the \(M\) bins, and that computing a hash value and comparing two keys each take \(\Theta(1)\) time. Which of the following statements are true?
+\begin{choices}
+\choice If collisions are resolved by chaining and the load factor is \(\lambda=0.75\), the average time complexity of a successful search is \(\Theta(1)\).
+\choice If \(n\le M\), then the probability that at least one collision occurs among the \(n\) elements is \(\frac{n}{M}\).
+\choice If collisions are resolved by linear probing, then after the key to erase has been located, lazy deletion can mark its bin as deleted in \(\Theta(1)\) time without moving other entries, whereas closing the gap immediately by moving entries can take \(\Theta(M)\) time in the worst case.
+\choice If collisions are resolved by quadratic probing, when the hash table is full (\(n=M\)), you can allocate a new table of size \(2M\) and copy the \(M\) bins of the old space to the first \(M\) bins of the new space in order to hold more elements.
+\end{choices}
+
+\part[3] Let \(n\ge 1\), and let \(k\) be an integer satisfying \(1\le k\le n\). Consider standard Insertion Sort on an array of length \(n\), sorting it in nondecreasing order. For equal-valued elements, define their final positions by preserving their original relative order. Which of the following running-time bounds are guaranteed by the stated conditions?
+\begin{choices}
+\choice If every element is at most \(k\) positions away from its final position in the sorted array, Insertion Sort runs in \(O(nk)\) time.
+\choice If at most \(k\) elements are not in their final positions in the sorted array, Insertion Sort runs in \(O(n+k)\) time.
+\choice If the input consists of a sorted array of length \(n-k\) followed by another sorted array of length \(k\), Insertion Sort runs in \(O(nk)\) time.
+\choice None of the above.
+\end{choices}
+
+\part[3] Run adjacent-swap Insertion Sort and basic Bubble Sort without early termination on two separate copies of the same initial array. Both algorithms sort in nondecreasing order and swap adjacent elements only when the left element is strictly larger. Which of the following statements hold for every input array?
+\begin{choices}
+\choice Both algorithms are in-place sorting algorithms.
+\choice They perform the same number of swaps.
+\choice They perform the same number of element comparisons.
+\choice None of the above.
+\end{choices}
+
+\end{parts}
