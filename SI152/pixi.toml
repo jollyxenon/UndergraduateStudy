@@ -1,0 +1,16 @@
+[workspace]
+authors = ["jollyxenon <1378319314@qq.com>"]
+channels = ["conda-forge"]
+name = "SI152"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+numpy = ">=2.5.3,<3"
+scipy = ">=1.18.1,<2"
+matplotlib = ">=3.11.2,<4"
+jupyterlab = ">=4.6.4,<5"
+ipykernel = ">=7.4.0,<8"
+pyparsing = ">=3.3.3,<4"
