@@ -1,0 +1,288 @@
+% !TEX program = xelatex
+% =============================================================
+%  实验 03  测量金属丝的杨氏模量 —— 数据处理
+%  编译方式： xelatex 杨氏模量实验报告.tex
+% =============================================================
+\documentclass[12pt,a4paper,fontset=windows]{ctexart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\geometry{left=2.4cm,right=2.4cm,top=2.6cm,bottom=2.4cm,headheight=15pt}
+
+% ------- 页眉 -------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small 普通物理 I 实验 - 数据处理}
+\renewcommand{\headrulewidth}{0pt}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\setlength{\tabcolsep}{4pt}
+
+\captionsetup{font=small,labelfont=bf}
+
+\begin{document}
+
+\begin{center}
+    {\zihao{4}\bfseries 实验 03\quad 测量金属丝的杨氏模量}\\[8pt]
+    {\zihao{-4} 姓名：姚鉴轩 \quad 学号：2025521024}
+\end{center}
+
+\vspace{0.5cm}
+
+% =============================================================
+\noindent\textbf{（一）一次性测量数据：}
+
+\begin{table}[H]
+    \centering
+    \caption{实验中一次测量值}
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{|C{4.2cm}|C{4.2cm}|C{5.4cm}|}
+        \hline
+
+        光杠杆常数D(cm) & 金属丝原长L(cm) & 反射镜转轴到标尺的垂直距离H(cm) \\
+        \hline
+        3.502 & 72.40 & 69.50 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{-0.2cm}
+\noindent 注：D为光杠杆常数，L为金属丝原长，H为反射镜转轴到标尺的垂直距离。
+
+\vspace{0.6cm}
+
+% =============================================================
+\noindent\textbf{（二）金属丝直径测量与数据处理：}
+
+\begin{table}[H]
+    \centering
+    \caption{金属丝直径测量(mm)}
+    \renewcommand{\arraystretch}{1.35}
+    \begin{tabular}{|C{1.75cm}|C{1.75cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+        \hline
+次数 & 1 & 2 & 3 & 4 & 5 & 6 \\
+        \hline
+零差$d_0$     & $-0.010$ & $-0.010$ & $-0.008$ & $-0.010$ & $-0.012$ & $-0.010$ \\
+        \hline
+视值$d_{\text{视}}$ & 0.670 & 0.635 & 0.700 & 0.647 & 0.642 & 0.642 \\
+        \hline
+直径$d$       & 0.680 & 0.645 & 0.708 & 0.657 & 0.654 & 0.652 \\
+        \hline
+$d$平均值 & 标准偏差 & \multicolumn{2}{c|}{平均值标准偏差} & \multicolumn{3}{c|}{置信区间(C=1.75)} \\
+        \hline
+0.666 & 0.024 & \multicolumn{2}{c|}{0.010} & \multicolumn{2}{c|}{0.624} & 0.708 \\
+        \hline
+\multicolumn{2}{|c|}{$\Delta A$(t$_p$=2.57)} & \multicolumn{2}{c|}{$\Delta B$(P=0.95)} & \multicolumn{2}{c|}{不确定度U} &  \\
+        \hline
+\multicolumn{2}{|c|}{0.025} & \multicolumn{2}{c|}{0.00010} & \multicolumn{2}{c|}{0.025} &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{-0.2cm}
+已知该实验置信概率为 95\%，各组测量值减去零差后有：
+\begin{equation*}
+    \text{平均值}\ \overline{N}=\frac{\sum\limits_{i=1}^{n}N_i}{n}=0.666\ \mathrm{mm}
+\end{equation*}
+\begin{equation*}
+    \text{标准差}\ \sigma=\sqrt{\frac{\sum\limits_{i=1}^{n}(x_i-\mu)^{2}}{n-1}}
+    =\sqrt{\frac{2.822\times10^{-4}}{6-1}}=0.024\ \mathrm{mm}
+\end{equation*}
+\begin{equation*}
+    \text{平均值标准偏差}\ \sigma_0=\frac{\sigma}{\sqrt{n}}=\frac{\sigma}{\sqrt{6}}=0.010\ \mathrm{mm}
+\end{equation*}
+由肖维准则，$n=6$ 时，$c=1.75$，
+
+则置信区间为 $-1.75\times\sigma+\overline{N} \sim 1.75\times\sigma+\overline{N} = 0.624\ \mathrm{mm}\sim0.708\ \mathrm{mm}$
+
+读数取值在置信区间上限和置信区间下限之间，数据有效。
+
+\vspace{0.2cm}
+$A$类不确定度：当$n=6$时，$t_{0.95}=2.57$，$\Delta A=t_p\cdot\sigma_0=2.57\times0.010=0.025\ \mathrm{mm}$
+
+$B$类不确定度：$\Delta B=0.95\cdot\Delta_{\text{仪}}=0.95\times0.0001=0.000095\ \mathrm{mm}$
+
+不确定度$U=\sqrt{\Delta A^{2}+\Delta B^{2}}=\sqrt{0.025^{2}+0.000095^{2}}=0.025\ \mathrm{mm}$
+
+因而金属丝直径$d=0.666\pm0.025\ \mathrm{mm}$
+
+\vspace{0.6cm}
+
+% =============================================================
+\noindent\textbf{（三）杨氏模量的测量与计算：}
+
+\begin{table}[H]
+    \centering
+    \caption{力与形变量的关系}
+    \renewcommand{\arraystretch}{1.15}
+    \begin{tabular}{|C{1.7cm}|C{1.8cm}|C{1.7cm}|C{1.8cm}||C{2.2cm}|C{2.2cm}|}
+        \hline
+
+        \multicolumn{2}{|c||}{拉力增加} & \multicolumn{2}{c||}{拉力减小}
+            & \multicolumn{2}{c|}{标称g=9.794ms$^{-2}$} \\
+        \hline
+
+        拉力m(kg) & 刻度$x^{+}$(cm) & 拉力m(kg) & 刻度$x^{-}$(cm)
+            & \multicolumn{2}{c|}{\makecell{斜率(cm$\cdot$kg$^{-1}$)\\绝对值}} \\
+        \hline
+& & & & 加力 & 减力 \\
+        \hline
+        0.00  & 1.25 & 10.00 & 5.85 & 0.463 & 0.460 \\
+        \hline
+        1.00  & 1.70 & 9.00  & 5.42 & \multicolumn{2}{c|}{} \\
+        \hline
+        2.00  & 2.20 & 8.00  & 5.00 & \multicolumn{2}{c|}{平均绝对值(cm$\cdot$kg$^{-1}$)} \\
+        \hline
+        3.00  & 2.62 & 7.00  & 4.52 & \multicolumn{2}{c|}{0.461} \\
+        \hline
+        4.00  & 3.10 & 6.00  & 4.10 & \multicolumn{2}{c|}{} \\
+        \hline
+        5.00  & 3.58 & 5.00  & 3.62 & \multicolumn{2}{c|}{相关系数} \\
+        \hline
+        6.00  & 4.05 & 4.00  & 3.18 & 加力 & 减力 \\
+        \hline
+        7.00  & 4.50 & 3.00  & 2.70 & 0.9999 & 0.9998 \\
+        \hline
+        8.00  & 4.98 & 2.00  & 2.21 & \multicolumn{2}{c|}{} \\
+        \hline
+        9.00  & 5.42 & 1.00  & 1.72 & \multicolumn{2}{c|}{杨氏模量E} \\
+        \hline
+        10.00 & 5.85 & 0.00  & 1.28 & \multicolumn{2}{c|}{$1.75\times10^{11}$} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=6.4cm, height=4.7cm,
+            title={\small 拉力增加组-拉力与相对刻度改变关系},
+            xlabel={\small 拉力/kg}, ylabel={\small 标尺相对刻度改变/cm},
+            xmin=0, xmax=10.5, ymin=0.6, ymax=6.4,
+            tick label style={font=\scriptsize}, label style={font=\small},
+            grid=major, grid style={gray!25},
+        ]
+            \addplot[only marks, mark=*, mark size=1.3pt, blue] coordinates {
+                (0,1.25)(1,1.70)(2,2.20)(3,2.62)(4,3.10)(5,3.58)
+                (6,4.05)(7,4.50)(8,4.98)(9,5.42)(10,5.85)};
+            \addplot[red, thick, domain=0:10.2, samples=2]{0.4630*x+1.2532};
+            \node[anchor=south west, font=\scriptsize, red, align=left] at (axis cs:0.3,4.6)
+                {$y=0.4630x+1.2532$\\$R^{2}=0.9999$};
+        \end{axis}
+    \end{tikzpicture}
+    \hfill
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=6.4cm, height=4.7cm,
+            title={\small 拉力减少组-拉力与相对刻度改变关系},
+            xlabel={\small 拉力/kg}, ylabel={\small 标尺相对刻度改变/cm},
+            xmin=0, xmax=10.5, ymin=0.6, ymax=6.4,
+            tick label style={font=\scriptsize}, label style={font=\small},
+            grid=major, grid style={gray!25},
+        ]
+            \addplot[only marks, mark=*, mark size=1.3pt, blue] coordinates {
+                (0,1.28)(1,1.72)(2,2.21)(3,2.70)(4,3.18)(5,3.62)
+                (6,4.10)(7,4.52)(8,5.00)(9,5.42)(10,5.85)};
+            \addplot[red, thick, domain=0:10.2, samples=2]{0.4598*x+1.3009};
+            \node[anchor=south west, font=\scriptsize, red, align=left] at (axis cs:0.3,4.6)
+                {$y=0.4598x+1.3009$\\$R^{2}=0.9996$};
+        \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\vspace{-0.3cm}
+\noindent
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{minipage}[t]{0.495\textwidth}
+    \centering
+    \textbf{加力数据的回归统计参数}\\[3pt]
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|C{1.7cm}|C{1.9cm}|C{1.7cm}|C{1.9cm}|}
+        \hline
+        斜率B & 0.463000000 & 截距A & 1.253181818 \\
+        \hline
+        斜率标准差 & 0.001846000 & 截距标准差 & 0.010921079 \\
+        \hline
+        R$^2$ & 0.999856952 & Y数据标准差 & 0.019361004 \\
+        \hline
+        F值 & 62906.99030 & 自由度 & 9 \\
+        \hline
+        回归平方和 & 23.58059000 & 残差平方和 & 0.003373636 \\
+        \hline
+    \end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.495\textwidth}
+    \centering
+    \textbf{减力数据的回归统计参数}\\[3pt]
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|C{1.7cm}|C{1.9cm}|C{1.7cm}|C{1.9cm}|}
+        \hline
+        斜率B & 0.459818182 & 截距A & 1.300909091 \\
+        \hline
+        斜率标准差 & 0.003080792 & 截距标准差 & 0.018226208 \\
+        \hline
+        R$^2$ & 0.999596151 & Y数据标准差 & 0.032311614 \\
+        \hline
+        F值 & 22276.53599 & 自由度 & 9 \\
+        \hline
+        回归平方和 & 23.25760364 & 残差平方和 & 0.009396364 \\
+        \hline
+    \end{tabular}
+\end{minipage}
+\normalsize
+\setlength{\tabcolsep}{4pt}
+
+\vspace{0.4cm}
+利用最小二乘法进行线性拟合，求得线性趋势线：
+
+拉力递增组：$y=0.4630x+1.2532$，斜率$k=0.4630$，截距$b=1.2532$
+
+拉力递减组：$y=0.4598x+1.3009$，斜率$k=0.4598$，截距$b=1.3009$
+
+因为$R^{+}=0.9999$，$R^{-}=0.9998$，二者满足线性关系。
+
+\vspace{0.3cm}
+取平均值得$k=0.4614$
+
+根据实验原理，利用公式
+\begin{equation*}
+    E=\frac{F/S}{\Delta L/L}
+     =\frac{mg\big/\big(\tfrac{1}{4}\pi d^{2}\big)}{\Delta L/L}
+     =\frac{4mgL}{\pi d^{2}\Delta L}
+     =\frac{8mgLH}{\pi d^{2}D}\cdot\frac{1}{\Delta x}
+\end{equation*}
+计算得到金属丝的杨氏模量$E$
+\begin{align*}
+    E&=\frac{8gLHK}{\pi d^{2}D}\\
+     &=\frac{8\times9.794\times72.40\times10^{-2}\times69.50\times10^{-2}}
+            {3.1415926\times(0.0666\times10^{-2})^{2}\times3.502\times10^{-2}\times0.4614\times10^{-2}}\\
+     &=1.75\times10^{11}\ \mathrm{Pa}
+\end{align*}
+
+\vspace{0.6cm}
+
+% =============================================================
+\noindent\textbf{（四）误差分析：}
+
+\vspace{0.2cm}
+（1）在进行金属丝长度测量时，由于米尺测量精度较低，且容易弯折，造成金属丝长度与标尺到转轴的距离测量不准，是造成偶然误差的最大因素。
+
+（2）在旋施力螺母的过程中应当注意不能旋转过快，拉力显示器的数值变化需要时间，如果旋转过快将导致显示器数值变化滞后，造成旋转过度。而且在试验过程中发现当手松开旋钮之后金属丝的张力会使得数值反复难以控制，所以应当减慢旋转施力螺母的速度让实验数据更加精确，且务必保证拉力计读数稳定后再读出标尺刻度。
+
+（3）实验中望远镜保持位置不变，十字划线始终与刻度保持平行垂直，若划线位置偏移，可能导致各个读数均偏大或偏小，引起系统误差。
+
+（4）在测量时务必保证试验台稳定不震动，微小的震动会导致光杠杆位置偏移，进而引发位置测量不准确，光杠杆常数偏大则杨氏模量偏小，反之亦然。
+
+\end{document}
