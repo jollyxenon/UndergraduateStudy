@@ -1,0 +1,204 @@
+\titledquestion{Master Theorem}
+
+Assume that $n$ is a power of $2$, and every basic operation other than a
+recursive call takes $\Theta(1)$ time.
+
+Consider the following procedure:
+
+\begin{cpp}
+void Mystery(int n){
+    if(n <= 1) return;
+
+    for(int r = 0; r < 3; r++){
+        Mystery(n / 2);
+    }
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < floor(sqrt(n)); j++){
+            // perform a constant-time operation
+        }
+    }
+}
+\end{cpp}
+
+Give tight asymptotic bounds in $\Theta(\cdot)$ notation.
+
+\begin{parts}
+
+%---------------------------------------------------------
+\part[3]
+Complete the recurrence for the running time of \texttt{Mystery}:
+
+\[
+T(n)
+=
+\underbrace{\rule{1.2cm}{0.15mm}}_{a}
+T\left(
+\frac{n}{\underbrace{\rule{1.2cm}{0.15mm}}_{b}}
+\right)
++
+\Theta\left(
+\underbrace{\rule{2cm}{0.15mm}}_{f(n)}
+\right).
+\]
+
+\begin{solution}
+
+$$
+a=3
+$$
+
+$$
+b=2
+$$
+
+$$
+f(n) = n^\frac 3 2
+$$
+
+$$
+T(n) = 3T(n/2) + \Theta(n^{3/2})
+$$
+
+\end{solution}
+
+
+%---------------------------------------------------------
+\part[4]
+Apply the Master Theorem to the recurrence in part (a). State the applicable
+case and give a tight asymptotic bound for $T(n)$.
+
+\begin{solution}
+
+
+$$
+\log_b a = \log_2 3 \approx 1.585 > 1.5
+$$
+
+$$
+T(n) = \Theta(n^{\log_2 3})
+$$
+
+\end{solution}
+
+
+%---------------------------------------------------------
+\part[4]
+Use a recursion tree to analyze the recurrence in part (a).
+
+\begin{subparts}
+
+\subpart
+At level $i$, find the number of subproblems, the size of each subproblem,
+and the total number $W_i$ of constant-time operations performed by the
+nested loops.
+
+\subpart
+Find the depth of the recursion tree and determine whether $W_i$ increases,
+decreases, or remains asymptotically unchanged as $i$ increases.
+
+\subpart
+Derive a tight asymptotic bound for $T(n)$ from the recursion tree.
+
+\end{subparts}
+
+\begin{solution}
+
+In layer $i$, there are $3^i$ subproblems, each of size $n/2^i$.
+
+The operation number of layer $i$ is $W_i = 3^i \cdot c\left(\frac{n}{2^i}\right)^{3/2} = \Theta\left(n^{3/2} \left(\frac{3}{2\sqrt{2}}\right)^i\right)$.
+
+The depth of recursion tree is $\log_2 n$.
+
+$$
+\frac{W_{i+1}}{W_i} = \frac{3}{2^{3/2}} = \frac{3}{\sqrt{8}} > 1
+$$
+
+$W_i$ increases as $i$ increases.
+
+$$
+\sum_{i=0}^{\log_2 n - 1} W_i = c \cdot n^{3/2} \sum_{i=0}^{\log_2 n - 1} \left(\frac{3}{2^{3/2}}\right)^i = c \cdot n^{3/2} \cdot \frac{\left(\frac{3}{2^{3/2}}\right)^{\log_2 n} - 1}{\frac{3}{2^{3/2}} - 1}
+$$
+
+$$
+\left(\frac{3}{2^{3/2}}\right)^{\log_2 n} = \frac{3^{\log_2 n}}{\left(2^{\log_2 n}\right)^{3/2}} = \frac{n^{\log_2 3}}{n^{3/2}}
+$$
+
+$$
+\sum_{i=0}^{\log_2 n - 1} W_i = \Theta\left(n^{3/2} \cdot \frac{n^{\log_2 3}}{n^{3/2}}\right) = \Theta\left(n^{\log_2 3}\right)
+$$
+
+$$
+T(n) = \Theta\left(n^{\log_2 3}\right)
+$$
+\end{solution}
+
+
+%---------------------------------------------------------
+\part[4]
+For $p>0$, analyze
+\[
+T_p(n)=4T_p(n/2)+\Theta(n^p).
+\]
+
+Give the Master Theorem case and the tight asymptotic bound for each possible
+range of $p$.
+
+\begin{solution}
+
+$$
+\log_b a = \log_2 4 = 2
+$$
+
+When $0 < p < 2$, $T_p(n) = \Theta(n^2)$.
+
+When $p = 2$, $T_p(n) = \Theta(n^2 \log n)$.
+
+When $p > 2$, $T_p(n) = \Theta(n^p)$.
+
+\end{solution}
+
+
+%---------------------------------------------------------
+\part[2]
+Consider the recurrence
+\[
+R(n)=R(n/2)+R(n/4)+\Theta(n^{3/2}).
+\]
+
+Can the Master Theorem be applied directly to this recurrence?
+If not, use appropriate upper and lower bounds together with the Master
+Theorem to determine a tight asymptotic bound for $R(n)$.
+
+\begin{solution}
+
+Master Theorem cannot be applied directly to this recurrence. Master Theorem requires that the the sub-problems have the same size, but in this recurrence, the sub-problems reduce to different sizes.
+
+$$
+R(n) = R(n/2) + R(n/4) + \Theta(n^{3/2}) \le 2R(n/2) + \Theta(n^{3/2})
+$$
+
+$$
+T_{\text{upper}}(n) = 2T_{\text{upper}}(n/2) + \Theta(n^{3/2})
+$$
+
+$$
+T_{\text{upper}}(n) = \Theta(n^{3/2})
+$$
+
+$$
+R(n) = R(n/2) + R(n/4) + \Theta(n^{3/2}) \ge 2R(n/4) + \Theta(n^{3/2})
+$$
+
+$$
+T_{\text{lower}}(n) = 2T_{\text{lower}}(n/4) + \Theta(n^{3/2})
+$$
+
+$$
+T_{\text{lower}}(n) = \Theta(n^{3/2})
+$$
+
+Therefore, $R(n) = \Theta(n^{3/2})$.
+\end{solution}
+
+\end{parts}

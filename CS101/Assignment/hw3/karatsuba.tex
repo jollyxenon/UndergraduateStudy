@@ -1,0 +1,54 @@
+\titledquestion{Karatsuba's Algorithm}
+Let $A,B$ are two polynomials where $A(x) = \displaystyle\sum_{i=0}^{n}a_i x^i, B(x) = \displaystyle\sum_{i=0}^{n} b_ix^i$.
+
+The goal of this problem is to invent an algorithm to multiply two polynomials faster.
+
+\begin{parts}
+\part[1] The time complexity of calculating the product of two polynomials of $n$ or less degree trivially (i.e. use $C(x) = \displaystyle \sum_{0\leq i,j\leq n} a_ib_j x^{i+j}$ ) is \fillin[$O(n^2)$]. \\
+
+\part[3]
+Recall the vertical multiplication on polynomials. Rewrite $A(x) = A_1(x)x^{\frac{n}2} + A_2(x)$ and $B(x) = B_1(x)x^{\frac{n}2} + B_2(x)$, where $A_i,B_i$ are polynomials of $\frac n2$ or less degree :\\
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rrr}
+     &        $A_1x^{\frac{n}2}$& $+A_2$\\
+     & $\times B_1x^{\frac{n}2}$& $+B_2$\\ \hline
+                & $A_1B_2x^{\frac{n}2}$ & $+A_2B_2$ \\
+    $A_1B_1x^n$ & $+A_2B_1x^{\frac{n}2}$ & \\ \hline
+    $A_1B_1x^n$ & $+(A_1B_2+A_2B_1)x^{\frac{n}2}$ & $+A_2B_2$.
+    \end{tabular}
+\end{table}
+Write down the recurrence relation of this algorithm's time complexity and calculate it:
+\begin{solution}
+
+$$
+T(n) = 4T\left(\frac{n}{2}\right) + \Theta(n)
+$$
+
+$$
+T(n) = \Theta(n^2)
+$$
+\end{solution}
+
+\part[3]
+    Recall how Strassen's algorithm works for matrix multiplication: It decreases one time of multiplication (from $8$ to $7$), then its time complexity turns into $\Theta($\fillin[$n^{\log_2 7}$]$)$ from $\Theta(n^3)$. \\
+    Consider how to reduce one multiplication, we wonder if $A_1B_2+A_2B_1$ can be calculated with $1$ multiplication with proper polynomial calculation: \\
+    \textbf{Hint: You can use any number of additions. Think out reuse $A_1B_1$ and $A_2B_2$. ($A_1B_1$ and $A_2B_2$ won't be considered as extra multiplication.)}\\
+    $A_1B_2+A_2B_1 = $ \fillin[$(A_1 + A_2)(B_1 + B_2) - A_1 B_1 - A_2 B_2$][7cm]
+\part[3]
+After the modification, we obtain a method to use $1$ less multiplication to calculate the polynomial multiplication.
+
+Write down the recurrence relation of the modified algorithm's time complexity and calculate it.
+
+\begin{solution}
+
+$$
+T(n) = 3T\left(\frac{n}{2}\right) + \Theta(n)
+$$
+
+$$
+T(n) = \Theta(n^{\log_2 3})
+$$
+\end{solution}
+
+\end{parts}

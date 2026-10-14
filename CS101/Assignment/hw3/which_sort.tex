@@ -1,0 +1,103 @@
+\titledquestion{Which Sort?}
+
+Given a sequence
+\[
+A=\langle 24,7,18,3,2026,11,5,18,2,16\rangle,
+\]
+we have performed some different sorting algorithms on it, during which some
+intermediate results are printed. Note that the steps listed below may
+\textbf{not} appear consecutively in the algorithm, but they are presented
+in the correct logical order.
+
+For each group of steps, guess (\(\surd\)) what the algorithm is. The algorithm
+might be one among the following choices:
+\begin{itemize}
+  \item Insertion-sort, implemented in the way that avoids swapping elements
+  \item Bubble-sort, which stops immediately when no swap happens during one iteration
+  \item Merge-sort
+  \item Quick-sort, with pivot chosen to be \(A_l\) when partitioning a subarray
+  \(A_l,\cdots,A_r\).
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% On the correct choice, replace `\choice' with `\CorrectChoice'.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{parts}
+
+%---------------------------------------------------------
+\part[2]
+\[
+\begin{aligned}
+  &\langle 7,18,24,3,2026,11,5,18,2,16\rangle,\\
+  &\langle 3,7,18,24,2026,11,5,18,2,16\rangle,\\
+  &\langle 3,7,18,24,2026,5,11,18,2,16\rangle,\\
+  &\langle 3,7,18,24,2026,2,5,11,16,18\rangle.
+\end{aligned}
+\]
+
+\begin{oneparcheckboxes}
+  \choice Insertion-sort
+  \choice Bubble-sort
+  \CorrectChoice Merge-sort
+  \choice Quick-sort
+\end{oneparcheckboxes}
+
+
+%---------------------------------------------------------
+\part[2]
+\[
+\begin{aligned}
+  &\langle 7,18,3,24,11,5,18,2,16,2026\rangle,\\
+  &\langle 7,3,18,11,5,18,2,16,24,2026\rangle,\\
+  &\langle 3,7,5,11,2,16,18,18,24,2026\rangle,\\
+  &\langle 3,2,5,7,11,16,18,18,24,2026\rangle.
+\end{aligned}
+\]
+
+\begin{oneparcheckboxes}
+  \choice Insertion-sort
+  \CorrectChoice Bubble-sort
+  \choice Merge-sort
+  \choice Quick-sort
+\end{oneparcheckboxes}
+
+
+%---------------------------------------------------------
+\part[2]
+\[
+\begin{aligned}
+  &\langle 16,7,18,3,11,5,18,2,24,2026\rangle,\\
+  &\langle 2,7,3,11,5,16,18,18,24,2026\rangle,\\
+  &\langle 2,5,3,7,11,16,18,18,24,2026\rangle,\\
+  &\langle 2,3,5,7,11,16,18,18,24,2026\rangle.
+\end{aligned}
+\]
+
+\begin{oneparcheckboxes}
+  \choice Insertion-sort
+  \choice Bubble-sort
+  \choice Merge-sort
+  \CorrectChoice Quick-sort
+\end{oneparcheckboxes}
+
+
+%---------------------------------------------------------
+\part[2]
+\[
+\begin{aligned}
+  &\langle 7,18,24,3,2026,11,5,18,2,16\rangle,\\
+  &\langle 3,7,18,24,2026,11,5,18,2,16\rangle,\\
+  &\langle 3,5,7,11,18,24,2026,18,2,16\rangle,\\
+  &\langle 2,3,5,7,11,18,18,24,2026,16\rangle.
+\end{aligned}
+\]
+
+\begin{oneparcheckboxes}
+  \CorrectChoice Insertion-sort
+  \choice Bubble-sort
+  \choice Merge-sort
+  \choice Quick-sort
+\end{oneparcheckboxes}
+
+\end{parts}

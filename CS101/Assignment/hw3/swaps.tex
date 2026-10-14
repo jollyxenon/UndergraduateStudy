@@ -1,0 +1,161 @@
+
+\titledquestion{TA's Letter Board}
+
+During a CS101 recitation, the TAs prepare a small game using magnetic
+tiles. All tiles are placed on a narrow rail, so the only allowed
+operation is to swap two \textbf{adjacent} tiles.
+
+Each tile has a distinct label from $1$ to $n$.
+
+The TAs want to transform the current arrangement
+\[
+A=\langle a_1,a_2,\ldots,a_n\rangle
+\]
+into a target arrangement
+\[
+B=\langle b_1,b_2,\ldots,b_n\rangle,
+\]
+where both $A$ and $B$ are permutations of $\{1,2,\ldots,n\}$.
+
+For example,
+\[
+\langle1,2,3\rangle
+\rightarrow
+\langle2,1,3\rangle
+\rightarrow
+\langle2,3,1\rangle
+\]
+uses two adjacent swaps.
+
+The TAs first try the obvious simulation, but soon realize that $n$ may be
+very large. Your task is to help them compute the minimum number of adjacent
+swaps efficiently.
+
+{
+
+\setlength{\leftskip}{-2em}
+\textbf{I.} We first convert the tile arrangement into an integer sequence.
+
+For each tile $x$, let $\operatorname{pos}_B(x)$ denote its position in $B$.
+Then construct the sequence
+\[
+P=\langle p_1,p_2,\ldots,p_n\rangle,
+\qquad
+p_i=\operatorname{pos}_B(a_i).
+\]
+
+}
+
+\begin{parts}
+
+%---------------------------------------------------------
+\part[2]
+
+Let
+\[
+A=\langle1,2,3,4,5\rangle,
+\qquad
+B=\langle4,1,3,5,2\rangle.
+\]
+
+Construct the corresponding integer sequence
+\[
+P=\langle p_1,p_2,\ldots,p_n\rangle.
+\]
+
+\begin{solution}
+
+$p_1 = \operatorname{pos}_B(1) = 2$
+$p_2 = \operatorname{pos}_B(2) = 5$
+$p_3 = \operatorname{pos}_B(3) = 3$
+$p_4 = \operatorname{pos}_B(4) = 1$
+$p_5 = \operatorname{pos}_B(5) = 4$
+
+$$
+P = \langle 2, 5, 3, 1, 4 \rangle
+$$
+\end{solution}
+
+%---------------------------------------------------------
+\part[3]
+
+For the example from part (a),
+\[
+P=\langle2,5,3,1,4\rangle,
+\]
+count the number of inversions in $P$ and list all the inversions.
+
+
+\begin{solution}
+
+$$(2, 1)$$
+$$(5, 3)$$
+$$(5, 1)$$
+$$(5, 4)$$
+$$(3, 1)$$
+
+Totally, there are 5 inversions in $P$.
+
+\end{solution}
+
+
+%---------------------------------------------------------
+\part[10]
+
+Design a divide-and-conquer algorithm to compute the minimum number of
+adjacent swaps needed to transform $A$ into $B$.
+
+Your algorithm should use the sequence $P$ defined above and should run
+faster than $\Theta(n^2)$.
+
+Explain why your algorithm is correct.
+
+\textbf{Hint:} Recall merge sort and inversions.
+
+\begin{solution}
+
+Transforming $A$ into $B$ using adjacent swaps is equivalent to sorting the sequence $P$.
+
+Swapping the adjacent elements in $A$ corresponds to swapping the adjacent elements in $P$.
+
+Every adjacent swap reduces the number of inversions in $P$ by exactly 1. Therefore, the minimum number of adjacent swaps needed to transform $A$ into $B$ is equal to the number of inversions in $P$.
+
+Design the algorithm as follows:
+
+\begin{enumerate}
+    \item[]   0. Initialize: Set $l=1$, $r=n$.
+    \item[]   1. Divide: $\text{mid} = \lfloor (l + r) / 2 \rfloor$, divide $[l ,r]$ into $[l, \text{mid}]$ and $[\text{mid}+1, r]$.
+    \item[]   2. Conquer: Recursively count inversions in $[l, \text{mid}]$ and $[\text{mid}+1, r]$ and sort them respectively.
+    \item[]   3. Combine: Maintain two pointers $i$ and $j$ for the left and right subarrays.
+                While merging, if $P[i] \leq P[j]$, then no new inversions are found, and we move the pointer $i$ backward.
+                If $P[i] > P[j]$, then all remaining elements in the left subarray (from $i$ to $\text{mid}$) are greater than $P[j]$, which means there are $(\text{mid} - i + 1)$ inversions. Add this count to our total inversions and move the pointer $j$.
+                Continue this process until all elements are merged, then return the total number of inversions found in this merge step.
+\end{enumerate}
+
+For every inversion $(p_i, p_j)$, given a division, they can be classified into three cases:
+
+1. Both $p_i$ and $p_j$ are in the left subarray
+2. Both $p_i$ and $p_j$ are in the right subarray
+3. $p_i$ is in the left subarray and $p_j$ is in the right subarray
+
+The first two cases are handled by the recursive calls, while the third case is handled during the merge step. Therefore, all inversions are counted exactly once.
+\end{solution}
+
+%---------------------------------------------------------
+\part[3]
+
+Analyze the time complexity of the complete algorithm.
+
+\begin{solution}
+
+$$
+T(n) = 2T(n/2) + O(n)    
+$$
+
+$$
+T(n) = O(n \log n)
+$$
+
+\end{solution}
+
+\end{parts}

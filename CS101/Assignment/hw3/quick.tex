@@ -1,0 +1,154 @@
+\titledquestion{Quick-sort Partitioning and Tail-Recursion Elimination}
+
+In Quick-sort, to perform space-efficient \emph{in-place} partitioning on a subarray $[l,r]$, two standard schemes are commonly adopted:
+
+
+\begin{itemize}
+  \item \textbf{Lomuto partition} (often chooses the right end as pivot). 
+  It scans once, maintaining a boundary of ``$\leq$ pivot'' and finally swaps the pivot into position. 
+
+  \item \textbf{Hoare partition} (often chooses the left end as pivot).
+  Two indices move inward: the left one stops at ``$\geq$ pivot'', the right one stops at ``$\leq$ pivot$"$; if left $\leq$ right, swap and continue; otherwise return the index.
+
+\end{itemize}
+
+\begin{parts}
+
+\part[4] 
+\begin{cpp}
+int LomutoPartition(std::vector<int>& A, int l, int r) {
+    int pivot = A[r];
+    int i = l - 1;
+    for (int j = l; j <= r - 1; ++j) {
+        if (A[j] <= pivot) {
+            ++i;
+            std::swap(A[i], A[j]);
+        }
+    }
+    std::swap(A[i + 1], A[r]);
+    return i + 1; 
+}
+
+\end{cpp}
+Apply \emph{Lomuto}'s rule as described above.  
+Given
+\[
+A=\langle 9,\,4,\,8,\,2,\,7,\,1,\,5,\,6\rangle,
+\]
+perform exactly one partition on the \textbf{0-based} subarray $[1,6]$,
+i.e. LomutoPartition(A,1,6).
+\begin{enumerate}
+  \item The return is: \underline{4}. \hfill(2 pts)
+  \item The full array $A$ after \textbf{this single partition}  (write $A[0]$ to $A[7]$): 
+  $\langle \underline{⟨9, 4, 2, 1, 5, 8, 7, 6⟩} \rangle$. \hfill(2 pts)
+\end{enumerate}
+
+% ------------------------------------------------------------
+
+\part[4]
+Complete the following C++ skeleton. Use Hoare partition as defined previously (\textbf{chooses the left end as pivot}). All indices are \textbf{0-based}, range $[l,r]$ inclusive.
+
+\begin{cpp}
+int hoare_partition(std::vector<int>& a, int l, int r) {
+    int pivot = _________;
+    int i = l - 1, j = r + 1;
+    while (true) {
+        i++;
+        while (i <= r && ______)
+            i++;
+        j--;
+        while (j >= l && ______)
+            j--;
+        if (i >= j) 
+            return j;
+        ____________;
+    }
+}
+void QuickSort(std::vector<int>& a, int l, int r) {
+    if (l < r) {
+        int p = hoare_partition(a, l, r);
+        QuickSort(a, l, p); 
+        QuickSort(a, p + 1, r);
+    }
+}
+\end{cpp}
+
+\begin{solution}
+
+\begin{cpp}
+int hoare_partition(std::vector<int>& a, int l, int r) {
+    int pivot = a[l];
+    int i = l - 1, j = r + 1;
+    while (true) {
+        i++;
+        while (i <= r && a[i] < pivot)
+            i++;
+        j--;
+        while (j >= l && a[j] > pivot)
+            j--;
+        if (i >= j)
+            return j;
+        
+        std::swap(a[i], a[j]);
+    }
+}
+void QuickSort(std::vector<int>& a, int l, int r) {
+    if (l < r) {
+        int p = hoare_partition(a, l, r);
+        QuickSort(a, l, p); 
+        QuickSort(a, p + 1, r);
+    }
+}
+\end{cpp}
+
+\end{solution}
+
+\part[4] Tail recursion is a special form of recursion where the recursive call is the final operation in the function. This means that there is no additional work to be done after the recursive call returns. The key advantage of tail recursion is that it can be optimized by the compiler, thereby reducing the overhead of multiple function calls and stack frames.\\
+In the case of Quick-sort, we can apply tail recursion optimization by choosing to recurse on the smaller subarray first and then iterating over the larger subarray. This reduces the recursion depth to \(O(\log n)\) instead of \(O(n)\) in the worst case.\\
+Complete the following C++ skeleton using tail recursion optimization.
+\begin{cpp}
+void QuickSort(std::vector<int>& a, int l, int r) {
+    while (l < r) {
+        int p = hoare_partition(a, l, r);
+        if ((p - l) < (r - p)) {     
+            QuickSort(a, l, p);
+            _________;          
+        } else {
+            QuickSort(a, p + 1, r);
+            _________;                 
+        }
+    }
+}
+\end{cpp}
+\begin{solution}
+\begin{cpp}
+void QuickSort(std::vector<int>& a, int l, int r) {
+    while (l < r) {
+        int p = hoare_partition(a, l, r);
+        if ((p - l) < (r - p)) {     
+            QuickSort(a, l, p);
+            l = p + 1;          
+        } else {
+            QuickSort(a, p + 1, r);
+            r = p;                 
+        }
+    }
+}
+\end{cpp}\end{solution}
+
+\part[3] \textbf{Multiple choice}
+
+Which statement(s) is(are) \textbf{True} about Quick-sort?
+
+\begin{choices}
+    \choice Tail recursion optimization improves the worst-case time complexity of Quick-sort to \(O(n \log n)\).
+    \CorrectChoice  The Lomuto partition scheme guarantees that the pivot ends up at its final position.
+    \choice The Hoare partition scheme guarantees that the worst-case time complexity will be \(O(n \log n)\).
+    \choice The Hoare partition scheme always performs fewer swaps than Lomuto and returns the pivot(the left end)'s final index.
+\end{choices}
+
+\begin{solution}
+    Choose B.
+\end{solution}
+
+\end{parts}

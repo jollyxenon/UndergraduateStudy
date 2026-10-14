@@ -1,0 +1,70 @@
+
+\titledquestion{TA's Grade Grid}[17]
+
+After grading a CS101 assignment, the TAs store the scores in an
+$n\times n$ grid
+\[
+A=(a_{ij}),
+\]
+where $n$ is a positive integer.
+
+Each row has a unique minimum element. For row $i$, let
+\[
+m_i=\arg\min_{1\le j\le n} a_{ij}
+\]
+be the column containing its minimum.
+
+The grading system guarantees that the positions of the row minima are
+nondecreasing:
+\[
+m_1\le m_2\le\cdots\le m_n.
+\]
+
+For example, consider the following $4\times4$ grid:
+\[
+A=
+\begin{pmatrix}
+12 & 5 & 8 & 10\\
+9 & 2 & 7 & 6\\
+8 & 7 & 3 & 9\\
+11 & 8 & 6 & 1
+\end{pmatrix}.
+\]
+
+The minimum elements of the four rows are $5$, $2$, $3$, and $1$,
+respectively. Their column positions are
+\[
+\langle m_1,m_2,m_3,m_4\rangle
+=
+\langle2,2,3,4\rangle,
+\]
+which satisfy the nondecreasing condition.
+
+Your goal is to find
+\[
+m_1,m_2,\ldots,m_n.
+\]
+
+Design a divide-and-conquer algorithm that runs in $o(n^2)$ time.
+
+
+
+\begin{solution}
+
+\begin{enumerate}
+    \item[(0)] Initialize: Set $l=1$, $r=n$.
+    \item[(1)] Solve: Set $\text{mid}=\lfloor\frac{l+r}{2}\rfloor$. Find the minimum element in row $\text{mid}$ by scanning every element. Let $m_{\text{mid}}$ be the column index of this minimum element.
+    \item[(2)] Divide: Recursively find the row minima in the upper half $[l,\text{mid}]$ and the lower half $[\text{mid},r]$.
+\end{enumerate}
+
+Given the monotonicity of the row minima, we can restrict the search range for the upper half to $[l,\text{mid}]$ and the lower half to $[\text{mid},r]$, so no minima are missed.
+
+$$
+T(n) = 2T(n/2) + O(n)
+$$
+
+$$
+T(n) = O(n \log n) = o(n^2)
+$$
+
+\end{solution}
