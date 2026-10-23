@@ -1,0 +1,604 @@
+% !TEX program = xelatex
+% =============================================================
+%  实验 06  固体密度测量 —— 数据处理
+%  编译方式： xelatex 固体密度实验报告.tex
+% =============================================================
+\documentclass[12pt,a4paper,fontset=windows]{ctexart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\geometry{left=2.4cm,right=2.4cm,top=2.6cm,bottom=2.4cm,headheight=15pt}
+
+% ------- 页眉 -------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small 普通物理 I 实验 - 数据处理}
+\renewcommand{\headrulewidth}{0pt}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\setlength{\tabcolsep}{4pt}
+\linespread{1.06}
+
+\captionsetup{font=small,labelfont=bf}
+
+\begin{document}
+
+\begin{center}
+    {\zihao{4}\bfseries 实验 06\quad 固体密度测量}\\[8pt]
+    {\zihao{-4} 姓名：姚鉴轩 \quad 学号：2025521024}
+\end{center}
+
+\vspace{0.3cm}
+
+% =============================================================
+\noindent\textbf{一、一次性测量数据：}
+
+\vspace{0.1cm}
+用电子天平测定实验样品小球的质量：
+
+\begin{table}[H]
+    \centering
+    \caption{一次性测量数据}
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{|C{4.0cm}|C{3.2cm}|C{3.2cm}|C{3.2cm}|}
+        \hline
+        小球编号 & 1 & 2 & 3 \\
+        \hline
+        质量 $M$/g & 0.65 & 1.12 & 3.96 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{0.2cm}
+
+% =============================================================
+\noindent\textbf{二、实验小球直径的测量与密度计算：}
+
+\vspace{0.1cm}
+千分尺旋紧时读数为 $d_0=+0.105\ \mathrm{mm}$，即零差为正，故小球直径
+\begin{equation*}
+    d=x-d_0=x-0.105,
+\end{equation*}
+其中 $x$ 为千分尺视值。
+
+\begin{table}[H]
+    \centering
+    \caption{1号球直径测量与数据处理}
+    \renewcommand{\arraystretch}{1.3}
+    \footnotesize
+    \begin{tabular}{|C{2.3cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{1号球}} & \multicolumn{6}{c|}{\textbf{质量} $M_1=0.65$ g；\textbf{长度 mm，体积 cm$^3$，密度 g/cm$^3$}} \\
+        \hline
+        \textbf{次数} & 1 & 2 & 3 & 4 & 5 & 6 \\
+        \hline
+        零差 $d_0$ & \multicolumn{6}{c|}{$+0.105$} \\
+        \hline
+        视值 $x$ & 7.232 & 7.241 & 7.240 & 7.235 & 7.240 & 7.241 \\
+        \hline
+        直径 $d$ & 7.127 & 7.136 & 7.135 & 7.130 & 7.135 & 7.136 \\
+        \hline
+        $d$平均值 & 7.133 & \multicolumn{3}{c|}{置信区间：$7.126\sim7.140$}
+            & \multicolumn{2}{c|}{不确定度 $U=0.006$} \\
+        \hline
+        标准差 & 0.0038 & \multicolumn{2}{c|}{$\Delta A=0.0039$}
+            & \multicolumn{3}{c|}{$\Delta B=0.00475$} \\
+        \hline
+        平均标准差 & 0.0015 & \multicolumn{2}{c|}{备注：无需剔除}
+            & \multicolumn{3}{c|}{体积 $V=0.190\ \mathrm{cm^3}$} \\
+        \hline
+        \multicolumn{7}{|c|}{直径结果 $d_1=(7.133\pm0.006)\ \mathrm{mm}$，密度 $\rho=3.42\ \mathrm{g/cm^3}$} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{2号球直径测量与数据处理}
+    \renewcommand{\arraystretch}{1.3}
+    \footnotesize
+    \begin{tabular}{|C{2.3cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{2号球}} & \multicolumn{6}{c|}{\textbf{质量} $M_2=1.12$ g；\textbf{长度 mm，体积 cm$^3$，密度 g/cm$^3$}} \\
+        \hline
+        \textbf{次数} & 1 & 2 & 3 & 4 & 5 & 6 \\
+        \hline
+        零差 $d_0$ & \multicolumn{6}{c|}{$+0.105$} \\
+        \hline
+        视值 $x$ & 8.098 & 8.100 & 8.088 & 8.098 & 8.098 & 8.100 \\
+        \hline
+        直径 $d$ & 7.993 & 7.995 & 7.983 & 7.993 & 7.993 & 7.995 \\
+        \hline
+        $d$平均值 & 7.992 & \multicolumn{3}{c|}{置信区间：$7.984\sim8.000$}
+            & \multicolumn{2}{c|}{不确定度 $U=0.007$} \\
+        \hline
+        标准差 & 0.0045 & \multicolumn{2}{c|}{$\Delta A=0.0047$}
+            & \multicolumn{3}{c|}{$\Delta B=0.00475$} \\
+        \hline
+        平均标准差 & 0.0018 & \multicolumn{2}{c|}{备注：无需剔除}
+            & \multicolumn{3}{c|}{体积 $V=0.267\ \mathrm{cm^3}$} \\
+        \hline
+        \multicolumn{7}{|c|}{直径结果 $d_2=(7.992\pm0.007)\ \mathrm{mm}$，密度 $\rho=4.19\ \mathrm{g/cm^3}$} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{3号球直径测量与数据处理}
+    \renewcommand{\arraystretch}{1.3}
+    \footnotesize
+    \begin{tabular}{|C{2.3cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{3号球}} & \multicolumn{6}{c|}{\textbf{质量} $M_3=3.96$ g；\textbf{长度 mm，体积 cm$^3$，密度 g/cm$^3$}} \\
+        \hline
+        \textbf{次数} & 1 & 2 & 3 & 4 & 5 & 6 \\
+        \hline
+        零差 $d_0$ & \multicolumn{6}{c|}{$+0.105$} \\
+        \hline
+        视值 $x$ & 10.600 & 10.748 & 10.710 & 10.728 & 10.605 & 10.845 \\
+        \hline
+        直径 $d$ & 10.495 & 10.643 & 10.605 & 10.623 & 10.500 & 10.740 \\
+        \hline
+        $d$平均值 & 10.601 & \multicolumn{3}{c|}{置信区间：$10.438\sim10.764$}
+            & \multicolumn{2}{c|}{不确定度 $U=0.097$} \\
+        \hline
+        标准差 & 0.0928 & \multicolumn{2}{c|}{$\Delta A=0.097$}
+            & \multicolumn{3}{c|}{$\Delta B=0.00475$} \\
+        \hline
+        平均标准差 & 0.0379 & \multicolumn{2}{c|}{备注：无需剔除}
+            & \multicolumn{3}{c|}{体积 $V=0.624\ \mathrm{cm^3}$} \\
+        \hline
+        \multicolumn{7}{|c|}{直径结果 $d_3=(10.601\pm0.097)\ \mathrm{mm}$，密度 $\rho=6.35\ \mathrm{g/cm^3}$} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{0.1cm}
+已知该实验置信概率为 $95\%$，各组测量值进行数据处理有
+\begin{equation*}
+    \bar d_1=\frac{\sum\limits_{i=1}^{6}d_{1i}}{6}=7.133\ \mathrm{mm},\qquad
+    \bar d_2=\frac{\sum\limits_{i=1}^{6}d_{2i}}{6}=7.992\ \mathrm{mm},\qquad
+    \bar d_3=\frac{\sum\limits_{i=1}^{6}d_{3i}}{6}=10.601\ \mathrm{mm}.
+\end{equation*}
+
+\begin{align*}
+    \text{标准差}\quad
+    \sigma_1&=\sqrt{\frac{\sum\limits_{i=1}^{6}(d_{1i}-\bar d_1)^2}{6-1}}
+        =\sqrt{\frac{7.083\times10^{-5}}{5}}=0.0038\ \mathrm{mm},\\
+    \sigma_2&=\sqrt{\frac{1.020\times10^{-4}}{5}}=0.0045\ \mathrm{mm},\\
+    \sigma_3&=\sqrt{\frac{4.302\times10^{-2}}{5}}=0.0928\ \mathrm{mm}.
+\end{align*}
+
+由肖维准则，$n=6$ 时，$c=1.75$，故
+\begin{align*}
+    \text{第1组置信区间}&=\bar d_1-1.75\sigma_1\sim\bar d_1+1.75\sigma_1
+        =7.126\sim7.140\ \mathrm{mm},\\
+    \text{第2组置信区间}&=\bar d_2-1.75\sigma_2\sim\bar d_2+1.75\sigma_2
+        =7.984\sim8.000\ \mathrm{mm},\\
+    \text{第3组置信区间}&=\bar d_3-1.75\sigma_3\sim\bar d_3+1.75\sigma_3
+        =10.438\sim10.764\ \mathrm{mm}.
+\end{align*}
+
+读数取值均在置信区间上限和下限之间，数据有效，无粗差，不剔除。
+\begin{equation*}
+    \sigma_{01}=\frac{\sigma_1}{\sqrt{6}}=0.0015\ \mathrm{mm},\qquad
+    \sigma_{02}=\frac{\sigma_2}{\sqrt{6}}=0.0018\ \mathrm{mm},\qquad
+    \sigma_{03}=\frac{\sigma_3}{\sqrt{6}}=0.0379\ \mathrm{mm}.
+\end{equation*}
+
+$A$类不确定度：当 $n=6$ 时，$t_{0.95}=2.57$，
+\begin{align*}
+    \Delta A_1&=t_p\sigma_{01}=2.57\times0.0015=0.0039\ \mathrm{mm},\\
+    \Delta A_2&=2.57\times0.0018=0.0047\ \mathrm{mm},\\
+    \Delta A_3&=2.57\times0.0379=0.097\ \mathrm{mm}.
+\end{align*}
+
+$B$类不确定度：
+\begin{equation*}
+    \Delta B=0.95\Delta_{\text{仪}}=0.95\times0.005=0.00475\ \mathrm{mm}.
+\end{equation*}
+
+\begin{align*}
+    \text{不确定度}\quad
+    U_1&=\sqrt{\Delta A_1^2+\Delta B^2}
+        =\sqrt{0.0039^2+0.00475^2}=0.006\ \mathrm{mm},\\
+    U_2&=\sqrt{0.0047^2+0.00475^2}=0.007\ \mathrm{mm},\\
+    U_3&=\sqrt{0.097^2+0.00475^2}=0.097\ \mathrm{mm}.
+\end{align*}
+
+因而三个小球的直径分别为
+\begin{equation*}
+    d_1=(7.133\pm0.006)\ \mathrm{mm},\qquad
+    d_2=(7.992\pm0.007)\ \mathrm{mm},\qquad
+    d_3=(10.601\pm0.097)\ \mathrm{mm}.
+\end{equation*}
+
+以质量与直径计算密度。根据实验原理，球体体积与密度公式为
+\begin{equation*}
+    V=\frac{4}{3}\pi\left(\frac{d}{2}\right)^3=\frac{\pi d^3}{6},
+    \qquad
+    \rho=\frac{M}{V}=\frac{6M}{\pi d^3}.
+\end{equation*}
+
+计算实验结果：
+\begin{align*}
+    \rho_1&=\frac{6M_1}{\pi d_1^3}
+        =\frac{6\times0.65}{\pi\times(0.7133)^3}=3.42\ \mathrm{g/cm^3},\\
+    \rho_2&=\frac{6M_2}{\pi d_2^3}
+        =\frac{6\times1.12}{\pi\times(0.7992)^3}=4.19\ \mathrm{g/cm^3},\\
+    \rho_3&=\frac{6M_3}{\pi d_3^3}
+        =\frac{6\times3.96}{\pi\times(1.0601)^3}=6.35\ \mathrm{g/cm^3}.
+\end{align*}
+
+\vspace{0.3cm}
+
+% =============================================================
+\noindent\textbf{三、水中实验样品小球质量差的测量与密度计算：}
+
+\vspace{0.1cm}
+将盛有水的烧杯放在电子天平上，记录小球放入样品笼前、后的天平读数。前后读数差
+$\Delta M$ 等于小球排开水的质量，即
+\begin{equation*}
+    \Delta M=\rho_0 V,
+\end{equation*}
+其中 $\rho_0=0.9982\ \mathrm{g/cm^3}$ 为实验温度（约 $20\,^\circ$C）下水的密度。
+
+\begin{table}[H]
+    \centering
+    \caption{1号球质量差测量与数据处理}
+    \renewcommand{\arraystretch}{1.3}
+    \footnotesize
+    \begin{tabular}{|C{2.3cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{1号球}} & \multicolumn{6}{c|}{\textbf{质量} $M_1=0.65$ g；\textbf{质量读数 g，体积 cm$^3$，密度 g/cm$^3$}} \\
+        \hline
+        \textbf{次数} & 1 & 2 & 3 & 4 & 5 & 6 \\
+        \hline
+        \makecell{小球放置前\\读数/g} & 535.06 & 535.00 & 534.94 & 534.88 & 534.82 & 534.76 \\
+        \hline
+        \makecell{小球放置后\\读数/g} & 535.25 & 535.20 & 535.14 & 535.08 & 535.02 & 534.96 \\
+        \hline
+        质量差 $\Delta M$/g & 0.19 & 0.20 & 0.20 & 0.20 & 0.20 & 0.20 \\
+        \hline
+        $\Delta M$平均值 & 0.198 & \multicolumn{3}{c|}{置信区间：$0.19\sim0.21$}
+            & \multicolumn{2}{c|}{不确定度 $U=0.010$} \\
+        \hline
+        标准差 & 0.004 & \multicolumn{2}{c|}{$\Delta A=0.0043$}
+            & \multicolumn{3}{c|}{$\Delta B=0.0095$} \\
+        \hline
+        平均标准差 & 0.0017 & \multicolumn{2}{c|}{备注：无需剔除}
+            & \multicolumn{3}{c|}{体积 $V=0.199\ \mathrm{cm^3}$} \\
+        \hline
+        \multicolumn{7}{|c|}{质量差结果 $\Delta M_1=(0.198\pm0.010)\ \mathrm{g}$，密度 $\rho=3.27\ \mathrm{g/cm^3}$} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{2号球质量差测量与数据处理}
+    \renewcommand{\arraystretch}{1.3}
+    \footnotesize
+    \begin{tabular}{|C{2.3cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{2号球}} & \multicolumn{6}{c|}{\textbf{质量} $M_2=1.12$ g；\textbf{质量读数 g，体积 cm$^3$，密度 g/cm$^3$}} \\
+        \hline
+        \textbf{次数} & 1 & 2 & 3 & 4 & 5 & 6 \\
+        \hline
+        \makecell{小球放置前\\读数/g} & 534.68 & 534.63 & 534.54 & 534.46 & 534.40 & 534.34 \\
+        \hline
+        \makecell{小球放置后\\读数/g} & 534.95 & 534.90 & 534.87 & 534.74 & 534.68 & 534.62 \\
+        \hline
+        质量差 $\Delta M$/g & 0.27 & 0.27 & 0.33 & 0.28 & 0.28 & 0.28 \\
+        \hline
+        $\Delta M$平均值 & 0.285 & \multicolumn{3}{c|}{置信区间：$0.24\sim0.33$}
+            & \multicolumn{2}{c|}{不确定度 $U=0.026$} \\
+        \hline
+        标准差 & 0.023 & \multicolumn{2}{c|}{$\Delta A=0.024$}
+            & \multicolumn{3}{c|}{$\Delta B=0.0095$} \\
+        \hline
+        平均标准差 & 0.0092 & \multicolumn{2}{c|}{备注：无需剔除}
+            & \multicolumn{3}{c|}{体积 $V=0.286\ \mathrm{cm^3}$} \\
+        \hline
+        \multicolumn{7}{|c|}{质量差结果 $\Delta M_2=(0.285\pm0.026)\ \mathrm{g}$，密度 $\rho=3.92\ \mathrm{g/cm^3}$} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{3号球质量差测量与数据处理}
+    \renewcommand{\arraystretch}{1.3}
+    \footnotesize
+    \begin{tabular}{|C{2.3cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|C{1.45cm}|}
+        \hline
+        \multicolumn{1}{|c|}{\textbf{3号球}} & \multicolumn{6}{c|}{\textbf{质量} $M_3=3.96$ g；\textbf{质量读数 g，体积 cm$^3$，密度 g/cm$^3$}} \\
+        \hline
+        \textbf{次数} & 1 & 2 & 3 & 4 & 5 & 6 \\
+        \hline
+        \makecell{小球放置前\\读数/g} & 534.24 & 534.23 & 534.11 & 534.09 & 533.97 & 533.88 \\
+        \hline
+        \makecell{小球放置后\\读数/g} & 534.90 & 534.86 & 534.77 & 534.68 & 534.60 & 534.51 \\
+        \hline
+        质量差 $\Delta M$/g & 0.66 & 0.63 & 0.66 & 0.59 & 0.63 & 0.63 \\
+        \hline
+        $\Delta M$平均值 & 0.633 & \multicolumn{3}{c|}{置信区间：$0.58\sim0.68$}
+            & \multicolumn{2}{c|}{不确定度 $U=0.029$} \\
+        \hline
+        标准差 & 0.026 & \multicolumn{2}{c|}{$\Delta A=0.027$}
+            & \multicolumn{3}{c|}{$\Delta B=0.0095$} \\
+        \hline
+        平均标准差 & 0.0105 & \multicolumn{2}{c|}{备注：无需剔除}
+            & \multicolumn{3}{c|}{体积 $V=0.634\ \mathrm{cm^3}$} \\
+        \hline
+        \multicolumn{7}{|c|}{质量差结果 $\Delta M_3=(0.633\pm0.029)\ \mathrm{g}$，密度 $\rho=6.24\ \mathrm{g/cm^3}$} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\vspace{0.1cm}
+已知该实验置信概率为 $95\%$，各组测量值进行数据处理有
+\begin{align*}
+    \overline{\Delta M}_1&=\frac{\sum\limits_{i=1}^{6}\Delta M_{1i}}{6}=0.198\ \mathrm{g},\qquad
+    \overline{\Delta M}_2=\frac{\sum\limits_{i=1}^{6}\Delta M_{2i}}{6}=0.285\ \mathrm{g},\\
+    \overline{\Delta M}_3&=\frac{\sum\limits_{i=1}^{6}\Delta M_{3i}}{6}=0.633\ \mathrm{g}.
+\end{align*}
+
+\begin{align*}
+    \text{标准差}\quad
+    \sigma_1&=\sqrt{\frac{\sum\limits_{i=1}^{6}(\Delta M_{1i}-\overline{\Delta M}_1)^2}{6-1}}
+        =\sqrt{\frac{8.333\times10^{-5}}{5}}=0.004\ \mathrm{g},\\
+    \sigma_2&=\sqrt{\frac{2.550\times10^{-3}}{5}}=0.023\ \mathrm{g},\\
+    \sigma_3&=\sqrt{\frac{3.333\times10^{-3}}{5}}=0.026\ \mathrm{g}.
+\end{align*}
+
+由肖维准则，$n=6$ 时，$c=1.75$，故
+\begin{align*}
+    \text{第1组置信区间}&=\overline{\Delta M}_1-1.75\sigma_1
+        \sim\overline{\Delta M}_1+1.75\sigma_1=0.19\sim0.21\ \mathrm{g},\\
+    \text{第2组置信区间}&=\overline{\Delta M}_2-1.75\sigma_2
+        \sim\overline{\Delta M}_2+1.75\sigma_2=0.24\sim0.33\ \mathrm{g},\\
+    \text{第3组置信区间}&=\overline{\Delta M}_3-1.75\sigma_3
+        \sim\overline{\Delta M}_3+1.75\sigma_3=0.58\sim0.68\ \mathrm{g}.
+\end{align*}
+
+读数取值均在置信区间上限和下限之间，数据有效，无粗差，不剔除。
+\begin{equation*}
+    \sigma_{01}=\frac{\sigma_1}{\sqrt{6}}=0.0017\ \mathrm{g},\qquad
+    \sigma_{02}=\frac{\sigma_2}{\sqrt{6}}=0.0092\ \mathrm{g},\qquad
+    \sigma_{03}=\frac{\sigma_3}{\sqrt{6}}=0.0105\ \mathrm{g}.
+\end{equation*}
+
+$A$类不确定度：当 $n=6$ 时，$t_{0.95}=2.57$，
+\begin{align*}
+    \Delta A_1&=t_p\sigma_{01}=2.57\times0.0017=0.0043\ \mathrm{g},\\
+    \Delta A_2&=2.57\times0.0092=0.024\ \mathrm{g},\\
+    \Delta A_3&=2.57\times0.0105=0.027\ \mathrm{g}.
+\end{align*}
+
+$B$类不确定度：
+\begin{equation*}
+    \Delta B=0.95\Delta_{\text{仪}}=0.95\times0.01=0.0095\ \mathrm{g}.
+\end{equation*}
+
+\begin{align*}
+    \text{不确定度}\quad
+    U_1&=\sqrt{\Delta A_1^2+\Delta B^2}
+        =\sqrt{0.0043^2+0.0095^2}=0.010\ \mathrm{g},\\
+    U_2&=\sqrt{0.024^2+0.0095^2}=0.026\ \mathrm{g},\\
+    U_3&=\sqrt{0.027^2+0.0095^2}=0.029\ \mathrm{g}.
+\end{align*}
+
+因而三个小球的质量差分别为
+\begin{equation*}
+    \Delta M_1=(0.198\pm0.010)\ \mathrm{g},\qquad
+    \Delta M_2=(0.285\pm0.026)\ \mathrm{g},\qquad
+    \Delta M_3=(0.633\pm0.029)\ \mathrm{g}.
+\end{equation*}
+
+根据流体静力称衡法原理，
+\begin{equation*}
+    \rho=\frac{M_1}{M_1-M_2}\rho_0=\frac{M_1}{\Delta M}\rho_0.
+\end{equation*}
+
+计算实验结果：
+\begin{align*}
+    \rho_1&=\frac{0.65}{0.1983}\times0.9982=3.27\ \mathrm{g/cm^3},\\
+    \rho_2&=\frac{1.12}{0.2850}\times0.9982=3.92\ \mathrm{g/cm^3},\\
+    \rho_3&=\frac{3.96}{0.6333}\times0.9982=6.24\ \mathrm{g/cm^3}.
+\end{align*}
+
+\vspace{0.3cm}
+
+% =============================================================
+\noindent\textbf{四、误差比较与误差分析：}
+
+\vspace{0.1cm}
+根据文献值计算绝对误差与相对误差。1、2、3号小球分别对应氮化硅、氧化铝和氧化锆，取文献密度
+$3.20$、$3.99$、$5.89\ \mathrm{g/cm^3}$。
+
+\begin{table}[H]
+    \centering
+    \caption{两种方法所得密度与文献值的比较}
+    \renewcommand{\arraystretch}{1.35}
+    \small
+    \begin{tabular}{|C{1.3cm}|C{1.6cm}|C{1.15cm}|C{1.45cm}|C{1.35cm}|C{1.35cm}|C{1.45cm}|C{1.35cm}|C{1.35cm}|}
+        \hline
+        \multirow{2}{*}{样品} & \multirow{2}{*}{标准物质} & \multirow{2}{*}{文献值}
+            & \multicolumn{3}{c|}{方法一（质量--直径法）}
+            & \multicolumn{3}{c|}{方法二（流体静力称衡法）} \\
+        \cline{4-9}
+         & & & 实验值 & 绝对误差 & 相对误差 & 实验值 & 绝对误差 & 相对误差 \\
+        \hline
+        1号球 & 氮化硅 & 3.20 & 3.42 & $+0.22$ & $+6.9\%$ & 3.27 & $+0.07$ & $+2.2\%$ \\
+        \hline
+        2号球 & 氧化铝 & 3.99 & 4.19 & $+0.20$ & $+5.0\%$ & 3.92 & $-0.07$ & $-1.7\%$ \\
+        \hline
+        3号球 & 氧化锆 & 5.89 & 6.35 & $+0.46$ & $+7.8\%$ & 6.24 & $+0.35$ & $+6.0\%$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=0.78\textwidth, height=5.0cm,
+            ybar=3pt, bar width=14pt,
+            symbolic x coords={1号球,2号球,3号球},
+            xtick=data,
+            xlabel={\small 样品},
+            ylabel={\small 相对误差(\%)},
+            ymin=-4, ymax=9, ytick={-3,0,3,6,9},
+            enlarge x limits=0.25,
+            legend style={at={(0.5,1.04)}, anchor=south, legend columns=-1,
+                draw=black, fill=white, font=\small},
+            tick style={black},
+            axis line style={black},
+            every axis plot/.append style={draw=black, line width=0.6pt},
+            ymajorgrids=false,
+        ]
+            \addplot[fill=white, area legend] coordinates {
+                (1号球,6.9) (2号球,5.0) (3号球,7.8)};
+            \addplot[fill=black, area legend] coordinates {
+                (1号球,2.2) (2号球,-1.7) (3号球,6.0)};
+            \legend{方法一,方法二}
+        \end{axis}
+    \end{tikzpicture}
+    \caption{两种方法所得密度的相对误差比较（白色柱为方法一，黑色柱为方法二）}
+\end{figure}
+
+由表 8 和图 1 可见，方法二在三组样品上均更接近文献值，平均相对误差约 $3.3\%$；方法一的相对误差为
+$5.0\%\sim7.8\%$，平均约 $6.6\%$。流体静力称衡法通过多次测量小球排开水的质量差来间接求体积，
+避免了对直径的依赖，也避免了直径误差被三次方放大，因此结果更准确。3 号球方法二仍偏高 $6.0\%$，
+主要与样品笼接触或气泡有关，可通过规范操作进一步改善。
+
+\vspace{0.2cm}
+\noindent\textbf{（一）误差分析：}
+
+\vspace{0.1cm}
+（1）待测小球并非理想标准球体。3 号球的直径标准差达 $0.093\ \mathrm{mm}$，明显大于 1、2 号球，
+说明其表面粗糙度、圆度或测量位置的一致性较差；直径以三次方进入体积公式，直径的较小偏差会被显著放大，
+这是 3 号球密度不确定度较大的主要原因。测量时应沿不同方向和不同位置多次测量，并轻压千分尺测微螺杆，
+避免因用力不均造成读数偏小。
+
+（2）流体静力称衡法需要测量很小的质量差。1 号球的 $\Delta M$ 仅约 $0.20\ \mathrm{g}$，而电子天平的分度值为
+$0.01\ \mathrm{g}$，单次读数的相对分辨率约为 $5\%$；2 号球第 3 次差值 $0.33\ \mathrm{g}$ 偏大，
+使该组标准差增至 $0.023\ \mathrm{g}$，虽然按舍入后的置信区间仍予保留，但说明该次读数可能受到笼体晃动或
+气泡扰动，应增加测量次数或改用精度更高的天平。
+
+（3）样品笼若接触烧杯内壁或底部，会产生竖直方向的摩擦阻力或支撑力，使天平读数差 $\Delta M$ 偏小，
+由 $\rho=M_1\rho_0/\Delta M$ 可知测得的密度偏大。3 号球体积最大，浸没后最容易碰到杯壁，
+其方法二结果为 $6.24\ \mathrm{g/cm^3}$，相对文献值偏高 $6.0\%$，很可能与此有关。实验中应调节铁架台，
+使样品笼完全悬空，且不接触烧杯的任何部位。
+
+（4）小球或样品笼表面附着气泡时，气泡会额外排开水，使 $\Delta M$ 偏大，算出的体积和密度偏小；
+气泡在测量过程中脱落或合并，又会使读数漂移，增大随机误差。实验前应清洗小球，缓慢浸入水中，
+必要时用细针拨除气泡，待读数稳定后再记录。
+
+（5）实验未测量实际水温，水的密度统一取 $0.9982\ \mathrm{g/cm^3}$。若水温偏离 $20\,^\circ$C，
+或水中溶有较多杂质，$\rho_0$ 会发生变化，从而给方法二带来系统误差。应同时测量水温并按水的密度表取值。
+
+（6）方法一的结果在三个样品上均比文献值高 $5.0\%\sim7.8\%$，表现为系统偏大而非随机离散。
+由 $\rho\propto d^{-3}$ 可知，这相当于直径系统性偏小约 $1.7\%\sim2.5\%$。可能原因有：测微螺杆
+旋紧程度不一致、球面被轻微压陷、测点位置不一致等。直径以三次方进入体积公式，较小的直径偏差会被放大，
+因此方法一对直径测量较敏感，这是其精度低于方法二的主要原因。
+
+（7）方法二在本组数据中与文献值更接近，平均相对误差约 $3.3\%$。流体静力称衡法通过重复打捞、
+多次测量小球排开水的质量差，直接获得体积信息，避免了对小球直径的依赖，因而能有效减小直径测量带来的
+系统误差；但该方法对微小质量差、气泡和笼体接触较敏感，操作时应保证样品笼悬空、球体清洁并增加测量次数。
+
+\vspace{0.3cm}
+
+% =============================================================
+\noindent\textbf{五、思考题：}
+
+\vspace{0.15cm}
+\noindent\textbf{（1）实验中如果样品笼或者样品表面吸附有气泡，对实验结果会有什么影响？}
+
+\vspace{0.05cm}
+答：气泡占据体积，使样品和样品笼排开水的体积增大。流体静力称衡法中，天平读数差
+$\Delta M=\rho_0(V+V_{\text{气泡}})$ 偏大，由 $\rho=M_1\rho_0/\Delta M$ 可知算出的密度偏小。
+气泡在测量过程中还可能脱落、合并或随水流移动，使读数不稳定，增大随机误差。若气泡只附着在样品笼上，
+则相当于增大了笼体的排水体积；若附着在小球表面，则直接增大了待测样品的等效体积。
+实验中应先用乙醇清洗样品，缓慢浸入水中，轻敲样品笼或用细针拨除气泡，待读数稳定后读取，
+并重复测量几次以减小气泡随机附着的影响。
+
+\vspace{0.15cm}
+\noindent\textbf{（2）如何用本实验中的方法测量密度小于水（例如石蜡）的物理密度？}
+
+\vspace{0.05cm}
+答：石蜡的密度小于水，单独放入水中会漂浮，不能完全浸没，因此需要借助重物（沉锤）使其浸没。
+具体步骤为：
+
+（i）用电子天平称出石蜡在空气中的质量 $M_1$；
+
+（ii）将盛水烧杯放在天平上，记录初读数 $W_0$（或直接清零）；
+
+（iii）用细线悬挂重锤，使其完全浸没在水中且不接触烧杯，记录读数 $W_1$，则重锤所受浮力的等效质量为
+$B_s=W_1-W_0$；
+
+（iv）将石蜡固定在重锤上方，使石蜡和重锤全部浸没且不接触杯壁，记录读数 $W_2$，则二者所受总浮力的
+等效质量为 $B=W_2-W_0$；
+
+（v）石蜡所受浮力的等效质量为 $B_p=B-B_s=W_2-W_1$，故石蜡体积
+$V_p=B_p/\rho_0=(W_2-W_1)/\rho_0$，密度为
+\begin{equation*}
+    \rho_p=\frac{M_1}{V_p}
+    =\frac{M_1}{W_2-W_1}\rho_0.
+\end{equation*}
+
+操作时重锤应足够重，保证石蜡完全浸没；细线应尽量细，石蜡和重锤表面不得附着气泡；
+若石蜡表面疏水性强，可先用少量乙醇润湿再放入水中。也可以配制密度大于石蜡的盐水或糖水，
+使石蜡恰好悬浮，此时溶液密度即近似等于石蜡密度，但该方法精度较低，只适合粗略测量。
+
+\vspace{0.15cm}
+\noindent\textbf{（3）如果实验中的待测样品长度超出烧杯壁 5 cm，请问如何测量它的密度？}
+
+\vspace{0.05cm}
+答：可根据样品的形状和现有器材选择以下方法：
+
+（i）若样品是规则的长棒或圆柱体，可直接用米尺测其长度 $L$，用游标卡尺或千分尺测其直径 $d$，
+由 $V=\pi d^2L/4$ 求出体积，再用电子天平称质量 $M$，由 $\rho=M/V$ 计算密度，不必把样品浸入水中。
+
+（ii）若样品形状不规则，可换用高度足够的量筒或水槽；也可采用溢水法：将溢水杯装满水，
+把样品缓慢完全浸入，用量筒或小烧杯收集溢出的水，测出排水体积 $V$，再由 $\rho=M/V$ 计算密度。
+
+（iii）若烧杯仅比样品短约 $5\ \mathrm{cm}$ 且口径足够大，可将样品倾斜放入并完全浸没，
+但不得接触杯壁和杯底。
+
+（iv）若只有原烧杯且样品是等截面长棒，可只浸没其中一段已知长度 $l$，测出相应的浮力
+$\Delta M=\rho_0Al$，求出横截面积 $A=\Delta M/(\rho_0l)$，再测出样品总长 $L$，
+则 $V=AL$，密度 $\rho=M/(AL)$。该方法只适用于横截面积均匀的样品。
+
+
+
+\vspace{0.3cm}
+
+% =============================================================
+\noindent\textbf{六、实验结论：}
+
+\vspace{0.1cm}
+（1）质量--直径法测得 1、2、3 号小球的密度分别为 $3.42$、$4.19$、$6.35\ \mathrm{g/cm^3}$；
+流体静力称衡法测得 $3.27$、$3.92$、$6.24\ \mathrm{g/cm^3}$。
+
+（2）方法二与文献值更接近，平均相对误差约 $3.3\%$，说明流体静力称衡法通过重复测量排水质量
+间接求体积，能减小直径测量误差的影响，结果更准确；方法一相对误差为 $5.0\%\sim7.8\%$，平均约 $6.6\%$，
+主要受直径测量误差影响。
+
+（3）3 号球直径标准差达 $0.093\ \mathrm{mm}$，是方法一的主要误差来源；2 号球质量差
+$0.33\ \mathrm{g}$ 偏大，使方法二不确定度增至 $0.026\ \mathrm{g}$。实验中应保证样品笼悬空、
+球面清洁无气泡，并适当增加测量次数。
+
+\end{document}
