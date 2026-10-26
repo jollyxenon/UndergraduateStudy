@@ -1,0 +1,985 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{verbatim}
+
+\geometry{a4paper, margin=1in}
+
+\title{CS282 Machine Learning: Homework 1 Solutions}
+\author{Jianxuan Yao}
+\date{2026-10-25}
+
+\begin{document}
+
+\maketitle
+
+\section*{Problem 1}
+
+\subsection*{(i)}
+
+Re-arrange the $N$ data points in ascending order of $q(x_i)$. Then, they can be divided into 3 conditions:
+
+\begin{enumerate}
+    \item $-1, \dots, -1, +1, \dots, +1, -1, \dots, -1$
+    \item $+1, \dots, +1$
+    \item $-1, \dots, -1$
+\end{enumerate}
+
+It can be convert to a bars and stars problem.
+
+The number of the first and the second condition is $\binom{N+1}{2}$, and the number of the third condition is $1$.
+
+Therefore, the total number of different labelings is $m_\mathcal{H}(N) = \binom{N+1}{2} + 1$.
+
+\subsection*{(ii)}
+
+$$
+d_{\text{vc}}(\mathcal{H}) = 2
+$$
+
+The smallest breakpoint is $3$.
+
+Let $1 < q(x_1) < q(x_2)$.
+
+We can construct $a$ and $b$ to shatter the two points:
+
+\begin{enumerate}
+    \item $a = \frac{q(x_1) + q(x_2)}{2}$, $b = \frac{q(x_1) + q(x_2)}{2}$: -1, -1
+    \item $a = \frac{q(x_1) + q(x_2)}{2}$, $b = q(x_2) + 1$: -1, +1
+    \item $a = q(x_1) - 1$, $b = \frac{q(x_1) + q(x_2)}{2}$: +1, -1
+    \item $a = q(x_1) - 1$, $b = q(x_2) + 1$: +1, +1
+\end{enumerate}
+
+And for three points $q(x_1) < q(x_2) < q(x_3)$, we cannot construct parameters to let them be $+1, -1, +1$, because when $a < q(x_1) < b$ and $a < q(x_3) < b$, we must have $a < q(x_2) < b$, which means $h_{a,b}(x_2) = +1$.
+
+\subsection*{(iii)}
+
+\begin{enumerate}
+    \item[1. ]
+    
+    $$
+    4 m_\mathcal{H}(2N) \exp\left(-\frac{N\epsilon^2}{8}\right) = \delta
+    $$
+
+    $$
+    \epsilon_\delta = \sqrt{\frac{8}{N} \ln\left(\frac{4 m_\mathcal{H}(2N)}{\delta}\right)}
+    $$
+
+    \item[2. ]
+    
+    $$
+    m_\mathcal{H}(2N) = \binom{2N+1}{2} + 1 = 2N^2 + N + 1 = 2001001
+    $$
+
+    $$
+    \frac{4 m_\mathcal{H}(2N)}{\delta} = \frac{4 \times 2,001,001}{0.05} = 160,080,080
+    $$
+
+    $$
+    \ln(160,080,080) \approx 18.891185
+    $$
+
+    $$
+    \epsilon_\delta \approx 0.389
+    $$
+
+    \item[3. ]
+    
+    A larger $\epsilon_\delta$ does not necessarily imply a poorer actual generalization performance.
+
+    The VC generalization bound is a theoretical upper bound derived for the worst-case scenario. In practical applications, data often exhibits favorable geometric characteristics such as clustering, low-dimensional manifold structure, or high signal-to-noise ratio. Consequently, the actual generalization error $\vert E_{\text{out}}(g) - E_{\text{in}}(g) \vert$ is often much smaller than this theoretical upper bound $\epsilon_\delta$.
+\end{enumerate}
+
+\newpage
+
+\section*{Problem 2}
+
+\subsection*{(i)}
+
+$$
+\begin{aligned}
+E_{D, \epsilon} [(g^{(D)}(x^\star) - y^\star)^2]
+&= E_{D, \epsilon} [((g^{(D)}(x^\star) - \bar{g}(x^\star)) + (\bar{g}(x^\star) - f(x^\star)) - \epsilon)^2] \\
+&=\quad  E_{D, \epsilon}((g^{(D)}(x^\star) - \bar{g}(x^\star))^2) \\
+&\quad + E_{D, \epsilon}((\bar{g}(x^\star) - f(x^\star))^2) \\
+&\quad + E_{D, \epsilon}(\epsilon^2) \\
+&\quad + 2 E_{D, \epsilon}((g^{(D)}(x^\star) - \bar{g}(x^\star))(\bar{g}(x^\star) - f(x^\star))) \\
+&\quad + 2 E_{D, \epsilon}((g^{(D)}(x^\star) - \bar{g}(x^\star))(-\epsilon)) \\
+&\quad + 2 E_{D, \epsilon}((\bar{g}(x^\star) - f(x^\star))(-\epsilon)) \\
+&= var(x^\star) + bias^2(x^\star) + \sigma^2
+\end{aligned}
+$$
+
+In the first cross term, $\bar{g}(x^\star) - f(x^\star)$ is fixed and $E_D(g^{(D)}(x^\star) - \bar{g}(x^\star)) = E_{D}(g^{(D)}(x^\star)) - \bar{g}(x^\star) = 0$.
+
+In the second and third cross term, $E_\epsilon(\epsilon) = 0$.
+
+The bias measures the difference between the expected prediction of the model and the true function value. Always it is corresponding to underfitting.
+
+The variance measures the variability of the model's predictions for different training datasets. Always it is corresponding to overfitting.
+
+The noise term represents the irreducible error in the data, which cannot be eliminated by any model.
+
+\subsection*{(ii)}
+
+\begin{enumerate}
+
+    \item[1. ]
+    
+    $$
+    \Vert y - Xw \Vert _2^2 = (y - Xw)^\top (y - Xw) = y^\top y - 2w^\top X^\top y + w^\top X^\top X w
+    $$
+
+    $$
+    w^\top X^\top X w = w^\top I_d w = \Vert w \Vert _2^2 = \sum_{j=1}^d w_j^2
+    $$
+
+    $X^\top y
+    =
+    \begin{bmatrix}
+        X_{\cdot 1}^\top y \\
+        \vdots \\
+        X_{\cdot d}^\top y
+    \end{bmatrix}$
+    , so
+
+    $$
+    w^\top X^\top y = \sum_{j=1}^d w_j (X_{\cdot j}^\top y)
+    $$
+
+    $$
+    \lambda \Vert w \Vert_1 = \lambda \sum_{j=1}^d \vert w_j \vert
+    $$
+
+    $$
+    \begin{aligned}
+    J_{\text{L}}(w)
+    &= \frac{1}{2}\Vert y \Vert _2^2 - \sum_{j=1}^d w_j (X_{\cdot j}^\top y) + \frac{1}{2}\sum_{j=1}^d w_j^2 + \lambda \sum_{j=1}^d \vert w_j \vert \\
+    &= \frac{1}{2}\Vert y \Vert _2^2 + \sum_{j=1}^d \left( \frac{1}{2} w_j^2 - w_j (X_{\cdot j}^\top y) + \lambda \vert w_j \vert \right)
+    \end{aligned}
+    $$
+
+    $$
+    C(y) = \frac{1}{2}\Vert y \Vert _2^2
+    ,\quad
+    \phi(X_{\cdot j}, y, w_j, \lambda) = \frac{1}{2} w_j^2 - (X_{\cdot j}^\top y) w_j + \lambda \vert w_j \vert
+    $$
+
+    $X^\top X = I_d$, so the expansion of $w^\top X^\top X w$ does not contain any cross terms $w_j w_k$ for $j \neq k$. Therefore, the objective function can be decomposed into a sum of functions, each depending only on a single weight $w_j$.
+
+    \item[2. ]
+
+    When $w_{\text{L}, j}^* > 0$:
+
+    $$
+    \phi(w_j) = \frac{1}{2}w_j^2 - (X_{\cdot j}^\top y) w_j + \lambda w_j
+    $$
+
+    $$
+    \frac{\partial \phi}{\partial w_j} = w_j - X_{\cdot j}^\top y + \lambda = 0
+    $$
+
+    $$
+    w_j = X_{\cdot j}^\top y - \lambda
+    $$
+
+    $$
+    w_{\text{L}, j}^* = X_{\cdot j}^\top y - \lambda
+    $$
+
+    \item[3. ]
+
+    When $w_{\text{L}, j}^* < 0$:
+
+    $$
+    \phi(w_j) = \frac{1}{2}w_j^2 - (X_{\cdot j}^\top y) w_j - \lambda w_j
+    $$
+
+    $$
+    \frac{\partial \phi}{\partial w_j} = w_j - X_{\cdot j}^\top y - \lambda = 0
+    $$
+
+    $$
+    w_{\text{L}, j}^* = X_{\cdot j}^\top y + \lambda
+    $$
+
+    \item[4. ]
+
+    When $w_{\text{L}, j}^* = 0$:
+
+    $$
+    \partial \phi(0) = -X_{\cdot j}^\top y + \lambda [-1, 1] = \left[-X_{\cdot j}^\top y - \lambda, -X_{\cdot j}^\top y + \lambda\right]
+    $$
+
+    $0 \in \left[-X_{\cdot j}^\top y - \lambda, -X_{\cdot j}^\top y + \lambda\right]$, so $\vert X_{\cdot j}^\top y \vert \le \lambda$
+
+    $$
+    w_{\text{L}, j}^* = 0 \Leftrightarrow \vert X_{\cdot j}^\top y \vert \le \lambda
+    $$
+
+    Based on the above three cases,
+    
+    $$
+    w_{\text{L}, j}^*
+    = \mathcal{S}_\lambda(X_{\cdot j}^\top y)
+    = \text{sign}(X_{\cdot j}^\top y) \cdot \max\left(\vert X_{\cdot j}^\top y \vert - \lambda, 0\right)
+    $$
+
+    If $\vert X_{\cdot j}^\top y \vert \leq \lambda$, then the corresponding weight of the feature will be $w_{\text{L}, j}^* = 0$.
+
+    What's more, this phenomenon can be interpreted as a form of L1 regularization, which owns a geometric angle.
+\end{enumerate}
+
+\subsection*{(iii)}
+
+$$
+J_{\text{R}}(w) = \frac{1}{2}\Vert y - Xw \Vert _2^2 + \frac{\lambda}{2}\Vert w \Vert _2^2
+$$
+
+$$
+\nabla_w J_{\text{R}}(w) = -X^\top (y - Xw) + \lambda w = 0
+$$
+
+$$
+w_{\text{R}}^* = \frac{1}{1 + \lambda} X^\top y
+$$
+
+$$
+w_{\text{R}, j}^* = 0 \Leftrightarrow X_{\cdot j}^\top y = 0
+$$
+
+Ridge regression does not have the same sparsity-inducing property as Lasso regression.
+
+In Ridge regression, if and only if the feature $X_{\cdot j}$ is orthogonal to the target vector $y$, the corresponding weight $w_{\text{R}, j}^*$ will be zero. Otherwise, Ridge regression will always assign a non-zero weight to each feature.
+
+In LASSO regression, $\vert X_{\cdot j}^\top y \vert \le \lambda$ is an interval with positive measure, so it has a innate sparsity generating property.
+
+\subsection*{(iv)}
+
+$$
+w_{\text{L}}^* = (1.3, 0, 0, 2.1)^\top
+$$
+
+$$
+w_{\text{R}}^*
+= \left(1.2, -\frac{4}{15}, \frac{1}{15}, -\frac{26}{15}\right)^\top
+$$
+
+LASSO regression has 2 zero weights, while Ridge regression has no zero weights.
+
+Since the original correlation strengths of the second and third terms, $\vert z_2\vert  = 0.4$ and $\vert z_3\vert  = 0.1$, do not exceed the penalty threshold $\lambda = 0.5$, LASSO precisely sets them to 0, resulting in sparsity; whereas Ridge regression outputs non-zero solutions for all non-zero components and cannot eliminate unimportant features.
+
+Ridge regression shrinks every weight by a factor of $\frac{1}{1 + \lambda}$, while LASSO regression shrinks weights larger than $\lambda$ by a constant $\lambda$ and set weights smaller than $\lambda$ to zero.
+
+\newpage
+
+\section*{Problem 3}
+
+\subsection*{(i)}
+
+$$
+\begin{aligned}
+J_\lambda(\theta_1, \theta_0)
+&= \frac{1}{6} \sum_{n=1}^3 (\theta_1 x_n + \theta_0 - y_n)^2 + \frac{\lambda}{2}\theta_1^2 \\
+&= \frac{1}{6} \left[ (-\theta_1 + \theta_0 + 1)^2 + (\theta_1 + \theta_0 - 3)^2 + (2\theta_1 + \theta_0 - 5)^2 \right] + \frac{\lambda}{2}\theta_1^2 \\
+&= \frac{1}{6}\left[ 3\theta_0^2 + (6 + 3\lambda)\theta_1^2 + 4\theta_0\theta_1 - 14\theta_0 - 28\theta_1 + 35 \right]
+\end{aligned}
+$$
+
+$$
+\frac{\partial J_\lambda}{\partial \theta_1} = (2 + \lambda)\theta_1 + \frac{2}{3}\theta_0 - \frac{14}{3}
+$$
+
+$$
+\frac{\partial J_\lambda}{\partial \theta_0} = \frac{2}{3}\theta_1 + \theta_0 - \frac{7}{3}
+$$
+
+$$
+\nabla J_\lambda(\mathbf{u})
+=
+\begin{pmatrix}
+    \frac{\partial J_\lambda}{\partial \theta_1} \\
+    \frac{\partial J_\lambda}{\partial \theta_0}
+\end{pmatrix}
+=
+\begin{pmatrix}
+    (2 + \lambda)\theta_1 + \frac{2}{3}\theta_0 - \frac{14}{3} \\
+    \frac{2}{3}\theta_1 + \theta_0 - \frac{7}{3}
+\end{pmatrix}
+$$
+
+$$
+\frac{\partial^2 J_\lambda}{\partial \theta_1^2} = 2 + \lambda
+$$
+
+$$
+\frac{\partial^2 J_\lambda}{\partial \theta_1 \partial \theta_0}
+= \frac{\partial^2 J_\lambda}{\partial \theta_0 \partial \theta_1}
+= \frac{2}{3}
+$$
+
+$$
+\frac{\partial^2 J_\lambda}{\partial \theta_0^2} = 1
+$$
+
+$$
+H_\lambda
+=
+\begin{pmatrix} 
+    2 + \lambda & \frac{2}{3} \\
+    \frac{2}{3} & 1
+\end{pmatrix}
+$$
+
+$$
+\nabla J_\lambda(\mathbf{u}^\star) = \mathbf{0}
+$$
+
+$$
+\theta_1 = \frac{28}{14 + 9\lambda}
+,\quad
+\theta_0 = \frac{7}{3} - \frac{2}{3}\left(\frac{28}{14 + 9\lambda}\right)
+$$
+
+When $\lambda = 0$, $
+u^\star
+=
+\begin{pmatrix}
+    2 \\
+    1
+\end{pmatrix}
+$;
+When $\lambda = 2$, $u^\star
+=
+\begin{pmatrix} 
+    \frac{7}{8} \\
+    \frac{7}{4}
+\end{pmatrix}$.
+
+\subsection*{(ii)}
+
+According to the centre computed in (i), $\lambda = 0$ corresponds to B, D, F, and $\lambda = 2$ corresponds to A, C, E.
+
+$$
+\nabla J_\lambda(0, 0)
+=
+\begin{pmatrix}
+    -\frac{14}{3} \\
+    -\frac{7}{3}
+\end{pmatrix}
+$$
+
+$$
+\mathbf{u}^{(1)}
+=
+\alpha
+\begin{pmatrix}
+    \frac{14}{3} \\
+    \frac{7}{3}
+\end{pmatrix}
+$$
+
+$\alpha = 0.1$, $u_1
+\approx
+\begin{pmatrix}
+    0.4667 \\
+    0.2333
+\end{pmatrix}$;
+
+$\alpha = 0.4$, $u_1
+\approx
+\begin{pmatrix}
+    1.8667 \\
+    0.9333
+\end{pmatrix}$;
+
+$\alpha = 0.6$, $u_1
+=
+\begin{pmatrix}
+    2.8 \\
+    1.4
+\end{pmatrix}$.
+
+As a result:
+
+A: $\alpha = 0.4, \ \lambda = 2$
+
+B: $\alpha = 0.1, \ \lambda = 0$
+
+C: $\alpha = 0.6, \ \lambda = 2$
+
+D: $\alpha = 0.6, \ \lambda = 0$
+
+E: $\alpha = 0.1, \ \lambda = 2$
+
+F: $\alpha = 0.4, \ \lambda = 0$
+
+\subsection*{(iii)}
+
+\begin{enumerate}
+    \item[1. ]
+    
+    $$
+    f(\mathbf{u}) \le f(\mathbf{v}) + \nabla f(\mathbf{v})^\top (\mathbf{u} - \mathbf{v}) + \frac{L}{2}\Vert  \mathbf{u} - \mathbf{v}\Vert  _2^2
+    $$
+
+    $$
+    f(\mathbf{x}^+) \le f(\mathbf{x}) + \nabla f(\mathbf{x})^\top (\mathbf{x}^+ - \mathbf{x}) + \frac{L}{2}\Vert  \mathbf{x}^+ - \mathbf{x}\Vert _2^2
+    $$
+
+    $\mathbf{x}^+ - \mathbf{x} = -\frac{1}{L}\nabla f(\mathbf{x})$, so
+
+    $$
+    \nabla f(\mathbf{x})^\top (\mathbf{x}^+ - \mathbf{x}) = \nabla f(\mathbf{x})^\top \left(-\frac{1}{L}\nabla f(\mathbf{x})\right) = -\frac{1}{L}\Vert \nabla f(\mathbf{x})\Vert _2^2
+    $$
+
+    $$
+    \frac{L}{2}\Vert \mathbf{x}^+ - \mathbf{x}\Vert _2^2 = \frac{L}{2}\left\Vert -\frac{1}{L}\nabla f(\mathbf{x})\right\Vert _2^2 = \frac{L}{2} \cdot \frac{1}{L^2}\Vert \nabla f(\mathbf{x})\Vert _2^2 = \frac{1}{2L}\Vert \nabla f(\mathbf{x})\Vert _2^2
+    $$
+
+    $$
+    f(\mathbf{x}^+) \le f(\mathbf{x}) - \frac{1}{L}\Vert \nabla f(\mathbf{x})\Vert _2^2 + \frac{1}{2L}\Vert \nabla f(\mathbf{x})\Vert _2^2 = f(\mathbf{x}) - \frac{1}{2L}\Vert \nabla f(\mathbf{x})\Vert _2^2
+    $$
+
+    \item[2. ]
+    
+    $$
+    f(\mathbf{x})
+    \le
+    f(\mathbf{x}^\star) + \nabla f(\mathbf{x})^\top (\mathbf{x} - \mathbf{x}^\star)
+    $$
+
+    $$
+    f(\mathbf{x}^+)
+    \le
+    f(\mathbf{x}^\star) + \nabla f(\mathbf{x})^\top (\mathbf{x} - \mathbf{x}^\star) - \frac{1}{2L}\Vert \nabla f(\mathbf{x})\Vert _2^2
+    $$
+
+    $$
+    f(\mathbf{x}^+) - f(\mathbf{x}^\star)
+    \le \nabla f(\mathbf{x})^\top (\mathbf{x} - \mathbf{x}^\star) - \frac{1}{2L}\Vert \nabla f(\mathbf{x})\Vert _2^2
+    = \frac{L}{2} \left[ \frac{2}{L}\nabla f(\mathbf{x})^\top (\mathbf{x} - \mathbf{x}^\star) - \frac{1}{L^2}\Vert \nabla f(\mathbf{x})\Vert _2^2 \right]
+    $$
+
+    $$
+    \frac{2}{L}\nabla f(\mathbf{x})^\top (\mathbf{x} - \mathbf{x}^\star) - \frac{1}{L^2}\Vert \nabla f(\mathbf{x})\Vert _2^2
+    = 2(\mathbf{x} - \mathbf{x}^+)^\top (\mathbf{x} - \mathbf{x}^\star) - \Vert \mathbf{x} - \mathbf{x}^+\Vert _2^2
+    $$
+
+    Let $\mathbf{a} = \mathbf{x}^+ - \mathbf{x}^\star$ and $\mathbf{b} = \mathbf{x} - \mathbf{x}^+$, we have
+
+    $$
+    \mathbf{a} + \mathbf{b} = (\mathbf{x}^+ - \mathbf{x}^\star) + (\mathbf{x} - \mathbf{x}^+) = \mathbf{x} - \mathbf{x}^\star
+    $$
+
+    According to $2\mathbf{a}^\top \mathbf{b} + \Vert \mathbf{b}\Vert _2^2 = \Vert \mathbf{a} + \mathbf{b}\Vert _2^2 - \Vert \mathbf{a}\Vert _2^2$, 
+
+    $$
+    \begin{aligned}
+        \Vert \mathbf{x} - \mathbf{x}^\star\Vert _2^2 - \Vert \mathbf{x}^+ - \mathbf{x}^\star\Vert _2^2
+        &= \Vert \mathbf{a} + \mathbf{b}\Vert _2^2 - \Vert \mathbf{a}\Vert _2^2 \\
+        &= 2\mathbf{a}^\top \mathbf{b} + \Vert \mathbf{b}\Vert _2^2 \\
+        &= 2(\mathbf{x}^+ - \mathbf{x}^\star)^\top (\mathbf{x} - \mathbf{x}^+) + \Vert \mathbf{x} - \mathbf{x}^+\Vert _2^2
+    \end{aligned}
+    $$
+
+    $$
+    \begin{aligned}
+        2(\mathbf{x}^+ - \mathbf{x}^\star)^\top (\mathbf{x} - \mathbf{x}^+) + \Vert \mathbf{x} - \mathbf{x}^+\Vert _2^2
+        &= 2\left[(\mathbf{x} - \mathbf{x}^\star) - (\mathbf{x} - \mathbf{x}^+)\right]^\top (\mathbf{x} - \mathbf{x}^+) + \Vert \mathbf{x} - \mathbf{x}^+\Vert _2^2 \\
+        &= 2(\mathbf{x} - \mathbf{x}^\star)^\top (\mathbf{x} - \mathbf{x}^+) - 2\Vert \mathbf{x} - \mathbf{x}^+\Vert _2^2 + \Vert \mathbf{x} - \mathbf{x}^+\Vert _2^2 \\
+        &= 2(\mathbf{x} - \mathbf{x}^\star)^\top (\mathbf{x} - \mathbf{x}^+) - \Vert \mathbf{x} - \mathbf{x}^+\Vert _2^2
+    \end{aligned}
+    $$
+
+    $$
+    \frac{2}{L}\nabla f(\mathbf{x})^\top (\mathbf{x} - \mathbf{x}^\star) - \frac{1}{L^2}\Vert \nabla f(\mathbf{x})\Vert _2^2
+    =
+    \Vert \mathbf{x} - \mathbf{x}^\star\Vert _2^2 - \Vert \mathbf{x}^+ - \mathbf{x}^\star\Vert _2^2
+    $$
+
+    $$
+    f(\mathbf{x}^+) - f(\mathbf{x}^\star)
+    \le
+    \frac{L}{2} \left( \Vert \mathbf{x} - \mathbf{x}^\star\Vert _2^2 - \Vert \mathbf{x}^+ - \mathbf{x}^\star\Vert _2^2 \right)
+    $$
+\end{enumerate}
+
+\newpage
+
+\section*{Problem 4}
+
+\subsection*{(i)}
+
+\begin{enumerate}
+    \item[1. ]
+    
+    No. The decision boundary of an affine linear classifier is a point. However, the data needs at least two points to be separated.
+
+    \item[2. ]
+    
+    $z_1 = (-2, 4)^\top$, $y_1 = +1$;
+
+    $z_2 = (-1, 1)^\top$, $y_2 = -1$;
+
+    $z_3 = (0, 0)^\top$, $y_3 = -1$;
+
+    $z_4 = (1, 1)^\top$, $y_4 = -1$;
+
+    $z_5 = (2, 4)^\top$, $y_5 = +1$.
+
+    Every point is on a parabola in a two-dimensional plane.
+
+    They are dividable. We can construct $z_2 = 2$ to separate them.
+
+    \item[3. ]
+    
+    $\phi(x) = \begin{pmatrix} x \\ x^2 \end{pmatrix}$ and $\phi(x') = \begin{pmatrix} x' \\ (x')^2 \end{pmatrix}$, so
+
+    $$
+    K(x, x') = x x' + x^2 (x')^2 = x x' + (x x')^2
+    $$
+\end{enumerate}
+
+\subsection*{(ii)}
+
+\begin{enumerate}
+    \item[1. ]
+    
+    The samples are symmetric about $z_1$ axis, so the decision hyperplane should be parallel to $z_1$ axis.
+
+    $$
+    \begin{cases}
+        w_2 \cdot 4 + b = 1 \\
+        w_2 \cdot 1 + b = -1
+    \end{cases}
+    $$
+
+    $$
+    w^\star
+    =
+    \begin{pmatrix}
+        0 \\
+        \frac{2}{3}
+    \end{pmatrix}
+    , \quad
+    b^\star = -\frac{5}{3}
+    $$
+
+    We need to find a group of $\alpha$ to satisfy the KKT condition:
+
+    $$
+    \begin{cases}
+        \mathbf{w} &= \sum_{i=1}^5 \alpha_i y_i \mathbf{z}_i \\
+        \sum_{i=1}^5 \alpha_i y_i &= 0 \\
+        y_i(\mathbf{w}^\top \mathbf{z}_i + b) &\ge 1, \quad \forall i=1,\dots,5 \\
+        \alpha_i &\ge 0, \quad \forall i=1,\dots,5 \\
+        \alpha_i \left[ y_i(\mathbf{w}^\top \mathbf{z}_i + b) - 1 \right] &= 0, \quad \forall i=1,\dots,5
+    \end{cases}
+    $$
+
+    Let $\alpha_1 = \alpha_5 = \frac{1}{9}$, $\alpha_2 = \alpha_4 = \frac{1}{9}$, $\alpha_3 = 0$. Eazy to find they satisfy the KKT condition.
+
+    \item[2. ]
+    
+    $$
+    \gamma = \frac{1}{\Vert \mathbf{w}^\star\Vert _2} = \frac{3}{2}
+    $$
+
+    $$
+    M = 3
+    $$
+
+    $$
+    \mathbf{w}^{\star\top} \mathbf{z} + b^\star = +1 \iff z_2 = 4
+    $$
+
+    $$
+    \mathbf{w}^{\star\top} \mathbf{z} + b^\star = 0 \iff z_2 = \frac{5}{2}
+    $$
+
+    $$
+    \mathbf{w}^{\star\top} \mathbf{z} + b^\star = -1 \iff z_2 = 1
+    $$
+
+    Sample $1, 2, 4, 5$ satisfy $y_i((\mathbf{w}^\star)^\top \phi(x_i) + b^\star) = 1$.
+
+    \item[3. ]
+
+    The original decision boundary is:
+    
+    $$
+    x = \pm \frac{\sqrt{10}}{2}
+    $$
+
+    $\left(-\infty, -\sqrt{\frac{5}{2}}\,\right] \cup \left[\sqrt{\frac{5}{2}}, +\infty\right)$ for $+1$;
+
+    $\left(-\sqrt{\frac{5}{2}}, \sqrt{\frac{5}{2}}\right)$ for $-1$.
+\end{enumerate}
+
+\subsection*{(iii)}
+
+\begin{enumerate}
+    \item[1. ] $\xi_i = 0$
+    
+    $$
+    \xi_i = 0 \iff 1 - y_i f(\mathbf{z}_i) \le 0 \iff y_i f(\mathbf{z}_i) \ge 1
+    $$
+
+    The sample is one the margin boundary of its class or in the correct side.
+
+    Correctly classified.
+
+    \item[2. ] $0 < \xi_i \leq 1$
+    
+    Condition $0 < \xi_i < 1$:
+
+    $$
+    0 < 1 - \xi_i < 1 \implies 0 < y_i f(\mathbf{z}_i) < 1
+    $$
+
+    Bewteen the margin boundary and the decision boundary of its class.
+
+    Correctly classified.
+
+    Condition $\xi_i = 1$:
+
+    $$
+    y_i f(\mathbf{z}_i) = 1 - 1 = 0 \implies f(\mathbf{z}_i) = 0
+    $$
+
+    On the decision boundary.
+
+    If $y_i = +1$, it classified correctly; if $y_i = -1$, it classified incorrectly.
+
+    \item[3. ] $\xi_i > 1$
+    
+    $$
+    y_i f(\mathbf{z}_i) = 1 - \xi_i < 0
+    $$
+
+    On the wrong side of the decision boundary of its class.
+
+    Misclassified.
+\end{enumerate}
+
+\subsection*{(iv)}
+
+\begin{enumerate}
+    \item[1. ]
+    $$
+    \begin{aligned}
+        \Vert \psi(\mathbf{u}) - \psi(\mathbf{v})\Vert ^2
+        &= \langle \psi(\mathbf{u}) - \psi(\mathbf{v}), \, \psi(\mathbf{u}) - \psi(\mathbf{v}) \rangle \\
+        &= \langle \psi(\mathbf{u}), \psi(\mathbf{u}) \rangle - 2 \langle \psi(\mathbf{u}), \psi(\mathbf{v}) \rangle + \langle \psi(\mathbf{v}), \psi(\mathbf{v}) \rangle
+    \end{aligned}
+    $$
+
+    $$
+    \Vert \psi(\mathbf{u}) - \psi(\mathbf{v})\Vert ^2 = K(\mathbf{u}, \mathbf{u}) - 2K(\mathbf{u}, \mathbf{v}) + K(\mathbf{v}, \mathbf{v})
+    $$
+
+    \item[2. ]
+
+    $$
+    K(\mathbf{u}, \mathbf{u})
+    = \exp\left(-\frac{\Vert \mathbf{u} - \mathbf{u}\Vert _2^2}{2\sigma^2}\right)
+    = \exp(0)
+    = 1
+    $$
+
+    $$
+    \Vert \psi(\mathbf{u})\Vert 
+    = \sqrt{\langle \psi(\mathbf{u}), \psi(\mathbf{u}) \rangle}
+    = \sqrt{K(\mathbf{u}, \mathbf{u})}
+    = 1
+    $$
+
+    $$
+    \begin{aligned}
+        \Vert \psi(\mathbf{u}) - \psi(\mathbf{v})\Vert ^2
+        &= K(\mathbf{u}, \mathbf{u}) - 2K(\mathbf{u}, \mathbf{v}) + K(\mathbf{v}, \mathbf{v}) \\
+        &= 1 - 2\exp\left(-\frac{\Vert \mathbf{u} - \mathbf{v}\Vert _2^2}{2\sigma^2}\right) + 1 \\
+        &= 2 - 2\exp\left(-\frac{\Vert \mathbf{u} - \mathbf{v}\Vert _2^2}{2\sigma^2}\right)
+    \end{aligned}
+    $$
+
+    When $\Vert \mathbf{u} - \mathbf{v}\Vert _2 \to \infty$, 
+
+    $$
+    \lim_{\Vert \mathbf{u} - \mathbf{v}\Vert _2 \to \infty} \exp\left(-\frac{\Vert \mathbf{u} - \mathbf{v}\Vert _2^2}{2\sigma^2}\right) = 0
+    $$
+
+    $$
+    \lim_{\Vert \mathbf{u} - \mathbf{v}\Vert _2 \to \infty} \Vert \psi(\mathbf{u}) - \psi(\mathbf{v})\Vert  = \sqrt{2}
+    $$
+\end{enumerate}
+
+\subsection*{(v)}
+
+\begin{enumerate}
+    \item[1. ] Must be a valid kernel function.
+    
+    Define $\phi(\mathbf{x}) = \begin{pmatrix} \phi_1(\mathbf{x}) \\ \phi_2(\mathbf{x}) \end{pmatrix}$.
+
+    $$
+    \begin{aligned}
+        \langle \phi(\mathbf{u}), \phi(\mathbf{v}) \rangle 
+        &= \left\langle \begin{pmatrix} \phi_1(\mathbf{u}) \\ 
+        \phi_2(\mathbf{u}) \end{pmatrix}, \, \begin{pmatrix} \phi_1(\mathbf{v}) \\ \phi_2(\mathbf{v}) \end{pmatrix} \right\rangle \\
+        &= \langle \phi_1(\mathbf{u}), \phi_1(\mathbf{v}) \rangle + \langle \phi_2(\mathbf{u}), \phi_2(\mathbf{v}) \rangle \\
+        &= K_1(\mathbf{u}, \mathbf{v}) + K_2(\mathbf{u}, \mathbf{v}) \\
+        &= K(\mathbf{u}, \mathbf{v})
+    \end{aligned}
+    $$
+
+    \item[2. ] May not be a valid kernel function.
+    
+    Let $K_1(u, v) = u v$ and $K_2(u, v) = 2 u v$.
+
+    $$
+    K(u, v) = K_1(u, v) - K_2(u, v) = uv - 2uv = -uv
+    $$
+
+    $$
+    K(1, 1) = -1 \cdot 1 = -1 < 0
+    $$
+
+    It contradicts the property of a valid kernel function, which requires $K(x, x) \ge 0$ for all $x$.
+\end{enumerate}
+
+\newpage
+
+\section*{Problem 5}
+
+\subsection*{(i)}
+
+\begin{enumerate}
+    \item[1. ]
+
+    $$
+    \phi_p(x) = (1, x, \dots, x^p)^\top
+    ,\quad
+    \Phi = \begin{pmatrix}
+        1 & x_1 & \cdots & x_1^p \\
+        1 & x_2 & \cdots & x_2^p \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & x_n & \cdots & x_n^p
+    \end{pmatrix}
+    $$
+
+    $$
+    (g_{p,w}(x_1), \dots, g_{p,w}(x_n))^\top = \Phi w
+    $$
+
+    \item[2. ]
+
+    Let $R = \operatorname{diag}(0, 1, \dots, 1) \in \mathbb{R}^{(p+1)\times(p+1)}$.
+
+    $$
+    J_{S,p,\lambda}(w) = \frac{1}{2n}\Vert \Phi w - y\Vert_2^2 + \frac{\lambda}{2}w^\top Rw
+    $$
+
+    $$
+    \nabla_w J_{S,p,\lambda}(w)
+    = \frac{1}{n}\Phi^\top(\Phi w-y) + \lambda Rw = 0
+    $$
+
+    $$
+    (\Phi^\top\Phi + n\lambda R)w = \Phi^\top y
+    $$
+
+    $$
+    w^\star = (\Phi^\top\Phi + n\lambda R)^{-1}\Phi^\top y
+    $$
+
+    Since $\Phi$ has full column rank, for any $v \neq 0$,
+
+    $$
+    v^\top(\Phi^\top\Phi + n\lambda R)v
+    = \Vert\Phi v\Vert_2^2 + n\lambda\sum_{j=1}^p v_j^2 > 0.
+    $$
+
+    Therefore, $w^\star$ is the unique minimizer.
+
+    \item[3. ]
+
+    $R^\top R = R$, so
+
+    $$
+    w^\star = \arg\min_w
+    \left\Vert
+    \begin{pmatrix} \Phi \\ \sqrt{n\lambda}R \end{pmatrix}w
+    - \begin{pmatrix} y \\ 0 \end{pmatrix}
+    \right\Vert_2^2.
+    $$
+
+    Use \texttt{np.linalg.lstsq} on this augmented system to avoid explicitly forming $\Phi^\top\Phi$. The implementation is included below.
+\end{enumerate}
+
+\subsection*{(ii)}
+
+\begin{enumerate}
+    \item[1. ]
+
+    \begin{center}
+    \begin{tabular}[t]{ccc}
+        \toprule
+        $p$ & Training MSE & Validation MSE \\
+        \midrule
+        1 & 0.23540310 & 0.23144095 \\
+        2 & 0.20670953 & 0.26599808 \\
+        3 & 0.03322276 & 0.04401319 \\
+        4 & 0.03291933 & 0.04680137 \\
+        5 & 0.03285123 & 0.04307267 \\
+        6 & 0.03263838 & 0.04063874 \\
+        7 & 0.03067714 & 0.05759251 \\
+        8 & 0.02894150 & 0.06978324 \\
+        9 & 0.02785983 & 0.08036738 \\
+        10 & 0.02753541 & 0.06886355 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \begin{center}
+        \includegraphics[width=0.9\linewidth]{problem5_figures/errors.pdf}
+    \end{center}
+
+    \item[2. ]
+
+    $$
+    p_{\text{train}}^\star = 10
+    ,\quad
+    p_{\text{val}}^\star = 6
+    $$
+
+    $$
+    \mathcal{H}_p \subseteq \mathcal{H}_{p+1}
+    \implies
+    \min_{g\in\mathcal{H}_{p+1}} E_{\text{train}}(g)
+    \le \min_{g\in\mathcal{H}_p} E_{\text{train}}(g).
+    $$
+
+    Higher degrees can fit more training noise. Training MSE decreases, while validation MSE need not decrease because of overfitting.
+
+    \item[3. ]
+
+    \begin{center}
+        \raisebox{-\height}{\includegraphics[width=\linewidth]{problem5_figures/fits.pdf}}
+    \end{center}
+\end{enumerate}
+
+\subsection*{(iii)}
+
+\begin{enumerate}
+    \item[1. ]
+
+    $$
+    S_{-j} = \bigcup_{k\neq j}D_k
+    ,\quad |S_{-j}| = 32
+    ,\quad |D_j| = 8
+    $$
+
+    $$
+    w^{(-j)}_{p,\lambda}
+    = \arg\min_w J_{S_{-j},p,\lambda}(w)
+    $$
+
+    $$
+    E_{\text{CV}}(p,\lambda)
+    = \frac{1}{5}\sum_{j=1}^5\frac{1}{8}
+    \sum_{i\in D_j}\left(\phi_p(x_i)^\top w^{(-j)}_{p,\lambda}-y_i\right)^2
+    $$
+
+    \begin{center}
+    \small
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabular}{c r r r r r r}
+        \toprule
+        $p\backslash\lambda$ & $0$ & $10^{-4}$ & $10^{-3}$ & $10^{-2}$ & $10^{-1}$ & $1$ \\
+        \midrule
+        1 & 0.25817241 & 0.25816325 & 0.25808375 & 0.25755813 & 0.26894279 & 0.43655696 \\
+        2 & 0.26527077 & 0.26520879 & 0.26466613 & 0.26049927 & 0.26438550 & 0.43502955 \\
+        3 & 0.04155653 & 0.04158875 & 0.04327030 & 0.09618864 & 0.25590384 & 0.42935756 \\
+        4 & 0.04332505 & 0.04302685 & 0.04390291 & 0.10274463 & 0.25918380 & 0.42837961 \\
+        5 & 0.04321255 & 0.04442243 & 0.04962433 & 0.07502662 & 0.23558947 & 0.42914219 \\
+        6 & 0.09179643 & 0.05288220 & 0.05122792 & 0.07655224 & 0.24035168 & 0.42882265 \\
+        7 & 0.07899768 & 0.05151095 & 0.05483393 & 0.07317050 & 0.22180713 & 0.42911122 \\
+        8 & 0.05719230 & 0.06815458 & 0.05962593 & 0.07327274 & 0.22596636 & 0.42910469 \\
+        9 & 0.23272273 & 0.06535286 & 0.06093946 & 0.07515806 & 0.21337213 & 0.42890939 \\
+        10 & 1.19941009 & 0.08338072 & 0.06789959 & 0.07513874 & 0.21671489 & 0.42902223 \\
+        \bottomrule
+    \end{tabular}
+    \end{center}
+
+    \item[2. ]
+
+    $$
+    (p^\star,\lambda^\star) = (3,0)
+    ,\quad E_{\text{CV}}(3,0) = 0.04155653
+    $$
+
+    Compare $(E_{\text{CV}},p,\lambda)$ lexicographically using unrounded errors.
+
+    \item[3. ]
+
+    $$
+    E_{\text{CV}}(10,0) = 1.19941009
+    ,\quad
+    E_{\text{CV}}(10,10^{-4}) = 0.08338072
+    $$
+
+    The unregularized degree-10 model is sensitive to the training fold. A small positive $\lambda$ penalizes large coefficients, reduces variance, and substantially improves validation performance.
+\end{enumerate}
+
+\subsection*{(iv)}
+
+\begin{enumerate}
+    \item[1. ]
+
+    Refit $(p^\star,\lambda^\star) = (3,0)$ using all 40 examples:
+
+    $$
+    w^\star = \begin{pmatrix}
+        0.0048801042 \\
+        2.7215440602 \\
+        -0.1052813046 \\
+        -3.1209193461
+    \end{pmatrix}
+    $$
+
+    $$
+    g(x) = 0.0048801042 + 2.7215440602x - 0.1052813046x^2 - 3.1209193461x^3
+    $$
+
+    \item[2. ]
+
+    Generate the 1000 test examples with seed $2026282$ after refitting.
+
+    $$
+    E_{\text{test}}(g) = \frac{1}{1000}\sum_{i=1}^{1000}(g(x_i)-y_i)^2 = 0.05507274
+    $$
+
+    \item[3. ]
+
+    Each cross-validation model uses only 32 examples. Refitting uses all 40 examples to estimate the final parameters.
+
+    If test error is used to tune $p$ or $\lambda$, the test set becomes part of model selection and its error can be optimistically biased. It should be used only for the final independent evaluation.
+\end{enumerate}
+
+\newpage
+
+\subsection*{Code}
+
+\texttt{problem5.py} (Python, NumPy, Matplotlib).
+
+\begingroup
+\footnotesize
+\verbatiminput{problem5.py}
+\endgroup
+
+\end{document}
