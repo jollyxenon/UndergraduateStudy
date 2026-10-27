@@ -1,0 +1,23 @@
+{
+  "source_image": "实验数据.jpg",
+  "identity_source": "本人已有杨氏模量、固体密度报告",
+  "student_name": "姚鉴轩",
+  "student_id": "2025521024",
+  "cold_junction_C": 0,
+  "voltage_start_mV": 4.37,
+  "voltage_end_mV": 4.18,
+  "temperature_start_C": 102,
+  "temperature_end_C": 98,
+  "copper_specific_heat_cal_gK": 0.0940,
+  "joule_per_cal": 4.184,
+  "instrument_time_error_s": 0.01,
+  "probability": 0.95,
+  "chauvenet_factor_n6": 1.75,
+  "course_t_factors": {"5": 2.78, "6": 2.57},
+  "parameter_policy": "用户确认：质量及铜比热容取课程给定参数；数值不确定度仅传播计时贡献。",
+  "samples": {
+    "Fe": {"mass_g": 8.59, "time_s": [17.12, 18.86, 16.81, 16.79, 15.89, 16.51]},
+    "Cu": {"mass_g": 9.75, "time_s": [14.51, 15.08, 15.13, 15.00, 15.52, 14.96]},
+    "Al": {"mass_g": 3.06, "time_s": [12.01, 11.85, 11.49, 12.29, 11.42, 11.87]}
+  }
+}

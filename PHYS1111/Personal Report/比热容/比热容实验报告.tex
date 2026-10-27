@@ -1,0 +1,160 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper,fontset=fandol]{ctexart}
+\usepackage{amsmath,amssymb,geometry,booktabs,array,fancyhdr,caption}
+\geometry{left=2.3cm,right=2.3cm,top=2.4cm,bottom=2.3cm,headheight=16pt}
+\linespread{1.04}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.18}
+\captionsetup{font=small,labelfont=bf,skip=5pt}
+\ctexset{section={format=\large\bfseries,number=\chinese{section},aftername=、},subsection={format=\normalsize\bfseries}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[C]{\small 普通物理 I 实验——数据处理}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\newcommand{\unitc}{\mathrm{J\,kg^{-1}\,K^{-1}}}
+\input{results.tex}
+\begin{document}
+\begin{center}
+{\zihao{4}\bfseries 测定物体的比热容}\\[7pt]
+姓名：姚鉴轩\qquad 学号：2025521024
+\end{center}
+
+\section{实验数据}
+三个样品的质量如下：
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule 样品 & 铁 Fe & 铜 Cu & 铝 Al\\\midrule
+质量 $M/\mathrm g$ & 8.59 & 9.75 & 3.06\\\bottomrule
+\end{tabular}
+\end{center}
+热电偶冷端温度为 $0\,{}^\circ\mathrm C$。记录样品从 $102\,{}^\circ\mathrm C$ 冷却至 $98\,{}^\circ\mathrm C$，即电压由 $4.37\,\mathrm{mV}$ 降至 $4.18\,\mathrm{mV}$ 所需的时间，每种样品测量六次。
+\begin{center}
+\captionof{table}{样品冷却时间（单位：s）}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule 样品 & 1 & 2 & 3 & 4 & 5 & 6\\\midrule
+\RawRows\bottomrule
+\end{tabular}
+\end{center}
+
+\section{冷却时间的数据处理}
+\subsection{粗差判别}
+各组的平均值和标准差为
+\[
+\bar t=\frac{1}{n}\sum_{i=1}^n t_i,\qquad
+s_t=\sqrt{\frac{\sum_i(t_i-\bar t)^2}{n-1}}.
+\]
+由肖维涅准则，$n=6$ 时系数取1.75，判别范围为 $\bar t\pm1.75s_t$。
+\begin{center}\small
+\begin{tabular}{@{}lrrcl@{}}
+\toprule 样品 & $\bar t/\mathrm s$ & $s_t/\mathrm s$ & 判别范围/s & 处理\\\midrule
+\ScreeningRows\bottomrule
+\end{tabular}
+\end{center}
+铁组第2次读数 $18.86\,\mathrm s$ 超出上限 $18.75127\,\mathrm s$，予以剔除，在原始数据表中以星号标记。铁组保留五次数据，铜、铝两组均保留六次。
+
+\subsection{不确定度计算}
+取置信概率 $P=0.95$，平均值的标准差及A类不确定度为
+\[
+s_{\bar t}=\frac{s_t}{\sqrt n},\qquad
+\Delta_A=t_{0.95}s_{\bar t}.
+\]
+$n=5$ 时，$t_{0.95}=2.78$；$n=6$ 时，$t_{0.95}=2.57$。秒表仪器误差为 $0.01\,\mathrm s$，则
+\[
+\Delta_B=0.95\times0.01=0.0095\,\mathrm s,\qquad
+U_t=\sqrt{\Delta_A^2+\Delta_B^2}.
+\]
+以铁组为例，剔除粗差后
+\[
+\bar t_{\mathrm{Fe}}=\frac{17.12+16.81+16.79+15.89+16.51}{5}=16.624\,\mathrm s,
+\]
+\[
+U_{t,\mathrm{Fe}}=\sqrt{\left(2.78\times\frac{0.46366}{\sqrt5}\right)^2+0.0095^2}
+=\FeU\,\mathrm s.
+\]
+各组计算结果如下：
+\begin{center}\small
+\captionof{table}{冷却时间的统计结果（各时间量单位均为 s）}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule 样品 & $n$ & $\bar t$ & $s_t$ & $s_{\bar t}$ & $t_{0.95}$ & $\Delta_A$ & $U_t$\\\midrule
+\TimeRows\bottomrule
+\end{tabular}
+\end{center}
+因此，三种样品的冷却时间为
+\[
+\bar t_{\mathrm{Fe}}=\FeTimeFinal\,\mathrm s,\quad
+\bar t_{\mathrm{Cu}}=\CuTimeFinal\,\mathrm s,\quad
+\bar t_{\mathrm{Al}}=\AlTimeFinal\,\mathrm s.
+\]
+
+\section{比热容的计算}
+温降 $\Delta\theta=4\,\mathrm K$，平均冷却速率及其不确定度为
+\[
+v=\frac{\Delta\theta}{\bar t},\qquad U_v=\frac{\Delta\theta}{\bar t^2}U_t.
+\]
+得到
+\[
+\begin{aligned}
+v_{\mathrm{Fe}}&=\FeRateFinal\,\mathrm{K\,s^{-1}},\\
+v_{\mathrm{Cu}}&=\CuRateFinal\,\mathrm{K\,s^{-1}},\\
+v_{\mathrm{Al}}&=\AlRateFinal\,\mathrm{K\,s^{-1}}.
+\end{aligned}
+\]
+以铜为标准，$c_{\mathrm{Cu}}=0.0940\,\mathrm{cal/(g\cdot K)}=\CuReference\,\unitc$。由冷却速率之比计算待测样品的比热容：
+\[
+c_x=c_{\mathrm{Cu}}\frac{M_{\mathrm{Cu}}v_{\mathrm{Cu}}}{M_xv_x}
+=c_{\mathrm{Cu}}\frac{M_{\mathrm{Cu}}\bar t_x}{M_x\bar t_{\mathrm{Cu}}}.
+\]
+代入铁、铝样品的数据，分别得
+\[
+\begin{aligned}
+c_{\mathrm{Fe}}&=393.296\times\frac{9.75\times16.62400}{8.59\times15.03333}
+=\FeC\,\unitc,\\
+c_{\mathrm{Al}}&=393.296\times\frac{9.75\times11.82167}{3.06\times15.03333}
+=\AlC\,\unitc.
+\end{aligned}
+\]
+由时间测量的不确定度计算比热容的不确定度：
+\[
+U_{c_x}=c_x\sqrt{\left(\frac{U_{t,x}}{\bar t_x}\right)^2+
+\left(\frac{U_{t,\mathrm{Cu}}}{\bar t_{\mathrm{Cu}}}\right)^2}.
+\]
+以铁为例，
+\[
+U_{c_{\mathrm{Fe}}}=493.6410\sqrt{\left(\frac{0.57652}{16.62400}\right)^2+
+\left(\frac{0.34132}{15.03333}\right)^2}
+\approx20.46\,\unitc.
+\]
+同理，$U_{c_{\mathrm{Al}}}\approx36.21\,\unitc$。
+
+\section{实验结论}
+用冷却法测得铁、铝在 $100\,{}^\circ\mathrm C$ 附近的比热容为
+\[
+\boxed{c_{\mathrm{Fe}}=\FeCFinal\,\unitc,\qquad
+c_{\mathrm{Al}}=\AlCFinal\,\unitc.}
+\]
+相对不确定度分别为 \FeCRel\ 和 \AlCRel，置信概率为 $P=0.95$。
+
+三种材料的比热容满足 $c_{\mathrm{Al}}>c_{\mathrm{Fe}}>c_{\mathrm{Cu}}$。在相同温区内，铁样品冷却最慢，铝样品冷却最快，冷却时间的差别与样品的总热容有关。
+
+\section{误差分析}
+1. 各组A类不确定度均大于B类不确定度，重复计时的差异是主要误差来源。观察电压示数和按下秒表之间存在反应时间，启动、停止时的延迟不一致会影响测得的冷却时间。待测样品时间偏长会使比热容偏大，铜样品时间偏长则使结果偏小。可采用自动计时，或同步记录电压与时间，减小人工操作的影响。
+
+2. 反复加热可能使圆筒内温度升高，气流、样品表面和放置位置的差异也会改变散热条件。待测样品散热较快时，测得的冷却时间缩短，比热容偏小。应保持样品位置与加盖方式一致，待周围温度稳定后再测量。
+
+3. 冷端温度变化会影响热电偶电压与温度的对应关系。实验中应保持冷端浸没在冰水混合物中，并确保冰未完全融化。样品与热电偶接触不良会使测温滞后，应将样品放正，移去加热套筒时避免带动样品。
+
+\section{思考题}
+\noindent\textbf{1. 比热容的定义和单位是什么？}
+
+单位质量的物质温度升高或降低1 K所吸收或放出的热量，称为该物质的比热容，单位为 $\mathrm{J/(kg\cdot K)}$。在温度变化较小的范围内，有 $Q=Mc\Delta T$。
+
+\medskip\noindent\textbf{2. 根据式（12－6），测量比热容的条件是什么？}
+
+两样品的形状、尺寸和表面状况应相同，周围空气的温度和流动情况保持一致，使两者在相同温度下具有相同的散热条件。测量时应比较同一温区内的冷却速率，样品内部温度近似均匀，并已知两样品的质量和参照样品的比热容。
+
+\medskip\noindent\textbf{3. 为什么实验过程样品的实验速度差别明显？}
+
+各样品的质量和比热容不同，因而总热容 $Mc$ 不同。在相同散热条件下，总热容越大，温度下降越慢。
+
+由实验结果算得，铁、铜、铝样品的总热容分别为 $\FeCapacity\,\mathrm{J/K}$、$\CuCapacity\,\mathrm{J/K}$ 和 $\AlCapacity\,\mathrm{J/K}$。铁样品总热容最大，冷却时间最长；铝样品虽然比热容较大，但质量较小，总热容最小，因而冷却最快。
+\end{document}
