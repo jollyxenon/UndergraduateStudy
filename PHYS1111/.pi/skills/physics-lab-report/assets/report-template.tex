@@ -1,0 +1,93 @@
+% !TEX program = xelatex
+% 这是版式骨架，所有“待填写”必须由本次实验内容替换。
+% 正文直接写实测数据、计算和结论；来源及详细预算保存在计算说明。
+% 在报告目录编译两遍：xelatex -interaction=nonstopmode -halt-on-error report.tex
+\documentclass[12pt,a4paper,fontset=fandol]{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry,booktabs,tabularx,longtable,array}
+\usepackage{graphicx,caption,fancyhdr}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\geometry{left=2.4cm,right=2.4cm,top=2.6cm,bottom=2.4cm,headheight=16pt}
+\linespread{1.06}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\captionsetup{font=small,labelfont=bf}
+\ctexset{section={format=\large\bfseries,number=\chinese{section},aftername=、},
+  subsection={format=\normalsize\bfseries}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small 普通物理 I 实验——数据处理}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+% 默认黑白，组别用点型与线型区分；必要时手动选blue!70!black或red!70!black。
+\pgfplotsset{labplot/.style={
+  width=0.82\linewidth,height=6cm,
+  axis line style={black},tick style={black},
+  tick label style={font=\small},label style={font=\small},
+  legend style={font=\small,draw=none,fill=none},
+  grid=none,cycle list={{black,mark=o},{black,dashed,mark=square*}},
+}}
+
+\begin{document}
+\begin{center}
+  {\zihao{4}\bfseries 实验名称（待填写）}\\[8pt]
+  姓名：待填写\quad 学号：待填写
+\end{center}
+
+\section{测量数据与实验条件}
+% 根据当次实验组织，不必保留所有示例子标题。
+列出本次测得的物理量、单位、零差和必要的实验条件。
+\begin{table}[htbp]
+  \centering
+  \caption{一次性测量数据（待填写）}
+  \begin{tabularx}{\linewidth}{@{}lllX@{}}
+    \toprule
+    物理量 & 数值 & 单位 & 不确定度\\
+    \midrule
+    待填写 & 待填写 & 待填写 & 待填写\\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{数据处理与结果}
+\subsection{直接测量与修正}
+% 插入本次数据表；每种处理方法给一组完整计算，其余分组汇总。
+列出零点修正、统计量、粗差判别和不确定度计算；直接写所取概率与仪器误差。
+
+\subsection{模型与拟合}
+% 不需要拟合的实验删除本小节。不要强制过原点。
+明确横纵轴的物理意义、单位、参数不确定度和残差情况。
+% 图形写法：
+% \begin{figure}[htbp]
+%   \centering
+%   \begin{tikzpicture}
+%     \begin{axis}[labplot,xlabel={$m/\mathrm{kg}$},ylabel={$x/\mathrm{cm}$}]
+%       \addplot[only marks,black,mark=o] table[x=m,y=x,col sep=comma]{data.csv};
+%       % 拟合参数从calculate.py输出，避免手抄。
+%     \end{axis}
+%   \end{tikzpicture}
+%   \caption{图意与误差棒含义（待填写）}
+% \end{figure}
+
+\subsection{最终物理量及不确定度}
+给出计算公式、代表性代入和不确定度传播，所有数值使用同一计算结果。
+% 完整预算保存在计算记录；只有作业要求或解释结果需要时才增加预算表。
+% 最终结果示意，不得把符号占位当成完成的结果：
+\[
+  y=(\hat y\pm U_y)\,\mathrm{unit}.
+\]
+说明所用概率或覆盖因子、相对不确定度；参考偏差另列。
+
+\section{实验结论}
+列出每组、每种方法的最终结果及不确定度，直接回答测出了什么、得到了什么关系。
+
+\section{误差分析}
+根据预算说明主要贡献；结合实际装置说明影响路径、可能方向与针对性的改进。
+
+\section{思考题}
+\noindent\textbf{题目：}从本次实验介绍原文提取（待填写）。
+
+\noindent\textbf{答：}结合本实验的原理、条件和数据作答。
+% 所有题目按原编号列出，遵循讲义选做规则。不要在后面追加其他正文板块。
+\end{document}
