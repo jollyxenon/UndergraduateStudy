@@ -1,0 +1,565 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,xcolor}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+\newcommand{\solution}{\par\medskip
+    \textcolor{blue}{\textbf{Solution:}}\par\smallskip}
+
+\begin{document}
+
+\begin{center}
+    {\Large\bfseries SI152 --- Fall 2026 --- Homework 4}\\[0.6em]
+    \textbf{Due: 2026/11/8, 23:59}
+\end{center}
+
+\textbf{Submission:} Submit a single PDF containing your written
+solutions, required code, and plots.
+No separate code submission is required.
+
+\section*{Problem 1 (Subdifferentials)}
+
+Compute the subdifferential of each convex function at every
+$\mathbf{x}\in\mathbb{R}^n$.
+
+\begin{enumerate}
+    \item
+    $f(\mathbf{x})=|\mathbf{a}^\top\mathbf{x}-b|$,
+    where $\mathbf{a}\in\mathbb{R}^n$ is nonzero and $b\in\mathbb{R}$.
+    \textbf{(5 points)}
+
+    \item
+    $f(\mathbf{x})=\|\mathbf{x}\|_1$.
+    \textbf{(5 points)}
+
+    \item
+    $f(\mathbf{x})=\frac12\|\mathbf{A}\mathbf{x}-\mathbf{b}\|_2^2
+    +\lambda\|\mathbf{x}\|_1$,
+    where $\mathbf{A}\in\mathbb{R}^{m\times n}$,
+    $\mathbf{b}\in\mathbb{R}^m$, and $\lambda>0$.
+    \textbf{(5 points)}
+
+    \item
+    $f(\mathbf{x})=\max\{f_1(\mathbf{x}),f_2(\mathbf{x})\}$,
+    where $f_1,f_2:\mathbb{R}^n\to\mathbb{R}$ are
+    differentiable convex functions.
+    Express your answer in terms of
+    $\nabla f_1(\mathbf{x})$ and $\nabla f_2(\mathbf{x})$.
+    \textbf{(5 points)}
+\end{enumerate}
+
+\solution
+
+\begin{enumerate}
+    \item
+
+    Let $u(x) = a^\top x - b$, $g(u) = \vert u \vert$.
+
+    $$
+    f(x) = g(u(x))
+    $$
+    
+    $$
+    \partial f(x) = A^\top \partial g(Ax - b)
+    $$
+
+    $$
+    \partial g(u)
+    =
+    \begin{cases}
+        \{1\}, & u > 0 \\
+        \{-1\}, & u < 0 \\
+        [-1, 1], & u = 0
+    \end{cases}
+    $$
+
+    $$
+    \partial f(x)
+    = a \partial g(a^\top x - b)
+    =
+    \begin{cases}
+        \{a\}, & a^\top x - b > 0 \\
+        \{-a\}, & a^\top x - b < 0 \\
+        \{t a : t \in [-1, 1]\}, & a^\top x - b = 0
+    \end{cases}
+    $$
+
+    \item
+
+    Let $g(x) = \begin{pmatrix} \vert x_1 \vert \\ \vdots \\ \vert x_n \vert \end{pmatrix}$ and $h(u) = 1^\top u$.
+
+    $$
+    f(x) = h(g(x))
+    $$
+
+    $$
+    d f = d (1^\top g) = 1^\top d g
+    $$
+
+    $$
+    d g =  g'(x) \odot dx
+    $$
+
+    $$
+    d g
+    =
+    \begin{pmatrix}
+        d \vert x_1 \vert \\
+        \vdots \\
+        d \vert x_n \vert
+    \end{pmatrix}
+    $$
+
+    $$
+    \partial \vert x_i \vert \in
+    \begin{cases}
+        \{1\}, & x_i > 0 \\
+        \{-1\}, & x_i < 0 \\
+        [-1, 1], & x_i = 0
+    \end{cases}
+    $$
+
+    $$
+    g'(x) = \frac{d g}{d x} =
+    \begin{pmatrix}
+        \partial \vert x_1 \vert \\
+        \vdots \\
+        \partial \vert x_n \vert
+    \end{pmatrix}
+    $$
+
+    $$
+    d f = g'(x)^\top dx
+    $$
+    
+    $$
+    \partial f(x) = g'(x)^\top
+    =
+    \begin{pmatrix}
+        \partial \vert x_1 \vert ,&
+        \cdots ,&
+        \partial \vert x_n \vert
+    \end{pmatrix}
+    $$
+
+    $$
+    \partial \Vert x \Vert _1
+    =
+    \left\{
+    g \in \mathbb{R}^n 
+    \mid
+    g_i
+    \in
+    \begin{cases}
+        \{1\}, & x_i > 0 \\
+        \{-1\}, & x_i < 0 \\
+        [-1, 1], & x_i = 0
+    \end{cases}
+    \right\}
+    $$
+
+    \item
+
+    $$
+    \partial f(x)
+    = A^\top (Ax - b) + \lambda \partial \Vert x \Vert _1
+    $$
+
+    $$
+    \partial f(x)
+    =
+    \left\{
+    A^\top (Ax - b) + \lambda g
+    \mid
+    g \in \mathbb{R}^n,
+    g_i
+    \in
+    \begin{cases}
+        \{1\}, & x_i > 0 \\
+        \{-1\}, & x_i < 0 \\
+        [-1, 1], & x_i = 0
+    \end{cases}
+    \right\}
+    $$
+
+    \item
+
+    $$
+    \partial f(\mathbf{x})
+    =
+    \begin{cases}
+        \{ \nabla f_1(\mathbf{x}) \}, & f_1(\mathbf{x}) > f_2(\mathbf{x}) \\
+        \{ \nabla f_2(\mathbf{x}) \}, & f_1(\mathbf{x}) < f_2(\mathbf{x}) \\
+        \{ \theta \nabla f_1(\mathbf{x}) + (1 - \theta) \nabla f_2(\mathbf{x}) \mid \theta \in [0, 1] \}, & f_1(\mathbf{x}) = f_2(\mathbf{x})
+    \end{cases}
+    $$
+\end{enumerate}
+
+
+\newpage
+
+
+
+\section*{Problem 2 (Stochastic Gradient Descent)}
+
+Consider the least-squares problem
+\[
+    \min_{\mathbf{x}\in\mathbb{R}^n}
+    f(\mathbf{x})
+    =\frac{1}{m}\sum_{i=1}^m f_i(\mathbf{x})
+    =\frac{1}{2m}\|\mathbf{A}\mathbf{x}-\mathbf{b}\|_2^2,
+\]
+where $\mathbf{a}_i^\top$ is row $i$ of
+$\mathbf{A}\in\mathbb{R}^{m\times n}$ and
+\[
+    f_i(\mathbf{x})=\frac12(\mathbf{a}_i^\top\mathbf{x}-b_i)^2,
+    \qquad
+    \nabla f_i(\mathbf{x})
+    =(\mathbf{a}_i^\top\mathbf{x}-b_i)\mathbf{a}_i.
+\]
+Generate $\mathbf{b}=\mathbf{A}\mathbf{x}_{\mathrm{true}}
++\boldsymbol{\varepsilon}$ with $m\gg n$ and random noise
+of nonzero variance (suggested dimensions are $m=10000$, 
+$n=100$). Implement mini-batch SGD without an existing 
+optimizer, shuffling all samples each epoch and averaging 
+gradients within each batch. Use the same data, initial 
+point, and epoch budget within each comparison, changing 
+only the settings being studied. Include only your SGD
+function(s) and supporting functions (including momentum),
+omitting data-generation, experiment-running, and plotting 
+code. For parts 2--4, report parameter values and explain 
+each comparison in 1--3 sentences.
+
+\begin{enumerate}
+    \item \textbf{(Experimental setup)}
+    Describe the dimensions, data generation, noise level,
+    initial point, epoch budget, and other relevant settings.
+    \textbf{(5 points)}
+
+    \item \textbf{(Learning rate)}
+    Fix the batch size. Compare at least three constant
+    learning rates and one decreasing schedule starting
+    from one of them. State the schedule's formula and
+    parameters, updating it by epoch.
+    Plot objective versus epoch and discuss convergence
+    speed and stability.
+    \textbf{(15 points)}
+
+    \item \textbf{(Batch size)}
+    Fix the learning-rate schedule and its parameters.
+    Compare at least three batch sizes, including $1$.
+    Plot objective versus epoch and versus cumulative
+    training time, excluding data generation, full-objective
+    evaluation, and plotting from the timing.
+    Discuss convergence and computational efficiency.
+    \textbf{(10 points)}
+
+    \item \textbf{(Momentum)}
+    Implement a momentum variant and state its update
+    equations and parameters. Compare it with standard
+    mini-batch SGD using the same batch size,
+    learning-rate schedule, and epoch budget.
+    Plot objective versus epoch and discuss momentum's
+    effect on convergence speed and stability.
+    \textbf{(10 points)}
+\end{enumerate}
+
+\solution
+% Write the solution here.
+
+\begin{lstlisting}[
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    frame=single,
+    showstringspaces=false
+]
+def compute_batch_gradient(A_batch, b_batch, x):
+    B = A_batch.shape[0]
+    residual = A_batch @ x - b_batch
+    return (A_batch.T @ residual) / B
+
+def mini_batch_sgd(A, b, x_init, lr_schedule, batch_size=64, num_epochs=30, momentum=0.0):
+    m, n = A.shape
+    x = x_init.copy()
+    v = np.zeros_like(x)
+    loss_history = []
+    
+    init_loss = np.sum((A @ x - b) ** 2) / (2.0 * m)
+    loss_history.append(init_loss)
+    
+    for epoch in range(num_epochs):
+        indices = np.random.permutation(m)
+        current_lr = lr_schedule(epoch)
+        
+        for start_idx in range(0, m, batch_size):
+            end_idx = min(start_idx + batch_size, m)
+            batch_idx = indices[start_idx:end_idx]
+            
+            A_batch = A[batch_idx]
+            b_batch = b[batch_idx]
+            
+            grad = compute_batch_gradient(A_batch, b_batch, x)
+            
+            if momentum > 0.0:
+                v = momentum * v + grad
+                x = x - current_lr * v
+            else:
+                x = x - current_lr * grad
+                
+        epoch_loss = np.sum((A @ x - b) ** 2) / (2.0 * m)
+        loss_history.append(epoch_loss)
+        
+    return x, loss_history
+\end{lstlisting}
+
+\begin{enumerate}
+    \item
+
+    Sample number: $m=10000$
+
+    Feature number: $n=100$
+
+    Data generation: Sample $A$ and $x$ from standard normal distribution $\mathcal{N}(0, 1)$.
+
+    Noise level: Sample $\varepsilon$ from normal distribution $\mathcal{N}(0, 0.25 I_m)$.
+
+    Initial point: $x_0 = 0$
+
+    Epoch budget: $30$
+
+    \item
+
+    $\eta = 0.01, 0.1, 0.5$ and $\frac{0.5}{1+0.5k}$.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figure/learning_rate_comparison.png}
+    \end{figure}
+
+    The big learning rate descends faster at first, but it is unstable because of the random noise in gradients.
+
+    The small learning rate is stable but converges slowly.
+
+    The medium learning rate and the decreasing learning rate are both stable and converge fast.
+
+    \item
+
+    $\text{Batch size} = 1, 32, 256$.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figure/batch_size_comparison.png}
+    \end{figure}
+
+    The big batch size converges slow but is stable.
+
+    The small batch size experiences fierce oscillation but converges fast. What's more, it could hardly converge to the optimal solution because of the random noise in gradients.
+
+    The medium batch size is stable and converges fast.
+
+    \item
+
+    $\beta = 0.9$, $v_0 = 0$.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figure/momentum_comparison.png}
+    \end{figure}
+
+    Interestingly, the momentum method doesn't converge faster than the standard mini-batch SGD.
+
+    It may be because the learning rate is decreasing, and the momentum, instead, enlarge the step size.
+\end{enumerate}
+\newpage
+
+
+
+\section*{Problem 3 (A Unified View of Unconstrained Optimization)}
+
+The unconstrained optimization methods studied in class
+can be viewed within the common iteration framework
+\[
+    \mathbf{x}_{k+1}
+    =\mathbf{x}_k+\alpha_k\mathbf{d}_k,
+\]
+where $\mathbf{d}_k$ is the search direction and $\alpha_k$
+is the step size. This problem reviews how these methods
+choose directions and step sizes.
+Full pseudocode and convergence analysis are not required.
+
+\begin{enumerate}
+    \item \textbf{(Smooth optimization)}
+    For each method, specify $\mathbf{d}_k$ and give one 
+    standard step-size strategy. 
+    State whether $\mathbf{d}_k$ is guaranteed to be a
+    descent direction at nonstationary points and, if not, 
+    describe a standard modification to ensure descent. 
+    State any assumptions needed for these guarantees.
+    For BFGS, use a Hessian approximation $\mathbf{B}_k$
+    or an inverse Hessian approximation $\mathbf{H}_k$
+    without giving its update.
+    \begin{enumerate}
+        \renewcommand{\labelenumii}{(\alph{enumii})}
+        \item Gradient descent. \textbf{(6 points)}
+        \item Newton's method. \textbf{(6 points)}
+        \item BFGS. \textbf{(6 points)}
+    \end{enumerate}
+
+    \item \textbf{(Subgradient and stochastic gradient)}
+    For each method, specify $\mathbf{d}_k$ and give one
+    standard step-size strategy. Explain why the objective 
+    value need not decrease at every iteration.
+    \begin{enumerate}
+        \renewcommand{\labelenumii}{(\alph{enumii})}
+        \item The subgradient method for convex objectives.
+        \textbf{(6 points)}
+
+        \item Mini-batch SGD for
+        $f(\mathbf{x})=\frac1m\sum_{i=1}^m f_i(\mathbf{x})$,
+        with differentiable $f_i$.
+        \textbf{(6 points)}
+    \end{enumerate}
+
+    \item \textbf{(Exploiting problem structure)}
+    For each method, state the objective form and relevant
+    assumptions, describe $\mathbf{d}_k$ and $\alpha_k$,
+    and briefly explain the computational advantages
+    of exploiting the problem structure.
+    \begin{enumerate}
+        \renewcommand{\labelenumii}{(\alph{enumii})}
+        \item Conjugate gradient. \textbf{(5 points)}
+        \item Gauss--Newton. \textbf{(5 points)}
+    \end{enumerate}
+\end{enumerate}
+
+\solution
+
+\begin{enumerate}
+    \item[1. ]
+
+    \begin{enumerate}
+        \item[(a)] Gradient descent
+        
+        $$
+        d_k = -\nabla f(x_k)
+        $$
+
+        Use Armijo linear search to find $\alpha_k$.
+
+        Guaranteed to be a descent direction at nonstationary points.
+
+        \item[(b)] Newton's method
+        
+        $$
+        d_k = -\nabla^2 f(x_k)^{-1} \nabla f(x_k)
+        $$
+
+        Use Wolfe linear search to find $\alpha_k$.
+
+        Do not guarantee to be a descent direction at nonstationary points. $\nabla^2 f(x_k)$ may not be positive definite.
+
+        \item[(c)] BFGS
+        
+        $$
+        d_k = -H_k \nabla f(x_k)
+        $$
+
+        where $H_k$ is an inverse Hessian approximation. In fact, 
+
+        $$
+        H_k = (I - \rho_{k-1} s_{k-1} y_{k-1}^\top) H_{k-1} (I - \rho_{k-1} y_{k-1} s_{k-1}^\top) + \rho_{k-1} s_{k-1} s_{k-1}^\top
+        $$
+
+        where $\rho_{k-1} = \frac{1}{y_{k-1}^\top s_{k-1}}$.
+
+        Use Wolfe linear search to find $\alpha_k$.
+
+        With Wolfe method, $H_k$ is positive definite, so we can guarantee $d_k$ to be a descent direction at nonstationary points.
+    \end{enumerate}
+
+    \item[2. ]
+    
+    \begin{enumerate}
+        \item[(a)] Subgradient method
+        
+        $$
+        d_k = -g_k
+        $$
+
+        where $g_k$ can be any subgradient of $f$ at $x_k$.
+
+        Use diminishing step size $\alpha_k = \frac{1}{k}$.
+
+        The break point of function means it can not find a descent direction at all points. It can only satisfy that, when the step size is small enough, the iterating point will be closer and closer to the optimal point, so the objective value will decrease in the long run.
+        
+        \item[(b)] Mini-batch SGD
+        
+        $$
+        d_k = -\frac{1}{b} \sum_{i \in \mathcal{B}_k} \nabla f_i(x_k)
+        $$
+
+        where $\mathcal{B}_k \subset \{1, 2, \ldots, m\}$ is a random subset of indices of size $b$.
+
+        Use $\alpha_k = \frac{\alpha_0}{1 + \gamma k}$.
+
+        The objective value need not decrease at every iteration because the gradient is estimated using a random subset of data, which introduces noise and can lead to increases in the objective function.
+
+        However, it can be shown that the expected value of the objective function decreases over time, leading to convergence in expectation.
+    \end{enumerate}
+
+    \item[3. ]
+    
+    \begin{enumerate}
+        \item[(a)] Conjugate gradient
+        
+        Target function:
+
+        $$
+        f(x) = \frac{1}{2} x^T A x - b^T x
+        $$
+
+        Assumption:
+
+        $A$ is symmetric positive definite.
+
+        Let $r_1 = b - A x_1$ and $d_1 = r_1$.
+
+        $$
+        \begin{aligned}
+        \alpha_k &= \frac{\Vert{}r_k\Vert{}^2}{d_k^\top A d_k} \\
+        x_{k+1} &= x_k + \alpha_k d_k \\
+        r_{k+1} &= r_k - \alpha_k A d_k \\
+        \beta_{k+1} &= \frac{\Vert{}r_{k+1}\Vert{}^2}{\Vert{}r_k\Vert{}^2} \\
+        d_{k+1} &= r_{k+1} + \beta_{k+1} d_k
+        \end{aligned}
+        $$
+
+        It uses the structure of the quadratic objective to compute search directions that are conjugate with respect to the Hessian matrix, allowing for at most $n$ iterations of convergence than standard gradient descent.
+
+        \item[(b)] Gauss-Newton
+        
+        Target function:    
+    
+        $$
+        f(x) = \frac{1}{2} \Vert{}R(x)\Vert{}_2^2 = \frac{1}{2} \sum_{j=1}^m r_j(x)^2
+        $$
+
+        Assumption:
+
+        $r_j(x)$ is continuously differentiable. $\operatorname{Rank}{J(x)} = n$.
+
+        $$
+        d_k = -(J_k^T J_k)^{-1} J_k^T R(x_k)
+        $$
+
+        Use Armijo linear search to find $\alpha_k$.
+
+        It avoids computing the full Hessian matrix, which can be expensive for large-scale problems, by approximating it with the Jacobian of the residuals.
+
+        What's more, when $J$ is full column rank, it can guarantee that $d_k$ is a descent direction at nonstationary points.
+    \end{enumerate}
+\end{enumerate}
+\end{document}
