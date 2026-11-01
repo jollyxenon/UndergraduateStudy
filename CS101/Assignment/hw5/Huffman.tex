@@ -1,0 +1,150 @@
+\tikzset{
+  level 1/.style={level distance=50pt, sibling distance=100pt},
+  level 2/.style={level distance=50pt, sibling distance=70pt},
+  level 3/.style={level distance=50pt, sibling distance=50pt},
+  level 4/.style={level distance=60pt, sibling distance=30pt},
+  level 5/.style={level distance=60pt, sibling distance=20pt},
+}
+
+\titledquestion{Huffman Coding}
+
+Consider the document
+\[
+S=\texttt{AAAABBBCCDAAAAEEEEE}.
+\]
+
+Each original character requires $8$ bits.
+
+For Huffman coding, any valid optimal code is accepted. The Huffman tree is
+stored using the following format:
+
+\begin{itemize}
+    \item An internal node requires $1$ bit.
+    \item A leaf node requires $1+8$ bits: one marker bit and the
+    8-bit ASCII code of the character.
+\end{itemize}
+
+\begin{parts}
+
+    \part[3] Construct one valid optimal Huffman code for the characters in
+    $S$. Give the codeword of every character and calculate the number of bits
+    required to encode $S$, excluding the tree header.
+
+    \begin{solution}
+    
+    A: 8 times;
+
+    B: 3 times;
+
+    C: 2 times;
+
+    D: 1 time;
+
+    E: 5 times.
+
+    A: 0
+
+    E: 10
+
+    B: 110
+
+    C: 1111
+
+    D: 1110
+
+    $$
+    \text{Bits} = 8 \times 1 + 5 \times 2 + 3 \times 3 + 2 \times 4 + 1 \times 4 = 39 \text{ bits}
+    $$
+
+    \end{solution}
+
+    \part[2] Calculate the number of bits required to store the Huffman tree
+    and the total size of the compressed document.
+
+    \begin{solution}
+    
+    $$
+    \text{Tree header size} = 4 \times 1 + 5 \times (1+8) = 49 \text{ bits} 
+    $$
+
+    $$
+    \text{Total size} = 39 + 49 = 88 \text{ bits}
+    $$
+    \end{solution}
+
+    \part[2] Apply run-length encoding(RLE) to $S$, where each maximal same letters are
+    represented as a token $(\text{character},\text{length})$.
+
+    Give the resulting token sequence and the frequency of every distinct token.
+
+    \begin{solution}
+    
+    The token sequence is
+
+    $$
+    [(\text{A}, 4), (\text{B}, 3), (\text{C}, 2), (\text{D}, 1), (\text{A}, 4), (\text{E}, 5)]
+    $$
+
+    And the frequency of every distinct token is
+
+    (A, 4): 2 times;
+
+    (B, 3): 1 time;
+
+    (C, 2): 1 time;
+
+    (D, 1): 1 time;
+
+    (E, 5): 1 time.
+    \end{solution}
+
+    \part[3] Construct one valid optimal Huffman code for the RLE tokens.
+    Give the codeword of every distinct token and calculate the number of bits
+    required to encode the token sequence, excluding the token-tree header.
+
+    \begin{solution}
+    
+    (B, 3): 00
+
+    (C, 2): 01
+
+    (A, 4): 10
+
+    (D, 1): 110
+
+    (E, 5): 111
+
+    $$
+    \text{Bits} = 2 \times 2 + 1 \times 2 + 1 \times 2 + 1 \times 3 + 1 \times 3 = 14 \text{ bits}
+    $$
+    \end{solution}
+
+    \part[3] For the RLE Huffman tree, a leaf token requires
+    \[
+    1+8+4 \ bits
+    \]
+    one marker bit, the 8-bit ASCII code of the character, and a
+    4-bit representation of the run length.
+
+    Calculate the total size of the RLE-compressed document, including the
+    token-tree header. Compare it with the result from part (b).Explain why RLE does not always improve
+    compression after the tree header is included.
+
+    \begin{solution}
+    
+    $$
+    \text{Tree header size of RLE Huffman tree} = 4 + 5 \times (1+8+4) = 69 \text{ bits}
+    $$
+
+    $$
+    \text{Total size of RLE Huffman Tree} = 14 + 69 = 83 \text{ bits}
+    $$
+
+    Although the pure coding data has been significantly reduced from $39 \text{ bits}$ to $14 \text{ bits}$, the total size has only decreased by $5 \text{ bits}$ due to the increase in tree header from $49 \text{ bits}$ to $69 \text{ bits}$.
+
+    Each leaf node of the RLE Huffman tree not only needs to store the character itself ($8$ bits), but also needs to store the binary digits of the run-length length ($4$ bits here) additionally, which increases the description overhead of each distinct item in the tree header.
+
+    In addition, when the character repetition is not high, the additional overhead caused by tree head expansion will directly offset or even exceed the space saved by the encoding of the data body.
+    \end{solution}
+
+\end{parts}

@@ -1,0 +1,120 @@
+\documentclass[11pt, addpoints, a4paper]{exam}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{soul}
+\usetikzlibrary{graphs}
+\tikzset{every tree node/.style={minimum width=2em,draw,circle},
+    blank/.style={draw=none},
+    edge from parent/.style=
+    {draw,edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}},
+    level distance=1.2cm}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+% For inserting code snippets.
+\usepackage{listings}
+\lstset{
+    columns = fixed,
+    basewidth = {0.5em},
+    breaklines = true,
+    backgroundcolor = \color{white},
+    keywordstyle = \color[RGB]{40, 40, 255},
+    numberstyle = \footnotesize\color{darkgray},
+    commentstyle = \ttfamily\color{violet},
+    basicstyle = \linespread{1}\small\ttfamily,
+    aboveskip = 6pt,
+    belowskip = 6pt,
+    stringstyle = \ttfamily\color[RGB]{128, 0, 0},
+    showstringspaces = false,
+    language = {[11]C++},
+    escapechar = \@
+}
+\lstnewenvironment{cpp}[1][]{\lstset{language = {[11]C++}, #1}}{}
+
+\renewcommand{\baselinestretch}{1.15}
+\setlength{\parskip}{1.25\baselineskip}
+
+% headers, footers, titles
+\newcommand{\CourseName}{CS101 Algorithms and Data Structures}
+\newcommand{\HomeworkNO}{5}
+\newcommand{\DueDate}{November 8, 2026}
+
+\pagestyle{headandfoot}
+\runningheadrule
+\runningheader{CS101 Fall26}{Homework \HomeworkNO}{Due on: \DueDate}
+\runningfooter{}{\thepage}{}
+
+\title{
+    \vspace{25pt}
+    \LARGE ShanghaiTech University \\
+    \bigskip
+    \textbf{\CourseName} \\
+    \textbf{Fall 2026}   \\
+    \bigskip
+    Homework \HomeworkNO
+}
+\author{}
+\date{\large Due date: \DueDate, at 23:59}
+
+% formats of questions, choices, points, etc.
+\qformat{\bf\thequestion. (\totalpoints\ points) \thequestiontitle\hfill}
+\pointname{'}
+% Student version: the source contains no answer key.
+% Render the empty solution environments; their height is set with \vspace.
+\printanswers
+
+% We frequently use this font.
+\newcommand{\ttt}{\texttt}
+\newcommand{\bluett}[1]{\textcolor{blue}{\ttt{#1}}}
+
+\begin{document}
+
+\maketitle
+
+\vspace{50pt}
+
+\begin{enumerate}
+    \item Please write your solutions in English.
+    \item You may discuss the assignment with classmates and AI tools, but you must not directly copy answers or adapt AI-generated contents in any form.
+    \item Submit your solutions to Gradescope.
+    \item Set your FULL name to your Chinese name and your STUDENT ID correctly in Gradescope account settings.
+    \item If you want to submit a handwritten version, scan it clearly. \ttt{CamScanner} is recommended.
+    \item We recommend you to write in \LaTeX.
+    \item When submitting, match your solutions to the problems correctly.
+    \item No late submission will be accepted.
+    \item Violations to any of the above may result in zero points.
+\end{enumerate}
+
+
+\begin{questions}
+\setlength{\parskip}{0.6\baselineskip}
+
+\newpage
+\include{multiple_choices}
+
+\newpage
+\include{heap_array}
+
+\newpage
+\include{heap}
+
+\newpage
+\input{Find the median}
+
+\newpage
+\input{Huffman}
+
+\newpage
+\end{questions}
+
+
+\end{document}

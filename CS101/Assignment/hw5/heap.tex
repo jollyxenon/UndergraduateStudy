@@ -1,0 +1,356 @@
+\titledquestion{Min-Max-Heap}
+\setlength{\parskip}{0pt}
+A \textit{min-max-heap} is a data structure which supports both \texttt{popMin()} and \texttt{popMax()} operations in $O(\log n)$ time. A min-max-heap is still a complete binary tree, but it has the following properties:
+
+\begin{itemize}
+    \item For every element at even depth (on \textcolor{blue}{min-level}), it is smaller than its parent (if existing) and greater than its grandparent (the parent node of its parent node, if existing). In short: \textbf{\ttt{x\(<\)parent(x)} and \ttt{x\(>\)grandparent(x)} for \ttt{x} on min-level}.
+    \item For every element at odd depth (on \textcolor{red}{max-level}), it is greater than its parent and smaller than its grandparent(if existing). In short: \textbf{\ttt{x\(>\)parent(x)} and \ttt{x\(<\)grandparent(x)} for \ttt{x} on max-level}.
+\end{itemize} 
+
+You can assume that all nodes are distinct and there are always more than one nodes in this question. Please see the following example min-max-heap, as shown in the figure below:
+
+\noindent\begin{minipage}{\linewidth}
+\centering
+\begin{tikzpicture}[level distance=0.8cm]
+\Tree
+[.\node[blue]{8};
+    [.\node[red]{71};
+        \edge[]; [.\node[blue]{32};
+            \edge[]; [.\node[red]{46};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[]; [. \node[red]{51};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+        ]
+        \edge[]; [.\node[blue]{10};
+            \edge[]; [.\node[red]{31};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[]; [.\node[red]{21};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+        ]
+    ]
+    [.\node[red]{41};
+        \edge[]; [.\node[blue]{11};
+            \edge[]; [.\node[red]{13};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[blank]; \node[blank]{};
+        ]
+        \edge[]; [.\node[blue]{16};
+            \edge[blank]; \node[blank]{};
+            \edge[blank]; \node[blank]{};
+        ]
+    ]
+]
+\end{tikzpicture}
+\end{minipage}
+\vspace{-0.3in}
+
+\begin{parts}
+\part[4] \textbf{Let's See What's New about Min-Max-Heap}\par
+For each of the following statements about min-max-heap, please judge whether it is true or false. Tick (\(\surd\)) the correct answer. Assume the parent and the children of the node \ttt{x} all exist.
+\begin{subparts}
+\setlength{\parskip}{0pt}
+    
+    \subpart \label{a} If \ttt{x} is on min-level, then its parent and children are also on min-level. 
+    \par\nobreak\hfill\mbox{\begin{oneparcheckboxes}
+        \choice True
+        \CorrectChoice False
+    \end{oneparcheckboxes}}
+    
+    \subpart If \ttt{x} is on min-level, then \ttt{x} is less than both of its children.
+    \par\nobreak\hfill\mbox{\begin{oneparcheckboxes}
+        \CorrectChoice True
+        \choice False
+    \end{oneparcheckboxes}}
+    
+    \subpart If \ttt{x} is on max-level and \ttt{x} is a strict ancestor of \ttt{y}, then \ttt{x\(<\)y}.
+    \par\nobreak\hfill\mbox{\begin{oneparcheckboxes}
+        \choice True
+        \CorrectChoice False
+    \end{oneparcheckboxes}}
+    
+    \subpart The minimum is on min-level and the maximum is on max-level.
+    \par\nobreak\hfill\mbox{\begin{oneparcheckboxes}
+        \CorrectChoice True
+        \choice False
+    \end{oneparcheckboxes}}
+\end{subparts}
+
+
+
+\part[4] \textbf{Where is Min and Max?}\par
+How do we search the minimum element, the maximum element and the second-smallest element in a min-max-heap with \(n(n \geq 7) \) elements? What is their time complexity?
+\begin{solution}
+    The minimum element is at the root and the maximum element is at one of the root's children.
+
+    The second-smallest element is at one of the four nodes at depth 2.
+
+    The time complexity of searching them is all $O(1)$.
+\end{solution}
+
+
+\newpage
+\setlength{\parskip}{0.6\baselineskip}
+\part \textbf{Percolate it Up!}\par
+Similar to a common heap we learned in the lectures, the new element is inserted at the first available leaf and we will maintain the heap property along the path from this leaf node to the root node, which is called a \textbf{percolation-up}. The c++ styled code of \textbf{percolation-up in a min-max-heap} is given below(assume function parent() and grandparent() have been implemented): 
+
+\begin{lstlisting}[language=C++]
+void percolateUp(int i) {
+    // Assume parent(i) exists.
+
+    if (isMaxLevel(i)) {
+        if (/* [1] */) {
+            while (grandparent(i) != -1 &&
+                   /* [2] */) {
+                int g = grandparent(i);
+                std::swap(H[i], H[g]);
+                i = g;
+            }
+        } else {
+            int p = parent(i);
+            std::swap(H[i], H[p]);
+            i = p;
+
+            while (grandparent(i) != -1 &&
+                   /* [3] */) {
+                int g = grandparent(i);
+                std::swap(H[i], H[g]);
+                i = g;
+            }
+        }
+    } else {
+        // This case is omitted.
+    }
+}
+\end{lstlisting}
+
+    
+\begin{subparts}
+    \subpart[2] Choose one of the following statements to fill in the blank (1):
+    
+    \vspace{5pt}
+    \begin{checkboxes}
+        \choice \ttt{H[i]\(<\)H[parent(i)]}
+        \choice \ttt{H[i]\(<\)H[grandparent(i)]}
+        \CorrectChoice \ttt{H[i]\(>\)H[parent(i)]}
+        \choice \ttt{H[i]\(>\)H[grandparent(i)]}
+    \end{checkboxes}
+    
+    \vspace{15pt}
+    \setlength{\parskip}{0.6\baselineskip}
+    \subpart[1] Fill in the blank (2):
+    \par\noindent H[i] > H[grandparent(i)]
+    
+    \vspace{15pt}
+    \subpart[1] Fill in the blank (3):
+    \par\noindent H[i] < H[grandparent(i)]
+\end{subparts}
+
+
+\newpage
+
+
+\part[3] \textbf{Percolate it Down?}\par
+Similarly, when popping a node off the min-max-heap, we move the last leaf node to the \textit{hole} and percolate it down. However, the \textbf{percolation-down} procedure in a min-max-heap is a bit more complicated.
+
+In this question, just consider you are popping the minimum off the example min-max-heap shown above (it is shown again below for your convenience). Please draw the min-max-heap after this \ttt{popMin()}.
+
+Just draw the heap after \ttt{popMin()} directly, you don't need to show the intermediate steps.
+
+\vspace{20pt}
+\noindent\begin{minipage}{\linewidth}
+\centering
+\begin{tikzpicture}
+\Tree
+[.\node[blue]{8};
+    [.\node[red]{71};
+        \edge[]; [.\node[blue]{32};
+            \edge[]; [.\node[red]{46};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[]; [. \node[red]{51};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+        ]
+        \edge[]; [.\node[blue]{10};
+            \edge[]; [.\node[red]{31};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[]; [.\node[red]{21};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+        ]
+    ]
+    [.\node[red]{41};
+        \edge[]; [.\node[blue]{11};
+            \edge[]; [.\node[red]{13};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[blank]; \node[blank]{};
+        ]
+        \edge[]; [.\node[blue]{16};
+            \edge[blank]; \node[blank]{};
+            \edge[blank]; \node[blank]{};
+        ]
+    ]
+]
+\end{tikzpicture}
+\end{minipage}
+
+\begin{solution}
+
+\begin{minipage}{\linewidth}
+\centering
+\begin{tikzpicture}
+\Tree
+[.\node[blue]{10};
+    [.\node[red]{71};
+        \edge[]; [.\node[blue]{32};
+            \edge[]; [.\node[red]{46};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[]; [.\node[red]{51};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+        ]
+        \edge[]; [.\node[blue]{13};
+            \edge[]; [.\node[red]{31};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+            \edge[]; [.\node[red]{21};
+                \edge[blank]; \node[blank]{};
+                \edge[blank]; \node[blank]{};
+            ]
+        ]
+    ]
+    [.\node[red]{41};
+        \edge[]; [.\node[blue]{11};
+            \edge[blank]; \node[blank]{};
+            \edge[blank]; \node[blank]{};
+        ]
+        \edge[]; [.\node[blue]{16};
+            \edge[blank]; \node[blank]{};
+            \edge[blank]; \node[blank]{};
+        ]
+    ]
+]
+\end{tikzpicture}
+\end{minipage}
+\end{solution}
+\newpage
+\part[5]A \textit{deletable heap} supports deletion of an arbitrary element by using
+\textbf{lazy deletion}. Instead of immediately removing an element from the
+heap, we mark its unique identifier as deleted. Whenever an element is about
+to be returned from the heap, all deleted elements at the top are removed.
+
+Instead of storing a min-max-heap directly, we maintain two deletable heaps:
+
+\begin{itemize}
+    \item a min-heap \texttt{minHeap};
+    \item a max-heap \texttt{maxHeap}.
+\end{itemize}
+
+Every inserted element is stored in both heaps. Both heaps contain the same
+pair \texttt{(key, id)}. The set \texttt{Deleted} stores the identifiers of
+logically deleted elements.
+Complete the following c++ code.
+\begin{lstlisting}[language=C++]
+struct Entry {
+    int key;
+    int id;
+};
+struct MinCompare {
+    bool operator()(const Entry& a, const Entry& b) const {
+        if (a.key != b.key)
+            return a.key > b.key;
+        return a.id > b.id;
+    }
+};
+struct MaxCompare {
+    bool operator()(const Entry& a, const Entry& b) const {
+        if (a.key != b.key)
+            return a.key < b.key;
+        return a.id < b.id;
+    }
+};
+
+std::priority_queue<Entry,std::vector<Entry>,MinCompare> minHeap;
+std::priority_queue<Entry,std::vector<Entry>,MaxCompare> maxHeap;
+std::unordered_set<int> Deleted;
+int nextID = 0;
+
+void cleanMin() {
+    while (!minHeap.empty() && Deleted.count(minHeap.top().id) > 0) {
+        minHeap.pop();
+    }
+}
+void cleanMax() {
+    while (!maxHeap.empty() && Deleted.count(maxHeap.top().id) > 0) {
+        maxHeap.pop();
+    }
+}
+
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[language=C++]
+int insert(int key) {
+    int id = nextID++;
+    /* [1] */
+    /* [2] */
+    return id;
+}
+void erase(int id) {
+    Deleted.insert(id);
+}
+Entry findMin() {
+    cleanMin();
+    return minHeap.top();
+}
+Entry findMax() {
+    cleanMax();
+    return maxHeap.top();
+}
+Entry popMin() {
+    cleanMin();
+    Entry x = /* [3] */
+    /* [4] */
+    Deleted.insert(x.id);
+    return x;
+}
+Entry popMax() {
+    cleanMax();
+    Entry x = /* [5] */
+    /* [6] */
+    Deleted.insert(x.id);
+    return x;
+}
+\end{lstlisting}
+
+\begin{solution}
+\begin{enumerate}
+    \item[[1]] minHeap.push({key, id});
+    \item[[2]] maxHeap.push({key, id});
+    \item[[3]] minHeap.top();
+    \item[[4]] minHeap.pop();
+    \item[[5]] maxHeap.top();
+    \item[[6]] maxHeap.pop();
+\end{enumerate}
+\end{solution}
+\end{parts}

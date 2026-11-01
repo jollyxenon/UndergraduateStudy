@@ -1,0 +1,65 @@
+\titledquestion{Find the median}
+
+Given a binary search tree storing n integers (assuming n is odd), design an algorithm to query the median of all integers in the tree.
+
+\begin{parts}
+    \part[6] Fill in the blank.
+    \begin{cpp}[basicstyle=\linespread{1}\fontsize{9}{10}\selectfont\ttfamily]
+// Binary Search Tree Node
+struct Node {
+    int val;
+    Node* left;
+    Node* right;
+    int size;
+    Node(int x) : val(x), left(nullptr), right(nullptr), size(1) {}
+};
+// Binary Search Tree
+// Fill only the blanks; the other omitted code is irrelevant.
+class BST {
+private:
+    Node* root;
+    void update(Node* node) {
+        if (!node) return;
+        int left_size = node->left ? node->left->size : 0;
+        int right_size = node->right ? node->right->size : 0;
+        node->size = left_size + right_size + 1;
+    }
+    Node* insert(Node* node, int val) {
+        if (!node) {
+            return new Node(val);
+        }
+        if (val < node->val) {
+            node->left = insert(node->left, val);
+        } else if (val > node->val) {
+            node->right = insert(node->right, val);
+        }
+        update(node);
+        return node;
+    }
+    int find(Node* node, int k) {
+        if (!node) return -1;
+        int left_size = node->left ? node->left->size : 0;
+        if (k <= left_size) {
+            return find(node->left, k);
+        } else if (k == left_size + 1) {
+            return node->val;
+        } else {
+            return find(node->right, k - left_size - 1);
+        }
+    }
+...
+Public:
+    // The function for finding the median
+    int findMedian() {
+        if (!root) {
+            return -1;
+        }
+        int k = (root->size + 1) / 2;
+        return find(root, k);
+    }
+...
+}
+    \end{cpp}
+
+    \part[2] Suppose a total of $q$ median queries and a total of $k$ insert or delete operations are executed, and $n \leq k, q$, then the time complexity of this algorithm \textbf{in average} is $O((k + q) \log n)$.
+\end{parts}
