@@ -1,0 +1,95 @@
+{
+  "experiment": "单摆周期测量",
+  "student": {
+    "name": "姚鉴轩",
+    "id": "2025521024"
+  },
+  "trigger_note": "记录5次触发，实际经过2.5个周期（t = 2.5T）",
+  "periods_per_measurement": 2.5,
+  "probability": 0.95,
+  "chauvenet_factor_n5": 1.65,
+  "course_t_factors_by_n": {
+    "3": 4.30,
+    "4": 3.18,
+    "5": 2.78,
+    "6": 2.57
+  },
+  "course_t_factors_by_df": {
+    "2": 4.30,
+    "3": 3.18,
+    "4": 2.78,
+    "5": 2.57
+  },
+  "instruments": {
+    "timer_error_s": 0.001,
+    "ruler_error_cm": 0.05,
+    "caliper_error_cm": 0.002
+  },
+  "reference_g_m_s2": 9.794,
+  "part1_fixed_length": {
+    "L1_cm": 35.900,
+    "L2_cm": 1.996,
+    "L_recorded_cm": 36.900,
+    "L_exact_cm": 36.898,
+    "fit_excluded_angles_deg": ["2.0"],
+    "series": [
+      {
+        "theta_deg": 2.0,
+        "time_2p5T_s": [3.141, 2.849, 2.928, 2.913, 2.897]
+      },
+      {
+        "theta_deg": 4.0,
+        "time_2p5T_s": [3.005, 3.041, 3.061, 3.036, 3.040]
+      },
+      {
+        "theta_deg": 8.0,
+        "time_2p5T_s": [3.048, 3.040, 3.038, 3.043, 3.041]
+      },
+      {
+        "theta_deg": 10.0,
+        "time_2p5T_s": [3.049, 3.048, 3.051, 3.047, 3.055]
+      },
+      {
+        "theta_deg": 12.0,
+        "time_2p5T_s": [3.057, 3.054, 3.060, 3.058, 3.054]
+      },
+      {
+        "theta_deg": 24.0,
+        "time_2p5T_s": [3.073, 3.072, 3.073, 3.071, 3.065]
+      },
+      {
+        "theta_deg": 32.0,
+        "time_2p5T_s": [3.099, 3.094, 3.098, 3.099, 3.095]
+      }
+    ]
+  },
+  "part2_varied_length": {
+    "series": [
+      {
+        "L1_cm": 30.000,
+        "L_recorded_cm": 31.000,
+        "time_2p5T_s": [2.746, 2.747, 2.789, 2.757, 2.753]
+      },
+      {
+        "L1_cm": 33.000,
+        "L_recorded_cm": 34.000,
+        "time_2p5T_s": [2.890, 2.922, 2.890, 2.919, 2.922]
+      },
+      {
+        "L1_cm": 36.000,
+        "L_recorded_cm": 37.000,
+        "time_2p5T_s": [3.011, 3.040, 3.013, 3.037, 3.007]
+      },
+      {
+        "L1_cm": 39.000,
+        "L_recorded_cm": 40.000,
+        "time_2p5T_s": [3.136, 3.132, 3.135, 3.135, 3.182]
+      },
+      {
+        "L1_cm": 42.000,
+        "L_recorded_cm": 43.000,
+        "time_2p5T_s": [3.244, 3.243, 3.240, 3.283, 3.240]
+      }
+    ]
+  }
+}
